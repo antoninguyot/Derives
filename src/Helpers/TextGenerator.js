@@ -71,7 +71,6 @@ class TextGenerator {
                         if (this.dispatcher.state.location.localityType === "urbain") sentence_new += tab.urbain[Math.floor((Math.random() * tab.urbain.length))]
                         break
                     case "V":
-                        sentence_new += tab.stationary[Math.floor((Math.random() * tab.stationary.length))]
                         if (this.dispatcher.state.location.speed < 2) sentence_new += tab.stationary[Math.floor((Math.random() * tab.stationary.length))]
                         else if (this.dispatcher.state.location.speed < 6.4) sentence_new += tab.walking[Math.floor((Math.random() * tab.walking.length))]
                         else if (this.dispatcher.state.location.speed < 8) sentence_new += tab.running[Math.floor((Math.random() * tab.running.length))]
