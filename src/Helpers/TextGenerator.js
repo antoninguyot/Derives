@@ -1,46 +1,46 @@
+import { useEffect, useState } from "react";
 import Matin from "../data/Textes/Matin";
 import Midi from "../data/Textes/Midi";
 import Nuit from "../data/Textes/Nuit";
 import Soir from "../data/Textes/Soir";
 import WordBase from "../data/Textes/WordBase";
 
-class TextGenerator {
-    dispatcher;
-    text;
-    vers = "Commencez à marcher !"
+const TextGenerator = () => {
+    const [text, setText] = useState()
+    const [weather, setWeather] = useState()
+    const [location, setLocation] = useState()
+    const [time, setTime] = useState()
 
-    constructor(dispatcher) {
-        this.dispatcher = dispatcher;
-    }
 
     /**
      * Chargement du bon texte en fonction de la période de la journée
      * @private
      */
-    _setText() {
-        switch (this.dispatcher.state.time.moment) {
-            case "matin":
-                this.text = Matin
-                break
-            case "midi":
-                this.text = Midi
-                break
-            case "soir":
-                this.text = Soir
-                break
-            case "nuit":
-                this.text = Nuit
-                break
-            default:
-                console.log("le temps de la journée ne peut être déterminé")
+    const setTextArray = (time) => {
+        switch (time.moment) {
+          case "matin":
+            setText(Matin)
+            break
+          case "midi":
+            setText(Midi)
+            break
+          case "soir":
+            setText(Soir)
+            break
+          case "nuit":
+            setText(Nuit)
+            break
+          default:
+            console.log("le temps de la journée ne peut être déterminé")
         }
+        return text
     }
 
     /**
      * Remplacement des balises qui représentent des mots variables dans les textes
      * @param {string} sentence
      */
-    _interpret(sentence) {
+    const interpretText = (sentence, location, weather, time) => {
         var sentence_new = ""
         for (var i = 0; i < sentence.length; i++) {
             if (sentence.charAt(i) == "$") {
@@ -67,26 +67,26 @@ class TextGenerator {
                         sentence_new += tab[Math.floor((Math.random() * tab.length))]
                         break
                     case "G":
-                        if (this.dispatcher.state.location.localityType === "rural") sentence_new += tab.rural[Math.floor((Math.random() * tab.rural.length))]
-                        if (this.dispatcher.state.location.localityType === "urbain") sentence_new += tab.urbain[Math.floor((Math.random() * tab.urbain.length))]
+                        if (location.localityType === "rural") sentence_new += tab.rural[Math.floor((Math.random() * tab.rural.length))]
+                        if (location.localityType === "urbain") sentence_new += tab.urbain[Math.floor((Math.random() * tab.urbain.length))]
                         break
                     case "V":
-                        if (this.dispatcher.state.location.speed < 2) sentence_new += tab.stationary[Math.floor((Math.random() * tab.stationary.length))]
-                        else if (this.dispatcher.state.location.speed < 6.4) sentence_new += tab.walking[Math.floor((Math.random() * tab.walking.length))]
-                        else if (this.dispatcher.state.location.speed < 8) sentence_new += tab.running[Math.floor((Math.random() * tab.running.length))]
-                        else if (this.dispatcher.state.location.speed < 30) sentence_new += tab.cycling[Math.floor((Math.random() * tab.cycling.length))]
+                        if (location.speed < 2) sentence_new += tab.stationary[Math.floor((Math.random() * tab.stationary.length))]
+                        else if (location.speed < 6.4) sentence_new += tab.walking[Math.floor((Math.random() * tab.walking.length))]
+                        else if (location.speed < 8) sentence_new += tab.running[Math.floor((Math.random() * tab.running.length))]
+                        else if (location.speed < 30) sentence_new += tab.cycling[Math.floor((Math.random() * tab.cycling.length))]
                         else  sentence_new += tab.in_vehicle[Math.floor((Math.random() * tab.in_vehicle.length))]
                         break
                     case "T":
-                        if (this.dispatcher.state.weather.heat === "cold") sentence_new += tab.cold[Math.floor((Math.random() * tab.cold.length))]
-                        if (this.dispatcher.state.weather.heat === "sweet") sentence_new += tab.cold[Math.floor((Math.random() * tab.sweet.length))]
-                        if (this.dispatcher.state.weather.heat === "hot") sentence_new += tab.cold[Math.floor((Math.random() * tab.hot.length))]
+                        if (weather.heat === "cold") sentence_new += tab.cold[Math.floor((Math.random() * tab.cold.length))]
+                        if (weather.heat === "sweet") sentence_new += tab.cold[Math.floor((Math.random() * tab.sweet.length))]
+                        if (weather.heat === "hot") sentence_new += tab.cold[Math.floor((Math.random() * tab.hot.length))]
                         break
                     case "S":
-                        if (this.dispatcher.state.time.saison === "printemps") sentence_new += tab.printemps[Math.floor((Math.random() * tab.printemps.length))]
-                        if (this.dispatcher.state.time.saison === "été") sentence_new += tab.été[Math.floor((Math.random() * tab.été.length))]
-                        if (this.dispatcher.state.time.saison === "automne") sentence_new += tab.automne[Math.floor((Math.random() * tab.automne.length))]
-                        if (this.dispatcher.state.time.saison === "hiver") sentence_new += tab.hiver[Math.floor((Math.random() * tab.hiver.length))]
+                        if (time.saison === "printemps") sentence_new += tab.printemps[Math.floor((Math.random() * tab.printemps.length))]
+                        if (time.saison === "été") sentence_new += tab.été[Math.floor((Math.random() * tab.été.length))]
+                        if (time.saison === "automne") sentence_new += tab.automne[Math.floor((Math.random() * tab.automne.length))]
+                        if (time.saison === "hiver") sentence_new += tab.hiver[Math.floor((Math.random() * tab.hiver.length))]
                         break
                     default:
                         sentence_new += "ERROR"
