@@ -1,8 +1,6 @@
 import {Audio} from "expo-av";
 
-const SoundGenerator = () => {
-
-
+const SoundGenerator = (time) => {
     // Liste des fichiers audios d'ambiance en fonction du moment
     let audioFiles = {
         matin: [
@@ -20,7 +18,7 @@ const SoundGenerator = () => {
     /**
      * Chargement du bon fichier audio en fonction de la journée
      */
-    const startSound = (time) => {
+    const startSound = () => {
         let random = Math.floor((Math.random() * 3))
         let url;
         switch (time.moment) {
@@ -45,9 +43,10 @@ const SoundGenerator = () => {
                 break
             }
         }
-        // On crée le fichier audio et le on play dans la foulée
-        Audio.Sound.createAsync(url).then(promise => promise.sound.playAsync());
+        return url
     }
+
+    return Audio.Sound.createAsync(startSound()).then(promise => promise.sound.playAsync());
 }
 
 export default SoundGenerator

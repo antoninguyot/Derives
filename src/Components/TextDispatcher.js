@@ -5,6 +5,7 @@ import CCamera from './CCamera'
 import {TextGenerator, setTextArray, interpretText} from "../Helpers/TextGenerator";
 import {locationRequest} from "../Helpers/locationRequests.js"
 import * as Location from "expo-location";
+import SoundGenerator from "../Helpers/SoundGenerator";
 
 
 const TextDispatcher = () => {
@@ -55,7 +56,6 @@ const TextDispatcher = () => {
         }
     }
 
-
     // equivalent du didMount
     useEffect(() => {
 
@@ -72,17 +72,22 @@ const TextDispatcher = () => {
         // Séquence de démarrage de la vue texte
         setIsMounted(true)
 
-    }, [isMounted,setIsMounted])
+    }, [isMounted, setIsMounted])
 
-      // Démarage du défilement du texte
-      const _startTimer = () => {
+    //SON
+    useEffect(() =>{
+          SoundGenerator(time)
+    })
+
+    // Démarage du défilement du texte
+    const _startTimer = () => {
         if (timerPaused) {
             setTimerPaused(false)
-            setTimer(setInterval(), coefTextSpeed * 1000)   
+            setTimer(setInterval(), coefTextSpeed * 1000)
         }
-      }
-  
-      const setInterval = () => {
+    }
+
+    const setInterval = () => {
         // Si on est arrivé à la fin du texte, on boucle
         if (index >= 5) {
             setIndex(0)
@@ -97,13 +102,16 @@ const TextDispatcher = () => {
                     setIndex(index + 1)
                 }
             }
-          }
-      }
-  
-      const _stopTimer = () =>  {
-          clearInterval(timer)
-          setTimerPaused(true)
-      }
+        }
+    }
+
+    const _stopTimer = () => {
+        clearInterval(timer)
+        setTimerPaused(true)
+    }
+
+
+
 
     return (
         <View style={styles.mainContainer}>
@@ -111,7 +119,9 @@ const TextDispatcher = () => {
                 <CCamera/>
             </View>
             <View style={styles.textContainer}>
-                <TouchableOpacity onLongPress={() => { setDebug(! debug) }}>
+                <TouchableOpacity onLongPress={() => {
+                    setDebug(!debug)
+                }}>
                     <Text style={[styles.textOver, {fontSize: 20 * coefPolice}]}>
                         {vers}
                     </Text>
