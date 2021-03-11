@@ -7,6 +7,8 @@ import LocationController from "../Helpers/LocationController";
 import TimeController from "../Helpers/TimeController";
 import {TextGenerator, setTextArray, interpretText} from "../Helpers/TextGenerator";
 import SoundGenerator from "../Helpers/SoundGenerator";
+import {locationRequest, getLocation} from "../Helpers/locationRequests.js"
+
 
 const TextDispatcher = () => {
 
@@ -25,6 +27,17 @@ const TextDispatcher = () => {
     const [nbLines, setNbLines] = useState(4)
     const [debug, setDebug] = useState(false)
 
+    const [location2, setLocation2] = useState({
+        longitude: null,
+        latitude: null,
+        speed: null,
+        localityName: null,
+        localityPopulation: null,
+        localitySurface: null,
+        localityDensity: null,
+        localityType: null,
+    })
+
 
     // equivalent du didMount
     useEffect(() => {
@@ -33,7 +46,8 @@ const TextDispatcher = () => {
         setIsMounted(true)
 
         // Initialisation des données des sensors
-        LocationController.then((result) => setLocation(result)).catch((err) => console.log(err))
+        setLocation(getLocation(location2))
+        // LocationController.then((result) => setLocation(result)).catch((err) => console.log(err))
         // WeatherController(location).then((result) => setWeather(result)).catch((err) => console.log(err))
         // TimeController().then((result) => setTime(result)).catch((err) => console.log(err))
         // this.state.time.initValues()

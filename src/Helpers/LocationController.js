@@ -14,7 +14,16 @@ const LocationController = (isMounted) => {
     const [localityDensity, setLocalityDensity] = useState()
     const [localityType, setLocalityType] = useState()
 
-
+    const [state, setState] = useState({
+        longitude: null,
+        latitude: null,
+        speed: null,
+        localityName: null,
+        localityPopulation: null,
+        localitySurface: null,
+        localityDensity: null,
+        localityType: null,
+    })
     useEffect(()=>{
         askPermissions()
         initValues()
