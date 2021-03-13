@@ -8,7 +8,7 @@ export const weatherRequest = (latitude, longitude) => {
         'lat': latitude,
         'lon': longitude,
         'appid': apiToken,
-        'units': 'metrics'
+        'units': 'metric'
     })
 
     return axios.get(baseUrl + '?' + params.toString())

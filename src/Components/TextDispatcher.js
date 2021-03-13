@@ -30,12 +30,12 @@ const TextDispatcher = () => {
     const [localityType, setLocalityType] = useState()
     const [saison, setSaison] = useState(null)
     const [moment, setMoment] = useState(null)
-    const [temperature, setTemperature] = useState(0)
+    const [temperature, setTemperature] = useState(-100)
     const [heat, setHeat] = useState(null)
     const [sunset, setSunset] = useState(0)
 
     const updateLocation = (location) => {
-
+  
         setLongitude(location.coords.longitude)
         setLatitude(location.coords.latitude)
         setSpeed(location.coords.speed)
@@ -62,15 +62,23 @@ const TextDispatcher = () => {
         setMoment(calculateMoment(calculateSaison(jDate.getMonth()), jDate.getHours()));
     }
 
-    /**
-     * Mise à jour de la météo
-     */
+    // equivalent du didMount
     useEffect(() => {
-        if (temperature !== undefined) {
-            return;
-        }
 
-        weatherRequest(latitude, longitude)
+        // Location
+        Location.requestPermissionsAsync()
+        Location.getCurrentPositionAsync().then(updateLocation)
+        
+        // On update la position GPS en direct
+        Location.watchPositionAsync({
+            accuracy: Location.Accuracy.BestForNavigation,
+            distanceInterval: 1
+        }, updateLocation);
+
+        // Moment, Saison et Meteo
+        if (latitude !== undefined) {
+            updateTime();
+            weatherRequest(latitude, longitude)
             .then((response) => {
                 setTemperature(response.data.main.temp)
                 setSunset(response.data.sys.sunset)
@@ -83,40 +91,31 @@ const TextDispatcher = () => {
                 } else {
                     setHeat("sweet")
                 }
-            });
-    }, [latitude, longitude])
+            })
+        }
 
-    useEffect(() => {
-        setText(getTextArray(moment))
-    }, [moment])
-
-
-    // equivalent du didMount
-    useEffect(() => {
-
-        // Location
-        Location.requestPermissionsAsync()
-
-        Location.getCurrentPositionAsync().then(updateLocation)
-        // On update la position GPS en direct
-        Location.watchPositionAsync({
-            accuracy: Location.Accuracy.BestForNavigation,
-            distanceInterval: 1
-        }, updateLocation);
+        //Text 
+        if (saison !== undefined){
+            setText(getTextArray(moment))
+        }
 
         // Time
-        // setInterval(updateTime, 60000);
-        updateTime();
+        setInterval(updateTime, 60000);
+
 
         // Séquence de démarrage de la vue texte
         setIsMounted(true)
+    
+        if (text !== undefined){
+            _startTimer()
+        }
 
-        _startTimer()
+    }, [moment, saison, longitude, latitude, text])
 
-    }, [])
 
     // Démarage du défilement du texte
     const _startTimer = () => {
+        // console.log("text", text)
         if (timerPaused) {
             setTimerPaused(false)
             setTimer(setInterval(() => {
@@ -130,8 +129,9 @@ const TextDispatcher = () => {
                     for (var i = 0; i < nbLines; i++) {
                         if (index < 5) {
                             // On récupère une partie du texte et on la fait varier avec interpretText
-                            console.log(text)
+                            // console.log(text)
                             setVers(vers + "\n" + interpretText(text[index], localityType, speed, saison, heat))
+                            console.log(vers)
                             setIndex(index + 1)
                         }
                     }
@@ -146,34 +146,34 @@ const TextDispatcher = () => {
     }
 
     return (
-        <View style={styles.mainContainer}>
-            <View style={styles.cameraContener}>
-                <CCamera/>
+            <View style={styles.mainContainer}>
+                <View style={styles.cameraContener}>
+                    <CCamera/>
+                </View>
+                <View style={styles.textContainer}>
+                    <TouchableOpacity onLongPress={() => {
+                        setDebug(!debug)
+                    }}>
+                        <Text style={[styles.textOver, {fontSize: 20 * coefPolice}]}>
+                            {vers}
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+                {debug &&
+                <View style={styles.containerCaptors}>
+                    <Text style={styles.textCaptors}> Saison : {saison}  </Text>
+                    <Text style={styles.textCaptors}> Moment : {moment}  </Text>
+                    <Text style={styles.textCaptors}> Vitesse : {speed}  </Text>
+                    <Text style={styles.textCaptors}> Latitude : {latitude}  </Text>
+                    <Text style={styles.textCaptors}> Longitude : {longitude}  </Text>
+                    <Text style={styles.textCaptors}> Ville : {localityName}  </Text>
+                    <Text style={styles.textCaptors}> Densité de pop : {localityDensity} </Text>
+                    <Text style={styles.textCaptors}> Milieu : {localityType}</Text>
+                    <Text style={styles.textCaptors}> Météo : {heat} </Text>
+                    <Text style={styles.textCaptors}> Temperature : {temperature}</Text>
+                </View>
+                }
             </View>
-            <View style={styles.textContainer}>
-                <TouchableOpacity onLongPress={() => {
-                    setDebug(!debug)
-                }}>
-                    <Text style={[styles.textOver, {fontSize: 20 * coefPolice}]}>
-                        {vers}
-                    </Text>
-                </TouchableOpacity>
-            </View>
-            {debug &&
-            <View style={styles.containerCaptors}>
-                <Text style={styles.textCaptors}> Saison : {saison}  </Text>
-                <Text style={styles.textCaptors}> Moment : {moment}  </Text>
-                <Text style={styles.textCaptors}> Vitesse : {speed}  </Text>
-                <Text style={styles.textCaptors}> Latitude : {latitude}  </Text>
-                <Text style={styles.textCaptors}> Longitude : {longitude}  </Text>
-                <Text style={styles.textCaptors}> Ville : {localityName}  </Text>
-                <Text style={styles.textCaptors}> Densité de pop : {localityDensity} </Text>
-                <Text style={styles.textCaptors}> Milieu : {localityType}</Text>
-                <Text style={styles.textCaptors}> Météo : {heat} </Text>
-                <Text style={styles.textCaptors}> Temperature : {temperature}</Text>
-            </View>
-            }
-        </View>
     )
 }
 
