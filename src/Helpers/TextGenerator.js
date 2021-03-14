@@ -13,30 +13,6 @@ const TextGenerator = () => {
 
 
     /**
-     * Chargement du bon texte en fonction de la période de la journée
-     * @private
-     */
-    const setTextArray = (time) => {
-        switch (time.moment) {
-          case "matin":
-            setText(Matin)
-            break
-          case "midi":
-            setText(Midi)
-            break
-          case "soir":
-            setText(Soir)
-            break
-          case "nuit":
-            setText(Nuit)
-            break
-          default:
-            console.log("le temps de la journée ne peut être déterminé")
-        }
-        return text
-    }
-
-    /**
      * Remplacement des balises qui représentent des mots variables dans les textes
      * @param {string} sentence
      */

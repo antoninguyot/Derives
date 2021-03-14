@@ -62,7 +62,7 @@ const TextDispatcher = () => {
         setMoment(calculateMoment(calculateSaison(jDate.getMonth()), jDate.getHours()));
     }
 
-    // equivalent du didMount
+    // Initilise toutes les valeurs 
     useEffect(() => {
 
         // Location
@@ -110,29 +110,26 @@ const TextDispatcher = () => {
             _startTimer()
         }
 
-    }, [moment, saison, longitude, latitude, text])
-
+    }, [moment, saison, longitude, latitude, timer, timerPaused, vers])
 
     // Démarage du défilement du texte
     const _startTimer = () => {
-        // console.log("text", text)
         if (timerPaused) {
+            let index2 = 0
             setTimerPaused(false)
             setTimer(setInterval(() => {
                 // Si on est arrivé à la fin du texte, on boucle
-                if (index >= 5) {
-                    setIndex(0)
+                if (index2 >= 5) {
+                    index2 = 0
                 } else {
                     // Sinon, on génère le nouveau vers
                     setVers("")
                     // Pour chaque ligne (dépend de la vitesse)
                     for (var i = 0; i < nbLines; i++) {
-                        if (index < 5) {
+                        if (index2 < 5) {
                             // On récupère une partie du texte et on la fait varier avec interpretText
-                            // console.log(text)
-                            setVers(vers + "\n" + interpretText(text[index], localityType, speed, saison, heat))
-                            console.log(vers)
-                            setIndex(index + 1)
+                            setVers(interpretText(text[index2], localityType, speed, saison, heat))
+                            index2 = index2 + 1
                         }
                     }
                 }
