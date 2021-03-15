@@ -2,7 +2,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 import {createAppContainer} from 'react-navigation';
 
 import Accueil from '../Components/Accueil'
-import TextDispatcher from '../Components/TextDispatcher'
+import Texte from '../Components/Texte'
 
 const StackNavigator = createStackNavigator({
   Accueil: {
@@ -12,7 +12,7 @@ const StackNavigator = createStackNavigator({
     }
   },
   Texte: {
-    screen: TextDispatcher,
+    screen: Texte,
     navigationOptions: {
       title: null,
       headerShown: false //(cette option peut être intéressante pour enlever le bandeau supérieure qui masque une partie de l'écran)

@@ -9,11 +9,10 @@ import {calculateSaison, calculateMoment} from '../Helpers/time';
 import {weatherRequest} from "../Helpers/weather";
 import {getTextArray, interpretText} from "../Helpers/text";
 
-const TextDispatcher = () => {
+const Texte = () => {
 
     const [isMounted, setIsMounted] = useState(false)
     const [timer, setTimer] = useState()
-    const [index, setIndex] = useState(0)
     const [timerPaused, setTimerPaused] = useState(true)
     const [text, setText] = useState()
     const [sound, setSound] = useState()
@@ -35,7 +34,7 @@ const TextDispatcher = () => {
     const [sunset, setSunset] = useState(0)
 
     const updateLocation = (location) => {
-  
+
         setLongitude(location.coords.longitude)
         setLatitude(location.coords.latitude)
         setSpeed(location.coords.speed)
@@ -68,7 +67,7 @@ const TextDispatcher = () => {
         // Location
         Location.requestPermissionsAsync()
         Location.getCurrentPositionAsync().then(updateLocation)
-        
+
         // On update la position GPS en direct
         Location.watchPositionAsync({
             accuracy: Location.Accuracy.BestForNavigation,
@@ -79,23 +78,23 @@ const TextDispatcher = () => {
         if (latitude !== undefined) {
             updateTime();
             weatherRequest(latitude, longitude)
-            .then((response) => {
-                setTemperature(response.data.main.temp)
-                setSunset(response.data.sys.sunset)
+                .then((response) => {
+                    setTemperature(response.data.main.temp)
+                    setSunset(response.data.sys.sunset)
 
-                // Inférer un état de la température
-                if (temperature < 12) {
-                    setHeat("cold")
-                } else if (temperature > 25) {
-                    setHeat("hot")
-                } else {
-                    setHeat("sweet")
-                }
-            })
+                    // Inférer un état de la température
+                    if (temperature < 12) {
+                        setHeat("cold")
+                    } else if (temperature > 25) {
+                        setHeat("hot")
+                    } else {
+                        setHeat("sweet")
+                    }
+                })
         }
 
         //Text 
-        if (saison !== undefined){
+        if (saison !== undefined) {
             setText(getTextArray(moment))
         }
 
@@ -105,8 +104,8 @@ const TextDispatcher = () => {
 
         // Séquence de démarrage de la vue texte
         setIsMounted(true)
-    
-        if (text !== undefined){
+
+        if (text !== undefined) {
             _startTimer()
         }
 
@@ -115,24 +114,23 @@ const TextDispatcher = () => {
     // Démarage du défilement du texte
     const _startTimer = () => {
         if (timerPaused) {
-            let index2 = 0
+            let index = 0
             setTimerPaused(false)
             setTimer(setInterval(() => {
                 // Si on est arrivé à la fin du texte, on boucle
-                if (index2 >= 5) {
-                    index2 = 0
-                } else {
-                    // Sinon, on génère le nouveau vers
-                    setVers("")
-                    // Pour chaque ligne (dépend de la vitesse)
-                    for (var i = 0; i < nbLines; i++) {
-                        if (index2 < 5) {
-                            // On récupère une partie du texte et on la fait varier avec interpretText
-                            setVers(interpretText(text[index2], localityType, speed, saison, heat))
-                            index2 = index2 + 1
-                        }
-                    }
+                if(text.length < index + nbLines){
+                    index = 0;
                 }
+
+                // Sinon, on génère le nouveau vers
+                // Pour chaque ligne (dépend de la vitesse)
+                let vers = ""
+                for (let i = 0; i < nbLines; i++) {
+                    // On récupère une partie du texte et on la fait varier avec interpretText
+                    vers += "\n" + interpretText(text[index], localityType, speed, saison, heat)
+                    index = index + 1
+                }
+                setVers(vers)
             }, coefTextSpeed * 1000))
         }
     }
@@ -143,34 +141,34 @@ const TextDispatcher = () => {
     }
 
     return (
-            <View style={styles.mainContainer}>
-                <View style={styles.cameraContener}>
-                    <CCamera/>
-                </View>
-                <View style={styles.textContainer}>
-                    <TouchableOpacity onLongPress={() => {
-                        setDebug(!debug)
-                    }}>
-                        <Text style={[styles.textOver, {fontSize: 20 * coefPolice}]}>
-                            {vers}
-                        </Text>
-                    </TouchableOpacity>
-                </View>
-                {debug &&
-                <View style={styles.containerCaptors}>
-                    <Text style={styles.textCaptors}> Saison : {saison}  </Text>
-                    <Text style={styles.textCaptors}> Moment : {moment}  </Text>
-                    <Text style={styles.textCaptors}> Vitesse : {speed}  </Text>
-                    <Text style={styles.textCaptors}> Latitude : {latitude}  </Text>
-                    <Text style={styles.textCaptors}> Longitude : {longitude}  </Text>
-                    <Text style={styles.textCaptors}> Ville : {localityName}  </Text>
-                    <Text style={styles.textCaptors}> Densité de pop : {localityDensity} </Text>
-                    <Text style={styles.textCaptors}> Milieu : {localityType}</Text>
-                    <Text style={styles.textCaptors}> Météo : {heat} </Text>
-                    <Text style={styles.textCaptors}> Temperature : {temperature}</Text>
-                </View>
-                }
+        <View style={styles.mainContainer}>
+            <View style={styles.cameraContener}>
+                <CCamera/>
             </View>
+            <View style={styles.textContainer}>
+                <TouchableOpacity onLongPress={() => {
+                    setDebug(!debug)
+                }}>
+                    <Text style={[styles.textOver, {fontSize: 20 * coefPolice}]}>
+                        {vers}
+                    </Text>
+                </TouchableOpacity>
+            </View>
+            {debug &&
+            <View style={styles.containerCaptors}>
+                <Text style={styles.textCaptors}> Saison : {saison}  </Text>
+                <Text style={styles.textCaptors}> Moment : {moment}  </Text>
+                <Text style={styles.textCaptors}> Vitesse : {speed}  </Text>
+                <Text style={styles.textCaptors}> Latitude : {latitude}  </Text>
+                <Text style={styles.textCaptors}> Longitude : {longitude}  </Text>
+                <Text style={styles.textCaptors}> Ville : {localityName}  </Text>
+                <Text style={styles.textCaptors}> Densité de pop : {localityDensity} </Text>
+                <Text style={styles.textCaptors}> Milieu : {localityType}</Text>
+                <Text style={styles.textCaptors}> Météo : {heat} </Text>
+                <Text style={styles.textCaptors}> Temperature : {temperature}</Text>
+            </View>
+            }
+        </View>
     )
 }
 
@@ -208,4 +206,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default TextDispatcher
+export default Texte
