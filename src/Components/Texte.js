@@ -72,6 +72,32 @@ const Texte = () => {
     })
 
     /**
+     * Mise à jour des coefficients
+     */
+    useEffect(() => {
+        if (speed < 2) {
+            setCoefTextSpeed(5)
+            setCoefPolice(1)
+            setNbLines(4)
+        }
+        else if (speed < 6.4) {
+            setCoefTextSpeed(5)
+            setCoefPolice(2)
+            setNbLines(3)
+        }
+        else if (speed < 8) {
+            setCoefTextSpeed(3)
+            setCoefPolice(3)
+            setNbLines(2)
+        }
+        else {
+            setCoefTextSpeed(1)
+            setCoefPolice(4)
+            setNbLines(1)
+        }
+    }, [speed])
+
+    /**
      * componentDidMount()
      * Démarrage de toutes les requêtes API
      * Lancé une seule fois au démarrage
@@ -166,7 +192,6 @@ const Texte = () => {
                 <Text style={styles.textCaptors}> Vitesse : {speed}  </Text>
                 <Text style={styles.textCaptors}> Latitude : {latitude}  </Text>
                 <Text style={styles.textCaptors}> Longitude : {longitude}  </Text>
-                <Text style={styles.textCaptors}> Ville : {localityName}  </Text>
                 <Text style={styles.textCaptors}> Densité de pop : {localityDensity} </Text>
                 <Text style={styles.textCaptors}> Milieu : {localityType}</Text>
                 <Text style={styles.textCaptors}> Météo : {heat} </Text>
