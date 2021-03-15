@@ -1,11 +1,8 @@
 import {Audio} from "expo-av";
 
-class SoundGenerator {
-
-    dispatcher;
-
+const SoundGenerator = (time) => {
     // Liste des fichiers audios d'ambiance en fonction du moment
-    audioFiles = {
+    let audioFiles = {
         matin: [
             require("../data/Musics/matin_mus_1.mp3"),
             require("../data/Musics/matin_mus_2.mp3"),
@@ -18,31 +15,27 @@ class SoundGenerator {
         ]
     }
 
-    constructor(dispatcher) {
-        this.dispatcher = dispatcher;
-    }
-
     /**
      * Chargement du bon fichier audio en fonction de la journée
      */
-    start() {
+    const startSound = () => {
         let random = Math.floor((Math.random() * 3))
         let url;
-        switch (this.dispatcher.state.time.moment) {
+        switch (time.moment) {
             case "matin": {
-                url = this.audioFiles.matin[random]
+                url = audioFiles.matin[random]
                 break
             }
             case "midi": {
-                url = this.audioFiles.midi[random]
+                url = audioFiles.midi[random]
                 break
             }
             case "soir": {
-                url = this.audioFiles.matin[random]
+                url = audioFiles.matin[random]
                 break
             }
             case "nuit": {
-                url = this.audioFiles.matin[random]
+                url = audioFiles.matin[random]
                 break
             }
             default: {
@@ -50,9 +43,10 @@ class SoundGenerator {
                 break
             }
         }
-        // On crée le fichier audio et le on play dans la foulée
-        Audio.Sound.createAsync(url).then(promise => promise.sound.playAsync());
+        return url
     }
+
+    return Audio.Sound.createAsync(startSound()).then(promise => promise.sound.playAsync());
 }
 
 export default SoundGenerator
