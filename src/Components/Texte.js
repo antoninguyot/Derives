@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native'
 
 import CCamera from './CCamera'
-import {locationRequest} from "../Helpers/location.js"
+import {locationRequest, sedacLocationRequest, sedacDataset} from "../Helpers/location.js"
 import * as Location from "expo-location";
 import {calculateSaison, calculateMoment} from '../Helpers/time';
 import {weatherRequest} from "../Helpers/weather";
@@ -10,7 +10,6 @@ import {getTextArray, interpretText} from "../Helpers/text";
 
 const Texte = () => {
 
-    const [isMounted, setIsMounted] = useState(false)
     const [timer, setTimer] = useState()
     const [timerPaused, setTimerPaused] = useState(true)
     const [text, setText] = useState()
@@ -23,64 +22,75 @@ const Texte = () => {
     const [longitude, setLongitude] = useState()
     const [latitude, setLatitude] = useState()
     const [speed, setSpeed] = useState()
-    const [localityName, setLocalityName] = useState()
-    const [localityDensity, setLocalityDensity] = useState()
+    const [localityDensity, setLocalityDensity] = useState(undefined)
     const [localityType, setLocalityType] = useState()
     const [saison, setSaison] = useState(null)
     const [moment, setMoment] = useState(null)
     const [temperature, setTemperature] = useState(-100)
     const [heat, setHeat] = useState(null)
-    const [sunset, setSunset] = useState(0)
 
+    /**
+     * Mise à jour de la position du téléphone
+     * @param location
+     */
     const updateLocation = (location) => {
-
         setLongitude(location.coords.longitude)
         setLatitude(location.coords.latitude)
         setSpeed(location.coords.speed)
-
-        // On ne veut faire une requête API que la première fois
-        if (localityName !== undefined) {
-            return;
-        }
-
-        locationRequest(location.coords.latitude, location.coords.longitude)
-            .then((response) => {
-                let locality = response.data[0];
-                if (locality) {
-                    setLocalityName(locality.nom)
-                    setLocalityDensity(locality.population * 100 / locality.surface)
-                    setLocalityType(locality.population * 100 / locality.surface >= 376 ? 'city' : 'country')
-                }
-            })
     }
 
+    /**
+     * Mise à jour du temps de la journée
+     */
     const updateTime = () => {
         let jDate = new Date();
         setSaison(calculateSaison(jDate.getMonth()));
         setMoment(calculateMoment(calculateSaison(jDate.getMonth()), jDate.getHours()));
     }
 
-    // Initilise toutes les valeurs 
+    /**
+     * Mise à jour du type d'environnement lorsque la densité de pop change
+     */
+    useEffect(() => {
+        setLocalityType(localityDensity < 1000 ? 'country' : 'city')
+    }, [localityDensity])
+
+    /**
+     * Mise à jour du texter lorsque le moment de la journée change
+     */
+    useEffect(() => {
+        setText(getTextArray(moment))
+    }, [moment])
+
+    /**
+     * Démarrage du poème lorsque toutes les infos sont présentes
+     */
+    useEffect(() => {
+        if (localityType && heat && saison && text) {
+            _startTimer()
+        }
+    })
+
+    /**
+     * componentDidMount()
+     * Démarrage de toutes les requêtes API
+     * Lancé une seule fois au démarrage
+     */
     useEffect(() => {
 
-        // Location
+        // Mise à jour du moment de la journée
+        updateTime();
+        setInterval(updateTime, 60000);
+
         Location.requestPermissionsAsync()
-        Location.getCurrentPositionAsync().then(updateLocation)
+        Location.getCurrentPositionAsync().then((location) => {
+            // Mise à jour de la position
+            updateLocation(location)
 
-        // On update la position GPS en direct
-        Location.watchPositionAsync({
-            accuracy: Location.Accuracy.BestForNavigation,
-            distanceInterval: 1
-        }, updateLocation);
-
-        // Moment, Saison et Meteo
-        if (latitude !== undefined) {
-            updateTime();
-            weatherRequest(latitude, longitude)
+            // Récupération des données météo
+            weatherRequest(location.coords.latitude, location.coords.longitude)
                 .then((response) => {
                     setTemperature(response.data.main.temp)
-                    setSunset(response.data.sys.sunset)
-
                     // Inférer un état de la température
                     if (temperature < 12) {
                         setHeat("cold")
@@ -90,34 +100,35 @@ const Texte = () => {
                         setHeat("sweet")
                     }
                 })
-        }
 
-        //Text 
-        if (saison !== undefined) {
-            setText(getTextArray(moment))
-        }
+            // Récupération des données de densité de pop
+            sedacLocationRequest(location.coords.latitude, location.coords.longitude)
+                .then(response => {
+                    if (response.data.results[0]) {
+                        setLocalityDensity(response.data.results[0].value.estimates[sedacDataset].MEAN)
+                    }
+                })
+        })
 
-        // Time
-        setInterval(updateTime, 60000);
+        // On update la position GPS en direct
+        Location.watchPositionAsync({
+            accuracy: Location.Accuracy.BestForNavigation,
+            distanceInterval: 1
+        }, updateLocation);
 
 
-        // Séquence de démarrage de la vue texte
-        setIsMounted(true)
+    }, [])
 
-        if (text !== undefined) {
-            _startTimer()
-        }
-
-    }, [moment, saison, longitude, latitude, timer, timerPaused, vers])
-
-    // Démarage du défilement du texte
+    /**
+     * Démarage du défilement du texte
+     */
     const _startTimer = () => {
         if (timerPaused) {
             let index = 0
             setTimerPaused(false)
             setTimer(setInterval(() => {
                 // Si on est arrivé à la fin du texte, on boucle
-                if(text.length < index + nbLines){
+                if (text.length < index + nbLines) {
                     index = 0;
                 }
 
@@ -132,11 +143,6 @@ const Texte = () => {
                 setVers(vers)
             }, coefTextSpeed * 1000))
         }
-    }
-
-    const _stopTimer = () => {
-        clearInterval(timer)
-        setTimerPaused(true)
     }
 
     return (
