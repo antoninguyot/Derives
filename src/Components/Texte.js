@@ -7,6 +7,7 @@ import * as Location from "expo-location";
 import {calculateSaison, calculateMoment} from '../Helpers/time';
 import {weatherRequest} from "../Helpers/weather";
 import {getTextArray, interpretText} from "../Helpers/text";
+import {soundFor} from "../Helpers/sound";
 
 const Texte = () => {
 
@@ -60,6 +61,13 @@ const Texte = () => {
      */
     useEffect(() => {
         setText(getTextArray(moment))
+    }, [moment])
+
+    /**
+     * Démarrage du son lorsque le moment de la journée change
+     */
+    useEffect(() => {
+        soundFor(moment).then(promise => promise.sound.playAsync())
     }, [moment])
 
     /**
