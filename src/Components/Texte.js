@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react'
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native'
 
 import CCamera from './CCamera'
-import {TextGenerator} from "../Helpers/TextGenerator";
 import {locationRequest} from "../Helpers/location.js"
 import * as Location from "expo-location";
 import {calculateSaison, calculateMoment} from '../Helpers/time';
