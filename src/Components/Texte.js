@@ -27,7 +27,7 @@ const Texte = ({ navigation }) => {
     const [saison, setSaison] = useState(null)
     const [moment, setMoment] = useState(navigation.getParam('moment'))
     const [temperature, setTemperature] = useState(-100)
-    const [heat, setHeat] = useState(null)
+    const [weather, setWeather] = useState(navigation.getParam('weather'))
     const [sunset, setSunset] = useState(0)
 
     const updateLocation = (location) => {
@@ -85,11 +85,11 @@ const Texte = ({ navigation }) => {
 
                     // Inférer un état de la température
                     if (temperature < 12) {
-                        setHeat("cold")
+                        setWeather("cold")
                     } else if (temperature > 25) {
-                        setHeat("hot")
+                        setWeather("hot")
                     } else {
-                        setHeat("sweet")
+                        setWeather("sweet")
                     }
                 })
         }
@@ -129,7 +129,7 @@ const Texte = ({ navigation }) => {
                 let vers = ""
                 for (let i = 0; i < nbLines; i++) {
                     // On récupère une partie du texte et on la fait varier avec interpretText
-                    vers += "\n" + interpretText(text[index], localityType, speed, saison, heat)
+                    vers += "\n" + interpretText(text[index], localityType, speed, saison, weather)
                     index = index + 1
                 }
                 setVers(vers)
@@ -166,7 +166,7 @@ const Texte = ({ navigation }) => {
                 <Text style={styles.textCaptors}> Ville : {localityName}  </Text>
                 <Text style={styles.textCaptors}> Densité de pop : {localityDensity} </Text>
                 <Text style={styles.textCaptors}> Milieu : {localityType}</Text>
-                <Text style={styles.textCaptors}> Météo : {heat} </Text>
+                <Text style={styles.textCaptors}> Météo : {weather} </Text>
                 <Text style={styles.textCaptors}> Temperature : {temperature}</Text>
             </View>
             }

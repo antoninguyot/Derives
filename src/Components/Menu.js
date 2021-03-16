@@ -5,6 +5,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 const Menu = ({navigation}) => {
   const [moment, setMoment] = useState()
   const [localityType, setLocalityType] = useState()
+  const [weather, setWeather] = useState()
 
   let momentItems = [
     {label: 'Matin', value: 'matin'},
@@ -15,14 +16,20 @@ const Menu = ({navigation}) => {
 
   let localityItems = [
     {label: 'Rural', value: 'country'},
-    {label: 'Ville', value: 'city'}, 
+    {label: 'Ville', value: 'city'},
+  ]
+
+  let weatherItems = [
+    {label: 'Froid', value: 'cold'},
+    {label: 'Tempéré', value: 'sweet'},
+    {label: 'Chaud', value: 'hot'}
   ]
 
   return (
     <>
-    <View style= {styles.flexContainer}> 
+    <View style= {styles.flexContainer}>
       <View>
-        <TouchableOpacity 
+        <TouchableOpacity
           onPress={() => navigation.navigate('Texte')}
           style={styles.buttonStyle}>
           <Text style = {styles.textStyle}>Mode immersif</Text>
@@ -44,23 +51,35 @@ const Menu = ({navigation}) => {
           onChangeItem={item => setMoment(item.value)}
           />
           <DropDownPicker zIndex={4000}
-          items={localityItems}
-          defaultValue={localityType}
-          placeholder= "Choisissez le milieu"
-          containerStyle={{height: 40, marginTop: 10}}
-          // style={{marginTop: 10}}
-          itemStyle={{
-              justifyContent: 'flex-start'
-          }}
-          dropDownStyle={{backgroundColor: '#fafafa'}}
-          onChangeItem={item => setLocalityType(item.value)}
+                          items={localityItems}
+                          defaultValue={localityType}
+                          placeholder= "Choisissez le milieu"
+                          containerStyle={{height: 40, marginTop: 10}}
+              // style={{marginTop: 10}}
+                          itemStyle={{
+                            justifyContent: 'flex-start'
+                          }}
+                          dropDownStyle={{backgroundColor: '#fafafa'}}
+                          onChangeItem={item => setLocalityType(item.value)}
+          />
+          <DropDownPicker zIndex={3000}
+                          items={weatherItems}
+                          defaultValue={weather}
+                          placeholder= "Choisissez la météo"
+                          containerStyle={{height: 40, marginTop: 10}}
+              // style={{marginTop: 10}}
+                          itemStyle={{
+                            justifyContent: 'flex-start'
+                          }}
+                          dropDownStyle={{backgroundColor: '#fafafa'}}
+                          onChangeItem={item => setWeather(item.value)}
           />
           <TouchableOpacity onPress={() => navigation.navigate('Texte', {
             moment: moment,
-            localityType: localityType}
+            localityType: localityType,
+            weather: weather}
           )} >
-            <Text style = {styles.textStyle}
-              style = {{fontSize: 20, marginTop: 10, textAlign: "center"}}>Commencer l'expérience</Text>
+            <Text style = {styles.textStyle}>Commencer l'expérience</Text>
           </TouchableOpacity>
           </TouchableOpacity>
         </View>
