@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {StyleSheet, Text, View, TouchableOpacity, Button} from 'react-native'
 
 import CCamera from './CCamera'
-import {locationRequest} from "../Helpers/location.js"
+import {locationRequest, sedacLocationRequest, sedacDataset} from "../Helpers/location.js"
 import * as Location from "expo-location";
 import {calculateSaison, calculateMoment} from '../Helpers/time';
 import {weatherRequest} from "../Helpers/weather";
@@ -21,39 +21,26 @@ const Texte = ({ navigation }) => {
     const [longitude, setLongitude] = useState()
     const [latitude, setLatitude] = useState()
     const [speed, setSpeed] = useState()
-    const [localityName, setLocalityName] = useState()
     const [localityDensity, setLocalityDensity] = useState()
     const [localityType, setLocalityType] = useState(navigation.getParam('localityType'))
     const [saison, setSaison] = useState(null)
     const [moment, setMoment] = useState(navigation.getParam('moment'))
     const [temperature, setTemperature] = useState(-100)
     const [weather, setWeather] = useState(navigation.getParam('weather'))
-    const [sunset, setSunset] = useState(0)
 
+    /**
+     * Mise à jour de la position du téléphone
+     * @param location
+     */
     const updateLocation = (location) => {
-
         setLongitude(location.coords.longitude)
         setLatitude(location.coords.latitude)
         setSpeed(location.coords.speed)
-
-        // On ne veut faire une requête API que la première fois
-        if (localityName !== undefined) {
-            return;
-        }
-
-        locationRequest(location.coords.latitude, location.coords.longitude)
-            .then((response) => {
-                let locality = response.data[0];
-                if (locality) {
-                    setLocalityName(locality.nom)
-                    setLocalityDensity(locality.population * 100 / locality.surface)
-                    if (localityType === undefined) {
-                        setLocalityType(locality.population * 100 / locality.surface >= 376 ? 'city' : 'country')
-                    }
-                }
-            })
     }
 
+    /**
+     * Mise à jour du temps de la journée
+     */
     const updateTime = () => {
         let jDate = new Date();
         setSaison(calculateSaison(jDate.getMonth()));
@@ -62,27 +49,77 @@ const Texte = ({ navigation }) => {
         }
     }
 
-    // Initilise toutes les valeurs 
+    /**
+     * Mise à jour du type d'environnement lorsque la densité de pop change
+     */
+    useEffect(() => {
+        if (localityType === undefined) {
+            setLocalityType(localityDensity < 1000 ? 'country' : 'city')
+        }
+    }, [localityDensity])
+
+    /**
+     * Mise à jour du texter lorsque le moment de la journée change
+     */
+    useEffect(() => {
+        setText(getTextArray(moment))
+    }, [moment])
+
+    /**
+     * Démarrage du poème lorsque toutes les infos sont présentes
+     */
+    useEffect(() => {
+        if (localityType && weather && saison && text) {
+            _startTimer()
+        }
+    })
+
+    /**
+     * Mise à jour des coefficients
+     */
+    useEffect(() => {
+        if (speed < 2) {
+            setCoefTextSpeed(5)
+            setCoefPolice(1)
+            setNbLines(4)
+        }
+        else if (speed < 6.4) {
+            setCoefTextSpeed(5)
+            setCoefPolice(2)
+            setNbLines(3)
+        }
+        else if (speed < 8) {
+            setCoefTextSpeed(3)
+            setCoefPolice(3)
+            setNbLines(2)
+        }
+        else {
+            setCoefTextSpeed(1)
+            setCoefPolice(4)
+            setNbLines(1)
+        }
+    }, [speed])
+
+    /**
+     * componentDidMount()
+     * Démarrage de toutes les requêtes API
+     * Lancé une seule fois au démarrage
+     */
     useEffect(() => {
 
-        // Location
+        // Mise à jour du moment de la journée
+        updateTime();
+        setInterval(updateTime, 60000);
+
         Location.requestPermissionsAsync()
-        Location.getCurrentPositionAsync().then(updateLocation)
+        Location.getCurrentPositionAsync().then((location) => {
+            // Mise à jour de la position
+            updateLocation(location)
 
-        // On update la position GPS en direct
-        Location.watchPositionAsync({
-            accuracy: Location.Accuracy.BestForNavigation,
-            distanceInterval: 1
-        }, updateLocation);
-
-        // Moment, Saison et Meteo
-        if (latitude !== undefined) {
-            updateTime();
-            weatherRequest(latitude, longitude)
+            // Récupération des données météo
+            weatherRequest(location.coords.latitude, location.coords.longitude)
                 .then((response) => {
                     setTemperature(response.data.main.temp)
-                    setSunset(response.data.sys.sunset)
-
                     // Inférer un état de la température
                     if (temperature < 12) {
                         setWeather("cold")
@@ -92,35 +129,35 @@ const Texte = ({ navigation }) => {
                         setWeather("sweet")
                     }
                 })
-        }
 
-        //Text 
-        if (saison !== undefined) {
-            setText(getTextArray(moment))
-        }
+            // Récupération des données de densité de pop
+            sedacLocationRequest(location.coords.latitude, location.coords.longitude)
+                .then(response => {
+                    if (response.data.results[0]) {
+                        setLocalityDensity(response.data.results[0].value.estimates[sedacDataset].MEAN)
+                    }
+                })
+        })
 
-        // Time
-        setInterval(updateTime, 60000);
+        // On update la position GPS en direct
+        Location.watchPositionAsync({
+            accuracy: Location.Accuracy.BestForNavigation,
+            distanceInterval: 1
+        }, updateLocation);
 
-        if (text !== undefined) {
-            _startTimer()
-        }
 
-    }, [moment, saison, longitude, latitude, timer, timerPaused, vers]) 
+    }, [])
 
-    useEffect(() => {
-        console.log('Component did mount (it runs only once)');
-        return () => console.log('Component will unmount');
-    }, []);
-
-    // Démarage du défilement du texte
+    /**
+     * Démarage du défilement du texte
+     */
     const _startTimer = () => {
         if (timerPaused) {
             let index = 0
             setTimerPaused(false)
             setTimer(setInterval(() => {
                 // Si on est arrivé à la fin du texte, on boucle
-                if(text.length < index + nbLines){
+                if (text.length < index + nbLines) {
                     index = 0;
                 }
 
@@ -137,10 +174,10 @@ const Texte = ({ navigation }) => {
         }
     }
 
-    // const _stopTimer = () => {
-    //     clearInterval(timer)
-    //     setTimerPaused(true)
-    // }
+    useEffect(() => {
+        console.log('Component did mount (it runs only once)');
+        return () => console.log('Component will unmount');
+    }, []);
 
     return (
         <View style={styles.mainContainer}>
@@ -163,7 +200,6 @@ const Texte = ({ navigation }) => {
                 <Text style={styles.textCaptors}> Vitesse : {speed}  </Text>
                 <Text style={styles.textCaptors}> Latitude : {latitude}  </Text>
                 <Text style={styles.textCaptors}> Longitude : {longitude}  </Text>
-                <Text style={styles.textCaptors}> Ville : {localityName}  </Text>
                 <Text style={styles.textCaptors}> Densité de pop : {localityDensity} </Text>
                 <Text style={styles.textCaptors}> Milieu : {localityType}</Text>
                 <Text style={styles.textCaptors}> Météo : {weather} </Text>

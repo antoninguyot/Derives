@@ -19,7 +19,7 @@ export const getTextArray = (moment) => {
         case "nuit":
             return Nuit
         default:
-            console.log("le temps de la journée ne peut être déterminé")
+            return undefined
     }
 }
 
