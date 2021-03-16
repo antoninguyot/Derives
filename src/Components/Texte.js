@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native'
+import {Audio} from "expo-av";
 
 import CCamera from './CCamera'
 import {locationRequest, sedacLocationRequest, sedacDataset} from "../Helpers/location.js"
@@ -26,7 +27,7 @@ const Texte = () => {
     const [localityDensity, setLocalityDensity] = useState(undefined)
     const [localityType, setLocalityType] = useState()
     const [saison, setSaison] = useState(null)
-    const [moment, setMoment] = useState(null)
+    const [moment, setMoment] = useState("")
     const [temperature, setTemperature] = useState(-100)
     const [heat, setHeat] = useState(null)
 
@@ -67,6 +68,8 @@ const Texte = () => {
      * Démarrage du son lorsque le moment de la journée change
      */
     useEffect(() => {
+        console.log("MOMEEEEENNT = " + moment)
+
         soundFor(moment).then(promise => promise.sound.playAsync())
     }, [moment])
 
