@@ -3,6 +3,7 @@ import {createAppContainer} from 'react-navigation';
 
 import Accueil from '../Components/Accueil'
 import Texte from '../Components/Texte'
+import Menu from '../Components/Menu'
 
 const StackNavigator = createStackNavigator({
   Accueil: {
@@ -17,7 +18,13 @@ const StackNavigator = createStackNavigator({
       title: null,
       headerShown: false //(cette option peut être intéressante pour enlever le bandeau supérieure qui masque une partie de l'écran)
     }
-  }
+  },
+  Menu: {
+    screen: Menu,
+    navigationOptions: {
+      title: 'Menu'
+    }
+  },
 })
 
 

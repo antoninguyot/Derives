@@ -1,17 +1,14 @@
 import React, {useEffect, useState} from 'react'
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native'
+import {StyleSheet, Text, View, TouchableOpacity, Button} from 'react-native'
 
 import CCamera from './CCamera'
-import {TextGenerator} from "../Helpers/TextGenerator";
 import {locationRequest} from "../Helpers/location.js"
 import * as Location from "expo-location";
 import {calculateSaison, calculateMoment} from '../Helpers/time';
 import {weatherRequest} from "../Helpers/weather";
 import {getTextArray, interpretText} from "../Helpers/text";
 
-const Texte = () => {
-
-    const [isMounted, setIsMounted] = useState(false)
+const Texte = ({ navigation }) => {
     const [timer, setTimer] = useState()
     const [timerPaused, setTimerPaused] = useState(true)
     const [text, setText] = useState()
@@ -26,9 +23,9 @@ const Texte = () => {
     const [speed, setSpeed] = useState()
     const [localityName, setLocalityName] = useState()
     const [localityDensity, setLocalityDensity] = useState()
-    const [localityType, setLocalityType] = useState()
+    const [localityType, setLocalityType] = useState(navigation.getParam('localityType'))
     const [saison, setSaison] = useState(null)
-    const [moment, setMoment] = useState(null)
+    const [moment, setMoment] = useState(navigation.getParam('moment'))
     const [temperature, setTemperature] = useState(-100)
     const [heat, setHeat] = useState(null)
     const [sunset, setSunset] = useState(0)
@@ -50,7 +47,9 @@ const Texte = () => {
                 if (locality) {
                     setLocalityName(locality.nom)
                     setLocalityDensity(locality.population * 100 / locality.surface)
-                    setLocalityType(locality.population * 100 / locality.surface >= 376 ? 'city' : 'country')
+                    if (localityType === undefined) {
+                        setLocalityType(locality.population * 100 / locality.surface >= 376 ? 'city' : 'country')
+                    }
                 }
             })
     }
@@ -58,7 +57,9 @@ const Texte = () => {
     const updateTime = () => {
         let jDate = new Date();
         setSaison(calculateSaison(jDate.getMonth()));
-        setMoment(calculateMoment(calculateSaison(jDate.getMonth()), jDate.getHours()));
+        if (moment === undefined){
+            setMoment(calculateMoment(calculateSaison(jDate.getMonth()), jDate.getHours()));
+        }
     }
 
     // Initilise toutes les valeurs 
@@ -101,15 +102,16 @@ const Texte = () => {
         // Time
         setInterval(updateTime, 60000);
 
-
-        // Séquence de démarrage de la vue texte
-        setIsMounted(true)
-
         if (text !== undefined) {
             _startTimer()
         }
 
-    }, [moment, saison, longitude, latitude, timer, timerPaused, vers])
+    }, [moment, saison, longitude, latitude, timer, timerPaused, vers]) 
+
+    useEffect(() => {
+        console.log('Component did mount (it runs only once)');
+        return () => console.log('Component will unmount');
+    }, []);
 
     // Démarage du défilement du texte
     const _startTimer = () => {
@@ -135,10 +137,10 @@ const Texte = () => {
         }
     }
 
-    const _stopTimer = () => {
-        clearInterval(timer)
-        setTimerPaused(true)
-    }
+    // const _stopTimer = () => {
+    //     clearInterval(timer)
+    //     setTimerPaused(true)
+    // }
 
     return (
         <View style={styles.mainContainer}>
@@ -168,6 +170,9 @@ const Texte = () => {
                 <Text style={styles.textCaptors}> Temperature : {temperature}</Text>
             </View>
             }
+            <Button title = "Retour" 
+                onPress={() => navigation.navigate('Menu')}>
+            </Button>
         </View>
     )
 }
