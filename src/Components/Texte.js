@@ -68,9 +68,7 @@ const Texte = () => {
      * Démarrage du son lorsque le moment de la journée change
      */
     useEffect(() => {
-        console.log("MOMEEEEENNT = " + moment)
-
-        soundFor(moment).then(promise => promise.sound.playAsync())
+        if(moment != null) soundFor(moment).then(promise => promise.sound.playAsync())
     }, [moment])
 
     /**
@@ -248,3 +246,24 @@ const styles = StyleSheet.create({
 });
 
 export default Texte
+
+// let choix = floor(random() * 3)
+// LA MUSIQUE NE CHANGE PAS EN FONCTION DE L'INSTANT
+//
+// useEffect(() => {
+//         if (moment == "matin" && vers == ""){
+//             soundFor(moment).then(promise => promise.sound.playAsync())
+//         }
+//         else if (moment == "midi'){
+//              let choix == floor(random() * 3)
+//              if (choix == 3) {
+//                  soundFor(moment).then(promise => promise.sound.playAsync())
+//              }
+//              else if (moment == "midi" && vers != ""){
+//                  soundFor(moment).then(promise => promise.sound.playAsync())
+//              }
+//         }
+//         else if(vers != "" && moment != null) soundFor(moment).then(promise => promise.sound.playAsync())
+//
+//     }, [])
+//
