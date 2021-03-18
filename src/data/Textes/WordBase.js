@@ -42,18 +42,18 @@ export default base_de_mots = {
 
     ],
     N : [
-        {rural : ["e chemin", "a terre", "a campagne"], urbain : ["a ville", "a route", "e trottoir", "a chaussée"]},
+        {country : ["e chemin", "a terre", "a campagne"], city : ["a ville", "a route", "e trottoir", "a chaussée"]},
         ["rumeurs", "nuées", "légendes", "histoires", "silences", "traces", "miettes"],
         {printemps : ["le printemps"], automne : ["l'automne"], hiver : ["l'hiver"], été : ["l'été"]},
         {cold : ["fraîcheur"], sweet : ["douceur"], hot : ["chaleur"]}, // à modifier selon weather_description
         ["la fatigue", "le silence", "le sommeil"],
-        {rural : ["bêtes"], urbain : ["pierres"]},
+        {country : ["bêtes"], city : ["pierres"]},
         ["monde", "chant", "pays"],
         ["murmure", "chantier"],
-        {rural : ["herbes"], urbain : ["rues"]},
+        {country : ["herbes"], city : ["rues"]},
         ["sol", "ciel"],
         ["les racines", "la graine"], //10
-        {rural : ["arbres", "champs"], urbain : ["toits", "ponts", "grues"]},
+        {country : ["arbres", "champs"], city : ["toits", "ponts", "grues"]},
         ["mains", "jambes"],
         {printemps : ["de fraises", "de cerises", "de prunes", "de pêches", "d'abricots", "d'avocats", "de bananes"], automne : ["de pommes", "de poires", "de coings"], hiver : ["d'oranges", "de clémentines", "de mandarines"], été : ["de melons", "de pastèques", "de framboises", "de figues"]},
         {printemps : ["de jonquilles", "de muguet", "de jacinthes"], automne : ["de camélias", "de sauge", "de feuilles mortes", "de mousse"], hiver : ["de perce-neige", "d'iris", "de pensées"], été : ["de dahlias", "de roses", "de geraniums", "d'œillets", "de pétunias"]},
@@ -76,11 +76,11 @@ export default base_de_mots = {
         ["royaumes", "soleils", "terres"],
         ["le sel", "les traces", "la sciure"],
         ["bois", "lisières"],
-        {rural : ["labour"], urbain : ["la ville"]},
+        {country : ["labour"], city : ["la ville"]},
 
     ],
     G : [
-        {rural : ["de blé"], urbain : ["d'acier"]},
+        {country : ["de blé"], city : ["d'acier"]},
         ["La mère s'apaise", "Le père se tait"],
         ["dans ton dos", "sur tes épaules", "à l'abreuvoir"],
         ["e secoue la nappe", "'attardent les rires", "'allongent les jeux"],

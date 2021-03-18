@@ -12,7 +12,6 @@ const Texte = ({ navigation }) => {
     const [timer, setTimer] = useState()
     const [timerPaused, setTimerPaused] = useState(true)
     const [text, setText] = useState()
-    const [sound, setSound] = useState()
     const [vers, setVers] = useState("Commencez à marcher !")
     const [coefPolice, setCoefPolice] = useState(1)
     const [coefTextSpeed, setCoefTextSpeed] = useState(5)
@@ -21,6 +20,7 @@ const Texte = ({ navigation }) => {
     const [longitude, setLongitude] = useState()
     const [latitude, setLatitude] = useState()
     const [speed, setSpeed] = useState()
+    const [activity, setActivity] = useState();
     const [localityDensity, setLocalityDensity] = useState()
     const [localityType, setLocalityType] = useState(navigation.getParam('localityType'))
     const [saison, setSaison] = useState(null)
@@ -69,7 +69,7 @@ const Texte = ({ navigation }) => {
      * Démarrage du poème lorsque toutes les infos sont présentes
      */
     useEffect(() => {
-        if (localityType && weather && saison && text) {
+        if (localityType && weather && saison && activity && text) {
             _startTimer()
         }
     })
@@ -79,21 +79,30 @@ const Texte = ({ navigation }) => {
      */
     useEffect(() => {
         if (speed < 2) {
+            setActivity('stationary')
             setCoefTextSpeed(5)
             setCoefPolice(1)
             setNbLines(4)
         }
         else if (speed < 6.4) {
+            setActivity('walking')
             setCoefTextSpeed(5)
             setCoefPolice(2)
             setNbLines(3)
         }
         else if (speed < 8) {
+            setActivity('running')
             setCoefTextSpeed(3)
             setCoefPolice(3)
             setNbLines(2)
         }
-        else {
+        else if (speed < 30) {
+            setActivity('cycling')
+            setCoefTextSpeed(1)
+            setCoefPolice(4)
+            setNbLines(1)
+        } else {
+            setActivity('in_vehicle')
             setCoefTextSpeed(1)
             setCoefPolice(4)
             setNbLines(1)
@@ -166,7 +175,7 @@ const Texte = ({ navigation }) => {
                 let vers = ""
                 for (let i = 0; i < nbLines; i++) {
                     // On récupère une partie du texte et on la fait varier avec interpretText
-                    vers += "\n" + interpretText(text[index], localityType, speed, saison, weather)
+                    vers += "\n" + interpretText(text[index], localityType, activity, saison, weather)
                     index = index + 1
                 }
                 setVers(vers)
@@ -198,6 +207,7 @@ const Texte = ({ navigation }) => {
                 <Text style={styles.textCaptors}> Saison : {saison}  </Text>
                 <Text style={styles.textCaptors}> Moment : {moment}  </Text>
                 <Text style={styles.textCaptors}> Vitesse : {speed}  </Text>
+                <Text style={styles.textCaptors}> Activité : {activity}  </Text>
                 <Text style={styles.textCaptors}> Latitude : {latitude}  </Text>
                 <Text style={styles.textCaptors}> Longitude : {longitude}  </Text>
                 <Text style={styles.textCaptors}> Densité de pop : {localityDensity} </Text>
