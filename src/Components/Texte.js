@@ -249,7 +249,7 @@ export default Texte
 
 // let choix = floor(random() * 3)
 // LA MUSIQUE NE CHANGE PAS EN FONCTION DE L'INSTANT
-//
+//CHOIX MUSIQUE
 // useEffect(() => {
 //         if (moment == "matin" && vers == ""){
 //             soundFor(moment).then(promise => promise.sound.playAsync())
@@ -266,4 +266,15 @@ export default Texte
 //         else if(vers != "" && moment != null) soundFor(moment).then(promise => promise.sound.playAsync())
 //
 //     }, [])
+//
+//CHOIX AMBIANCE
+// useEffect(() => {
+//      if(location != null) ambianceFor(location).then(promise => promise.sound.playAsinc())
+//},[location])
+//
+//CHOIX BRUITAGE
+//setTimeout(noisefor(moment), 10000)
+//
+//
+//
 //
