@@ -1,6 +1,10 @@
 import React, {useEffect, useState} from 'react'
+<<<<<<< HEAD
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native'
 import {Audio} from "expo-av";
+=======
+import {StyleSheet, Text, View, TouchableOpacity, Button} from 'react-native'
+>>>>>>> 72238831393cbb65b08915e40f5b0648ecd71405
 
 import CCamera from './CCamera'
 import {locationRequest, sedacLocationRequest, sedacDataset} from "../Helpers/location.js"
@@ -10,8 +14,7 @@ import {weatherRequest} from "../Helpers/weather";
 import {getTextArray, interpretText} from "../Helpers/text";
 import {soundFor} from "../Helpers/sound";
 
-const Texte = () => {
-
+const Texte = ({ navigation }) => {
     const [timer, setTimer] = useState()
     const [timerPaused, setTimerPaused] = useState(true)
     const [text, setText] = useState()
@@ -24,12 +27,12 @@ const Texte = () => {
     const [longitude, setLongitude] = useState()
     const [latitude, setLatitude] = useState()
     const [speed, setSpeed] = useState()
-    const [localityDensity, setLocalityDensity] = useState(undefined)
-    const [localityType, setLocalityType] = useState()
+    const [localityDensity, setLocalityDensity] = useState()
+    const [localityType, setLocalityType] = useState(navigation.getParam('localityType'))
     const [saison, setSaison] = useState(null)
-    const [moment, setMoment] = useState("")
+    const [moment, setMoment] = useState(navigation.getParam('moment'))
     const [temperature, setTemperature] = useState(-100)
-    const [heat, setHeat] = useState(null)
+    const [weather, setWeather] = useState(navigation.getParam('weather'))
 
     /**
      * Mise à jour de la position du téléphone
@@ -47,14 +50,18 @@ const Texte = () => {
     const updateTime = () => {
         let jDate = new Date();
         setSaison(calculateSaison(jDate.getMonth()));
-        setMoment(calculateMoment(calculateSaison(jDate.getMonth()), jDate.getHours()));
+        if (moment === undefined){
+            setMoment(calculateMoment(calculateSaison(jDate.getMonth()), jDate.getHours()));
+        }
     }
 
     /**
      * Mise à jour du type d'environnement lorsque la densité de pop change
      */
     useEffect(() => {
-        setLocalityType(localityDensity < 1000 ? 'country' : 'city')
+        if (localityType === undefined) {
+            setLocalityType(localityDensity < 1000 ? 'country' : 'city')
+        }
     }, [localityDensity])
 
     /**
@@ -75,7 +82,7 @@ const Texte = () => {
      * Démarrage du poème lorsque toutes les infos sont présentes
      */
     useEffect(() => {
-        if (localityType && heat && saison && text) {
+        if (localityType && weather && saison && text) {
             _startTimer()
         }
     })
@@ -128,11 +135,11 @@ const Texte = () => {
                     setTemperature(response.data.main.temp)
                     // Inférer un état de la température
                     if (temperature < 12) {
-                        setHeat("cold")
+                        setWeather("cold")
                     } else if (temperature > 25) {
-                        setHeat("hot")
+                        setWeather("hot")
                     } else {
-                        setHeat("sweet")
+                        setWeather("sweet")
                     }
                 })
 
@@ -172,13 +179,18 @@ const Texte = () => {
                 let vers = ""
                 for (let i = 0; i < nbLines; i++) {
                     // On récupère une partie du texte et on la fait varier avec interpretText
-                    vers += "\n" + interpretText(text[index], localityType, speed, saison, heat)
+                    vers += "\n" + interpretText(text[index], localityType, speed, saison, weather)
                     index = index + 1
                 }
                 setVers(vers)
             }, coefTextSpeed * 1000))
         }
     }
+
+    useEffect(() => {
+        console.log('Component did mount (it runs only once)');
+        return () => console.log('Component will unmount');
+    }, []);
 
     return (
         <View style={styles.mainContainer}>
@@ -203,10 +215,13 @@ const Texte = () => {
                 <Text style={styles.textCaptors}> Longitude : {longitude}  </Text>
                 <Text style={styles.textCaptors}> Densité de pop : {localityDensity} </Text>
                 <Text style={styles.textCaptors}> Milieu : {localityType}</Text>
-                <Text style={styles.textCaptors}> Météo : {heat} </Text>
+                <Text style={styles.textCaptors}> Météo : {weather} </Text>
                 <Text style={styles.textCaptors}> Temperature : {temperature}</Text>
             </View>
             }
+            <Button title = "Retour" 
+                onPress={() => navigation.navigate('Menu')}>
+            </Button>
         </View>
     )
 }
