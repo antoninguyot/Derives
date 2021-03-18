@@ -1,18 +1,16 @@
 import React, {useEffect, useState} from 'react'
-<<<<<<< HEAD
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native'
 import {Audio} from "expo-av";
-=======
-import {StyleSheet, Text, View, TouchableOpacity, Button} from 'react-native'
->>>>>>> 72238831393cbb65b08915e40f5b0648ecd71405
+import {StyleSheet, Text, View, TouchableOpacity, Button} from 'react-native';
 
-import CCamera from './CCamera'
-import {locationRequest, sedacLocationRequest, sedacDataset} from "../Helpers/location.js"
+import CCamera from './CCamera';
+import {locationRequest, sedacLocationRequest, sedacDataset} from "../Helpers/location.js";
 import * as Location from "expo-location";
 import {calculateSaison, calculateMoment} from '../Helpers/time';
 import {weatherRequest} from "../Helpers/weather";
 import {getTextArray, interpretText} from "../Helpers/text";
 import {soundFor} from "../Helpers/sound";
+import {ambianceNoiseFor} from "../Helpers/sound";
+import {punctualNoiseFor} from "../Helpers/sound";
 
 const Texte = ({ navigation }) => {
     const [timer, setTimer] = useState()
@@ -77,6 +75,16 @@ const Texte = ({ navigation }) => {
     useEffect(() => {
         if(moment != null) soundFor(moment).then(promise => promise.sound.playAsync())
     }, [moment])
+
+
+    useEffect(() => {
+        if(localityType != null) ambianceNoiseFor(localityType).then(promise => promise.sound.playAsync())
+    },[localityType])
+
+
+    setInterval(function() {
+        punctualNoiseFor(moment).then(promise => promise.sound.playAsync())
+    }, 10000)
 
     /**
      * Démarrage du poème lorsque toutes les infos sont présentes
@@ -262,34 +270,7 @@ const styles = StyleSheet.create({
 
 export default Texte
 
-// let choix = floor(random() * 3)
-// LA MUSIQUE NE CHANGE PAS EN FONCTION DE L'INSTANT
-//CHOIX MUSIQUE
-// useEffect(() => {
-//         if (moment == "matin" && vers == ""){
-//             soundFor(moment).then(promise => promise.sound.playAsync())
-//         }
-//         else if (moment == "midi'){
-//              let choix == floor(random() * 3)
-//              if (choix == 3) {
-//                  soundFor(moment).then(promise => promise.sound.playAsync())
-//              }
-//              else if (moment == "midi" && vers != ""){
-//                  soundFor(moment).then(promise => promise.sound.playAsync())
-//              }
-//         }
-//         else if(vers != "" && moment != null) soundFor(moment).then(promise => promise.sound.playAsync())
-//
-//     }, [])
-//
-//CHOIX AMBIANCE
-// useEffect(() => {
-//      if(location != null) ambianceFor(location).then(promise => promise.sound.playAsinc())
-//},[location])
-//
-//CHOIX BRUITAGE
-//setTimeout(noisefor(moment), 10000)
-//
-//
-//
-//
+
+
+
+
