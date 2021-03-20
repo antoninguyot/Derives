@@ -1,11 +1,19 @@
 import {createStackNavigator} from 'react-navigation-stack';
 import {createAppContainer} from 'react-navigation';
 
+import PermissionsC from '../Components/PermissionsC'
 import Accueil from '../Components/Accueil'
 import Texte from '../Components/Texte'
 import Menu from '../Components/Menu'
 
 const StackNavigator = createStackNavigator({
+  Permissions: {
+    screen: PermissionsC,
+    navigationOptions: {
+      title: 'Avant de commencer...',
+      animationEnabled: false
+    }
+  },
   Accueil: {
     screen: Accueil,
     navigationOptions: {

@@ -1,5 +1,6 @@
 /* === Helpers contenant la base de mots, en format json === */
 
+let base_de_mots;
 export default base_de_mots = {
     V : [
         ["s'ouvre", "tremble", "perce", "éclate", "s'étend", "gronde", "s'étire", "s'avance"],
