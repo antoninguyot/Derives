@@ -9,7 +9,8 @@ const StackNavigator = createStackNavigator({
   Accueil: {
     screen: Accueil,
     navigationOptions: {
-      title: 'Accueil'
+      title: 'Accueil',
+      headerShown: false
     }
   },
   Texte: {
