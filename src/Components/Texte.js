@@ -128,7 +128,6 @@ const Texte = ({ navigation }) => {
         updateTime();
         let timerInterval = setInterval(updateTime, 60000);
 
-        Location.requestPermissionsAsync()
         Location.getCurrentPositionAsync().then((location) => {
             // Mise à jour de la position
             updateLocation(location)
