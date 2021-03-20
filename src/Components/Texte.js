@@ -45,10 +45,9 @@ const Texte = ({ navigation }) => {
      */
     const updateTime = () => {
         if (isMounted) {
-            let jDate = new Date();
-            setSaison(calculateSaison(jDate.getMonth()));
+            setSaison(calculateSaison());
             if (moment === undefined) {
-                setMoment(calculateMoment(calculateSaison(jDate.getMonth()), jDate.getHours()));
+                setMoment(calculateMoment());
             }
         }
     }
