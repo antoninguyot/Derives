@@ -210,7 +210,8 @@ const Texte = ({ navigation }) => {
             setTimer(setInterval(() => {
                 // Si on est arrivé à la fin du texte, on boucle
                 if (text.length < index + nbLines) {
-                    index = 0;
+                    navigation.replace('Sas')
+                    return
                 }
 
                 // Sinon, on génère le nouveau vers
