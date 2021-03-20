@@ -33,7 +33,7 @@ const Accueil = ({navigation}) => {
         {description}
       </Text>
       {firstConnexion && (
-        <Button style={styles.buttonGo} title='GO' onPress={() => navigation.navigate('Texte')}/>
+        <Button style={styles.buttonGo} title='GO' onPress={() => navigation.replace('Texte')}/>
       )}
       {!firstConnexion &&
       (<Button style={styles.buttonGo} title='GO' onPress={() => navigation.navigate('Menu')}/>

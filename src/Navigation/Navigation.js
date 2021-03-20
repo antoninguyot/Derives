@@ -5,6 +5,7 @@ import PermissionsC from '../Components/PermissionsC'
 import Accueil from '../Components/Accueil'
 import Texte from '../Components/Texte'
 import Menu from '../Components/Menu'
+import Sas from "../Components/Sas"
 
 const StackNavigator = createStackNavigator({
   Permissions: {
@@ -23,8 +24,15 @@ const StackNavigator = createStackNavigator({
   Texte: {
     screen: Texte,
     navigationOptions: {
-      title: null,
-      headerShown: false //(cette option peut être intéressante pour enlever le bandeau supérieure qui masque une partie de l'écran)
+      title: 'Dérives',
+      headerShown: false
+    }
+  },
+  Sas: {
+    screen: Sas,
+    navigationOptions: {
+      title: 'Dérives',
+      headerShown: false
     }
   },
   Menu: {
