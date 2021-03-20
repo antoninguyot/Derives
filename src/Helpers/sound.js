@@ -108,23 +108,27 @@ export const soundFor = async (moment) => {
 }
 
 export const punctualNoiseFor = async (moment) => {
+    let random;
     let punctualNoiseFile;
     switch (moment) {
         case "matin": {
-            punctualNoiseFile = noiseFiles.punctual.matin[Math.floor(Math.random() * noiseFiles.matin.length)]
+            random = Math.floor(Math.random() * 5)
+            punctualNoiseFile = noiseFiles.punctual.matin[random]
             break
         }
         case "midi": {
-            let random = Math.floor(Math.random() * noiseFiles.midi.length)
+            random = Math.floor(Math.random() * 6)
             punctualNoiseFile = noiseFiles.punctual.midi[random]
             break
         }
         case "soir": {
-            punctualNoiseFile = noiseFiles.punctual.midi[Math.floor(Math.random() * noiseFiles.soir.length)]
+            random = Math.floor(Math.random() * 5)
+            punctualNoiseFile = noiseFiles.punctual.matin[random]
             break
         }
         case "nuit": {
-            punctualNoiseFile = noiseFiles.punctual.midi[Math.floor(Math.random() * noiseFiles.nuit.length)]
+            random = Math.floor(Math.random() * 6)
+            punctualNoiseFile = noiseFiles.punctual.midi[random]
             break
         }
         default: {
