@@ -1,12 +1,16 @@
 import React, {useEffect, useState} from 'react'
-import {StyleSheet, Text, View, TouchableOpacity, Button} from 'react-native'
+import {Audio} from "expo-av";
+import {StyleSheet, Text, View, TouchableOpacity, Button} from 'react-native';
 
-import CCamera from './CCamera'
-import {locationRequest, sedacLocationRequest, sedacDataset} from "../Helpers/location.js"
+import CCamera from './CCamera';
+import {locationRequest, sedacLocationRequest, sedacDataset} from "../Helpers/location.js";
 import * as Location from "expo-location";
 import {calculateSaison, calculateMoment} from '../Helpers/time';
 import {weatherRequest} from "../Helpers/weather";
 import {getTextArray, interpretText} from "../Helpers/text";
+import {soundFor} from "../Helpers/sound";
+import {ambianceNoiseFor} from "../Helpers/sound";
+import {punctualNoiseFor} from "../Helpers/sound";
 
 const Texte = ({ navigation }) => {
     const [timer, setTimer] = useState()
@@ -70,6 +74,23 @@ const Texte = ({ navigation }) => {
             setText(getTextArray(moment))
         }
     }, [moment])
+
+    /**
+     * Démarrage du son lorsque le moment de la journée change
+     */
+    useEffect(() => {
+        if(moment != null) soundFor(moment).then(promise => promise.sound.playAsync())
+    }, [moment])
+
+
+    useEffect(() => {
+        if(localityType != null) ambianceNoiseFor(localityType).then(promise => promise.sound.playAsync())
+    },[localityType])
+
+
+    setInterval(function() {
+        punctualNoiseFor(moment).then(promise => promise.sound.playAsync())
+    }, 10000)
 
     /**
      * Démarrage du poème lorsque toutes les infos sont présentes
@@ -270,3 +291,8 @@ const styles = StyleSheet.create({
 });
 
 export default Texte
+
+
+
+
+
