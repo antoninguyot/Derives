@@ -75,7 +75,7 @@ const Texte = ({ navigation }) => {
      * Démarrage du poème lorsque toutes les infos sont présentes
      */
     useEffect(() => {
-        if (isMounted && localityType && weather && saison && text) {
+        if (isMounted && localityType && weather && saison && text && timer == null) {
             _startTimer()
         }
     })
