@@ -1,6 +1,7 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { StyleSheet, View, Button, Text } from 'react-native'
 import {calculateMoment} from '../Helpers/time';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const description = "Vous allez vivre une expérience poétique – visuelle et sonore – en marchant.\nSelon votre vitesse, mais aussi le moment de la journée, la saison, la température, l'environnement, votre expérience ne sera pas la même..."
@@ -14,7 +15,12 @@ const Accueil = ({navigation}) => {
             <Text style={styles.welcomeTextMatin}>
               {description}
             </Text>
-            <Button color='#999' style={styles.buttonGoMatin} title='GO' onPress={() => navigation.navigate('Menu')}/>
+            {firstConnexion && (
+                <Button style={styles.buttonGoMatin} title='GO' onPress={() => navigation.navigate('Texte')}/>
+            )}
+            {!firstConnexion &&
+            (<Button style={styles.buttonGoMatin} title='GO' onPress={() => navigation.navigate('Menu')}/>
+            )}
           </View>
       )
     case "midi" :
@@ -23,7 +29,12 @@ const Accueil = ({navigation}) => {
             <Text style={styles.welcomeTextMidi}>
               {description}
             </Text>
-            <Button color='#ccc' style={styles.buttonGoMidi} title='GO' onPress={() => navigation.navigate('Menu')}/>
+            {firstConnexion && (
+                <Button style={styles.buttonGoMidi} title='GO' onPress={() => navigation.navigate('Texte')}/>
+            )}
+            {!firstConnexion &&
+            (<Button style={styles.buttonGoMidi} title='GO' onPress={() => navigation.navigate('Menu')}/>
+            )}
           </View>
       )
     case "soir" :
@@ -32,7 +43,12 @@ const Accueil = ({navigation}) => {
             <Text style={styles.welcomeTextSoir}>
               {description}
             </Text>
-            <Button color='#000' style={styles.buttonGoSoir} title='GO' onPress={() => navigation.navigate('Menu')}/>
+            {firstConnexion && (
+                <Button style={styles.buttonGoSoir} title='GO' onPress={() => navigation.navigate('Texte')}/>
+            )}
+            {!firstConnexion &&
+            (<Button style={styles.buttonGoSoir} title='GO' onPress={() => navigation.navigate('Menu')}/>
+            )}
           </View>
       )
     case "nuit" :
@@ -41,10 +57,35 @@ const Accueil = ({navigation}) => {
             <Text style={styles.welcomeTextNuit}>
               {description}
             </Text>
-            <Button color='#000' style={styles.buttonGoNuit} title='GO' onPress={() => navigation.navigate('Menu')}/>
+            {firstConnexion && (
+                <Button style={styles.buttonGoNuit} title='GO' onPress={() => navigation.navigate('Texte')}/>
+            )}
+            {!firstConnexion &&
+            (<Button style={styles.buttonGoNuit} title='GO' onPress={() => navigation.navigate('Menu')}/>
+            )}
           </View>
       )
   }
+  const [firstConnexion, setFirstConnexion] = useState()
+
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('firstConnexionDate')
+      if(value !== null) {
+        setFirstConnexion(false)
+      } else {
+        setFirstConnexion(true) 
+        const jsonValue = JSON.stringify(new Date)
+        await AsyncStorage.setItem('firstConnexionDate', jsonValue)
+      }
+    } catch(e) {
+      console.log("erreur", e)
+    }
+  }
+
+  useEffect( () => {
+    getData()
+  }, [])
 }
 
 
