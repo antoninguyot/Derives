@@ -4,6 +4,7 @@ V : verbe | G : groupe de mots | N : nom | A : adverbes/adjectifs
 A : aléatoire | G : GPS | V : vitesse : | T : température | S :saison
 */
 
+let derive_nuit;
 export default derive_nuit = [
     "La nuit",
     "$A04A les $N28A,",

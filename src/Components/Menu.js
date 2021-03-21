@@ -1,6 +1,7 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { Text, View, StyleSheet, TouchableOpacity} from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Menu = ({navigation}) => {
   const [moment, setMoment] = useState()
@@ -55,7 +56,6 @@ const Menu = ({navigation}) => {
                           defaultValue={localityType}
                           placeholder= "Choisissez le milieu"
                           containerStyle={{height: 40, marginTop: 10}}
-              // style={{marginTop: 10}}
                           itemStyle={{
                             justifyContent: 'flex-start'
                           }}
@@ -67,7 +67,6 @@ const Menu = ({navigation}) => {
                           defaultValue={weather}
                           placeholder= "Choisissez la météo"
                           containerStyle={{height: 40, marginTop: 10}}
-              // style={{marginTop: 10}}
                           itemStyle={{
                             justifyContent: 'flex-start'
                           }}

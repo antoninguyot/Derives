@@ -4,6 +4,7 @@ V : verbe | G : groupe de mots | N : nom | A : adverbes/adjectifs
 A : aléatoire | G : GPS | V : vitesse : | T : température | S :saison
 */
 
+let derive_midi;
 export default derive_midi = [
     "Autre moment,",
     "l$N00G mal fermée",
