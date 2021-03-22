@@ -1,11 +1,22 @@
 import {StyleSheet, Text, View, SectionList, Button} from 'react-native';
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 
-const OptionsModal = ({latitude, longitude, localityDensity, localityType, speed, activity, temperature, weather, saison, moment}) => {
-    console.log(speed);
-
+const OptionsModal = ({
+                          latitude,
+                          longitude,
+                          localityDensity,
+                          localityType,
+                          speed,
+                          activity,
+                          temperature,
+                          weather,
+                          saison,
+                          moment
+                      }) => {
     return (
-        <View style={styles.optionsView}>
+        <View>
+            <Text style={{paddingHorizontal: 10}}>Ces paramètres sont pris en compte pour modifier votre expérience de l'application. Essayez de les
+                faire varier!</Text>
             <SectionList
                 sections={[
                     {
@@ -51,20 +62,18 @@ const OptionsModal = ({latitude, longitude, localityDensity, localityType, speed
 }
 
 const styles = StyleSheet.create({
-    optionsView: {
-        backgroundColor: 'white',
-    },
     listItem: {
         flexDirection: 'row',
         borderBottomWidth: 0.5,
         borderBottomColor: 'gray',
         paddingVertical: 10,
         paddingHorizontal: 10,
-        alignContent: 'space-between'
+        alignContent: 'space-between',
+        backgroundColor: 'white',
     },
     listKey: {
         flex: 1,
-        fontWeight: 'bold'
+        fontWeight: '400'
     },
     listValue: {
         flex: 1,
@@ -76,7 +85,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         paddingHorizontal: 10,
         marginTop: 15,
-        backgroundColor: 'white'
+        // backgroundColor: 'white'
     }
 })
 

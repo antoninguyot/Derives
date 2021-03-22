@@ -230,7 +230,7 @@ const Texte = ({navigation}) => {
                 animationType="slide"
                 transparent={false}
                 visible={debug}>
-                <View style={{marginTop: 30}}>
+                <View style={{marginTop: 50}}>
                     <OptionsModal
                         latitude={latitude}
                         longitude={longitude}
@@ -297,7 +297,6 @@ const styles = StyleSheet.create({
     },
     textCaptors: {
         fontSize: 12,
-        // textAlign: 'center',
         color: 'white',
         textShadowColor: 'black',
         textShadowRadius: 10
