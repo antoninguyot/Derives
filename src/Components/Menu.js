@@ -1,8 +1,7 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import { Text, View, StyleSheet, TouchableOpacity} from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker';
 import {calculateMoment, calculateSaison} from '../Helpers/time';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Menu = ({navigation}) => {
   const [moment, setMoment] = useState()
@@ -91,7 +90,7 @@ const Menu = ({navigation}) => {
             </>
         )
     case"midi" :
-        return (
+        return(
             <>
                 <View style= {styles.flexContainerMidi}>
                     <View>
