@@ -32,7 +32,7 @@ const StackNavigator = createStackNavigator({
     navigationOptions: {
       title: 'Menu'
     }
-  },
+  }
 })
 
 
