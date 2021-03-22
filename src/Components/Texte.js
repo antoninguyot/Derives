@@ -254,6 +254,12 @@ const Texte = ({navigation}) => {
                     {vers}
                 </Text>
             </View>
+            {/* Back button */}
+            <TouchableOpacity
+                style={{flex: 1, position: 'absolute', bottom: 0, left: 0, marginBottom: 5, marginLeft: 5}}
+                onPress={() => navigation.navigate('Accueil')}>
+                <Ionicons name="md-arrow-back-circle-outline" size={32} color="darkgrey"/>
+            </TouchableOpacity>
             {/* Debug button */}
             <TouchableOpacity
                 style={{flex: 1, position: 'absolute', bottom: 0, right: 0, marginBottom: 5, marginRight: 5}}
