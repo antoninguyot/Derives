@@ -41,23 +41,6 @@ const noiseFiles = {
             require("../data/Musics/Bruitages/Sons_Ponctuels/Midi/03_Chants.mp3"),
             require("../data/Musics/Bruitages/Sons_Ponctuels/Midi/04_Guerre.mp3"),
             require("../data/Musics/Bruitages/Sons_Ponctuels/Midi/05_Navires.mp3"),
-        ],
-        soir: [
-            require("../data/Musics/Bruitages/Sons_Ponctuels/Matin/01_Oiseaux.mp3"),
-            require("../data/Musics/Bruitages/Sons_Ponctuels/Matin/02_Rires.mp3"),
-            require("../data/Musics/Bruitages/Sons_Ponctuels/Matin/03_Chantiers.mp3"),
-            require("../data/Musics/Bruitages/Sons_Ponctuels/Matin/04_Rumeurs.mp3"),
-            require("../data/Musics/Bruitages/Sons_Ponctuels/Matin/05_Chants.mp3"),
-            require("../data/Musics/Bruitages/Sons_Ponctuels/Matin/06_Bêtes.mp3")
-        ],
-        nuit:[
-            require("../data/Musics/Bruitages/Sons_Ponctuels/Midi/01_Pas.mp3"),
-            require("../data/Musics/Bruitages/Sons_Ponctuels/Midi/01b_Pas.mp3"),
-            require("../data/Musics/Bruitages/Sons_Ponctuels/Midi/01c_Pas.mp3"),
-            require("../data/Musics/Bruitages/Sons_Ponctuels/Midi/02_Tempête.mp3"),
-            require("../data/Musics/Bruitages/Sons_Ponctuels/Midi/03_Chants.mp3"),
-            require("../data/Musics/Bruitages/Sons_Ponctuels/Midi/04_Guerre.mp3"),
-            require("../data/Musics/Bruitages/Sons_Ponctuels/Midi/05_Navires.mp3")
         ]
     },
     ambiance : {
@@ -75,36 +58,30 @@ const noiseFiles = {
         ]
     },
 }
-
-
-export const soundFor = async (moment) => {
-
+export const getUrlSound = (moment) => {
     let random = Math.floor((Math.random() * 3))
-    let soundFile;
 
     switch (moment) {
         case "matin": {
-            soundFile = soundFiles.matin[random]
-            break
+            return soundFiles.matin[random]
         }
         case "midi": {
-            soundFile = soundFiles.midi[random]
-            break
+            return soundFiles.midi[random]
         }
         case "soir": {
-            soundFile = soundFiles.soir[random]
-            break
+            return soundFiles.soir[random]
         }
         case "nuit": {
-            soundFile = soundFiles.nuit[random]
-            break
+            return soundFiles.nuit[random]
         }
         default: {
-            break
+            return null
         }
     }
+}
 
-    return Audio.Sound.createAsync(soundFile)
+export const soundFor = async (urlSound) => {
+    return Audio.Sound.createAsync(urlSound,{shouldPlay:true,volume:0.6})
 }
 
 export const punctualNoiseFor = async (moment) => {
@@ -135,7 +112,7 @@ export const punctualNoiseFor = async (moment) => {
             break
         }
     }
-    return Audio.Sound.createAsync(punctualNoiseFile)
+    return Audio.Sound.createAsync(punctualNoiseFile,{shouldPlay:true,volume:0.1})
 }
 
 export const ambianceNoiseFor = async (location) => {
@@ -157,5 +134,5 @@ export const ambianceNoiseFor = async (location) => {
             break
         }
     }
-    return Audio.Sound.createAsync(ambianceNoiseFile)
+    return Audio.Sound.createAsync(ambianceNoiseFile,{shouldPlay : true, volume:0.6})
 }
