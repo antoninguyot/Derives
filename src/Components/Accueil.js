@@ -1,72 +1,17 @@
 import React, {useState, useEffect} from 'react'
 import { StyleSheet, View, Button, Text } from 'react-native'
-import {calculateMoment} from '../Helpers/time';
+import {calculateMoment, calculateSaison} from '../Helpers/time';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const description = "Vous allez vivre une expérience poétique – visuelle et sonore – en marchant.\nSelon votre vitesse, mais aussi le moment de la journée, la saison, la température, l'environnement, votre expérience ne sera pas la même..."
 
 const Accueil = ({navigation}) => {
-  let moment = calculateMoment()
-  switch (moment){
-    case "matin" :
-      return(
-          <View style={styles.mainContainerMatin}>
-            <Text style={styles.welcomeTextMatin}>
-              {description}
-            </Text>
-            {firstConnexion && (
-                <Button style={styles.buttonGoMatin} title='GO' onPress={() => navigation.navigate('Texte')}/>
-            )}
-            {!firstConnexion &&
-            (<Button style={styles.buttonGoMatin} title='GO' onPress={() => navigation.navigate('Menu')}/>
-            )}
-          </View>
-      )
-    case "midi" :
-      return(
-          <View style={styles.mainContainerMidi}>
-            <Text style={styles.welcomeTextMidi}>
-              {description}
-            </Text>
-            {firstConnexion && (
-                <Button style={styles.buttonGoMidi} title='GO' onPress={() => navigation.navigate('Texte')}/>
-            )}
-            {!firstConnexion &&
-            (<Button style={styles.buttonGoMidi} title='GO' onPress={() => navigation.navigate('Menu')}/>
-            )}
-          </View>
-      )
-    case "soir" :
-      return(
-          <View style={styles.mainContainerSoir}>
-            <Text style={styles.welcomeTextSoir}>
-              {description}
-            </Text>
-            {firstConnexion && (
-                <Button style={styles.buttonGoSoir} title='GO' onPress={() => navigation.navigate('Texte')}/>
-            )}
-            {!firstConnexion &&
-            (<Button style={styles.buttonGoSoir} title='GO' onPress={() => navigation.navigate('Menu')}/>
-            )}
-          </View>
-      )
-    case "nuit" :
-      return(
-          <View style={styles.mainContainerNuit}>
-            <Text style={styles.welcomeTextNuit}>
-              {description}
-            </Text>
-            {firstConnexion && (
-                <Button style={styles.buttonGoNuit} title='GO' onPress={() => navigation.navigate('Texte')}/>
-            )}
-            {!firstConnexion &&
-            (<Button style={styles.buttonGoNuit} title='GO' onPress={() => navigation.navigate('Menu')}/>
-            )}
-          </View>
-      )
-  }
+
   const [firstConnexion, setFirstConnexion] = useState()
+  /**
+   * Mise à jour du temps de la journée
+   */
 
   const getData = async () => {
     try {
@@ -74,7 +19,7 @@ const Accueil = ({navigation}) => {
       if(value !== null) {
         setFirstConnexion(false)
       } else {
-        setFirstConnexion(true) 
+        setFirstConnexion(true)
         const jsonValue = JSON.stringify(new Date)
         await AsyncStorage.setItem('firstConnexionDate', jsonValue)
       }
@@ -86,6 +31,74 @@ const Accueil = ({navigation}) => {
   useEffect( () => {
     getData()
   }, [])
+
+  let jDate = new Date()
+  let moment = calculateMoment(calculateSaison(jDate.getMonth()), jDate.getHours())
+
+  switch (moment) {
+    case "matin" :
+      return (
+          <View style={styles.mainContainerMatin}>
+            <Text style={styles.welcomeTextMatin}>
+              {description}
+            </Text>
+            {firstConnexion && (
+                <Button style={styles.buttonGoMatin} color='#999' title='GO'
+                        onPress={() => navigation.navigate('Texte')}/>
+            )}
+            {!firstConnexion &&
+            (<Button style={styles.buttonGoMatin} color='#999' title='GO'
+                     onPress={() => navigation.navigate('Menu')}/>
+            )}
+          </View>
+      )
+    case "midi" :
+      return (
+          <View style={styles.mainContainerMidi}>
+            <Text style={styles.welcomeTextMidi}>
+              {description}
+            </Text>
+            {firstConnexion && (
+                <Button style={styles.buttonGoMidi} color='#999' title='GO'
+                        onPress={() => navigation.navigate('Texte')}/>
+            )}
+            {!firstConnexion &&
+            (<Button style={styles.buttonGoMidi} color='#999' title='GO' onPress={() => navigation.navigate('Menu')}/>
+            )}
+          </View>
+      )
+    case "soir" :
+      return (
+          <View style={styles.mainContainerSoir}>
+            <Text style={styles.welcomeTextSoir}>
+              {description}
+            </Text>
+            {firstConnexion && (
+                <Button style={styles.buttonGoSoir} color='#000' title='GO'
+                        onPress={() => navigation.navigate('Texte')}/>
+            )}
+            {!firstConnexion &&
+            (<Button style={styles.buttonGoSoir} color='#000' title='GO' onPress={() => navigation.navigate('Menu')}/>
+            )}
+          </View>
+      )
+    case "nuit" :
+      return (
+          <View style={styles.mainContainerNuit}>
+            <Text style={styles.welcomeTextNuit}>
+              {description}
+            </Text>
+            {firstConnexion && (
+                <Button style={styles.buttonGoNuit} color='#000' title='GO'
+                        onPress={() => navigation.navigate('Texte')}/>
+            )}
+            {!firstConnexion &&
+            (<Button style={styles.buttonGoNuit} color='#000' title='GO' onPress={() => navigation.navigate('Menu')}/>
+            )}
+          </View>
+      )
+  }
+
 }
 
 

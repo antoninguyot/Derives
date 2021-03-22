@@ -31,7 +31,8 @@ const StackNavigator = createStackNavigator({
   Menu: {
     screen: Menu,
     navigationOptions: {
-      title: 'Menu'
+      title: 'Menu',
+      headerShown: false
     }
   },
 })

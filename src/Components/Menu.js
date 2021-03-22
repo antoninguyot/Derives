@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { Text, View, StyleSheet, TouchableOpacity} from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker';
-import {calculateMoment} from '../Helpers/time';
+import {calculateMoment, calculateSaison} from '../Helpers/time';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Menu = ({navigation}) => {
@@ -26,8 +26,10 @@ const Menu = ({navigation}) => {
     {label: 'Tempéré', value: 'sweet'},
     {label: 'Chaud', value: 'hot'}
   ]
-  let tmp = "nuit"
-  switch (tmp) {
+    let jDate = new Date()
+    let tmp = calculateMoment(calculateSaison(jDate.getMonth()), jDate.getHours())
+
+    switch (tmp) {
     case "matin" :
         return (
             <>
