@@ -8,7 +8,7 @@ import * as Location from "expo-location";
 import {calculateSaison, calculateMoment} from '../Helpers/time';
 import {weatherRequest} from "../Helpers/weather";
 import {getTextArray, interpretText} from "../Helpers/text";
-import {soundFor} from "../Helpers/sound";
+import {getUrlSound, soundFor} from "../Helpers/sound";
 import {ambianceNoiseFor} from "../Helpers/sound";
 import {punctualNoiseFor} from "../Helpers/sound";
 
@@ -78,19 +78,25 @@ const Texte = ({ navigation }) => {
     /**
      * Démarrage du son lorsque le moment de la journée change
      */
+    let music
+    let urlSound
+    let ambiance
+    let punctual
     useEffect(() => {
-        if(moment != null) soundFor(moment).then(promise => promise.sound.playAsync())
-    }, [moment])
-
-
-    useEffect(() => {
-        if(localityType != null) ambianceNoiseFor(localityType).then(promise => promise.sound.playAsync())
-    },[localityType])
-
-
-    setInterval(function() {
-        punctualNoiseFor(moment).then(promise => promise.sound.playAsync())
-    }, 10000)
+        urlSound = (getUrlSound(moment))
+        if(urlSound === "../data/Musics/midi_mus_3.mp3") music = soundFor(urlSound)
+        else if (vers.includes("Partout") ||
+                 vers.includes("Autre moment") ||
+                 vers.includes("La nuit") ||
+                 vers.includes("Déjà"))
+        {
+            music = soundFor(urlSound)
+            ambiance = ambianceNoiseFor(localityType)
+            setInterval(function (){
+                punctual = punctualNoiseFor(moment)
+            }, 10000)
+        }
+    }, [vers])
 
     /**
      * Démarrage du poème lorsque toutes les infos sont présentes
