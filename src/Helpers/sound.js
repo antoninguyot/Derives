@@ -58,6 +58,7 @@ const noiseFiles = {
         ]
     },
 }
+//URL DE LA MUSIQUE
 export const getUrlSound = (moment) => {
     let random = Math.floor((Math.random() * 3))
 
@@ -79,11 +80,11 @@ export const getUrlSound = (moment) => {
         }
     }
 }
-
+//MUSIQUE
 export const soundFor = async (urlSound) => {
     return Audio.Sound.createAsync(urlSound,{shouldPlay:true,volume:0.6})
 }
-
+//BRUITS
 export const punctualNoiseFor = async (moment) => {
     let random;
     let punctualNoiseFile;
@@ -114,7 +115,7 @@ export const punctualNoiseFor = async (moment) => {
     }
     return Audio.Sound.createAsync(punctualNoiseFile,{shouldPlay:true,volume:0.1})
 }
-
+//AMBIANCE
 export const ambianceNoiseFor = async (location) => {
     let ambianceNoiseFile;
     switch (location) {
