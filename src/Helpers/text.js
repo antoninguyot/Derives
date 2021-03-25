@@ -31,7 +31,7 @@ export const getTextArray = (moment) => {
  * @param saison
  * @param heat
  */
-export const interpretText = (sentence, localityType, activity, saison, heat) => {
+export const interpretText = (sentence, localityType , activity , saison, heat) => {
     let sentence_new = ""
     for (let i = 0; i < sentence.length; i++) {
         if (sentence.charAt(i) === "$") {
