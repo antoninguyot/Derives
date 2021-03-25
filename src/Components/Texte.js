@@ -8,15 +8,14 @@ import * as Location from "expo-location";
 import {calculateSaison, calculateMoment} from '../Helpers/time';
 import {weatherRequest} from "../Helpers/weather";
 import {getTextArray, interpretText} from "../Helpers/text";
-import {soundFor} from "../Helpers/sound";
+import {getUrlSound, soundFor} from "../Helpers/sound";
 import {ambianceNoiseFor} from "../Helpers/sound";
 import {punctualNoiseFor} from "../Helpers/sound";
 
 const Texte = ({ navigation }) => {
     const [timer, setTimer] = useState()
-    const [timerPaused, setTimerPaused] = useState(true)
+    const [isMounted, setIsMounted] = useState(true)
     const [text, setText] = useState()
-    const [sound, setSound] = useState()
     const [vers, setVers] = useState("Commencez à marcher !")
     const [coefPolice, setCoefPolice] = useState(1)
     const [coefTextSpeed, setCoefTextSpeed] = useState(5)
@@ -25,6 +24,7 @@ const Texte = ({ navigation }) => {
     const [longitude, setLongitude] = useState()
     const [latitude, setLatitude] = useState()
     const [speed, setSpeed] = useState()
+    const [activity, setActivity] = useState();
     const [localityDensity, setLocalityDensity] = useState()
     const [localityType, setLocalityType] = useState(navigation.getParam('localityType'))
     const [saison, setSaison] = useState(null)
@@ -37,19 +37,23 @@ const Texte = ({ navigation }) => {
      * @param location
      */
     const updateLocation = (location) => {
-        setLongitude(location.coords.longitude)
-        setLatitude(location.coords.latitude)
-        setSpeed(location.coords.speed)
+        if (isMounted) {
+            setLongitude(location.coords.longitude)
+            setLatitude(location.coords.latitude)
+            setSpeed(location.coords.speed)
+        }
     }
 
     /**
      * Mise à jour du temps de la journée
      */
     const updateTime = () => {
-        let jDate = new Date();
-        setSaison(calculateSaison(jDate.getMonth()));
-        if (moment === undefined){
-            setMoment(calculateMoment(calculateSaison(jDate.getMonth()), jDate.getHours()));
+        if (isMounted) {
+            let jDate = new Date();
+            setSaison(calculateSaison(jDate.getMonth()));
+            if (moment === undefined) {
+                setMoment(calculateMoment(calculateSaison(jDate.getMonth()), jDate.getHours()));
+            }
         }
     }
 
@@ -57,7 +61,7 @@ const Texte = ({ navigation }) => {
      * Mise à jour du type d'environnement lorsque la densité de pop change
      */
     useEffect(() => {
-        if (localityType === undefined) {
+        if (isMounted && localityType === undefined) {
             setLocalityType(localityDensity < 1000 ? 'country' : 'city')
         }
     }, [localityDensity])
@@ -66,31 +70,39 @@ const Texte = ({ navigation }) => {
      * Mise à jour du texter lorsque le moment de la journée change
      */
     useEffect(() => {
-        setText(getTextArray(moment))
+        if (isMounted) {
+            setText(getTextArray(moment))
+        }
     }, [moment])
 
     /**
      * Démarrage du son lorsque le moment de la journée change
      */
+    let music
+    let urlSound
+    let ambiance
+    let punctual
     useEffect(() => {
-        if(moment != null) soundFor(moment).then(promise => promise.sound.playAsync())
-    }, [moment])
-
-
-    useEffect(() => {
-        if(localityType != null) ambianceNoiseFor(localityType).then(promise => promise.sound.playAsync())
-    },[localityType])
-
-
-    setInterval(function() {
-        punctualNoiseFor(moment).then(promise => promise.sound.playAsync())
-    }, 10000)
+        urlSound = (getUrlSound(moment))
+        if(urlSound === "../data/Musics/midi_mus_3.mp3") music = soundFor(urlSound)
+        else if (vers.includes("Partout") ||
+            vers.includes("Autre moment") ||
+            vers.includes("La nuit") ||
+            vers.includes("Déjà"))
+        {
+            music = soundFor(urlSound)
+            ambiance = ambianceNoiseFor(localityType)
+            setInterval(function (){
+                punctual = punctualNoiseFor(moment)
+            }, 10000)
+        }
+    }, [vers])
 
     /**
      * Démarrage du poème lorsque toutes les infos sont présentes
      */
     useEffect(() => {
-        if (localityType && weather && saison && text) {
+        if (isMounted && localityType && weather && saison && text && timer == null) {
             _startTimer()
         }
     })
@@ -99,25 +111,36 @@ const Texte = ({ navigation }) => {
      * Mise à jour des coefficients
      */
     useEffect(() => {
-        if (speed < 2) {
-            setCoefTextSpeed(5)
-            setCoefPolice(1)
-            setNbLines(4)
-        }
-        else if (speed < 6.4) {
-            setCoefTextSpeed(5)
-            setCoefPolice(2)
-            setNbLines(3)
-        }
-        else if (speed < 8) {
-            setCoefTextSpeed(3)
-            setCoefPolice(3)
-            setNbLines(2)
-        }
-        else {
-            setCoefTextSpeed(1)
-            setCoefPolice(4)
-            setNbLines(1)
+        if (isMounted) {
+            if (speed < 2) {
+                setActivity('stationary')
+                setCoefTextSpeed(5)
+                setCoefPolice(1)
+                setNbLines(4)
+
+            } else if (speed < 6.4) {
+                setActivity('walking')
+                setCoefTextSpeed(5)
+                setCoefPolice(2)
+                setNbLines(3)
+
+            } else if (speed < 8) {
+                setActivity('running')
+                setCoefTextSpeed(3)
+                setCoefPolice(3)
+                setNbLines(2)
+            }
+            else if (speed < 30) {
+                setActivity('cycling')
+                setCoefTextSpeed(1)
+                setCoefPolice(4)
+                setNbLines(1)
+            } else {
+                setActivity('in_vehicle')
+                setCoefTextSpeed(1)
+                setCoefPolice(4)
+                setNbLines(1)
+            }
         }
     }, [speed])
 
@@ -127,45 +150,54 @@ const Texte = ({ navigation }) => {
      * Lancé une seule fois au démarrage
      */
     useEffect(() => {
-
+        setIsMounted(true);
         // Mise à jour du moment de la journée
         updateTime();
-        setInterval(updateTime, 60000);
+        let timerInterval = setInterval(updateTime, 60000);
 
-        Location.requestPermissionsAsync()
         Location.getCurrentPositionAsync().then((location) => {
             // Mise à jour de la position
             updateLocation(location)
 
             // Récupération des données météo
             weatherRequest(location.coords.latitude, location.coords.longitude)
-                .then((response) => {
-                    setTemperature(response.data.main.temp)
-                    // Inférer un état de la température
-                    if (temperature < 12) {
-                        setWeather("cold")
-                    } else if (temperature > 25) {
-                        setWeather("hot")
-                    } else {
-                        setWeather("sweet")
+                .then(response => {
+                    if (isMounted) {
+                        setTemperature(response.data.main.temp)
+                        // Inférer un état de la température
+                        if (temperature < 12) {
+                            setWeather("cold")
+                        } else if (temperature > 25) {
+                            setWeather("hot")
+                        } else {
+                            setWeather("sweet")
+                        }
                     }
                 })
 
             // Récupération des données de densité de pop
             sedacLocationRequest(location.coords.latitude, location.coords.longitude)
                 .then(response => {
-                    if (response.data.results[0]) {
+                    if (isMounted && response.data.results[0]) {
                         setLocalityDensity(response.data.results[0].value.estimates[sedacDataset].MEAN)
                     }
                 })
         })
 
         // On update la position GPS en direct
-        Location.watchPositionAsync({
+        let locationWatcher = Location.watchPositionAsync({
             accuracy: Location.Accuracy.BestForNavigation,
             distanceInterval: 1
         }, updateLocation);
 
+        return () => {
+            setIsMounted(false)
+            clearInterval(timer)
+            clearInterval(timerInterval)
+            locationWatcher.then(subscriber => {
+                subscriber.remove()
+            })
+        }
 
     }, [])
 
@@ -173,9 +205,8 @@ const Texte = ({ navigation }) => {
      * Démarage du défilement du texte
      */
     const _startTimer = () => {
-        if (timerPaused) {
+        if (isMounted) {
             let index = 0
-            setTimerPaused(false)
             setTimer(setInterval(() => {
                 // Si on est arrivé à la fin du texte, on boucle
                 if (text.length < index + nbLines) {
@@ -187,7 +218,7 @@ const Texte = ({ navigation }) => {
                 let vers = ""
                 for (let i = 0; i < nbLines; i++) {
                     // On récupère une partie du texte et on la fait varier avec interpretText
-                    vers += "\n" + interpretText(text[index], localityType, speed, saison, weather)
+                    vers += "\n" + interpretText(text[index], localityType, activity, saison, weather)
                     index = index + 1
                 }
                 setVers(vers)
@@ -195,10 +226,6 @@ const Texte = ({ navigation }) => {
         }
     }
 
-    useEffect(() => {
-        console.log('Component did mount (it runs only once)');
-        return () => console.log('Component will unmount');
-    }, []);
 
     return (
         <View style={styles.mainContainer}>
@@ -219,6 +246,7 @@ const Texte = ({ navigation }) => {
                 <Text style={styles.textCaptors}> Saison : {saison}  </Text>
                 <Text style={styles.textCaptors}> Moment : {moment}  </Text>
                 <Text style={styles.textCaptors}> Vitesse : {speed}  </Text>
+                <Text style={styles.textCaptors}> Activité : {activity}  </Text>
                 <Text style={styles.textCaptors}> Latitude : {latitude}  </Text>
                 <Text style={styles.textCaptors}> Longitude : {longitude}  </Text>
                 <Text style={styles.textCaptors}> Densité de pop : {localityDensity} </Text>
@@ -227,8 +255,8 @@ const Texte = ({ navigation }) => {
                 <Text style={styles.textCaptors}> Temperature : {temperature}</Text>
             </View>
             }
-            <Button title = "Retour" 
-                onPress={() => navigation.navigate('Menu')}>
+            <Button title="Retour"
+                    onPress={() => navigation.navigate('Menu')}>
             </Button>
         </View>
     )

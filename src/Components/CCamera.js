@@ -6,10 +6,6 @@ import {Camera} from "expo-camera";
 
 const CCamera = () => {
 
-    useEffect(() => {
-        Camera.requestPermissionsAsync();
-    })
-
     return (
       <View style={styles.mainContainer}>
         <Camera style={styles.preview}>
