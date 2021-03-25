@@ -3,12 +3,13 @@ import {Button, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import CCamera from "./CCamera";
 import * as Location from "expo-location";
 import {calculateMoment} from "../Helpers/time";
+import {Image} from "react-native-web";
 
 const Sas = ({navigation}) => {
 
     const [initialSpeed, setInitialSpeed] = useState(0)
     const [speedAverage, setSpeedAverage] = useState(0)
-    const [speedDifference, setSpeedDifference] = useState(0)
+    const [willTimeTravel, setWillTimeTravel] = useState(false)
 
     useEffect(() => {
         // Play music
@@ -29,6 +30,7 @@ const Sas = ({navigation}) => {
         // Set timeout for n seconds
         let sasTimeout = setTimeout(() => {
             if (speedAverage - initialSpeed > 0) {
+                console.log('time travel')
                 let newMoment = () => {
                     let moment = calculateMoment()
                     switch (moment) {
@@ -42,13 +44,21 @@ const Sas = ({navigation}) => {
                             return 'nuit'
                     }
                 }
-                navigation.replace('Texte', {
-                    moment: newMoment()
-                })
+                setWillTimeTravel(true)
+                console.log('willtimetravel')
+                setTimeout(() => {
+                    navigation.replace('Texte', {
+                        moment: newMoment()
+                    })
+                }, 2000)
             } else {
-                navigation.replace('Texte')
+                console.log('nope');
+                setWillTimeTravel(true)
+                setTimeout(() => {
+                    navigation.replace('Texte')
+                }, 2000)
             }
-        }, 10000)
+        }, 5000)
         // If the avg speed was higher than the original, navigate to the next period
         // Else, loop
 
@@ -64,6 +74,10 @@ const Sas = ({navigation}) => {
         <View style={styles.mainContainer}>
             <View style={styles.cameraContener}>
                 <CCamera/>
+                {willTimeTravel &&
+                <Image style={{position: 'absolute', marginHorizontal: 'auto', marginVertical: 'auto'}}
+                       source={require("../../assets/images/ticking.gif")}></Image>
+                }
             </View>
         </View>
     )
