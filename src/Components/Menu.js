@@ -85,6 +85,14 @@ const Menu = ({navigation}) => {
                         </TouchableOpacity>
                     </TouchableOpacity>
                 </View>
+                <View>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('Credits')}
+                        style={[styles.buttonStyle,{backgroundColor:setColorWriting(tmp)}]}>
+                        <Text style = {[styles.textStyle, {color:setColorBackground(tmp)}]}>Crédits</Text>
+                    </TouchableOpacity>
+                </View>
+
             </View>
         </>
     )
