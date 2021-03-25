@@ -40,7 +40,7 @@ const StackNavigator = createStackNavigator({
     screen: Credits,
     navigationOptions: {
       title: 'Credits',
-      headerShown: false
+      headerShown: false,
     }
   }
 })
