@@ -86,9 +86,9 @@ const Texte = ({ navigation }) => {
         urlSound = (getUrlSound(moment))
         if(urlSound === "../data/Musics/midi_mus_3.mp3") music = soundFor(urlSound)
         else if (vers.includes("Partout") ||
-                 vers.includes("Autre moment") ||
-                 vers.includes("La nuit") ||
-                 vers.includes("Déjà"))
+            vers.includes("Autre moment") ||
+            vers.includes("La nuit") ||
+            vers.includes("Déjà"))
         {
             music = soundFor(urlSound)
             ambiance = ambianceNoiseFor(localityType)
@@ -114,29 +114,29 @@ const Texte = ({ navigation }) => {
         if (isMounted) {
             if (speed < 2) {
                 setActivity('stationary')
-            setCoefTextSpeed(5)
-            setCoefPolice(1)
-            setNbLines(4)
+                setCoefTextSpeed(5)
+                setCoefPolice(1)
+                setNbLines(4)
 
             } else if (speed < 6.4) {
                 setActivity('walking')
-            setCoefTextSpeed(5)
-            setCoefPolice(2)
-            setNbLines(3)
+                setCoefTextSpeed(5)
+                setCoefPolice(2)
+                setNbLines(3)
 
             } else if (speed < 8) {
                 setActivity('running')
-            setCoefTextSpeed(3)
-            setCoefPolice(3)
-            setNbLines(2)
-        }
-        else if (speed < 30) {
-            setActivity('cycling')
-            setCoefTextSpeed(1)
-            setCoefPolice(4)
-            setNbLines(1)
-        } else {
-            setActivity('in_vehicle')
+                setCoefTextSpeed(3)
+                setCoefPolice(3)
+                setNbLines(2)
+            }
+            else if (speed < 30) {
+                setActivity('cycling')
+                setCoefTextSpeed(1)
+                setCoefPolice(4)
+                setNbLines(1)
+            } else {
+                setActivity('in_vehicle')
                 setCoefTextSpeed(1)
                 setCoefPolice(4)
                 setNbLines(1)

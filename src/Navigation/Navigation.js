@@ -17,7 +17,8 @@ const StackNavigator = createStackNavigator({
   Accueil: {
     screen: Accueil,
     navigationOptions: {
-      title: 'Accueil'
+      title: 'Accueil',
+      headerShown: false
     }
   },
   Texte: {
@@ -30,7 +31,8 @@ const StackNavigator = createStackNavigator({
   Menu: {
     screen: Menu,
     navigationOptions: {
-      title: 'Menu'
+      title: 'Menu',
+      headerShown: false
     }
   },
 })
