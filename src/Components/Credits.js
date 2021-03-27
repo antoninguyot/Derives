@@ -59,6 +59,7 @@ const Credits = ({navigation}) => {
     return(
         <SafeAreaView style={[styles.container, {backgroundColor:setColorBackground(moment), marginTop:30}]}>
             <ScrollView style={styles.scrollView}>
+                <Text style={[styles.textTitle,{color:setColorWriting(moment)}]}>{"\nCrédits\n"}</Text>
                 <Image style={styles.photo} source={require('../data/Photo/Photo_Serge.png')}/>
                 <Text style={[styles.text,{color:setColorWriting(moment)}]}> {peopleToCredit[0][0] + "\n" +peopleToCredit[0][1] + "\n" +peopleToCredit[0][2] + "\n"} </Text>
                 <Image style={styles.photo} source={require('../data/Photo/Photo_Marine.jpg')}/>
@@ -77,7 +78,7 @@ const Credits = ({navigation}) => {
                 <Text style={[styles.text,{color:setColorWriting(moment)}]}> {peopleToCredit[7][0] + "\n" +peopleToCredit[7][1] + "\n" +peopleToCredit[7][2] + "\n"} </Text>
                 <Image style={styles.photo} source={require('../data/Photo/Photo_bg.jpeg')}/>
                 <Text style={[styles.text,{color:setColorWriting(moment)}]}> {peopleToCredit[8][0] + "\n" +peopleToCredit[8][1] + "\n" +peopleToCredit[8][2] + "\n"} </Text>
-                <Text style={[styles.text,{color:setColorWriting(moment)}]}>{"\nRemerciements\n"}</Text>
+                <Text style={[styles.textTitle,{color:setColorWriting(moment)}]}>{"\nRemerciements\n"}</Text>
                 <Text style={[styles.text,{color:setColorWriting(moment)}]}>{displayThanks()}</Text>
 
             </ScrollView>
@@ -105,6 +106,11 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 28,
         padding: 10,
+    },
+    textTitle:{
+        fontSize: 28,
+        padding: 10,
+        fontWeight:'bold'
     },
     photo:{
         width: 250,
