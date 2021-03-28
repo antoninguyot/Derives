@@ -5,6 +5,7 @@ import PermissionsC from '../Components/PermissionsC'
 import Accueil from '../Components/Accueil'
 import Texte from '../Components/Texte'
 import Menu from '../Components/Menu'
+import Credits from "../Components/Credits";
 
 const StackNavigator = createStackNavigator({
   Permissions: {
@@ -17,7 +18,8 @@ const StackNavigator = createStackNavigator({
   Accueil: {
     screen: Accueil,
     navigationOptions: {
-      title: 'Accueil'
+      title: 'Accueil',
+      headerShown: false
     }
   },
   Texte: {
@@ -30,9 +32,17 @@ const StackNavigator = createStackNavigator({
   Menu: {
     screen: Menu,
     navigationOptions: {
-      title: 'Menu'
+      title: 'Menu',
+      headerShown: false
     }
   },
+  Credits: {
+    screen: Credits,
+    navigationOptions: {
+      title: 'Credits',
+      headerShown: false,
+    }
+  }
 })
 
 

@@ -23,7 +23,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "Derives.sounds.accueil.apk"
     },
     "web": {
       "favicon": "./assets/favicon.png"
