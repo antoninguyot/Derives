@@ -43,8 +43,8 @@ const Accueil = ({navigation}) => {
         </Text>
         {firstConnexion && (
             <TouchableOpacity
-                    style={[styles.buttonGo,{backgroundColor:setColorWriting(moment)}]}
-                    onPress={() => navigation.navigate('Texte')}>
+                style={[styles.buttonGo,{backgroundColor:setColorWriting(moment)}]}
+                onPress={() => navigation.navigate('Texte')}>
               <Text style={[styles.buttonText, {color:setColorBackground(moment)}]}>GO</Text>
             </TouchableOpacity>
         )}
@@ -57,7 +57,7 @@ const Accueil = ({navigation}) => {
         )}
       </View>
   )
-  }
+}
 
 const styles = StyleSheet.create({
   welcomeText: {

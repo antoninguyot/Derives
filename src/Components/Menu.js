@@ -5,27 +5,27 @@ import {calculateMoment, calculateSaison} from '../Helpers/time';
 import {setColorBackground,setColorWriting} from "../Helpers/colorInterface";
 
 const Menu = ({navigation}) => {
-  const [moment, setMoment] = useState()
-  const [localityType, setLocalityType] = useState()
-  const [weather, setWeather] = useState()
+    const [moment, setMoment] = useState()
+    const [localityType, setLocalityType] = useState()
+    const [weather, setWeather] = useState()
 
-  let momentItems = [
-    {label: 'Matin', value: 'matin'},
-    {label: 'Midi', value: 'midi'},
-    {label: 'Soir', value: 'soir'},
-    {label: 'Nuit', value: 'nuit'},
-  ]
+    let momentItems = [
+        {label: 'Matin', value: 'matin'},
+        {label: 'Midi', value: 'midi'},
+        {label: 'Soir', value: 'soir'},
+        {label: 'Nuit', value: 'nuit'},
+    ]
 
-  let localityItems = [
-    {label: 'Rural', value: 'country'},
-    {label: 'Ville', value: 'city'},
-  ]
+    let localityItems = [
+        {label: 'Rural', value: 'country'},
+        {label: 'Ville', value: 'city'},
+    ]
 
-  let weatherItems = [
-    {label: 'Froid', value: 'cold'},
-    {label: 'Tempéré', value: 'sweet'},
-    {label: 'Chaud', value: 'hot'}
-  ]
+    let weatherItems = [
+        {label: 'Froid', value: 'cold'},
+        {label: 'Tempéré', value: 'sweet'},
+        {label: 'Chaud', value: 'hot'}
+    ]
     let jDate = new Date()
     let tmp = calculateMoment(calculateSaison(jDate.getMonth()), jDate.getHours())
 
@@ -85,6 +85,14 @@ const Menu = ({navigation}) => {
                         </TouchableOpacity>
                     </TouchableOpacity>
                 </View>
+                <View>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('Credits')}
+                        style={[styles.buttonStyle,{backgroundColor:setColorWriting(tmp)}]}>
+                        <Text style = {[styles.textStyle, {color:setColorBackground(tmp)}]}>Crédits</Text>
+                    </TouchableOpacity>
+                </View>
+
             </View>
         </>
     )
@@ -92,28 +100,28 @@ const Menu = ({navigation}) => {
 }
 
 const styles = StyleSheet.create({
-  textStyle: {
-    fontSize: 28,
-    textAlign: "center",
-    padding: 10,
+    textStyle: {
+        fontSize: 28,
+        textAlign: "center",
+        padding: 10,
 
-  },
-  buttonStyle: {
-    paddingTop:20,
-    paddingLeft:20,
-    paddingRight:20,
-    paddingBottom:20,
-    textAlign:'center',
-    borderRadius: 10,
-    borderWidth: 0,
-  },
-  flexContainer: {
-    flex: 1,
-    justifyContent: 'space-evenly',
-    flexDirection: 'column',
-    alignItems:'center',
-    padding: 10,
-  },
+    },
+    buttonStyle: {
+        paddingTop:20,
+        paddingLeft:20,
+        paddingRight:20,
+        paddingBottom:20,
+        textAlign:'center',
+        borderRadius: 10,
+        borderWidth: 0,
+    },
+    flexContainer: {
+        flex: 1,
+        justifyContent: 'space-evenly',
+        flexDirection: 'column',
+        alignItems:'center',
+        padding: 10,
+    },
 
 })
 
