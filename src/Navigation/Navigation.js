@@ -5,6 +5,8 @@ import PermissionsC from '../Components/PermissionsC'
 import Accueil from '../Components/Accueil'
 import Texte from '../Components/Texte'
 import Menu from '../Components/Menu'
+import Sas from '../Components/Sas'
+import Credits from '../Components/Credits'
 
 const StackNavigator = createStackNavigator({
   Permissions: {
