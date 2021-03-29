@@ -22,6 +22,7 @@ const Texte = ({navigation}) => {
     const [coefTextSpeed, setCoefTextSpeed] = useState(5)
     const [nbLines, setNbLines] = useState(4)
     const [debug, setDebug] = useState(false)
+    const [debugModal, setDebugModal] = useState(false)
     const [longitude, setLongitude] = useState()
     const [latitude, setLatitude] = useState()
     const [speed, setSpeed] = useState()
@@ -229,7 +230,7 @@ const Texte = ({navigation}) => {
             <Modal
                 animationType="slide"
                 transparent={false}
-                visible={debug}>
+                visible={debugModal}>
                 <View style={{marginTop: 50}}>
                     <OptionsModal
                         latitude={latitude}
@@ -245,15 +246,33 @@ const Texte = ({navigation}) => {
                     ></OptionsModal>
                     <Button title='Fermer'
                             onPress={() => {
-                                setDebug(!debug);
+                                setDebugModal(!debugModal);
                             }}></Button>
                 </View>
             </Modal>
             <View style={styles.textContainer}>
-                <Text style={[styles.textOver, {fontSize: 20 * coefPolice}]}>
-                    {vers}
-                </Text>
+                <TouchableOpacity onLongPress={() => {
+                    setDebug(!debug)
+                }}>
+                    <Text style={[styles.textOver, {fontSize: 20 * coefPolice}]}>
+                        {vers}
+                    </Text>
+                </TouchableOpacity>
             </View>
+            {debug &&
+            <View style={styles.containerCaptors}>
+                <Text style={styles.textCaptors}> Saison : {saison}  </Text>
+                <Text style={styles.textCaptors}> Moment : {moment}  </Text>
+                <Text style={styles.textCaptors}> Vitesse : {speed}  </Text>
+                <Text style={styles.textCaptors}> Activité : {activity}  </Text>
+                <Text style={styles.textCaptors}> Latitude : {latitude}  </Text>
+                <Text style={styles.textCaptors}> Longitude : {longitude}  </Text>
+                <Text style={styles.textCaptors}> Densité de pop : {localityDensity} </Text>
+                <Text style={styles.textCaptors}> Milieu : {localityType}</Text>
+                <Text style={styles.textCaptors}> Météo : {weather} </Text>
+                <Text style={styles.textCaptors}> Temperature : {temperature}</Text>
+            </View>
+            }
             {/* Back button */}
             <TouchableOpacity
                 style={{flex: 1, position: 'absolute', bottom: 0, left: 0, marginBottom: 5, marginLeft: 5}}
@@ -263,7 +282,7 @@ const Texte = ({navigation}) => {
             {/* Debug button */}
             <TouchableOpacity
                 style={{flex: 1, position: 'absolute', bottom: 0, right: 0, marginBottom: 5, marginRight: 5}}
-                onPress={() => setDebug(!debug)}>
+                onPress={() => setDebugModal(!debugModal)}>
                 <Ionicons name="md-information-circle-outline" size={32} color="darkgrey"/>
             </TouchableOpacity>
         </View>
