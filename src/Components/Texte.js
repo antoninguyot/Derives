@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react'
-import {Audio} from "expo-av";
-import {StyleSheet, Text, View, TouchableOpacity, Button} from 'react-native';
+import {Modal, StyleSheet, Text, View, TouchableOpacity, Button} from 'react-native';
 
 import CCamera from './CCamera';
-import {locationRequest, sedacLocationRequest, sedacDataset} from "../Helpers/location.js";
+import {sedacLocationRequest, sedacDataset} from "../Helpers/location.js";
+import {Ionicons} from '@expo/vector-icons';
 import * as Location from "expo-location";
 import {calculateSaison, calculateMoment} from '../Helpers/time';
 import {weatherRequest} from "../Helpers/weather";
@@ -11,8 +11,9 @@ import {getTextArray, interpretText} from "../Helpers/text";
 import {getUrlSound, soundFor} from "../Helpers/sound";
 import {ambianceNoiseFor} from "../Helpers/sound";
 import {punctualNoiseFor} from "../Helpers/sound";
+import OptionsModal from "./OptionsModal";
 
-const Texte = ({ navigation }) => {
+const Texte = ({navigation}) => {
     const [timer, setTimer] = useState()
     const [isMounted, setIsMounted] = useState(true)
     const [text, setText] = useState()
@@ -21,6 +22,7 @@ const Texte = ({ navigation }) => {
     const [coefTextSpeed, setCoefTextSpeed] = useState(5)
     const [nbLines, setNbLines] = useState(4)
     const [debug, setDebug] = useState(false)
+    const [debugModal, setDebugModal] = useState(false)
     const [longitude, setLongitude] = useState()
     const [latitude, setLatitude] = useState()
     const [speed, setSpeed] = useState()
@@ -232,6 +234,29 @@ const Texte = ({ navigation }) => {
             <View style={styles.cameraContener}>
                 <CCamera/>
             </View>
+            <Modal
+                animationType="slide"
+                transparent={false}
+                visible={debugModal}>
+                <View style={{marginTop: 50}}>
+                    <OptionsModal
+                        latitude={latitude}
+                        longitude={longitude}
+                        localityDensity={localityDensity}
+                        localityType={localityType}
+                        speed={speed}
+                        activity={activity}
+                        temperature={temperature}
+                        weather={weather}
+                        saison={saison}
+                        moment={moment}
+                    ></OptionsModal>
+                    <Button title='Fermer'
+                            onPress={() => {
+                                setDebugModal(!debugModal);
+                            }}></Button>
+                </View>
+            </Modal>
             <View style={styles.textContainer}>
                 <TouchableOpacity onLongPress={() => {
                     setDebug(!debug)
@@ -255,9 +280,18 @@ const Texte = ({ navigation }) => {
                 <Text style={styles.textCaptors}> Temperature : {temperature}</Text>
             </View>
             }
-            <Button title="Retour"
-                    onPress={() => navigation.navigate('Menu')}>
-            </Button>
+            {/* Back button */}
+            <TouchableOpacity
+                style={{flex: 1, position: 'absolute', bottom: 0, left: 0, marginBottom: 5, marginLeft: 5}}
+                onPress={() => navigation.navigate('Accueil')}>
+                <Ionicons name="md-arrow-back-circle-outline" size={32} color="darkgrey"/>
+            </TouchableOpacity>
+            {/* Debug button */}
+            <TouchableOpacity
+                style={{flex: 1, position: 'absolute', bottom: 0, right: 0, marginBottom: 5, marginRight: 5}}
+                onPress={() => setDebugModal(!debugModal)}>
+                <Ionicons name="md-information-circle-outline" size={32} color="darkgrey"/>
+            </TouchableOpacity>
         </View>
     )
 }
@@ -289,7 +323,6 @@ const styles = StyleSheet.create({
     },
     textCaptors: {
         fontSize: 12,
-        // textAlign: 'center',
         color: 'white',
         textShadowColor: 'black',
         textShadowRadius: 10
