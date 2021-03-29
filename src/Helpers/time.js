@@ -53,3 +53,17 @@ export const calculateMoment = () => {
         }
     }
 }
+
+export const calculateNextMoment = () => {
+    let moment = calculateMoment()
+    switch (moment) {
+        case 'nuit':
+            return 'matin'
+        case 'matin':
+            return 'midi'
+        case 'midi':
+            return 'soir'
+        case 'soir':
+            return 'nuit'
+    }
+}

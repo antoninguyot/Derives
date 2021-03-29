@@ -1,15 +1,56 @@
-import React, {useEffect, useState} from 'react'
-import {Button, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import React, {useEffect, useState, useRef} from 'react'
+import {Animated, StyleSheet, Text, View} from "react-native";
 import CCamera from "./CCamera";
 import * as Location from "expo-location";
-import {calculateMoment} from "../Helpers/time";
-import {Image} from "react-native-web";
+import {calculateNextMoment} from "../Helpers/time";
+import {Ionicons} from '@expo/vector-icons';
 
 const Sas = ({navigation}) => {
 
-    const [initialSpeed, setInitialSpeed] = useState(0)
-    const [speedAverage, setSpeedAverage] = useState(0)
-    const [willTimeTravel, setWillTimeTravel] = useState(false)
+    const [initialSpeed, setInitialSpeed] = useState(null)
+    const [speedAverage, setSpeedAverage] = useState(null)
+    const [willTimeTravel, setWillTimeTravel] = useState(null)
+
+    const fadeAnim = useRef(new Animated.Value(0)).current  // Initial value for opacity: 0
+    let sasTimeout;
+
+    React.useEffect(() => {
+        Animated.loop(Animated.timing(
+            fadeAnim,
+            {
+                toValue: 1,
+                duration: 1000,
+                useNativeDriver: true,
+            }
+        )).start();
+    }, [fadeAnim])
+
+    useEffect(() => {
+        if (willTimeTravel === true) {
+            setTimeout(() => {
+                navigation.replace('Texte', {
+                    moment: calculateNextMoment()
+                })
+            }, 2000)
+        } else if (willTimeTravel === false) {
+            navigation.replace('Texte')
+        }
+    }, [willTimeTravel])
+
+    useEffect(() => {
+        if(initialSpeed !== null && speedAverage !== null){
+            // Start the countdown
+            sasTimeout = setTimeout(() => {
+                if (speedAverage - initialSpeed > 0) {
+                    // If the avg speed was higher than the original, navigate to the next period
+                    setWillTimeTravel(true)
+                } else {
+                    // Else, loop
+                    setWillTimeTravel(false)
+                }
+            }, 5000)
+        }
+    }, [initialSpeed, speedAverage])
 
     useEffect(() => {
         // Play music
@@ -27,40 +68,6 @@ const Sas = ({navigation}) => {
             setSpeedAverage((speedAverage + location.coords.speed) / 2)
         })
 
-        // Set timeout for n seconds
-        let sasTimeout = setTimeout(() => {
-            if (speedAverage - initialSpeed > 0) {
-                console.log('time travel')
-                let newMoment = () => {
-                    let moment = calculateMoment()
-                    switch (moment) {
-                        case 'nuit':
-                            return 'matin'
-                        case 'matin':
-                            return 'midi'
-                        case 'midi':
-                            return 'soir'
-                        case 'soir':
-                            return 'nuit'
-                    }
-                }
-                setWillTimeTravel(true)
-                console.log('willtimetravel')
-                setTimeout(() => {
-                    navigation.replace('Texte', {
-                        moment: newMoment()
-                    })
-                }, 2000)
-            } else {
-                console.log('nope');
-                setWillTimeTravel(true)
-                setTimeout(() => {
-                    navigation.replace('Texte')
-                }, 2000)
-            }
-        }, 5000)
-        // If the avg speed was higher than the original, navigate to the next period
-        // Else, loop
 
         return () => {
             clearTimeout(sasTimeout)
@@ -75,8 +82,34 @@ const Sas = ({navigation}) => {
             <View style={styles.cameraContener}>
                 <CCamera/>
                 {willTimeTravel &&
-                <Image style={{position: 'absolute', marginHorizontal: 'auto', marginVertical: 'auto'}}
-                       source={require("../../assets/images/ticking.gif")}></Image>
+                <Animated.View style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    fontSize: 70,
+                    flexDirection: 'row',
+                    opacity: fadeAnim
+                }}>
+                    <Ionicons name="md-play-skip-forward" size={64} color="white"/>
+                    <Ionicons name="md-play-skip-forward" size={64} color="white"/>
+                </Animated.View>
+                ||
+                <Animated.View style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    marginTop: 50,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    opacity: fadeAnim
+                }}>
+                    <Text>Accélérez pour passer à : {calculateNextMoment()}</Text>
+                </Animated.View>
                 }
             </View>
         </View>
