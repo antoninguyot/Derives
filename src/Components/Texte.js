@@ -1,5 +1,4 @@
-import React, {useEffect, useState, useRef, useCallback} from 'react'
-import {Audio} from "expo-av";
+import React, {useEffect, useState} from 'react'
 import {StyleSheet, Text, View, TouchableOpacity, Button} from 'react-native';
 
 import CCamera from './CCamera';
@@ -11,19 +10,15 @@ import {getTextArray, interpretText} from "../Helpers/text";
 import {getUrlSound, soundFor} from "../Helpers/sound";
 import {ambianceNoiseFor} from "../Helpers/sound";
 import {punctualNoiseFor} from "../Helpers/sound";
+import useInterval from "@use-it/interval";
 
 const Texte = ({ navigation }) => {
   const [timer, setTimer] = useState()
   const [isMounted, setIsMounted] = useState(true)
-  const [text, setText] = useState()
-  const [vers, setVers] = useState("Commencez à marcher !")
-  const [coefPolice, setCoefPolice] = useState(1)
-  const [coefTextSpeed, setCoefTextSpeed] = useState(5)
-  // const [nbLines, setNbLines] = useState(4)
   const [debug, setDebug] = useState(false)
   const [longitude, setLongitude] = useState()
   const [latitude, setLatitude] = useState()
-  // const [speed, setSpeed] = useState()
+  const [previousSpeed, setPreviousSpeed] = useState()
   const [currentSpeed, setCurrentSpeed] = useState()
   const [activity, setActivity] = useState();
   const [localityDensity, setLocalityDensity] = useState()
@@ -34,19 +29,26 @@ const Texte = ({ navigation }) => {
   const [weather, setWeather] = useState(navigation.getParam('weather'))
   const [speedIncreased, setSpeedIncreased] = useState(false)
 
-  let nbLines = 4 
+  // State concernant le poème écrit
+  const [text, setText] = useState()
+  const [vers, setVers] = useState("Commencez à marcher !")
+  const [index, setIndex] = useState(0);
+  const [nbLines, setNbLines] = useState(4)
+  const [coefPolice, setCoefPolice] = useState(1)
+  const [coefTextSpeed, setCoefTextSpeed] = useState(5)
+
 
   /**
    * Mise à jour de la position du téléphone
    * @param location
    */
-  const updateLocation = useCallback((location) => {
+  const updateLocation = (location) => {
     if (isMounted) {
       setLongitude(location.coords.longitude)
       setLatitude(location.coords.latitude)
       setCurrentSpeed(location.coords.speed)
     }
-  })
+  }
 
   /**
    * Mise à jour du temps de la journée
@@ -101,56 +103,6 @@ const Texte = ({ navigation }) => {
             }, 10000)
         }
     }, [vers])
-
-  /**
-   * Démarrage du poème lorsque toutes les infos sont présentes
-   */
-  useEffect(() => {
-    if (isMounted && localityType && weather && saison && text && timer == null) {
-      // _startTimer()
-      console.log("hello")
-        let index = 0
-        let previousSpeed
-        setTimer(setInterval(() => {
-            console.log(previousSpeed, currentSpeed)
-            if (previousSpeed === undefined){
-              previousSpeed = 0
-            }
-            console.log( Math.round(currentSpeed * 1000) / 100 > 0.3 + previousSpeed)
-            if ( Math.round(currentSpeed * 1000) / 100 > 0.3 + previousSpeed) {
-              // setCoefTextSpeed(coefTextSpeed + 2)
-              console.log("acceleration")
-              setCoefPolice(Math.min(coefPolice + 1,3))
-              nbLines = Math.max(nbLines - 1 ,2)
-              setSpeedIncreased(true) 
-            } else {
-              console.log("ralentissement")
-              // setCoefTextSpeed(coefTextSpeed - 2)
-              setCoefPolice(Math.min(coefPolice -1 ,4))
-              nbLines = Math.min(nbLines + 1 ,2)
-              setSpeedIncreased(false)
-            }
-            previousSpeed = currentSpeed
-
-          // Si on est arrivé à la fin du texte, on boucle
-          if (text.length < index + nbLines) {
-            index = 0;
-          }
-  
-          // Sinon, on génère le nouveau vers
-          // Pour chaque ligne (dépend de la vitesse)
-          let vers = ""
-          console.log("nb line", nbLines)
-          for (let i = 0; i < nbLines; i++) {
-            // On récupère une partie du texte et on la fait varier avec interpretText
-            vers += "\n" + interpretText(text[index], localityType, "stationary", saison, weather)
-            index = index + 1
-          }
-          setVers(vers)
-        }, 3000))
-      }
-    return () => clearInterval(timer)
-  }, [currentSpeed, updateLocation])
 
     /**
      * Mise à jour des coefficients
@@ -214,58 +166,49 @@ const Texte = ({ navigation }) => {
 
   }, [])
 
-  /**
-   * Démarage du défilement du texte
-   */
-  // const _startTimer = () => {
-  //   if (isMounted) {
-  //     let index = 0
-  //     let previousSpeed
-
-  //     setTimer(setInterval(() => {
-  //       if (isMounted) {
-  //         console.log(previousSpeed, currentSpeed)
-  //         if (previousSpeed === undefined){
-  //           previousSpeed = 0
-  //         }
-  //         console.log( Math.round(currentSpeed * 1000) / 100 > 0.3 + previousSpeed)
-  //         if ( Math.round(currentSpeed * 1000) / 100 > 0.3 + previousSpeed) {
-  //           // setCoefTextSpeed(coefTextSpeed + 2)
-  //           console.log("acceleration")
-  //           setCoefPolice(Math.min(coefPolice + 1,3))
-  //           nbLines = Math.max(nbLines - 1 ,2)
-  //           setSpeedIncreased(true) 
-  //         } else {
-  //           console.log("ralentissement")
-  //           // setCoefTextSpeed(coefTextSpeed - 2)
-  //           setCoefPolice(Math.min(coefPolice -1 ,4))
-  //           nbLines = Math.min(nbLines + 1 ,2)
-  //           setSpeedIncreased(false)
-  //         }
-  //         previousSpeed = currentSpeed
-  //       }
-  //       // Si on est arrivé à la fin du texte, on boucle
-  //       if (text.length < index + nbLines) {
-  //         index = 0;
-  //       }
-
-  //       // Sinon, on génère le nouveau vers
-  //       // Pour chaque ligne (dépend de la vitesse)
-  //       let vers = ""
-  //       console.log("nb line", nbLines)
-  //       for (let i = 0; i < nbLines; i++) {
-  //         // On récupère une partie du texte et on la fait varier avec interpretText
-  //         vers += "\n" + interpretText(text[index], localityType, "stationary", saison, weather)
-  //         index = index + 1
-  //       }
-  //       setVers(vers)
-  //     }, 3000))
-  //   }
-  // }
-
   const toogleDebug = () => {
     setDebug(!debug)
   }
+
+  useInterval(() => {
+    if(!isMounted || !localityType || !weather || !saison || !text || !currentSpeed || !localityDensity) {
+      return;
+    }
+
+      console.log( Math.round(currentSpeed * 1000) / 100 > 0.3 + previousSpeed)
+      if ( Math.round(currentSpeed * 1000) / 100 > 0.3 + previousSpeed) {
+        // setCoefTextSpeed(coefTextSpeed + 2)
+        console.log("acceleration")
+        setCoefPolice(Math.min(coefPolice + 1,3))
+        setNbLines(Math.max(nbLines - 1 ,2))
+        setSpeedIncreased(true)
+      } else {
+        console.log("ralentissement")
+        // setCoefTextSpeed(coefTextSpeed - 2)
+        setCoefPolice(Math.max(coefPolice - 1 ,1))
+        setNbLines(Math.min(nbLines + 1 ,2))
+        setSpeedIncreased(false)
+      }
+      setPreviousSpeed(currentSpeed)
+
+    // Si on est arrivé à la fin du texte, on boucle
+    if (text.length < index + nbLines) {
+      setIndex(0);
+    }
+
+    // Sinon, on génère le nouveau vers
+    // Pour chaque ligne (dépend de la vitesse)
+    let vers = ""
+    let tmpIndex = index // très sale
+    console.log("nb line", nbLines)
+    for (let i = 0; i < nbLines; i++) {
+      // On récupère une partie du texte et on la fait varier avec interpretText
+      vers += "\n" + interpretText(text[tmpIndex], localityType, "stationary", saison, weather)
+      tmpIndex++
+    }
+    setIndex(tmpIndex)
+    setVers(vers)
+  }, 3000)
 
 
   return (
@@ -287,7 +230,6 @@ const Texte = ({ navigation }) => {
         <Text style={styles.textCaptors}> Saison : {saison}  </Text>
         <Text style={styles.textCaptors}> Moment : {moment}  </Text>
         <Text style={styles.textCaptors}> Vitesse : {currentSpeed}  </Text>
-        <Text style={styles.textCaptors}> Activité : {activity}  </Text>
         <Text style={styles.textCaptors}> Latitude : {latitude}  </Text>
         <Text style={styles.textCaptors}> Longitude : {longitude}  </Text>
         <Text style={styles.textCaptors}> Densité de pop : {localityDensity} </Text>
@@ -340,24 +282,3 @@ const styles = StyleSheet.create({
 });
 
 export default Texte
-
-
-// function useInterval(callback, delay) {
-//   const savedCallback = useRef();
-
-//   // Remember the latest callback.
-//   useEffect(() => {
-//     savedCallback.current = callback;
-//   }, [callback]);
-
-//   // Set up the interval.
-//   useEffect(() => {
-//     function tick() {
-//       savedCallback.current();
-//     }
-//     if (delay !== null) {
-//       let id = setInterval(tick, delay);
-//       return () => clearInterval(id);
-//     }
-//   }, [delay]);
-// }
