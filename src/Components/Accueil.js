@@ -33,8 +33,7 @@ const Accueil = ({navigation}) => {
     getData()
   }, [])
 
-  let jDate = new Date()
-  let moment = calculateMoment(calculateSaison(jDate.getMonth()), jDate.getHours())
+  let moment = calculateMoment()
 
   return (
       <View style={[styles.mainContainer, {backgroundColor: setColorBackground(moment)}]}>
