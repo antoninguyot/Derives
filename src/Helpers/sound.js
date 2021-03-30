@@ -85,13 +85,19 @@ export const soundFor = async (urlSound) => {
     return Audio.Sound.createAsync(urlSound,{shouldPlay:true,volume:0.6})
 }
 //BRUITS
-export const punctualNoiseFor = async (moment) => {
+export const punctualNoiseFor = async (moment,vers) => {
     let random;
     let punctualNoiseFile;
     switch (moment) {
         case "matin": {
-            random = Math.floor(Math.random() * 5)
-            punctualNoiseFile = noiseFiles.punctual.matin[random]
+            if(vers.includes("oiseau")) {
+                random = Math.floor(Math.random()*2)
+                if (random === 0)punctualNoiseFile = noiseFiles.punctual.matin[0]
+                if (random === 1)punctualNoiseFile = noiseFiles.punctual.matin[5]
+            }
+            if(vers.includes("rires"))punctualNoiseFile = noiseFiles.punctual.matin[1]
+            if(vers.includes("chantier"))punctualNoiseFile = noiseFiles.punctual.matin[2]
+            if(vers.includes("rumeur"))punctualNoiseFile = noiseFiles.punctual.matin[3]
             break
         }
         case "midi": {
