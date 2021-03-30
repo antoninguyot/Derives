@@ -101,8 +101,16 @@ export const punctualNoiseFor = async (moment,vers) => {
             break
         }
         case "midi": {
-            random = Math.floor(Math.random() * 6)
-            punctualNoiseFile = noiseFiles.punctual.midi[random]
+            if(vers.includes("traces")) {
+                random = Math.floor(Math.random()*3)
+                if (random === 0)punctualNoiseFile = noiseFiles.punctual.matin[0]
+                if (random === 1)punctualNoiseFile = noiseFiles.punctual.matin[1]
+                if (random === 2)punctualNoiseFile = noiseFiles.punctual.matin[2]
+            }
+            if(vers.includes("Battante") || vers.includes("te fouette"))punctualNoiseFile = noiseFiles.punctual.matin[3]
+            if(vers.includes("chant"))punctualNoiseFile = noiseFiles.punctual.matin[4]
+            if(vers.includes("guerre"))punctualNoiseFile = noiseFiles.punctual.matin[5]
+            if(vers.includes("écume") || vers.includes("Océanique"))punctualNoiseFile = noiseFiles.punctual.matin[6]
             break
         }
         case "soir": {
