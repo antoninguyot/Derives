@@ -1,5 +1,6 @@
 import {StyleSheet, Text, View, SectionList, Button} from 'react-native';
 import React from 'react'
+import {groupStyleSheet} from "../../Appcss";
 
 const OptionsModal = ({
                           latitude,
@@ -61,32 +62,5 @@ const OptionsModal = ({
     )
 }
 
-const styles = StyleSheet.create({
-    listItem: {
-        flexDirection: 'row',
-        borderBottomWidth: 0.5,
-        borderBottomColor: 'gray',
-        paddingVertical: 10,
-        paddingHorizontal: 10,
-        alignContent: 'space-between',
-        backgroundColor: 'white',
-    },
-    listKey: {
-        flex: 1,
-        fontWeight: '400'
-    },
-    listValue: {
-        flex: 1,
-        textAlign: 'right',
-        color: 'grey'
-    },
-    sectionHeader: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        paddingHorizontal: 10,
-        marginTop: 15,
-        // backgroundColor: 'white'
-    }
-})
-
+const styles = groupStyleSheet.styleOptionsModal
 export default OptionsModal

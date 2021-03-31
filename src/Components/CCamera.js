@@ -3,6 +3,7 @@
 import React, { useEffect } from 'react'
 import {StyleSheet, View} from 'react-native'
 import {Camera} from "expo-camera";
+import {groupStyleSheet} from "../../Appcss";
 
 const CCamera = () => {
 
@@ -16,17 +17,6 @@ const CCamera = () => {
     )
 }
 
-  const styles = StyleSheet.create({
-      mainContainer: {
-          flex: 1,
-          flexDirection: 'column',
-          backgroundColor: 'black',
-      },
-      preview: {
-          flex: 1,
-          justifyContent: 'flex-end',
-          alignItems: 'center',
-      },
-  });
+  const styles = groupStyleSheet.styleCCamera
 
 export default CCamera

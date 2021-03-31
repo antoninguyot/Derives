@@ -2,8 +2,9 @@ import React, {useState, useEffect} from 'react'
 import { StyleSheet, View, Button, Text } from 'react-native'
 import {calculateMoment, calculateSaison} from '../Helpers/time';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {setColorBackground, setColorButtonMenu, setColorWriting,setColorWritingButton} from '../Helpers/colorInterface';
+import {setColorBackground, setColorWriting} from '../Helpers/colorInterface';
 import TouchableOpacity from "react-native-gesture-handler/src/components/touchables/TouchableOpacity";
+import {groupStyleSheet} from "../../Appcss";
 
 const description = "Vous allez vivre une expérience poétique – visuelle et sonore – en marchant.\nSelon votre vitesse, mais aussi le moment de la journée, la saison, la température, l'environnement, votre expérience ne sera pas la même..."
 
@@ -58,30 +59,6 @@ const Accueil = ({navigation}) => {
   )
 }
 
-const styles = StyleSheet.create({
-  welcomeText: {
-    fontSize: 28,
-    textAlign: "center",
-    marginBottom: 50,
-  },
-  buttonGo: {
-    paddingTop:20,
-    paddingLeft:20,
-    paddingRight:20,
-    paddingBottom:20,
-    textAlign:'center',
-    borderRadius: 10,
-    borderWidth: 0,
-  },
-  mainContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    padding: 10,
-  },
-  buttonText: {
-    fontSize: 28,
-    textAlign: "center",
-  }
-})
+const styles = groupStyleSheet.styleAccueil
 
 export default Accueil

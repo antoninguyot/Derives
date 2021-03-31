@@ -4,6 +4,7 @@ import CCamera from "./CCamera";
 import * as Location from "expo-location";
 import {calculateNextMoment} from "../Helpers/time";
 import {Ionicons} from '@expo/vector-icons';
+import {groupStyleSheet} from "../../Appcss";
 
 const Sas = ({navigation}) => {
 
@@ -116,14 +117,6 @@ const Sas = ({navigation}) => {
     )
 }
 
-const styles = StyleSheet.create({
-    mainContainer: {
-        flex: 10,
-        justifyContent: 'center',
-    },
-    cameraContener: {
-        flex: 9
-    }
-});
+const styles = groupStyleSheet.styleSas
 
 export default Sas
