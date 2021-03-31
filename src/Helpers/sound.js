@@ -41,6 +41,36 @@ const noiseFiles = {
             require("../data/Musics/Bruitages/Sons_Ponctuels/Midi/03_Chants.mp3"),
             require("../data/Musics/Bruitages/Sons_Ponctuels/Midi/04_Guerre.mp3"),
             require("../data/Musics/Bruitages/Sons_Ponctuels/Midi/05_Navires.mp3"),
+        ],
+        acceleration: [
+            require("../data/Musics/Bruitages/Sons_Acceleration/S1.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S2.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S3.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S4.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S5.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S6.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S7.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S8.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S9.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S10.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S11.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S12.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S13.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S14.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S15.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S16.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S17.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S18.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S19.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S20.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S21.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S22.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S23.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S24.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S25.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S26.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S27.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S28.wav")
         ]
     },
     ambiance : {
@@ -128,6 +158,13 @@ export const punctualNoiseFor = async (moment,vers) => {
         }
     }
     return Audio.Sound.createAsync(punctualNoiseFile,{shouldPlay:true,volume:0.1})
+}
+
+export const speedNoiseFor= (moment) => {
+    let random = Math.floor(Math.random()*28)
+    let speepNoiseFile = noiseFiles.punctual.acceleration[random]
+    return Audio.Sound.createAsync(speepNoiseFile,{shouldPlay:true,volume:0.1})
+
 }
 //AMBIANCE
 export const ambianceNoiseFor = async (location) => {
