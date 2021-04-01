@@ -14,39 +14,39 @@ export const calculateSaison = () => {
  * À passer sur l'API de la météo
  */
 export const calculateMoment = () => {
-    let hour = (new Date()).getHours()
+    let hour = (new Date('September 22, 2018 23:00:00')).getHours()
     let saison = calculateSaison()
     switch (saison) {
         case "printemps": {
-            if (hour <= 6 && hour > 20) return "nuit" // possible faire un switch ?
+            if (hour <= 6 || hour > 20) return "nuit"
             else if (hour > 6 && hour <= 10) return "matin"
-            else if (hour > 10 && hour <= 17) return "midi" // réequilibrer les horaires si besoin pour avoir meilleure repartition entre les 4 textes
+            else if (hour > 10 && hour <= 17) return "midi"
             else return "soir"
         }
 
         case "été": {
-            if (hour <= 5 && hour > 22) return "nuit"
+            if (hour <= 5 || hour > 22) return "nuit"
             else if (hour > 5 && hour <= 10) return "matin"
             else if (hour > 10 && hour <= 18) return "midi"
             else return "soir"
         }
 
         case "automne": {
-            if (hour <= 6 && hour > 20) return "nuit"
+            if (hour <= 6 || hour > 20) return "nuit"
             else if (hour > 6 && hour <= 10) return "matin"
             else if (hour > 10 && hour <= 17) return "midi"
             else return "soir"
         }
 
         case "hiver": {
-            if (hour <= 7 && hour > 19) return "nuit"
+            if (hour <= 7 || hour > 19) return "nuit"
             else if (hour > 7 && hour <= 10) return "matin"
             else if (hour > 10 && hour <= 17) return "midi"
             else return "soir"
         }
 
         default: {
-            if (hour <= 5 && hour > 21) return "nuit"
+            if (hour <= 5 || hour > 21) return "nuit"
             else if (hour > 5 && hour <= 10) return "matin"
             else if (hour > 10 && hour <= 18) return "midi"
             else return "soir"

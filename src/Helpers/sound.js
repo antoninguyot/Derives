@@ -2,24 +2,24 @@ import {Audio} from "expo-av";
 
 const soundFiles = {
     matin: [
-        require("../data/Musics/matin_mus_1.mp3"),
-        require("../data/Musics/matin_mus_2.mp3"),
-        require("../data/Musics/matin_mus_3.mp3")
+        require("../data/Musics/Musics/matin_mus_1.mp3"),
+        require("../data/Musics/Musics/matin_mus_2.mp3"),
+        require("../data/Musics/Musics/matin_mus_3.mp3")
     ],
     midi: [
-        require("../data/Musics/midi_mus_1.mp3"),
-        require("../data/Musics/midi_mus_2.mp3"),
-        require("../data/Musics/midi_mus_3.mp3")
+        require("../data/Musics/Musics/midi_mus_1.mp3"),
+        require("../data/Musics/Musics/midi_mus_2.mp3"),
+        require("../data/Musics/Musics/midi_mus_3.mp3")
     ],
     soir: [
-        require("../data/Musics/soir_mus_1.mp3"),
-        require("../data/Musics/soir_mus_1.mp3"),
-        require("../data/Musics/soir_mus_1.mp3"),
+        require("../data/Musics/Musics/soir_mus_1.mp3"),
+        require("../data/Musics/Musics/soir_mus_1.mp3"),
+        require("../data/Musics/Musics/soir_mus_1.mp3"),
     ],
     nuit:[
-        require("../data/Musics/nuit_mus_1.mp3"),
-        require("../data/Musics/nuit_mus_1.mp3"),
-        require("../data/Musics/nuit_mus_1.mp3"),
+        require("../data/Musics/Musics/nuit_mus_1.mp3"),
+        require("../data/Musics/Musics/nuit_mus_1.mp3"),
+        require("../data/Musics/Musics/nuit_mus_1.mp3"),
     ]
 }
 
