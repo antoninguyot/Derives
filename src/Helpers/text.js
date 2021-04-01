@@ -31,7 +31,7 @@ export const getTextArray = (moment) => {
  * @param saison
  * @param heat
  */
-export const interpretText = (sentence, localityType , activity , saison, heat) => {
+export const interpretText = (sentence, localityType , activity , saison, heat, speedIncreased) => {
     let sentence_new = ""
     for (let i = 0; i < sentence.length; i++) {
         if (sentence.charAt(i) === "$") {
@@ -65,7 +65,7 @@ export const interpretText = (sentence, localityType , activity , saison, heat) 
     }
     for (let i = 0; i < sentence_new.length; i++) {
         if (sentence_new.charAt(i) === "$") {
-            sentence_new = interpretText(sentence_new, localityType, activity, saison, heat) //Permet de faire 2 niveaux d'interprétation
+            sentence_new = interpretText(sentence_new, localityType, activity, saison, heat, speedIncreased) //Permet de faire 2 niveaux d'interprétation
         }
     }
     return sentence_new

@@ -39,7 +39,7 @@ const Texte = ({navigation}) => {
   const [coefTextSpeed, setCoefTextSpeed] = useState(5)
   const [currentSpeed, setCurrentSpeed] = useState()
   const [previousSpeed, setPreviousSpeed] = useState()
-
+  const [speedIncreased, setSpeedIncreased] = useState(false)
 
 
   /**
@@ -183,13 +183,13 @@ const Texte = ({navigation}) => {
       console.log("acceleration")
       setCoefPolice(Math.min(coefPolice + 1 ,3))
       setNbLines(Math.max(nbLines - 1 ,2))
-      // setSpeedIncreased(true)
+      setSpeedIncreased(true)
     } else if (currentSpeed - previousSpeed < 0.5) {
       console.log("ralentissement")
       // setCoefTextSpeed(coefTextSpeed - 2)
       setCoefPolice(Math.max(coefPolice - 1,1))
       setNbLines(Math.min(nbLines + 1 ,4))
-      // setSpeedIncreased(false)
+      setSpeedIncreased(false)
     }
     setPreviousSpeed(currentSpeed)
   }, [currentSpeed])
@@ -211,7 +211,7 @@ const Texte = ({navigation}) => {
     console.log("nb line", nbLines)
     for (let i = 0; i < nbLines; i++) {
       // On récupère une partie du texte et on la fait varier avec interpretText
-      vers += "\n" + interpretText(text[tmpIndex], localityType, "stationary", saison, weather)
+      vers += "\n" + interpretText(text[tmpIndex], localityType, "stationary", saison, weather, speedIncreased)
       tmpIndex++
     }
     setIndex(tmpIndex)
