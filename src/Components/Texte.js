@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Modal, StyleSheet, Text, View, TouchableOpacity, Button} from 'react-native';
+import {Modal, Text, View, TouchableOpacity, Button} from 'react-native';
 
 import CCamera from './CCamera';
 import {sedacLocationRequest, sedacDataset} from "../Helpers/location.js";

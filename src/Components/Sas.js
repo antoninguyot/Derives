@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react'
-import {Animated, StyleSheet, Text, View} from "react-native";
+import {Animated, Text, View} from "react-native";
 import CCamera from "./CCamera";
 import * as Location from "expo-location";
 import {calculateNextMoment} from "../Helpers/time";

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
-import { StyleSheet, View, Button, Text } from 'react-native'
-import {calculateMoment, calculateSaison} from '../Helpers/time';
+import { View, Text } from 'react-native'
+import {calculateMoment} from '../Helpers/time';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {setColorBackground, setColorWriting} from '../Helpers/colorInterface';
 import TouchableOpacity from "react-native-gesture-handler/src/components/touchables/TouchableOpacity";

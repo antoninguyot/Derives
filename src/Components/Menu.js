@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Text, View, StyleSheet, TouchableOpacity} from 'react-native'
+import { Text, View, TouchableOpacity} from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker';
 import {calculateMoment, calculateSaison} from '../Helpers/time';
 import {setColorBackground,setColorWriting} from "../Helpers/colorInterface";

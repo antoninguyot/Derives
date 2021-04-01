@@ -1,7 +1,7 @@
 /* === Component permettant de filmer avec la caméra l'environnement === */
 
-import React, { useEffect } from 'react'
-import {StyleSheet, View} from 'react-native'
+import React, {} from 'react'
+import {View} from 'react-native'
 import {Camera} from "expo-camera";
 import {groupStyleSheet} from "../../Appcss";
 

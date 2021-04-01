@@ -1,6 +1,5 @@
-import {Text, View, StyleSheet, SafeAreaView, ScrollView, Image, TouchableOpacity} from "react-native";
-import React,{useEffect,useState} from 'react';
-import Constants from 'expo-constants';
+import {Text, SafeAreaView, ScrollView, Image, TouchableOpacity} from "react-native";
+import React from 'react';
 import {setColorBackground, setColorWriting} from "../Helpers/colorInterface";
 import {calculateMoment, calculateSaison} from "../Helpers/time";
 import {groupStyleSheet} from "../../Appcss";

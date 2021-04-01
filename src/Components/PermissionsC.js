@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useEffect} from 'react'
 import {StyleSheet, Button, Text, View} from "react-native";
 import * as Permissions from 'expo-permissions';
 import {usePermissions} from "expo-permissions";
