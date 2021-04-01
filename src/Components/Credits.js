@@ -1,8 +1,8 @@
-import {Text, View, StyleSheet, SafeAreaView, ScrollView, Image, TouchableOpacity} from "react-native";
-import React,{useEffect,useState} from 'react';
-import Constants from 'expo-constants';
+import {Text, SafeAreaView, ScrollView, Image, TouchableOpacity} from "react-native";
+import React from 'react';
 import {setColorBackground, setColorWriting} from "../Helpers/colorInterface";
 import {calculateMoment, calculateSaison} from "../Helpers/time";
+import {groupStyleSheet} from "../../Appcss";
 
 const photos = [
     '../data/Photo/Photo_Cecile.jpeg',
@@ -91,42 +91,6 @@ const Credits = ({navigation}) => {
     )
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'space-evenly',
-        flexDirection: 'column',
-        alignItems:'center',
-        alignContent:'center',
-        padding: 10,
-    },
-    scrollView: {
-        marginLeft:50
-    },
-    text: {
-        fontSize: 28,
-        padding: 10,
-    },
-    textTitle:{
-        fontSize: 28,
-        padding: 10,
-        fontWeight:'bold'
-    },
-    photo:{
-        width: 250,
-        height: 250,
-        borderRadius:150,
-        resizeMode: 'stretch',
-    },
-    retourMenu:{
-        paddingTop:20,
-        paddingLeft:20,
-        paddingRight:20,
-        paddingBottom:20,
-        textAlign:'center',
-        borderRadius: 10,
-        borderWidth: 0,
-    }
-})
+const styles = groupStyleSheet.styleCredits
 
 export default Credits

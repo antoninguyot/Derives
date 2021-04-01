@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Modal, StyleSheet, Text, View, TouchableOpacity, Button} from 'react-native';
+import {Modal, Text, View, TouchableOpacity, Button} from 'react-native';
 
 import CCamera from './CCamera';
 import {sedacLocationRequest, sedacDataset} from "../Helpers/location.js";
@@ -12,6 +12,7 @@ import {getUrlSound, soundFor} from "../Helpers/sound";
 import {ambianceNoiseFor} from "../Helpers/sound";
 import {punctualNoiseFor} from "../Helpers/sound";
 import OptionsModal from "./OptionsModal";
+import {groupStyleSheet} from "../../Appcss";
 
 const Texte = ({navigation}) => {
     const [timer, setTimer] = useState()
@@ -283,7 +284,7 @@ const Texte = ({navigation}) => {
             {/* Back button */}
             <TouchableOpacity
                 style={{flex: 1, position: 'absolute', bottom: 0, left: 0, marginBottom: 5, marginLeft: 5}}
-                onPress={() => navigation.navigate('Accueil')}>
+                onPress={() => navigation.navigate('Menu')}>
                 <Ionicons name="md-arrow-back-circle-outline" size={32} color="darkgrey"/>
             </TouchableOpacity>
             {/* Debug button */}
@@ -296,38 +297,7 @@ const Texte = ({navigation}) => {
     )
 }
 
-const styles = StyleSheet.create({
-    mainContainer: {
-        flex: 10,
-        justifyContent: 'center',
-    },
-    cameraContener: {
-        flex: 9
-    },
-    textContainer: {
-        flex: 1,
-        position: 'absolute',
-        alignSelf: 'center'
-    },
-    textOver: {
-        fontSize: 40,
-        textAlign: 'center',
-        color: 'white',
-        textShadowColor: 'black',
-        textShadowRadius: 10
-    },
-    containerCaptors: {
-        flex: 1,
-        position: 'absolute',
-        bottom: '10%',
-    },
-    textCaptors: {
-        fontSize: 12,
-        color: 'white',
-        textShadowColor: 'black',
-        textShadowRadius: 10
-    }
-});
+const styles = groupStyleSheet.styleTexte
 
 export default Texte
 

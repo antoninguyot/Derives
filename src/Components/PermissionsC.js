@@ -1,7 +1,8 @@
-import React, {useState, useEffect} from 'react'
+import React, {useEffect} from 'react'
 import {StyleSheet, Button, Text, View} from "react-native";
 import * as Permissions from 'expo-permissions';
 import {usePermissions} from "expo-permissions";
+import {groupStyleSheet} from "../../Appcss";
 
 const PermissionsC = ({navigation}) => {
     const [locationPermission, askLocationPermission] = usePermissions(Permissions.LOCATION);
@@ -47,21 +48,6 @@ const PermissionsC = ({navigation}) => {
     )
 }
 
-const styles = StyleSheet.create({
-    row: {
-        flexDirection: "row",
-        paddingTop: 14,
-    },
-    text: {
-        flex: 1,
-        fontSize: 16,
-        textAlign: "center",
-        marginBottom: 50,
-    },
-    button: {
-        flex: 2,
-        textAlign: "center"
-    }
-});
+const styles = groupStyleSheet.stylePermissionsC
 
 export default PermissionsC

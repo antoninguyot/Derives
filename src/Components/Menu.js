@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
-import { Text, View, StyleSheet, TouchableOpacity} from 'react-native'
+import { Text, View, TouchableOpacity} from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker';
 import {calculateMoment, calculateSaison} from '../Helpers/time';
 import {setColorBackground,setColorWriting} from "../Helpers/colorInterface";
+import {groupStyleSheet} from "../../Appcss";
 
 const Menu = ({navigation}) => {
     const [moment, setMoment] = useState()
@@ -99,30 +100,6 @@ const Menu = ({navigation}) => {
 
 }
 
-const styles = StyleSheet.create({
-    textStyle: {
-        fontSize: 28,
-        textAlign: "center",
-        padding: 10,
-
-    },
-    buttonStyle: {
-        paddingTop:20,
-        paddingLeft:20,
-        paddingRight:20,
-        paddingBottom:20,
-        textAlign:'center',
-        borderRadius: 10,
-        borderWidth: 0,
-    },
-    flexContainer: {
-        flex: 1,
-        justifyContent: 'space-evenly',
-        flexDirection: 'column',
-        alignItems:'center',
-        padding: 10,
-    },
-
-})
+const styles = groupStyleSheet.styleMenu
 
 export default Menu
