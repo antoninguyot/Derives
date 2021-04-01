@@ -51,7 +51,7 @@ const Accueil = ({navigation}) => {
         {!firstConnexion && (
             <TouchableOpacity
                 style={[styles.buttonGo,{backgroundColor:setColorWriting(moment)}]}
-                onPress={() => navigation.navigate('Texte')}>
+                onPress={() => navigation.navigate('Menu')}>
               <Text style={[styles.buttonText, {color:setColorBackground(moment)}]}>GO</Text>
             </TouchableOpacity>
         )}
