@@ -7,7 +7,7 @@ import {Ionicons} from '@expo/vector-icons';
 import * as Location from "expo-location";
 import {calculateSaison, calculateMoment} from '../Helpers/time';
 import {weatherRequest} from "../Helpers/weather";
-import {getTextArray, interpretText} from "../Helpers/text";
+import {combine, getTextArray, interpretText} from "../Helpers/text";
 import {getUrlSound, soundFor} from "../Helpers/sound";
 import {ambianceNoiseFor} from "../Helpers/sound";
 import {punctualNoiseFor} from "../Helpers/sound";
@@ -31,7 +31,6 @@ const Texte = ({navigation}) => {
   const [weather, setWeather] = useState(navigation.getParam('weather'))
 
   // State concernant le poème écrit
-  const [text, setText] = useState()
   const [vers, setVers] = useState("Commencez à marcher !")
   const [index, setIndex] = useState(0);
   const [nbLines, setNbLines] = useState(4)
@@ -74,15 +73,6 @@ const Texte = ({navigation}) => {
       setLocalityType(localityDensity < 1000 ? 'country' : 'city')
     }
   }, [localityDensity])
-
-  /**
-   * Mise à jour du texter lorsque le moment de la journée change
-   */
-  useEffect(() => {
-    if (isMounted) {
-      setText(getTextArray(moment))
-    }
-  }, [moment])
 
     /**
      * Démarrage du son lorsque le moment de la journée change
@@ -195,9 +185,11 @@ const Texte = ({navigation}) => {
   }, [currentSpeed])
 
   useInterval(() => {
-    if(!isMounted || !localityType || !weather || !saison || !text || !currentSpeed || !localityDensity) {
+    if(!isMounted || !localityType || !weather || !saison || !moment || !currentSpeed || !localityDensity) {
       return;
     }
+
+    let text = getTextArray('matin')
     // Si on est arrivé à la fin du texte, on boucle
     if (text.length < index + nbLines) {
       navigation.replace('Sas')
@@ -208,10 +200,11 @@ const Texte = ({navigation}) => {
     // Pour chaque ligne (dépend de la vitesse)
     let vers = ""
     let tmpIndex = index // très sale
-    console.log("nb line", nbLines)
+    let relevantText = speedIncreased ? text.acceleration : text.stable
+
     for (let i = 0; i < nbLines; i++) {
       // On récupère une partie du texte et on la fait varier avec interpretText
-      vers += "\n" + interpretText(text[tmpIndex], localityType, "stationary", saison, weather, speedIncreased)
+      vers += "\n" + combine(relevantText[tmpIndex], localityType, weather)
       tmpIndex++
     }
     setIndex(tmpIndex)
@@ -260,7 +253,7 @@ const Texte = ({navigation}) => {
             <Text style={styles.textCaptors}> Saison : {saison}  </Text>
             <Text style={styles.textCaptors}> Moment : {moment}  </Text>
             <Text style={styles.textCaptors}> Vitesse : {currentSpeed}  </Text>
-            <Text style={styles.textCaptors}> Activité : {activity}  </Text>
+            <Text style={styles.textCaptors}> Accélération : {speedIncreased ? 'Oui' : 'Non'}  </Text>
             <Text style={styles.textCaptors}> Latitude : {latitude}  </Text>
             <Text style={styles.textCaptors}> Longitude : {longitude}  </Text>
             <Text style={styles.textCaptors}> Densité de pop : {localityDensity} </Text>
@@ -285,7 +278,7 @@ const Texte = ({navigation}) => {
             <Ionicons name="md-information-circle-outline" size={32} color="darkgrey"/>
         </TouchableOpacity>
     </View>
-  ) 
+  )
 }
 
 const styles = groupStyleSheet.styleTexte
