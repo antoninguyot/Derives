@@ -175,22 +175,24 @@ const Texte = ({ navigation }) => {
       return;
     }
 
-      console.log( Math.round(currentSpeed * 1000) / 100 > 0.3 + previousSpeed)
-      if ( Math.round(currentSpeed * 1000) / 100 > 0.3 + previousSpeed) {
+      console.log(currentSpeed - previousSpeed > 0.3)
+      console.log("previous speed", previousSpeed)
+      console.log("current speed : ", currentSpeed)
+
+      if ( currentSpeed - previousSpeed > 0.25) {
         // setCoefTextSpeed(coefTextSpeed + 2)
         console.log("acceleration")
         setCoefPolice(Math.min(coefPolice + 1,3))
         setNbLines(Math.max(nbLines - 1 ,2))
         setSpeedIncreased(true)
-      } else {
+      } else if (currentSpeed - previousSpeed < 0.3) {
         console.log("ralentissement")
         // setCoefTextSpeed(coefTextSpeed - 2)
         setCoefPolice(Math.max(coefPolice - 1 ,1))
-        setNbLines(Math.min(nbLines + 1 ,2))
+        setNbLines(Math.min(nbLines + 1 ,4))
         setSpeedIncreased(false)
       }
       setPreviousSpeed(currentSpeed)
-
     // Si on est arrivé à la fin du texte, on boucle
     if (text.length < index + nbLines) {
       setIndex(0);
