@@ -5,6 +5,8 @@ import PermissionsC from '../Components/PermissionsC'
 import Accueil from '../Components/Accueil'
 import Texte from '../Components/Texte'
 import Menu from '../Components/Menu'
+import Sas from '../Components/Sas'
+import Credits from '../Components/Credits'
 
 const StackNavigator = createStackNavigator({
   Permissions: {
@@ -17,22 +19,38 @@ const StackNavigator = createStackNavigator({
   Accueil: {
     screen: Accueil,
     navigationOptions: {
-      title: 'Accueil'
+      title: 'Accueil',
+      headerShown: false
     }
   },
   Texte: {
     screen: Texte,
     navigationOptions: {
-      title: null,
-      headerShown: false //(cette option peut être intéressante pour enlever le bandeau supérieure qui masque une partie de l'écran)
+      title: 'Dérives',
+      headerShown: false
+    }
+  },
+  Sas: {
+    screen: Sas,
+    navigationOptions: {
+      title: 'Dérives',
+      headerShown: false
     }
   },
   Menu: {
     screen: Menu,
     navigationOptions: {
-      title: 'Menu'
+      title: 'Menu',
+      headerShown: false
     }
   },
+  Credits: {
+    screen: Credits,
+    navigationOptions: {
+      title: 'Credits',
+      headerShown: false,
+    }
+  }
 })
 
 

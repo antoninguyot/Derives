@@ -1725,6 +1725,7 @@
   dependencies:
     "invariant" "^2.2.4"
     "lodash" "^4.5.0"
+<<<<<<< HEAD
 
 "@use-it/interval@^1.0.0":
   "integrity" "sha512-WQFcnSt/xM/mS8ZtJ0ut5lhPrl+V0HDPPcI/J0eUClsfiD+/r8A7IeW/pVcfpSVGWRmN3+WnjNteWuKyWs2WZg=="
@@ -1743,6 +1744,21 @@
   "resolved" "https://registry.npmjs.org/absolute-path/-/absolute-path-0.0.0.tgz"
   "version" "0.0.0"
 
+=======
+
+"abort-controller@^3.0.0":
+  "integrity" "sha512-h8lQ8tacZYnR3vNQTgibj+tODHI5/+l06Au2Pcriv/Gmet0eaj4TwWH41sO9wnHDiQsEj19q0drzdWdeAHtweg=="
+  "resolved" "https://registry.npmjs.org/abort-controller/-/abort-controller-3.0.0.tgz"
+  "version" "3.0.0"
+  dependencies:
+    "event-target-shim" "^5.0.0"
+
+"absolute-path@^0.0.0":
+  "integrity" "sha1-p4di+9rftSl76ZsV01p4Wy8JW/c="
+  "resolved" "https://registry.npmjs.org/absolute-path/-/absolute-path-0.0.0.tgz"
+  "version" "0.0.0"
+
+>>>>>>> 21d2d1f56db76db8ca6445595ab69cc3aa28ed9d
 "accepts@~1.3.5", "accepts@~1.3.7":
   "integrity" "sha512-Il80Qs2WjYlJIBNzNkK6KYqlVMTbZLXgHx2oT0pU/fjRHyEp+PEfEPY0R3WCwAGVOtauxh1hOxNgIf5bv7dQpA=="
   "resolved" "https://registry.npmjs.org/accepts/-/accepts-1.3.7.tgz"
@@ -1750,6 +1766,7 @@
   dependencies:
     "mime-types" "~2.1.24"
     "negotiator" "0.6.2"
+<<<<<<< HEAD
 
 "anser@^1.4.9":
   "integrity" "sha512-hCv9AqTQ8ycjpSd3upOJd7vFwW1JaoYQ7tpham03GJ1ca8/65rqn0RpaWpItOAd6ylW9wAw6luXYPJIyPFVOww=="
@@ -1770,6 +1787,28 @@
   dependencies:
     "ansi-wrap" "0.1.0"
 
+=======
+
+"anser@^1.4.9":
+  "integrity" "sha512-hCv9AqTQ8ycjpSd3upOJd7vFwW1JaoYQ7tpham03GJ1ca8/65rqn0RpaWpItOAd6ylW9wAw6luXYPJIyPFVOww=="
+  "resolved" "https://registry.npmjs.org/anser/-/anser-1.4.10.tgz"
+  "version" "1.4.10"
+
+"ansi-colors@^1.0.1":
+  "integrity" "sha512-SFKX67auSNoVR38N3L+nvsPjOE0bybKTYbkf5tRvushrAPQ9V75huw0ZxBkKVeRU9kqH3d6HA4xTckbwZ4ixmA=="
+  "resolved" "https://registry.npmjs.org/ansi-colors/-/ansi-colors-1.1.0.tgz"
+  "version" "1.1.0"
+  dependencies:
+    "ansi-wrap" "^0.1.0"
+
+"ansi-cyan@^0.1.1":
+  "integrity" "sha1-U4rlKK+JgvKK4w2G8vF0VtJgmHM="
+  "resolved" "https://registry.npmjs.org/ansi-cyan/-/ansi-cyan-0.1.1.tgz"
+  "version" "0.1.1"
+  dependencies:
+    "ansi-wrap" "0.1.0"
+
+>>>>>>> 21d2d1f56db76db8ca6445595ab69cc3aa28ed9d
 "ansi-escapes@^3.0.0":
   "integrity" "sha512-cBhpre4ma+U0T1oM5fXg7Dy1Jw7zzwv7lt/GoCpr+hDQJoYnKVPLL4dCvSEFMmQurOQvSrwT7SL/DAlhBI97RQ=="
   "resolved" "https://registry.npmjs.org/ansi-escapes/-/ansi-escapes-3.2.0.tgz"
@@ -2947,7 +2986,11 @@
     "invariant" "2.2.4"
     "lodash" "^4.6.0"
 
+<<<<<<< HEAD
 "expo-constants@~9.3.3":
+=======
+"expo-constants@^9.3.5", "expo-constants@~9.3.3":
+>>>>>>> 21d2d1f56db76db8ca6445595ab69cc3aa28ed9d
   "integrity" "sha512-qIlv2ffSjQl3wrvJwXYoNfQNfH/sK46EXcgyEQnQ1SAQO4ukwTEpG9j3fdW6aTiVEVrv/DsA1IaVRqKrUwSd3A=="
   "resolved" "https://registry.npmjs.org/expo-constants/-/expo-constants-9.3.5.tgz"
   "version" "9.3.5"
@@ -5550,7 +5593,11 @@
   "resolved" "https://registry.npmjs.org/react-timer-mixin/-/react-timer-mixin-0.13.4.tgz"
   "version" "0.13.4"
 
+<<<<<<< HEAD
 "react@>=16.8", "react@16.13.1":
+=======
+"react@16.13.1":
+>>>>>>> 21d2d1f56db76db8ca6445595ab69cc3aa28ed9d
   "integrity" "sha512-YMZQQq32xHLX0bz5Mnibv1/LHb3Sqzngu7xstSM+vrkE5Kzr9xE0yMByK5kMoTK30YVJE61WfbxIFFvfeDKT1w=="
   "resolved" "https://registry.npmjs.org/react/-/react-16.13.1.tgz"
   "version" "16.13.1"

@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react'
-import {StyleSheet, Text, View, TouchableOpacity, Button} from 'react-native';
+import {Modal,StyleSheet, Text, View, TouchableOpacity, Button} from 'react-native';
 
 import CCamera from './CCamera';
-import {locationRequest, sedacLocationRequest, sedacDataset} from "../Helpers/location.js";
+import {sedacLocationRequest, sedacDataset} from "../Helpers/location.js";
+import {Ionicons} from '@expo/vector-icons';
 import * as Location from "expo-location";
 import {calculateSaison, calculateMoment} from '../Helpers/time';
 import {weatherRequest} from "../Helpers/weather";
@@ -11,15 +12,16 @@ import {getUrlSound, soundFor} from "../Helpers/sound";
 import {ambianceNoiseFor} from "../Helpers/sound";
 import {punctualNoiseFor} from "../Helpers/sound";
 import useInterval from "@use-it/interval";
+import OptionsModal from "./OptionsModal";
+import {groupStyleSheet} from "../../Appcss";
 
-const Texte = ({ navigation }) => {
+const Texte = ({navigation}) => {
   const [timer, setTimer] = useState()
   const [isMounted, setIsMounted] = useState(true)
   const [debug, setDebug] = useState(false)
+  const [debugModal, setDebugModal] = useState(false)
   const [longitude, setLongitude] = useState()
   const [latitude, setLatitude] = useState()
-  const [previousSpeed, setPreviousSpeed] = useState()
-  const [currentSpeed, setCurrentSpeed] = useState()
   const [activity, setActivity] = useState();
   const [localityDensity, setLocalityDensity] = useState()
   const [localityType, setLocalityType] = useState(navigation.getParam('localityType'))
@@ -27,7 +29,6 @@ const Texte = ({ navigation }) => {
   const [moment, setMoment] = useState(navigation.getParam('moment'))
   const [temperature, setTemperature] = useState(-100)
   const [weather, setWeather] = useState(navigation.getParam('weather'))
-  const [speedIncreased, setSpeedIncreased] = useState(false)
 
   // State concernant le poème écrit
   const [text, setText] = useState()
@@ -36,6 +37,9 @@ const Texte = ({ navigation }) => {
   const [nbLines, setNbLines] = useState(4)
   const [coefPolice, setCoefPolice] = useState(1)
   const [coefTextSpeed, setCoefTextSpeed] = useState(5)
+  const [currentSpeed, setCurrentSpeed] = useState()
+  const [previousSpeed, setPreviousSpeed] = useState()
+
 
 
   /**
@@ -49,19 +53,18 @@ const Texte = ({ navigation }) => {
       setCurrentSpeed(location.coords.speed)
     }
   }
-
   /**
    * Mise à jour du temps de la journée
    */
   const updateTime = () => {
-    if (isMounted) {
-      let jDate = new Date();
-      setSaison(calculateSaison(jDate.getMonth()));
-      if (moment === undefined) {
-        setMoment(calculateMoment(calculateSaison(jDate.getMonth()), jDate.getHours()));
+      if (isMounted) {
+          setSaison(calculateSaison());
+          if (moment === undefined) {
+              setMoment(calculateMoment());
+          }
       }
-    }
   }
+
 
   /**
    * Mise à jour du type d'environnement lorsque la densité de pop change
@@ -92,9 +95,9 @@ const Texte = ({ navigation }) => {
         urlSound = (getUrlSound(moment))
         if(urlSound === "../data/Musics/midi_mus_3.mp3") music = soundFor(urlSound)
         else if (vers.includes("Partout") ||
-                 vers.includes("Autre moment") ||
-                 vers.includes("La nuit") ||
-                 vers.includes("Déjà"))
+            vers.includes("Autre moment") ||
+            vers.includes("La nuit") ||
+            vers.includes("Déjà"))
         {
             music = soundFor(urlSound)
             ambiance = ambianceNoiseFor(localityType)
@@ -152,7 +155,7 @@ const Texte = ({ navigation }) => {
     let locationWatcher = Location.watchPositionAsync({
       accuracy: Location.Accuracy.BestForNavigation,
       distanceInterval: 1,
-      timeInterval: 100,
+      timeInterval: 1000,
     }, updateLocation);
 
     return () => {
@@ -170,32 +173,35 @@ const Texte = ({ navigation }) => {
     setDebug(!debug)
   }
 
+  useEffect(() => {
+    console.log(currentSpeed - previousSpeed > 0.3)
+    console.log("previous speed", previousSpeed)
+    console.log("current speed : ", currentSpeed)
+
+    if ( currentSpeed - previousSpeed > 0.3) {
+      // setCoefTextSpeed(coefTextSpeed + 2)
+      console.log("acceleration")
+      setCoefPolice(Math.min(coefPolice + 1 ,3))
+      setNbLines(Math.max(nbLines - 1 ,2))
+      // setSpeedIncreased(true)
+    } else if (currentSpeed - previousSpeed < 0.5) {
+      console.log("ralentissement")
+      // setCoefTextSpeed(coefTextSpeed - 2)
+      setCoefPolice(Math.max(coefPolice - 1,1))
+      setNbLines(Math.min(nbLines + 1 ,4))
+      // setSpeedIncreased(false)
+    }
+    setPreviousSpeed(currentSpeed)
+  }, [currentSpeed])
+
   useInterval(() => {
     if(!isMounted || !localityType || !weather || !saison || !text || !currentSpeed || !localityDensity) {
       return;
     }
-
-      console.log(currentSpeed - previousSpeed > 0.3)
-      console.log("previous speed", previousSpeed)
-      console.log("current speed : ", currentSpeed)
-
-      if ( currentSpeed - previousSpeed > 0.25) {
-        // setCoefTextSpeed(coefTextSpeed + 2)
-        console.log("acceleration")
-        setCoefPolice(Math.min(coefPolice + 1,3))
-        setNbLines(Math.max(nbLines - 1 ,2))
-        setSpeedIncreased(true)
-      } else if (currentSpeed - previousSpeed < 0.3) {
-        console.log("ralentissement")
-        // setCoefTextSpeed(coefTextSpeed - 2)
-        setCoefPolice(Math.max(coefPolice - 1 ,1))
-        setNbLines(Math.min(nbLines + 1 ,4))
-        setSpeedIncreased(false)
-      }
-      setPreviousSpeed(currentSpeed)
     // Si on est arrivé à la fin du texte, on boucle
     if (text.length < index + nbLines) {
-      setIndex(0);
+      navigation.replace('Sas')
+      return;
     }
 
     // Sinon, on génère le nouveau vers
@@ -212,75 +218,76 @@ const Texte = ({ navigation }) => {
     setVers(vers)
   }, 3000)
 
-
   return (
     <View style={styles.mainContainer}>
-      <View style={styles.cameraContener}>
-        <CCamera/>
-      </View>
-      <View style={styles.textContainer}>
-        <TouchableOpacity onLongPress={() => {
-          toogleDebug()
-        }}>
-          <Text style={[styles.textOver, {fontSize: 20 * coefPolice}]}>
-            {vers}
-          </Text>
-        </TouchableOpacity>
-      </View>
-      {debug &&
-      <View style={styles.containerCaptors}>
-        <Text style={styles.textCaptors}> Saison : {saison}  </Text>
-        <Text style={styles.textCaptors}> Moment : {moment}  </Text>
-        <Text style={styles.textCaptors}> Vitesse : {currentSpeed}  </Text>
-        <Text style={styles.textCaptors}> Latitude : {latitude}  </Text>
-        <Text style={styles.textCaptors}> Longitude : {longitude}  </Text>
-        <Text style={styles.textCaptors}> Densité de pop : {localityDensity} </Text>
-        <Text style={styles.textCaptors}> Milieu : {localityType}</Text>
-        <Text style={styles.textCaptors}> Météo : {weather} </Text>
-        <Text style={styles.textCaptors}> Temperature : {temperature}</Text>
-        <Text style={styles.textCaptors}> NbLines : {nbLines}</Text>
-        <Text style={styles.textCaptors}> TailleTexte : {coefPolice}</Text>
+        <View style={styles.cameraContener}>
+            <CCamera/>
+        </View>
+        <Modal
+            animationType="slide"
+            transparent={false}
+            visible={debugModal}>
+            <View style={{marginTop: 50}}>
+                <OptionsModal
+                    latitude={latitude}
+                    longitude={longitude}
+                    localityDensity={localityDensity}
+                    localityType={localityType}
+                    speed={currentSpeed}
+                    activity={activity}
+                    temperature={temperature}
+                    weather={weather}
+                    saison={saison}
+                    moment={moment}
+                ></OptionsModal>
+                <Button title='Fermer'
+                        onPress={() => {
+                            setDebugModal(!debugModal);
+                        }}></Button>
+            </View>
+        </Modal>
+        <View style={styles.textContainer}>
+            <TouchableOpacity onLongPress={() => {
+                setDebug(!debug)
+            }}>
+                <Text style={[styles.textOver, {fontSize: 20 * coefPolice}]}>
+                    {vers}
+                </Text>
+            </TouchableOpacity>
+        </View>
+        {debug &&
+        <View style={styles.containerCaptors}>
+            <Text style={styles.textCaptors}> Saison : {saison}  </Text>
+            <Text style={styles.textCaptors}> Moment : {moment}  </Text>
+            <Text style={styles.textCaptors}> Vitesse : {currentSpeed}  </Text>
+            <Text style={styles.textCaptors}> Activité : {activity}  </Text>
+            <Text style={styles.textCaptors}> Latitude : {latitude}  </Text>
+            <Text style={styles.textCaptors}> Longitude : {longitude}  </Text>
+            <Text style={styles.textCaptors}> Densité de pop : {localityDensity} </Text>
+            <Text style={styles.textCaptors}> Milieu : {localityType}</Text>
+            <Text style={styles.textCaptors}> Météo : {weather} </Text>
+            <Text style={styles.textCaptors}> Temperature : {temperature}</Text>
+            <Text style={styles.textCaptors}> Nb Lines : {nbLines}</Text>
+            <Text style={styles.textCaptors}> Coeff Police : {coefPolice}</Text>
+
         </View>
         }
-        <Button title="Retour"
-          onPress={() => navigation.navigate('Menu')}>
-        </Button>
-      </View>
-  )
+        {/* Back button */}
+        <TouchableOpacity
+            style={{flex: 1, position: 'absolute', bottom: 0, left: 0, marginBottom: 5, marginLeft: 5}}
+            onPress={() => navigation.navigate('Accueil')}>
+            <Ionicons name="md-arrow-back-circle-outline" size={32} color="darkgrey"/>
+        </TouchableOpacity>
+        {/* Debug button */}
+        <TouchableOpacity
+            style={{flex: 1, position: 'absolute', bottom: 0, right: 0, marginBottom: 5, marginRight: 5}}
+            onPress={() => setDebugModal(!debugModal)}>
+            <Ionicons name="md-information-circle-outline" size={32} color="darkgrey"/>
+        </TouchableOpacity>
+    </View>
+  ) 
 }
 
-const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 10,
-    justifyContent: 'center',
-  },
-  cameraContener: {
-    flex: 9
-  },
-  textContainer: {
-    flex: 1,
-    position: 'absolute',
-    alignSelf: 'center'
-  },
-  textOver: {
-    fontSize: 40,
-    textAlign: 'center',
-    color: 'white',
-    textShadowColor: 'black',
-    textShadowRadius: 10
-  },
-  containerCaptors: {
-    flex: 1,
-    position: 'absolute',
-    bottom: '10%',
-  },
-  textCaptors: {
-    fontSize: 12,
-    // textAlign: 'center',
-    color: 'white',
-    textShadowColor: 'black',
-    textShadowRadius: 10
-  }
-});
+const styles = groupStyleSheet.styleTexte
 
 export default Texte
