@@ -14,7 +14,7 @@ export const calculateSaison = () => {
  * À passer sur l'API de la météo
  */
 export const calculateMoment = () => {
-    let hour = (new Date('September 22, 2018 23:00:00')).getHours()
+    let hour = (new Date()).getHours()
     let saison = calculateSaison()
     switch (saison) {
         case "printemps": {

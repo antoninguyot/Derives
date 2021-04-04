@@ -114,56 +114,77 @@ export const getUrlSound = (moment) => {
 export const soundFor = async (urlSound) => {
     return Audio.Sound.createAsync(urlSound,{shouldPlay:true,volume:0.6})
 }
+export const playMusic = async(urlSound) => {
+    let music = new Audio.Sound()
+    if (!urlSound) return
+    music = await Audio.Sound.createAsync(urlSound,{shouldPlay: true})
+    await music.sound.unloadAsync()
+}
 //BRUITS
 export const punctualNoiseFor = async (moment,vers) => {
     let random;
+    let music;
     let punctualNoiseFile;
     switch (moment) {
         case "matin": {
-            if(vers.includes("oiseau")) {
-                random = Math.floor(Math.random()*2)
-                if (random === 0)punctualNoiseFile = noiseFiles.punctual.matin[0]
-                if (random === 1)punctualNoiseFile = noiseFiles.punctual.matin[5]
+            if (vers.includes("oiseau")){
+                punctualNoiseFile = noiseFiles.punctual.matin[0]
             }
-            if(vers.includes("rires"))punctualNoiseFile = noiseFiles.punctual.matin[1]
-            if(vers.includes("chantier"))punctualNoiseFile = noiseFiles.punctual.matin[2]
-            if(vers.includes("rumeur"))punctualNoiseFile = noiseFiles.punctual.matin[3]
+            else if (vers.includes("rire")){
+                punctualNoiseFile = noiseFiles.punctual.matin[1]
+            }
+            else if (vers.includes("chantier")){
+                punctualNoiseFile = noiseFiles.punctual.matin[2]
+            }
+            else if (vers.includes("rumeur")){
+                punctualNoiseFile = noiseFiles.punctual.matin[3]
+            }
+            else if (vers.includes("chant")){
+                punctualNoiseFile = noiseFiles.punctual.matin[4]
+            }
+            else if (vers.includes("bête")){
+                punctualNoiseFile = noiseFiles.punctual.matin[5]
+            }
             break
         }
         case "midi": {
-            if(vers.includes("traces")) {
+            if (vers.includes("pas")){
                 random = Math.floor(Math.random()*3)
-                if (random === 0)punctualNoiseFile = noiseFiles.punctual.matin[0]
-                if (random === 1)punctualNoiseFile = noiseFiles.punctual.matin[1]
-                if (random === 2)punctualNoiseFile = noiseFiles.punctual.matin[2]
+                punctualNoiseFile = noiseFiles.punctual.midi[random]
             }
-            if(vers.includes("Battante") || vers.includes("te fouette"))punctualNoiseFile = noiseFiles.punctual.matin[3]
-            if(vers.includes("chant"))punctualNoiseFile = noiseFiles.punctual.matin[4]
-            if(vers.includes("guerre"))punctualNoiseFile = noiseFiles.punctual.matin[5]
-            if(vers.includes("écume") || vers.includes("Océanique"))punctualNoiseFile = noiseFiles.punctual.matin[6]
+            else if (vers.includes("tempête")){
+                punctualNoiseFile = noiseFiles.punctual.midi[3]
+            }
+            else if (vers.includes("chant")){
+                punctualNoiseFile = noiseFiles.punctual.midi[4]
+            }
+            else if (vers.includes("guerre")){
+                punctualNoiseFile = noiseFiles.punctual.midi[5]
+            }
+            else if (vers.includes("navire")){
+                punctualNoiseFile = noiseFiles.punctual.midi[6]
+            }
             break
         }
         case "soir": {
-            random = Math.floor(Math.random() * 5)
-            punctualNoiseFile = noiseFiles.punctual.matin[random]
-            break
+            return
         }
         case "nuit": {
-            random = Math.floor(Math.random() * 6)
-            punctualNoiseFile = noiseFiles.punctual.midi[random]
-            break
+            return
         }
         default: {
             break
         }
     }
-    return Audio.Sound.createAsync(punctualNoiseFile,{shouldPlay:true,volume:0.1})
+    music = await Audio.Sound.createAsync(punctualNoiseFile,{shouldPlay:true,volume:0.1})
+    await music.sound.unloadAsync()
+    return music
 }
 
 export const speedNoiseFor= (moment) => {
     let random = Math.floor(Math.random()*28)
     let speepNoiseFile = noiseFiles.punctual.acceleration[random]
-    return Audio.Sound.createAsync(speepNoiseFile,{shouldPlay:true,volume:0.1})
+    return Audio.Sound.createAsync(speepNoiseFile,{shouldPlay:true,volume:0.2})
 
 }
 //AMBIANCE

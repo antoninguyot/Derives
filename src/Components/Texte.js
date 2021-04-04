@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {Modal, Text, View, TouchableOpacity, Button} from 'react-native';
-
+import {Audio} from "expo-av";
 import CCamera from './CCamera';
 import {sedacLocationRequest, sedacDataset} from "../Helpers/location.js";
 import {Ionicons} from '@expo/vector-icons';
@@ -8,7 +8,7 @@ import * as Location from "expo-location";
 import {calculateSaison, calculateMoment} from '../Helpers/time';
 import {weatherRequest} from "../Helpers/weather";
 import {getTextArray, interpretText} from "../Helpers/text";
-import {getUrlSound, soundFor} from "../Helpers/sound";
+import {getUrlSound, playMusic, soundFor, speedNoiseFor} from "../Helpers/sound";
 import {ambianceNoiseFor} from "../Helpers/sound";
 import {punctualNoiseFor} from "../Helpers/sound";
 import OptionsModal from "./OptionsModal";
@@ -27,13 +27,14 @@ const Texte = ({navigation}) => {
     const [longitude, setLongitude] = useState()
     const [latitude, setLatitude] = useState()
     const [speed, setSpeed] = useState()
-    const [activity, setActivity] = useState();
+    const [activity, setActivity] = useState()
     const [localityDensity, setLocalityDensity] = useState()
     const [localityType, setLocalityType] = useState(navigation.getParam('localityType'))
     const [saison, setSaison] = useState(null)
     const [moment, setMoment] = useState(navigation.getParam('moment'))
     const [temperature, setTemperature] = useState(-100)
     const [weather, setWeather] = useState(navigation.getParam('weather'))
+    const [isPlayed, setIsPlayed] = useState(false)
 
     /**
      * Mise à jour de la position du téléphone
@@ -84,20 +85,26 @@ const Texte = ({navigation}) => {
     let urlSound
     let ambiance
     let punctual
+    let speedNoise
     useEffect(() => {
         urlSound = (getUrlSound(moment))
-        if(urlSound === "../data/Musics/midi_mus_3.mp3") music = soundFor(urlSound)
-        else if (vers.includes("Partout") ||
+        if(urlSound === "../data/Musics/midi_mus_3.mp3" && !isPlayed) {
+            music = soundFor(urlSound)
+            setIsPlayed(true)
+        }
+        else if ( !isPlayed && moment &&
+            (vers.includes("Partout") ||
             vers.includes("Autre moment") ||
             vers.includes("La nuit") ||
-            vers.includes("Déjà"))
+            vers.includes("Déjà")))
         {
+            setIsPlayed(true)
             music = soundFor(urlSound)
             ambiance = ambianceNoiseFor(localityType)
-            punctual = punctualNoiseFor(moment,vers)
         }
+        punctual = punctualNoiseFor(moment,vers)
+        speedNoise = speedNoiseFor()
     }, [vers])
-
     /**
      * Démarrage du poème lorsque toutes les infos sont présentes
      */
@@ -129,8 +136,7 @@ const Texte = ({navigation}) => {
                 setCoefTextSpeed(3)
                 setCoefPolice(3)
                 setNbLines(2)
-            }
-            else if (speed < 30) {
+            } else if (speed < 30) {
                 setActivity('cycling')
                 setCoefTextSpeed(1)
                 setCoefPolice(4)
@@ -189,9 +195,12 @@ const Texte = ({navigation}) => {
             accuracy: Location.Accuracy.BestForNavigation,
             distanceInterval: 1
         }, updateLocation);
-
-        return () => {
+        return async () => {
             setIsMounted(false)
+            await music.sound.unloadAsync()
+            await ambiance.sound.unloadAsync()
+            await speedNoise.sound.unloadAsync()
+            await punctual.sound.unloadAsync()
             clearInterval(timer)
             clearInterval(timerInterval)
             locationWatcher.then(subscriber => {
