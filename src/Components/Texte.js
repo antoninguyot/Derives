@@ -102,7 +102,7 @@ const Texte = ({navigation}) => {
             music = soundFor(urlSound)
             ambiance = ambianceNoiseFor(localityType)
         }
-        punctual = punctualNoiseFor(moment,vers)
+        //punctual = punctualNoiseFor(moment,vers)
         speedNoise = speedNoiseFor()
     }, [vers])
     /**
