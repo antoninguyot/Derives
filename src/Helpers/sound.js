@@ -2,24 +2,24 @@ import {Audio} from "expo-av";
 
 const soundFiles = {
     matin: [
-        require("../data/Musics/matin_mus_1.mp3"),
-        require("../data/Musics/matin_mus_2.mp3"),
-        require("../data/Musics/matin_mus_3.mp3")
+        require("../data/Musics/Musics/matin_mus_1.mp3"),
+        require("../data/Musics/Musics/matin_mus_2.mp3"),
+        require("../data/Musics/Musics/matin_mus_3.mp3")
     ],
     midi: [
-        require("../data/Musics/midi_mus_1.mp3"),
-        require("../data/Musics/midi_mus_2.mp3"),
-        require("../data/Musics/midi_mus_3.mp3")
+        require("../data/Musics/Musics/midi_mus_1.mp3"),
+        require("../data/Musics/Musics/midi_mus_2.mp3"),
+        require("../data/Musics/Musics/midi_mus_3.mp3")
     ],
     soir: [
-        require("../data/Musics/soir_mus_1.mp3"),
-        require("../data/Musics/soir_mus_1.mp3"),
-        require("../data/Musics/soir_mus_1.mp3"),
+        require("../data/Musics/Musics/soir_mus_1.mp3"),
+        require("../data/Musics/Musics/soir_mus_1.mp3"),
+        require("../data/Musics/Musics/soir_mus_1.mp3"),
     ],
     nuit:[
-        require("../data/Musics/nuit_mus_1.mp3"),
-        require("../data/Musics/nuit_mus_1.mp3"),
-        require("../data/Musics/nuit_mus_1.mp3"),
+        require("../data/Musics/Musics/nuit_mus_1.mp3"),
+        require("../data/Musics/Musics/nuit_mus_1.mp3"),
+        require("../data/Musics/Musics/nuit_mus_1.mp3"),
     ]
 }
 
@@ -41,6 +41,36 @@ const noiseFiles = {
             require("../data/Musics/Bruitages/Sons_Ponctuels/Midi/03_Chants.mp3"),
             require("../data/Musics/Bruitages/Sons_Ponctuels/Midi/04_Guerre.mp3"),
             require("../data/Musics/Bruitages/Sons_Ponctuels/Midi/05_Navires.mp3"),
+        ],
+        acceleration: [
+            require("../data/Musics/Bruitages/Sons_Acceleration/S1.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S2.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S3.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S4.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S5.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S6.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S7.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S8.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S9.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S10.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S11.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S12.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S13.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S14.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S15.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S16.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S17.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S18.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S19.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S20.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S21.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S22.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S23.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S24.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S25.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S26.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S27.wav"),
+            require("../data/Musics/Bruitages/Sons_Acceleration/S28.wav")
         ]
     },
     ambiance : {
@@ -84,36 +114,78 @@ export const getUrlSound = (moment) => {
 export const soundFor = async (urlSound) => {
     return Audio.Sound.createAsync(urlSound,{shouldPlay:true,volume:0.6})
 }
+export const playMusic = async(urlSound) => {
+    let music = new Audio.Sound()
+    if (!urlSound) return
+    music = await Audio.Sound.createAsync(urlSound,{shouldPlay: true})
+    await music.sound.unloadAsync()
+}
 //BRUITS
-export const punctualNoiseFor = async (moment) => {
+export const punctualNoiseFor = async (moment,vers) => {
     let random;
+    let music;
     let punctualNoiseFile;
     switch (moment) {
         case "matin": {
-            random = Math.floor(Math.random() * 5)
-            punctualNoiseFile = noiseFiles.punctual.matin[random]
+            if (vers.includes("oiseau")){
+                punctualNoiseFile = noiseFiles.punctual.matin[0]
+            }
+            else if (vers.includes("rire")){
+                punctualNoiseFile = noiseFiles.punctual.matin[1]
+            }
+            else if (vers.includes("chantier")){
+                punctualNoiseFile = noiseFiles.punctual.matin[2]
+            }
+            else if (vers.includes("rumeur")){
+                punctualNoiseFile = noiseFiles.punctual.matin[3]
+            }
+            else if (vers.includes("chant")){
+                punctualNoiseFile = noiseFiles.punctual.matin[4]
+            }
+            else if (vers.includes("bête")){
+                punctualNoiseFile = noiseFiles.punctual.matin[5]
+            }
             break
         }
         case "midi": {
-            random = Math.floor(Math.random() * 6)
-            punctualNoiseFile = noiseFiles.punctual.midi[random]
+            if (vers.includes("pas")){
+                random = Math.floor(Math.random()*3)
+                punctualNoiseFile = noiseFiles.punctual.midi[random]
+            }
+            else if (vers.includes("tempête")){
+                punctualNoiseFile = noiseFiles.punctual.midi[3]
+            }
+            else if (vers.includes("chant")){
+                punctualNoiseFile = noiseFiles.punctual.midi[4]
+            }
+            else if (vers.includes("guerre")){
+                punctualNoiseFile = noiseFiles.punctual.midi[5]
+            }
+            else if (vers.includes("navire")){
+                punctualNoiseFile = noiseFiles.punctual.midi[6]
+            }
             break
         }
         case "soir": {
-            random = Math.floor(Math.random() * 5)
-            punctualNoiseFile = noiseFiles.punctual.matin[random]
-            break
+            return
         }
         case "nuit": {
-            random = Math.floor(Math.random() * 6)
-            punctualNoiseFile = noiseFiles.punctual.midi[random]
-            break
+            return
         }
         default: {
             break
         }
     }
-    return Audio.Sound.createAsync(punctualNoiseFile,{shouldPlay:true,volume:0.1})
+    music = await Audio.Sound.createAsync(punctualNoiseFile,{shouldPlay:true,volume:0.1})
+    await music.sound.unloadAsync()
+    return music
+}
+
+export const speedNoiseFor= (moment) => {
+    let random = Math.floor(Math.random()*28)
+    let speepNoiseFile = noiseFiles.punctual.acceleration[random]
+    return Audio.Sound.createAsync(speepNoiseFile,{shouldPlay:true,volume:0.2})
+
 }
 //AMBIANCE
 export const ambianceNoiseFor = async (location) => {
