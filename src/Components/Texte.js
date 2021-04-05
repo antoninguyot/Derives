@@ -164,18 +164,12 @@ const Texte = ({navigation}) => {
   }
 
   useEffect(() => {
-    console.log(currentSpeed - previousSpeed > 0.3)
-    console.log("previous speed", previousSpeed)
-    console.log("current speed : ", currentSpeed)
-
     if ( currentSpeed - previousSpeed > 0.3) {
       // setCoefTextSpeed(coefTextSpeed + 2)
-      console.log("acceleration")
       setCoefPolice(Math.min(coefPolice + 1 ,3))
       setNbLines(Math.max(nbLines - 1 ,2))
       setSpeedIncreased(true)
     } else if (currentSpeed - previousSpeed < 0.5) {
-      console.log("ralentissement")
       // setCoefTextSpeed(coefTextSpeed - 2)
       setCoefPolice(Math.max(coefPolice - 1,1))
       setNbLines(Math.min(nbLines + 1 ,4))
@@ -190,8 +184,10 @@ const Texte = ({navigation}) => {
     }
 
     let text = getTextArray('matin')
+    let relevantText = speedIncreased ? text.acceleration : text.stable
+
     // Si on est arrivé à la fin du texte, on boucle
-    if (text.length < index + nbLines) {
+    if (relevantText.length < index + nbLines) {
       navigation.replace('Sas')
       return;
     }
@@ -200,14 +196,12 @@ const Texte = ({navigation}) => {
     // Pour chaque ligne (dépend de la vitesse)
     let vers = ""
     let tmpIndex = index // très sale
-    let relevantText = speedIncreased ? text.acceleration : text.stable
 
-    for (let i = 0; i < nbLines; i++) {
+    for (let i = index; i < index + nbLines; i++) {
       // On récupère une partie du texte et on la fait varier avec interpretText
-      vers += "\n" + combine(relevantText[tmpIndex], localityType, weather)
-      tmpIndex++
+      vers += "\n" + combine(relevantText[i], localityType, weather)
     }
-    setIndex(tmpIndex)
+    setIndex(index + nbLines)
     setVers(vers)
   }, 3000)
 
