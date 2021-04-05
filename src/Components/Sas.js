@@ -20,7 +20,7 @@ const Sas = ({navigation}) => {
             fadeAnim,
             {
                 toValue: 1,
-                duration: 1000,
+                duration: 2000,
                 useNativeDriver: true,
             }
         )).start();
