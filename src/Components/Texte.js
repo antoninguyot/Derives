@@ -203,7 +203,7 @@ const Texte = ({navigation}) => {
     }
     setIndex(index + nbLines)
     setVers(vers)
-  }, 3000)
+  }, 12000)
 
   return (
     <View style={styles.mainContainer}>

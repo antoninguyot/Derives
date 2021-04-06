@@ -49,7 +49,7 @@ const Sas = ({navigation}) => {
                     // Else, loop
                     setWillTimeTravel(false)
                 }
-            }, 5000)
+            }, 15000)
         }
     }, [initialSpeed, speedAverage])
 
