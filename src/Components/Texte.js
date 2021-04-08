@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Modal,StyleSheet, Text, View, TouchableOpacity, Button} from 'react-native';
-
+import {Modal, Text, View, TouchableOpacity, Button} from 'react-native';
 import CCamera from './CCamera';
 import {sedacLocationRequest, sedacDataset} from "../Helpers/location.js";
 import {Ionicons} from '@expo/vector-icons';
@@ -8,7 +7,7 @@ import * as Location from "expo-location";
 import {calculateSaison, calculateMoment} from '../Helpers/time';
 import {weatherRequest} from "../Helpers/weather";
 import {combine, getTextArray, interpretText} from "../Helpers/text";
-import {getUrlSound, soundFor} from "../Helpers/sound";
+import {getUrlSound, playMusic, soundFor, speedNoiseFor} from "../Helpers/sound";
 import {ambianceNoiseFor} from "../Helpers/sound";
 import {punctualNoiseFor} from "../Helpers/sound";
 import useInterval from "@use-it/interval";
@@ -29,6 +28,7 @@ const Texte = ({navigation}) => {
   const [moment, setMoment] = useState(navigation.getParam('moment'))
   const [temperature, setTemperature] = useState(-100)
   const [weather, setWeather] = useState(navigation.getParam('weather'))
+  const [isPlayed, setIsPlayed] = useState(false)
 
   // State concernant le poème écrit
   const [vers, setVers] = useState("Commencez à marcher !")
@@ -81,22 +81,26 @@ const Texte = ({navigation}) => {
     let urlSound
     let ambiance
     let punctual
+    let speedNoise
     useEffect(() => {
         urlSound = (getUrlSound(moment))
-        if(urlSound === "../data/Musics/midi_mus_3.mp3") music = soundFor(urlSound)
-        else if (vers.includes("Partout") ||
+        if(urlSound === "../data/Musics/midi_mus_3.mp3" && !isPlayed) {
+            music = soundFor(urlSound)
+            setIsPlayed(true)
+        }
+        else if ( !isPlayed && moment &&
+            (vers.includes("Partout") ||
             vers.includes("Autre moment") ||
             vers.includes("La nuit") ||
-            vers.includes("Déjà"))
+            vers.includes("Déjà")))
         {
+            setIsPlayed(true)
             music = soundFor(urlSound)
             ambiance = ambianceNoiseFor(localityType)
-            setInterval(function (){
-                punctual = punctualNoiseFor(moment)
-            }, 10000)
         }
+        //punctual = punctualNoiseFor(moment,vers)
+        speedNoise = speedNoiseFor()
     }, [vers])
-
     /**
      * Mise à jour des coefficients
      */
@@ -116,21 +120,21 @@ const Texte = ({navigation}) => {
       // Mise à jour de la position
       updateLocation(location)
 
-      // Récupération des données météo
-      weatherRequest(location.coords.latitude, location.coords.longitude)
-        .then(response => {
-          if (isMounted) {
-            setTemperature(response.data.main.temp)
-            // Inférer un état de la température
-            if (temperature < 12) {
-              setWeather("cold")
-            } else if (temperature > 25) {
-              setWeather("hot")
-            } else {
-              setWeather("sweet")
-            }
+    // Récupération des données météo
+    weatherRequest(location.coords.latitude, location.coords.longitude)
+      .then(response => {
+        if (isMounted) {
+          setTemperature(response.data.main.temp)
+          // Inférer un état de la température
+          if (temperature < 12) {
+            setWeather("cold")
+          } else if (temperature > 25) {
+            setWeather("hot")
+          } else {
+            setWeather("sweet")
           }
-        })
+        }
+      })
 
       // Récupération des données de densité de pop
       sedacLocationRequest(location.coords.latitude, location.coords.longitude)
@@ -177,7 +181,7 @@ const Texte = ({navigation}) => {
     }
     setPreviousSpeed(currentSpeed)
   }, [currentSpeed])
-
+  
   useInterval(() => {
     if(!isMounted || !localityType || !weather || !saison || !moment || !currentSpeed || !localityDensity) {
       return;
