@@ -5,7 +5,7 @@ import {calculateMoment} from '../Helpers/time';
 import {setColorBackground,setColorWriting} from "../Helpers/colorInterface";
 import {groupStyleSheet} from "../../Appcss";
 
-const Menu = ({navigation}) => {
+const ChooseParams = ({navigation}) => {
     const [moment, setMoment] = useState()
     const [localityType, setLocalityType] = useState()
     const [weather, setWeather] = useState()
@@ -34,7 +34,7 @@ const Menu = ({navigation}) => {
             <View style={[styles.flexContainer, {backgroundColor: setColorBackground(tmp)}]}>
                 <View>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('Texte')}
+                        onPress={() => navigation.navigate('TextGenerator')}
                         style={[styles.buttonStyle,{backgroundColor:setColorWriting(tmp)}]}>
                         <Text style = {[styles.textStyle, {color:setColorBackground(tmp)}]}>Mode immersif</Text>
                     </TouchableOpacity>
@@ -76,7 +76,7 @@ const Menu = ({navigation}) => {
                                         dropDownStyle={{backgroundColor: '#fafafa'}}
                                         onChangeItem={item => setWeather(item.value)}
                         />
-                        <TouchableOpacity onPress={() => navigation.navigate('Texte', {
+                        <TouchableOpacity onPress={() => navigation.navigate('TextGenerator', {
                             moment: moment,
                             localityType: localityType,
                             weather: weather}
@@ -101,4 +101,4 @@ const Menu = ({navigation}) => {
 
 const styles = groupStyleSheet.styleMenu
 
-export default Menu
+export default ChooseParams

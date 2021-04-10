@@ -1,41 +1,44 @@
 import React, {useEffect, useState} from 'react'
 import {Modal, Text, View, TouchableOpacity, Button} from 'react-native';
-import CCamera from './CCamera';
-import {sedacLocationRequest, sedacDataset} from "../Helpers/location.js";
+import useInterval from "@use-it/interval";
 import {Ionicons} from '@expo/vector-icons';
+import CCamera from './CCamera';
+import {groupStyleSheet} from "../../Appcss";
+
+import {sedacLocationRequest, sedacDataset} from "../Helpers/location.js";
 import * as Location from "expo-location";
-import {calculateSaison, calculateMoment} from '../Helpers/time';
+import {calculateSeason, calculateMoment} from '../Helpers/time';
 import {weatherRequest} from "../Helpers/weather";
 import {combine, getTextArray, interpretText} from "../Helpers/text";
 import {getUrlSound, playMusic, soundFor, speedNoiseFor} from "../Helpers/sound";
 import {ambianceNoiseFor} from "../Helpers/sound";
 import {punctualNoiseFor} from "../Helpers/sound";
-import useInterval from "@use-it/interval";
 import OptionsModal from "./OptionsModal";
-import {groupStyleSheet} from "../../Appcss";
 
-const Texte = ({navigation}) => {
-  const [timer, setTimer] = useState()
+const TextGenerator = ({navigation}) => {
+  // Page states
   const [isMounted, setIsMounted] = useState(true)
   const [debug, setDebug] = useState(false)
   const [debugModal, setDebugModal] = useState(false)
+
+  //Localisation states 
   const [longitude, setLongitude] = useState()
   const [latitude, setLatitude] = useState()
-  const [activity, setActivity] = useState();
   const [localityDensity, setLocalityDensity] = useState()
   const [localityType, setLocalityType] = useState(navigation.getParam('localityType'))
-  const [saison, setSaison] = useState(null)
+  const [season, setSeason] = useState(null)
   const [moment, setMoment] = useState(navigation.getParam('moment'))
   const [temperature, setTemperature] = useState(-100)
   const [weather, setWeather] = useState(navigation.getParam('weather'))
+
+  //Music states
   const [isPlayed, setIsPlayed] = useState(false)
 
-  // State concernant le poème écrit
+  // Poems states
   const [vers, setVers] = useState("Commencez à marcher !")
   const [index, setIndex] = useState(0);
   const [nbLines, setNbLines] = useState(4)
   const [coefPolice, setCoefPolice] = useState(1)
-  const [coefTextSpeed, setCoefTextSpeed] = useState(5)
   const [currentSpeed, setCurrentSpeed] = useState()
   const [previousSpeed, setPreviousSpeed] = useState()
   const [speedIncreased, setSpeedIncreased] = useState(false)
@@ -57,7 +60,7 @@ const Texte = ({navigation}) => {
    */
   const updateTime = () => {
       if (isMounted) {
-          setSaison(calculateSaison());
+          setSeason(calculateSeason());
           if (moment === undefined) {
               setMoment(calculateMoment());
           }
@@ -154,7 +157,6 @@ const Texte = ({navigation}) => {
 
     return () => {
       setIsMounted(false)
-      clearInterval(timer)
       clearInterval(timerInterval)
       locationWatcher.then(subscriber => {
         subscriber.remove()
@@ -163,18 +165,12 @@ const Texte = ({navigation}) => {
 
   }, [])
 
-  const toogleDebug = () => {
-    setDebug(!debug)
-  }
-
   useEffect(() => {
     if ( currentSpeed - previousSpeed > 0.3) {
-      // setCoefTextSpeed(coefTextSpeed + 2)
       setCoefPolice(Math.min(coefPolice + 1 ,3))
       setNbLines(Math.max(nbLines - 1 ,2))
       setSpeedIncreased(true)
     } else if (currentSpeed - previousSpeed < 0.5) {
-      // setCoefTextSpeed(coefTextSpeed - 2)
       setCoefPolice(Math.max(coefPolice - 1,1))
       setNbLines(Math.min(nbLines + 1 ,4))
       setSpeedIncreased(false)
@@ -183,7 +179,7 @@ const Texte = ({navigation}) => {
   }, [currentSpeed])
   
   useInterval(() => {
-    if(!isMounted || !localityType || !weather || !saison || !moment || !currentSpeed || !localityDensity) {
+    if(!isMounted || !localityType || !weather || !season || !moment || !currentSpeed || !localityDensity) {
       return;
     }
 
@@ -199,7 +195,6 @@ const Texte = ({navigation}) => {
     // Sinon, on génère le nouveau vers
     // Pour chaque ligne (dépend de la vitesse)
     let vers = ""
-    let tmpIndex = index // très sale
 
     for (let i = index; i < index + nbLines; i++) {
       // On récupère une partie du texte et on la fait varier avec interpretText
@@ -225,10 +220,9 @@ const Texte = ({navigation}) => {
                     localityDensity={localityDensity}
                     localityType={localityType}
                     speed={currentSpeed}
-                    activity={activity}
                     temperature={temperature}
                     weather={weather}
-                    saison={saison}
+                    season={season}
                     moment={moment}
                 ></OptionsModal>
                 <Button title='Fermer'
@@ -248,7 +242,7 @@ const Texte = ({navigation}) => {
         </View>
         {debug &&
         <View style={styles.containerCaptors}>
-            <Text style={styles.textCaptors}> Saison : {saison}  </Text>
+            <Text style={styles.textCaptors}> Saison : {season}  </Text>
             <Text style={styles.textCaptors}> Moment : {moment}  </Text>
             <Text style={styles.textCaptors}> Vitesse : {currentSpeed}  </Text>
             <Text style={styles.textCaptors}> Accélération : {speedIncreased ? 'Oui' : 'Non'}  </Text>
@@ -266,7 +260,7 @@ const Texte = ({navigation}) => {
         {/* Back button */}
         <TouchableOpacity
             style={{flex: 1, position: 'absolute', bottom: 0, left: 0, marginBottom: 5, marginLeft: 5}}
-            onPress={() => navigation.navigate('Accueil')}>
+            onPress={() => navigation.navigate('WelcomeScreen')}>
             <Ionicons name="md-arrow-back-circle-outline" size={32} color="darkgrey"/>
         </TouchableOpacity>
         {/* Debug button */}
@@ -281,4 +275,4 @@ const Texte = ({navigation}) => {
 
 const styles = groupStyleSheet.styleTexte
 
-export default Texte
+export default TextGenerator

@@ -3,16 +3,16 @@ import React from 'react'
 import {groupStyleSheet} from "../../Appcss";
 
 const OptionsModal = ({
-                          latitude,
-                          longitude,
-                          localityDensity,
-                          localityType,
-                          speed,
-                          activity,
-                          temperature,
-                          weather,
-                          saison,
-                          moment
+                        latitude,
+                        longitude,
+                        localityDensity,
+                        localityType,
+                        speed,
+                        activity,
+                        temperature,
+                        weather,
+                        season,
+                        moment
                       }) => {
     return (
         <View>
@@ -43,7 +43,7 @@ const OptionsModal = ({
                     {
                         title: 'Date & heure', data: [
                             {key: 'Date', value: (new Date).toLocaleDateString('fr-FR')},
-                            {key: 'Saison', value: saison},
+                            {key: 'Saison', value: season},
                             {key: 'Période', value: moment},
                         ]
                     },

@@ -80,10 +80,10 @@ export const combine = (sentence, location, weather) => {
  * @param {string} sentence
  * @param localityType
  * @param speed
- * @param saison
+ * @param season
  * @param heat
  */
-export const interpretText = (sentence, localityType, activity, saison, heat, speedIncreased) => {
+export const interpretText = (sentence, localityType, activity, season, heat, speedIncreased) => {
     let sentence_new = ""
     for (let i = 0; i < sentence.length; i++) {
         if (sentence.charAt(i) === "$") {
@@ -105,7 +105,7 @@ export const interpretText = (sentence, localityType, activity, saison, heat, sp
                     sentence_new += tab[heat][Math.floor((Math.random() * tab[heat].length))]
                     break
                 case "S":
-                    sentence_new += tab[saison][Math.floor((Math.random() * tab[saison].length))]
+                    sentence_new += tab[season][Math.floor((Math.random() * tab[season].length))]
                     break
                 default:
                     sentence_new += "ERROR"
@@ -117,7 +117,7 @@ export const interpretText = (sentence, localityType, activity, saison, heat, sp
     }
     for (let i = 0; i < sentence_new.length; i++) {
         if (sentence_new.charAt(i) === "$") {
-            sentence_new = interpretText(sentence_new, localityType, activity, saison, heat, speedIncreased) //Permet de faire 2 niveaux d'interprétation
+            sentence_new = interpretText(sentence_new, localityType, activity, season, heat, speedIncreased) //Permet de faire 2 niveaux d'interprétation
         }
     }
     return sentence_new

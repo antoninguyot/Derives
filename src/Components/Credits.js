@@ -1,7 +1,7 @@
 import {Text, SafeAreaView, ScrollView, Image, TouchableOpacity} from "react-native";
 import React from 'react';
 import {setColorBackground, setColorWriting} from "../Helpers/colorInterface";
-import {calculateMoment, calculateSaison} from "../Helpers/time";
+import {calculateMoment, calculateSeason} from "../Helpers/time";
 import {groupStyleSheet} from "../../Appcss";
 
 const photos = [
@@ -52,7 +52,7 @@ function displayThanks(){
 }
 
 let jDate = new Date()
-let moment = calculateMoment(calculateSaison(jDate.getMonth()), jDate.getHours())
+let moment = calculateMoment(calculateSeason(jDate.getMonth()), jDate.getHours())
 
 const Credits = ({navigation}) => {
 
@@ -83,7 +83,7 @@ const Credits = ({navigation}) => {
 
             </ScrollView>
             <TouchableOpacity
-                onPress={() => navigation.navigate('Menu')}
+                onPress={() => navigation.navigate('ChooseParams')}
                 style={[styles.retourMenu,{backgroundColor:setColorWriting(moment)}]}>
                 <Text style = {[styles.text, {color:setColorBackground(moment)}]}>Retour au Menu</Text>
             </TouchableOpacity>

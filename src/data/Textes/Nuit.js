@@ -1,7 +1,7 @@
 /*
             SIGNIFICATION SIGLES
 V : verbe | G : groupe de mots | N : nom | A : adverbes/adjectifs
-A : aléatoire | G : GPS | V : vitesse : | T : température | S :saison
+A : aléatoire | G : GPS | V : vitesse : | T : température | S :season
 */
 
 let derive_nuit;

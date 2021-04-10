@@ -29,12 +29,12 @@ const Sas = ({navigation}) => {
     useEffect(() => {
         if (willTimeTravel === true) {
             setTimeout(() => {
-                navigation.replace('Texte', {
+                navigation.replace('TextGenerator', {
                     moment: calculateNextMoment()
                 })
             }, 2000)
         } else if (willTimeTravel === false) {
-            navigation.replace('Texte')
+            navigation.replace('TextGenerator')
         }
     }, [willTimeTravel])
 

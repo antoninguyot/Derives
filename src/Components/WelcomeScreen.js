@@ -5,12 +5,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {setColorBackground, setColorWriting} from '../Helpers/colorInterface';
 import TouchableOpacity from "react-native-gesture-handler/src/components/touchables/TouchableOpacity";
 import {groupStyleSheet} from "../../Appcss";
+import TextGenerator from './TextGenerator';
 
-const description = "Vous allez vivre une expérience poétique – visuelle et sonore – en marchant.\nSelon votre vitesse, mais aussi le moment de la journée, la saison, la température, l'environnement, votre expérience ne sera pas la même..."
+const description = "Vous allez vivre une expérience poétique – visuelle et sonore – en marchant.\nSelon votre vitesse, mais aussi le moment de la journée, la season, la température, l'environnement, votre expérience ne sera pas la même..."
 
-const Accueil = ({navigation}) => {
+const WelcomeScreen = ({navigation}) => {
 
-  const [firstConnexion, setFirstConnexion] = useState()
+  const [destinationScreen, setDestinationScreen] = useState()
   /**
    * Mise à jour du temps de la journée
    */
@@ -19,9 +20,9 @@ const Accueil = ({navigation}) => {
     try {
       const value = await AsyncStorage.getItem('firstConnexionDate')
       if(value !== null) {
-        setFirstConnexion(false)
+        setDestinationScreen('ChooseParams')
       } else {
-        setFirstConnexion(true)
+        setDestinationScreen('TextGenerator')
         const jsonValue = JSON.stringify(new Date)
         await AsyncStorage.setItem('firstConnexionDate', jsonValue)
       }
@@ -29,7 +30,7 @@ const Accueil = ({navigation}) => {
       console.log("erreur", e)
     }
   }
-
+  
   useEffect( () => {
     getData()
   }, [])
@@ -41,24 +42,15 @@ const Accueil = ({navigation}) => {
         <Text style={[styles.welcomeText, {color:setColorWriting(moment)}]}>
           {description}
         </Text>
-        {firstConnexion && (
-            <TouchableOpacity
-                style={[styles.buttonGo,{backgroundColor:setColorWriting(moment)}]}
-                onPress={() => navigation.navigate('Texte')}>
-              <Text style={[styles.buttonText, {color:setColorBackground(moment)}]}>GO</Text>
-            </TouchableOpacity>
-        )}
-        {!firstConnexion && (
-            <TouchableOpacity
-                style={[styles.buttonGo,{backgroundColor:setColorWriting(moment)}]}
-                onPress={() => navigation.navigate('Menu')}>
-              <Text style={[styles.buttonText, {color:setColorBackground(moment)}]}>GO</Text>
-            </TouchableOpacity>
-        )}
+        <TouchableOpacity
+          style={[styles.buttonGo,{backgroundColor:setColorWriting(moment)}]}
+          onPress={() => navigation.navigate(destinationScreen)}>
+          <Text style={[styles.buttonText, {color:setColorBackground(moment)}]}>GO</Text>
+        </TouchableOpacity>
       </View>
   )
 }
 
 const styles = groupStyleSheet.styleAccueil
 
-export default Accueil
+export default WelcomeScreen

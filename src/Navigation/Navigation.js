@@ -2,9 +2,9 @@ import {createStackNavigator} from 'react-navigation-stack';
 import {createAppContainer} from 'react-navigation';
 
 import PermissionsC from '../Components/PermissionsC'
-import Accueil from '../Components/Accueil'
-import Texte from '../Components/Texte'
-import Menu from '../Components/Menu'
+import WelcomeScreen from '../Components/WelcomeScreen'
+import TextGenerator from '../Components/TextGenerator'
+import ChooseParams from '../Components/ChooseParams'
 import Sas from '../Components/Sas'
 import Credits from '../Components/Credits'
 
@@ -16,15 +16,15 @@ const StackNavigator = createStackNavigator({
       animationEnabled: false
     }
   },
-  Accueil: {
-    screen: Accueil,
+  WelcomeScreen: {
+    screen: WelcomeScreen,
     navigationOptions: {
-      title: 'Accueil',
+      title: 'WelcomeScreen',
       headerShown: false
     }
   },
-  Texte: {
-    screen: Texte,
+  TextGenerator: {
+    screen: TextGenerator,
     navigationOptions: {
       title: 'Dérives',
       headerShown: false
@@ -37,10 +37,10 @@ const StackNavigator = createStackNavigator({
       headerShown: false
     }
   },
-  Menu: {
-    screen: Menu,
+  ChooseParams: {
+    screen: ChooseParams,
     navigationOptions: {
-      title: 'Menu',
+      title: 'ChooseParams',
       headerShown: false
     }
   },
