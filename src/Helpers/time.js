@@ -1,7 +1,7 @@
 /**
- * Calcul de la saison
+ * Calcul de la season
  */
-export const calculateSaison = () => {
+export const calculateSeason = () => {
     let month = (new Date()).getMonth()
     if (month >= 3 && month < 6) return "printemps"
     else if (month >= 6 && month < 9) return "été"
@@ -10,13 +10,13 @@ export const calculateSaison = () => {
 }
 
 /**
- * Calcul du moment de la journée (en fonction de l'heure et de la saison)
+ * Calcul du moment de la journée (en fonction de l'heure et de la season)
  * À passer sur l'API de la météo
  */
 export const calculateMoment = () => {
     let hour = (new Date()).getHours()
-    let saison = calculateSaison()
-    switch (saison) {
+    let season = calculateSeason()
+    switch (season) {
         case "printemps": {
             if (hour <= 6 || hour > 20) return "nuit"
             else if (hour > 6 && hour <= 10) return "matin"

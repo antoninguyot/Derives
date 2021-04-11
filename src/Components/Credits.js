@@ -1,19 +1,19 @@
 import {Text, SafeAreaView, ScrollView, Image, TouchableOpacity} from "react-native";
 import React from 'react';
 import {setColorBackground, setColorWriting} from "../Helpers/colorInterface";
-import {calculateMoment, calculateSaison} from "../Helpers/time";
+import {calculateMoment, calculateSeason} from "../Helpers/time";
 import {groupStyleSheet} from "../../Appcss";
 
 const photos = [
-    '../data/Photo/Photo_Cecile.jpeg',
+    '../data/Photo/cecile.jpeg',
     '../data/Photo/Photo_hervé.jpg',
-    '../data/Photo/Photo_Marine.jpg',
-    '../data/Photo/Photo_Serge.png',
-    '../data/Photo/Photo_Charles.jpeg',
-    '../data/Photo/Photo_Antonin.jpeg',
-    '../data/Photo/Photo_Maylis.jpeg',
-    '../data/Photo/Photo_bg.jpeg',
-    '../data/Photo/Photo_Erika.jpg',
+    '../data/Photo/marine.jpg',
+    '../data/Photo/serge.png',
+    '../data/Photo/charles.jpeg',
+    '../data/Photo/antonin.jpeg',
+    '../data/Photo/maylis.jpeg',
+    '../data/Photo/bg.jpeg',
+    '../data/Photo/erika.jpg',
 ]
 
 
@@ -52,7 +52,7 @@ function displayThanks(){
 }
 
 let jDate = new Date()
-let moment = calculateMoment(calculateSaison(jDate.getMonth()), jDate.getHours())
+let moment = calculateMoment(calculateSeason(jDate.getMonth()), jDate.getHours())
 
 const Credits = ({navigation}) => {
 
@@ -60,30 +60,30 @@ const Credits = ({navigation}) => {
         <SafeAreaView style={[styles.container, {backgroundColor:setColorBackground(moment), marginTop:30}]}>
             <ScrollView style={styles.scrollView}>
                 <Text style={[styles.textTitle,{color:setColorWriting(moment)}]}>{"\nCrédits\n"}</Text>
-                <Image style={styles.photo} source={require('../data/Photo/Photo_Serge.png')}/>
+                <Image style={styles.photo} source={require('../../assets/images/team/serge.png')}/>
                 <Text style={[styles.text,{color:setColorWriting(moment)}]}> {peopleToCredit[0][0] + "\n" +peopleToCredit[0][1] + "\n" +peopleToCredit[0][2] + "\n"} </Text>
-                <Image style={styles.photo} source={require('../data/Photo/Photo_Marine.jpg')}/>
+                <Image style={styles.photo} source={require('../../assets/images/team/marine.jpg')}/>
                 <Text style={[styles.text,{color:setColorWriting(moment)}]}> {peopleToCredit[1][0] + "\n" +peopleToCredit[1][1] + "\n" +peopleToCredit[1][2] + "\n"} </Text>
-                <Image style={styles.photo} source={require('../data/Photo/Photo_herve.jpg')}/>
+                <Image style={styles.photo} source={require('../../assets/images/team/herve.jpg')}/>
                 <Text style={[styles.text,{color:setColorWriting(moment)}]}> {peopleToCredit[2][0] + "\n" +peopleToCredit[2][1] + "\n" +peopleToCredit[2][2] + "\n"} </Text>
-                <Image style={styles.photo} source={require('../data/Photo/Photo_Erika.jpg')}/>
+                <Image style={styles.photo} source={require('../../assets/images/team/erika.jpg')}/>
                 <Text style={[styles.text,{color:setColorWriting(moment)}]}> {peopleToCredit[3][0] + "\n" +peopleToCredit[3][1] + "\n" +peopleToCredit[3][2] + "\n"} </Text>
-                <Image style={styles.photo} source={require('../data/Photo/Photo_Charles.jpeg')}/>
+                <Image style={styles.photo} source={require('../../assets/images/team/charles.jpeg')}/>
                 <Text style={[styles.text,{color:setColorWriting(moment)}]}> {peopleToCredit[4][0] + "\n" +peopleToCredit[4][1] + "\n" +peopleToCredit[4][2] + "\n"} </Text>
-                <Image style={styles.photo} source={require('../data/Photo/Photo_Cecile.jpeg')}/>
+                <Image style={styles.photo} source={require('../../assets/images/team/cecile.jpeg')}/>
                 <Text style={[styles.text,{color:setColorWriting(moment)}]}> {peopleToCredit[5][0] + "\n" +peopleToCredit[5][1] + "\n" +peopleToCredit[5][2] + "\n"} </Text>
-                <Image style={styles.photo} source={require('../data/Photo/Photo_Antonin.jpeg')}/>
+                <Image style={styles.photo} source={require('../../assets/images/team/antonin.jpeg')}/>
                 <Text style={[styles.text,{color:setColorWriting(moment)}]}> {peopleToCredit[6][0] + "\n" +peopleToCredit[6][1] + "\n" +peopleToCredit[6][2] + "\n"} </Text>
-                <Image style={styles.photo} source={require('../data/Photo/Photo_Maylis.jpeg')}/>
+                <Image style={styles.photo} source={require('../../assets/images/team/maylis.jpeg')}/>
                 <Text style={[styles.text,{color:setColorWriting(moment)}]}> {peopleToCredit[7][0] + "\n" +peopleToCredit[7][1] + "\n" +peopleToCredit[7][2] + "\n"} </Text>
-                <Image style={styles.photo} source={require('../data/Photo/Photo_bg.jpeg')}/>
+                <Image style={styles.photo} source={require('../../assets/images/team/bg.jpeg')}/>
                 <Text style={[styles.text,{color:setColorWriting(moment)}]}> {peopleToCredit[8][0] + "\n" +peopleToCredit[8][1] + "\n" +peopleToCredit[8][2] + "\n"} </Text>
                 <Text style={[styles.textTitle,{color:setColorWriting(moment)}]}>{"\nRemerciements\n"}</Text>
                 <Text style={[styles.text,{color:setColorWriting(moment)}]}>{displayThanks()}</Text>
 
             </ScrollView>
             <TouchableOpacity
-                onPress={() => navigation.navigate('Menu')}
+                onPress={() => navigation.navigate('ChooseParams')}
                 style={[styles.retourMenu,{backgroundColor:setColorWriting(moment)}]}>
                 <Text style = {[styles.text, {color:setColorBackground(moment)}]}>Retour au Menu</Text>
             </TouchableOpacity>

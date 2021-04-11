@@ -2,89 +2,89 @@ import {Audio} from "expo-av";
 
 const soundFiles = {
     matin: [
-        require("../data/Musics/Musics/matin_mus_1.mp3"),
-        require("../data/Musics/Musics/matin_mus_2.mp3"),
-        require("../data/Musics/Musics/matin_mus_3.mp3")
+        require("../../assets/sounds/music/morning1.mp3"),
+        require("../../assets/sounds/music/morning2.mp3"),
+        require("../../assets/sounds/music/morning3.mp3")
     ],
     midi: [
-        require("../data/Musics/Musics/midi_mus_1.mp3"),
-        require("../data/Musics/Musics/midi_mus_2.mp3"),
-        require("../data/Musics/Musics/midi_mus_3.mp3")
+        require("../../assets/sounds/music/noon1.mp3"),
+        require("../../assets/sounds/music/noon2.mp3"),
+        require("../../assets/sounds/music/noon3.mp3")
     ],
     soir: [
-        require("../data/Musics/Musics/soir_mus_1.mp3"),
-        require("../data/Musics/Musics/soir_mus_1.mp3"),
-        require("../data/Musics/Musics/soir_mus_1.mp3"),
+        require("../../assets/sounds/music/evening1.mp3"),
+        require("../../assets/sounds/music/evening1.mp3"),
+        require("../../assets/sounds/music/evening1.mp3"),
     ],
     nuit:[
-        require("../data/Musics/Musics/nuit_mus_1.mp3"),
-        require("../data/Musics/Musics/nuit_mus_1.mp3"),
-        require("../data/Musics/Musics/nuit_mus_1.mp3"),
+        require("../../assets/sounds/music/night1.mp3"),
+        require("../../assets/sounds/music/night1.mp3"),
+        require("../../assets/sounds/music/night1.mp3"),
     ]
 }
 
 const noiseFiles = {
     punctual: {
         matin:[
-            require("../data/Musics/Bruitages/Sons_Ponctuels/Matin/01_Oiseaux.mp3"),
-            require("../data/Musics/Bruitages/Sons_Ponctuels/Matin/02_Rires.mp3"),
-            require("../data/Musics/Bruitages/Sons_Ponctuels/Matin/03_Chantiers.mp3"),
-            require("../data/Musics/Bruitages/Sons_Ponctuels/Matin/04_Rumeurs.mp3"),
-            require("../data/Musics/Bruitages/Sons_Ponctuels/Matin/05_Chants.mp3"),
-            require("../data/Musics/Bruitages/Sons_Ponctuels/Matin/06_Bêtes.mp3")
+            require("../../assets/sounds/effects/oneoff/morning/01_Oiseaux.mp3"),
+            require("../../assets/sounds/effects/oneoff/morning/02_Rires.mp3"),
+            require("../../assets/sounds/effects/oneoff/morning/03_Chantiers.mp3"),
+            require("../../assets/sounds/effects/oneoff/morning/04_Rumeurs.mp3"),
+            require("../../assets/sounds/effects/oneoff/morning/05_Chants.mp3"),
+            require("../../assets/sounds/effects/oneoff/morning/06_Bêtes.mp3")
         ],
         midi: [
-            require("../data/Musics/Bruitages/Sons_Ponctuels/Midi/01_Pas.mp3"),
-            require("../data/Musics/Bruitages/Sons_Ponctuels/Midi/01b_Pas.mp3"),
-            require("../data/Musics/Bruitages/Sons_Ponctuels/Midi/01c_Pas.mp3"),
-            require("../data/Musics/Bruitages/Sons_Ponctuels/Midi/02_Tempête.mp3"),
-            require("../data/Musics/Bruitages/Sons_Ponctuels/Midi/03_Chants.mp3"),
-            require("../data/Musics/Bruitages/Sons_Ponctuels/Midi/04_Guerre.mp3"),
-            require("../data/Musics/Bruitages/Sons_Ponctuels/Midi/05_Navires.mp3"),
+            require("../../assets/sounds/effects/oneoff/noon/01_Pas.mp3"),
+            require("../../assets/sounds/effects/oneoff/noon/01b_Pas.mp3"),
+            require("../../assets/sounds/effects/oneoff/noon/01c_Pas.mp3"),
+            require("../../assets/sounds/effects/oneoff/noon/02_Tempête.mp3"),
+            require("../../assets/sounds/effects/oneoff/noon/03_Chants.mp3"),
+            require("../../assets/sounds/effects/oneoff/noon/04_Guerre.mp3"),
+            require("../../assets/sounds/effects/oneoff/noon/05_Navires.mp3"),
         ],
         acceleration: [
-            require("../data/Musics/Bruitages/Sons_Acceleration/S1.wav"),
-            require("../data/Musics/Bruitages/Sons_Acceleration/S2.wav"),
-            require("../data/Musics/Bruitages/Sons_Acceleration/S3.wav"),
-            require("../data/Musics/Bruitages/Sons_Acceleration/S4.wav"),
-            require("../data/Musics/Bruitages/Sons_Acceleration/S5.wav"),
-            require("../data/Musics/Bruitages/Sons_Acceleration/S6.wav"),
-            require("../data/Musics/Bruitages/Sons_Acceleration/S7.wav"),
-            require("../data/Musics/Bruitages/Sons_Acceleration/S8.wav"),
-            require("../data/Musics/Bruitages/Sons_Acceleration/S9.wav"),
-            require("../data/Musics/Bruitages/Sons_Acceleration/S10.wav"),
-            require("../data/Musics/Bruitages/Sons_Acceleration/S11.wav"),
-            require("../data/Musics/Bruitages/Sons_Acceleration/S12.wav"),
-            require("../data/Musics/Bruitages/Sons_Acceleration/S13.wav"),
-            require("../data/Musics/Bruitages/Sons_Acceleration/S14.wav"),
-            require("../data/Musics/Bruitages/Sons_Acceleration/S15.wav"),
-            require("../data/Musics/Bruitages/Sons_Acceleration/S16.wav"),
-            require("../data/Musics/Bruitages/Sons_Acceleration/S17.wav"),
-            require("../data/Musics/Bruitages/Sons_Acceleration/S18.wav"),
-            require("../data/Musics/Bruitages/Sons_Acceleration/S19.wav"),
-            require("../data/Musics/Bruitages/Sons_Acceleration/S20.wav"),
-            require("../data/Musics/Bruitages/Sons_Acceleration/S21.wav"),
-            require("../data/Musics/Bruitages/Sons_Acceleration/S22.wav"),
-            require("../data/Musics/Bruitages/Sons_Acceleration/S23.wav"),
-            require("../data/Musics/Bruitages/Sons_Acceleration/S24.wav"),
-            require("../data/Musics/Bruitages/Sons_Acceleration/S25.wav"),
-            require("../data/Musics/Bruitages/Sons_Acceleration/S26.wav"),
-            require("../data/Musics/Bruitages/Sons_Acceleration/S27.wav"),
-            require("../data/Musics/Bruitages/Sons_Acceleration/S28.wav")
+            require("../../assets/sounds/effects/acceleration/S1.wav"),
+            require("../../assets/sounds/effects/acceleration/S2.wav"),
+            require("../../assets/sounds/effects/acceleration/S3.wav"),
+            require("../../assets/sounds/effects/acceleration/S4.wav"),
+            require("../../assets/sounds/effects/acceleration/S5.wav"),
+            require("../../assets/sounds/effects/acceleration/S6.wav"),
+            require("../../assets/sounds/effects/acceleration/S7.wav"),
+            require("../../assets/sounds/effects/acceleration/S8.wav"),
+            require("../../assets/sounds/effects/acceleration/S9.wav"),
+            require("../../assets/sounds/effects/acceleration/S10.wav"),
+            require("../../assets/sounds/effects/acceleration/S11.wav"),
+            require("../../assets/sounds/effects/acceleration/S12.wav"),
+            require("../../assets/sounds/effects/acceleration/S13.wav"),
+            require("../../assets/sounds/effects/acceleration/S14.wav"),
+            require("../../assets/sounds/effects/acceleration/S15.wav"),
+            require("../../assets/sounds/effects/acceleration/S16.wav"),
+            require("../../assets/sounds/effects/acceleration/S17.wav"),
+            require("../../assets/sounds/effects/acceleration/S18.wav"),
+            require("../../assets/sounds/effects/acceleration/S19.wav"),
+            require("../../assets/sounds/effects/acceleration/S20.wav"),
+            require("../../assets/sounds/effects/acceleration/S21.wav"),
+            require("../../assets/sounds/effects/acceleration/S22.wav"),
+            require("../../assets/sounds/effects/acceleration/S23.wav"),
+            require("../../assets/sounds/effects/acceleration/S24.wav"),
+            require("../../assets/sounds/effects/acceleration/S25.wav"),
+            require("../../assets/sounds/effects/acceleration/S26.wav"),
+            require("../../assets/sounds/effects/acceleration/S27.wav"),
+            require("../../assets/sounds/effects/acceleration/S28.wav")
         ]
     },
     ambiance : {
         city: [
-            require("../data/Musics/Bruitages/Sons_Ambiance/01_Ville.mp3"),
-            require("../data/Musics/Bruitages/Sons_Ambiance/01b_Ville.mp3"),
-            require("../data/Musics/Bruitages/Sons_Ambiance/01c_Ville.mp3"),
+            require("../../assets/sounds/effects/ambiance/city1.mp3"),
+            require("../../assets/sounds/effects/ambiance/city2.mp3"),
+            require("../../assets/sounds/effects/ambiance/city3.mp3"),
         ],
         country: [
-            require("../data/Musics/Bruitages/Sons_Ambiance/02_Campagne.mp3"),
+            require("../../assets/sounds/effects/ambiance/country1.mp3"),
         ],
         beach: [
-            require("../data/Musics/Bruitages/Sons_Ambiance/03_Mer.mp3"),
-            require("../data/Musics/Bruitages/Sons_Ambiance/04_Plage.mp3"),
+            require("../../assets/sounds/effects/ambiance/beach1.mp3"),
+            require("../../assets/sounds/effects/ambiance/beach2.mp3"),
         ]
     },
 }

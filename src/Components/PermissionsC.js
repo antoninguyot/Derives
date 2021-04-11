@@ -10,7 +10,7 @@ const PermissionsC = ({navigation}) => {
 
     useEffect(() => {
         if (locationPermission?.status === 'granted' && cameraPermission?.status === 'granted') {
-            navigation.replace('Accueil')
+            navigation.replace('WelcomeScreen')
         }
     }, [locationPermission, cameraPermission]);
 
@@ -39,7 +39,7 @@ const PermissionsC = ({navigation}) => {
             <View>
                 {locationPermission?.status === 'granted' && cameraPermission?.status === 'granted' &&
                 <Button title="Continuer" onPress={() => {
-                    navigation.replace('Accueil')
+                    navigation.replace('WelcomeScreen')
                 }}></Button> ||
                 <Button title="Continuer" disabled></Button>
                 }
