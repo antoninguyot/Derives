@@ -1,18 +1,16 @@
 import React, {useEffect, useState} from 'react'
-import {Modal, Text, View, TouchableOpacity, Button} from 'react-native';
+import {Button, Modal, Text, TouchableOpacity, View} from 'react-native';
 import useInterval from "@use-it/interval";
 import {Ionicons} from '@expo/vector-icons';
 import CCamera from './CCamera';
 import {groupStyleSheet} from "../../Appcss";
 
-import {sedacLocationRequest, sedacDataset} from "../Helpers/location.js";
+import {sedacDataset, sedacLocationRequest} from "../Helpers/location.js";
 import * as Location from "expo-location";
-import {calculateSeason, calculateMoment} from '../Helpers/time';
+import {calculateMoment, calculateSeason} from '../Helpers/time';
 import {weatherRequest} from "../Helpers/weather";
-import {combine, getTextArray, interpretText} from "../Helpers/text";
-import {getUrlSound, playMusic, soundFor, speedNoiseFor} from "../Helpers/sound";
-import {ambianceNoiseFor} from "../Helpers/sound";
-import {punctualNoiseFor} from "../Helpers/sound";
+import {combine, getTextArray} from "../Helpers/text";
+import {ambianceNoiseFor, getUrlSound, soundFor, speedNoiseFor} from "../Helpers/sound";
 import OptionsModal from "./OptionsModal";
 
 const TextGenerator = ({navigation}) => {
@@ -59,12 +57,12 @@ const TextGenerator = ({navigation}) => {
    * Mise à jour du temps de la journée
    */
   const updateTime = () => {
-      if (isMounted) {
-          setSeason(calculateSeason());
-          if (moment === undefined) {
-              setMoment(calculateMoment());
-          }
+    if (isMounted) {
+      setSeason(calculateSeason());
+      if (moment === undefined) {
+        setMoment(calculateMoment());
       }
+    }
   }
 
 
@@ -77,36 +75,34 @@ const TextGenerator = ({navigation}) => {
     }
   }, [localityDensity])
 
-    /**
-     * Démarrage du son lorsque le moment de la journée change
-     */
-    let music
-    let urlSound
-    let ambiance
-    let punctual
-    let speedNoise
-    useEffect(() => {
-        urlSound = (getUrlSound(moment))
-        if(urlSound === "../data/Musics/noon3.mp3" && !isPlayed) {
-            music = soundFor(urlSound)
-            setIsPlayed(true)
-        }
-        else if ( !isPlayed && moment &&
-            (vers.includes("Partout") ||
-            vers.includes("Autre moment") ||
-            vers.includes("La nuit") ||
-            vers.includes("Déjà")))
-        {
-            setIsPlayed(true)
-            music = soundFor(urlSound)
-            ambiance = ambianceNoiseFor(localityType)
-        }
-        //oneoff = punctualNoiseFor(moment,vers)
-        speedNoise = speedNoiseFor()
-    }, [vers])
-    /**
-     * Mise à jour des coefficients
-     */
+  /**
+   * Démarrage du son lorsque le moment de la journée change
+   */
+  let music
+  let urlSound
+  let ambiance
+  let punctual
+  let speedNoise
+  useEffect(() => {
+    urlSound = (getUrlSound(moment))
+    if (urlSound === "../data/Musics/noon3.mp3" && !isPlayed) {
+      music = soundFor(urlSound)
+      setIsPlayed(true)
+    } else if (!isPlayed && moment &&
+      (vers.includes("Partout") ||
+        vers.includes("Autre moment") ||
+        vers.includes("La nuit") ||
+        vers.includes("Déjà"))) {
+      setIsPlayed(true)
+      music = soundFor(urlSound)
+      ambiance = ambianceNoiseFor(localityType)
+    }
+    //oneoff = punctualNoiseFor(moment,vers)
+    speedNoise = speedNoiseFor()
+  }, [vers])
+  /**
+   * Mise à jour des coefficients
+   */
 
   /**
    * componentDidMount()
@@ -123,21 +119,21 @@ const TextGenerator = ({navigation}) => {
       // Mise à jour de la position
       updateLocation(location)
 
-    // Récupération des données météo
-    weatherRequest(location.coords.latitude, location.coords.longitude)
-      .then(response => {
-        if (isMounted) {
-          setTemperature(response.data.main.temp)
-          // Inférer un état de la température
-          if (temperature < 12) {
-            setWeather("cold")
-          } else if (temperature > 25) {
-            setWeather("hot")
-          } else {
-            setWeather("sweet")
+      // Récupération des données météo
+      weatherRequest(location.coords.latitude, location.coords.longitude)
+        .then(response => {
+          if (isMounted) {
+            setTemperature(response.data.main.temp)
+            // Inférer un état de la température
+            if (temperature < 12) {
+              setWeather("cold")
+            } else if (temperature > 25) {
+              setWeather("hot")
+            } else {
+              setWeather("sweet")
+            }
           }
-        }
-      })
+        })
 
       // Récupération des données de densité de pop
       sedacLocationRequest(location.coords.latitude, location.coords.longitude)
@@ -166,20 +162,20 @@ const TextGenerator = ({navigation}) => {
   }, [])
 
   useEffect(() => {
-    if ( currentSpeed - previousSpeed > 0.3) {
-      setCoefPolice(Math.min(coefPolice + 1 ,3))
-      setNbLines(Math.max(nbLines - 1 ,2))
+    if (currentSpeed - previousSpeed > 0.3) {
+      setCoefPolice(Math.min(coefPolice + 1, 3))
+      setNbLines(Math.max(nbLines - 1, 2))
       setSpeedIncreased(true)
     } else if (currentSpeed - previousSpeed < 0.5) {
-      setCoefPolice(Math.max(coefPolice - 1,1))
-      setNbLines(Math.min(nbLines + 1 ,4))
+      setCoefPolice(Math.max(coefPolice - 1, 1))
+      setNbLines(Math.min(nbLines + 1, 4))
       setSpeedIncreased(false)
     }
     setPreviousSpeed(currentSpeed)
   }, [currentSpeed])
-  
+
   useInterval(() => {
-    if(!isMounted || !localityType || !weather || !season || !moment || !currentSpeed || !localityDensity) {
+    if (!isMounted || !localityType || !weather || !season || !moment || !currentSpeed || !localityDensity) {
       return;
     }
 
@@ -206,69 +202,69 @@ const TextGenerator = ({navigation}) => {
 
   return (
     <View style={styles.mainContainer}>
-        <View style={styles.cameraContener}>
-            <CCamera/>
+      <View style={styles.cameraContener}>
+        <CCamera/>
+      </View>
+      <Modal
+        animationType="slide"
+        transparent={false}
+        visible={debugModal}>
+        <View style={{marginTop: 50}}>
+          <OptionsModal
+            latitude={latitude}
+            longitude={longitude}
+            localityDensity={localityDensity}
+            localityType={localityType}
+            speed={currentSpeed}
+            temperature={temperature}
+            weather={weather}
+            season={season}
+            moment={moment}
+          ></OptionsModal>
+          <Button title='Fermer'
+                  onPress={() => {
+                    setDebugModal(!debugModal);
+                  }}></Button>
         </View>
-        <Modal
-            animationType="slide"
-            transparent={false}
-            visible={debugModal}>
-            <View style={{marginTop: 50}}>
-                <OptionsModal
-                    latitude={latitude}
-                    longitude={longitude}
-                    localityDensity={localityDensity}
-                    localityType={localityType}
-                    speed={currentSpeed}
-                    temperature={temperature}
-                    weather={weather}
-                    season={season}
-                    moment={moment}
-                ></OptionsModal>
-                <Button title='Fermer'
-                        onPress={() => {
-                            setDebugModal(!debugModal);
-                        }}></Button>
-            </View>
-        </Modal>
-        <View style={styles.textContainer}>
-            <TouchableOpacity onLongPress={() => {
-                setDebug(!debug)
-            }}>
-                <Text style={[styles.textOver, {fontSize: 20 * coefPolice}]}>
-                    {vers}
-                </Text>
-            </TouchableOpacity>
-        </View>
-        {debug &&
-        <View style={styles.containerCaptors}>
-            <Text style={styles.textCaptors}> Saison : {season}  </Text>
-            <Text style={styles.textCaptors}> Moment : {moment}  </Text>
-            <Text style={styles.textCaptors}> Vitesse : {currentSpeed}  </Text>
-            <Text style={styles.textCaptors}> Accélération : {speedIncreased ? 'Oui' : 'Non'}  </Text>
-            <Text style={styles.textCaptors}> Latitude : {latitude}  </Text>
-            <Text style={styles.textCaptors}> Longitude : {longitude}  </Text>
-            <Text style={styles.textCaptors}> Densité de pop : {localityDensity} </Text>
-            <Text style={styles.textCaptors}> Milieu : {localityType}</Text>
-            <Text style={styles.textCaptors}> Météo : {weather} </Text>
-            <Text style={styles.textCaptors}> Temperature : {temperature}</Text>
-            <Text style={styles.textCaptors}> Nb Lines : {nbLines}</Text>
-            <Text style={styles.textCaptors}> Coeff Police : {coefPolice}</Text>
+      </Modal>
+      <View style={styles.textContainer}>
+        <TouchableOpacity onLongPress={() => {
+          setDebug(!debug)
+        }}>
+          <Text style={[styles.textOver, {fontSize: 20 * coefPolice}]}>
+            {vers}
+          </Text>
+        </TouchableOpacity>
+      </View>
+      {debug &&
+      <View style={styles.containerCaptors}>
+        <Text style={styles.textCaptors}> Saison : {season}  </Text>
+        <Text style={styles.textCaptors}> Moment : {moment}  </Text>
+        <Text style={styles.textCaptors}> Vitesse : {currentSpeed}  </Text>
+        <Text style={styles.textCaptors}> Accélération : {speedIncreased ? 'Oui' : 'Non'}  </Text>
+        <Text style={styles.textCaptors}> Latitude : {latitude}  </Text>
+        <Text style={styles.textCaptors}> Longitude : {longitude}  </Text>
+        <Text style={styles.textCaptors}> Densité de pop : {localityDensity} </Text>
+        <Text style={styles.textCaptors}> Milieu : {localityType}</Text>
+        <Text style={styles.textCaptors}> Météo : {weather} </Text>
+        <Text style={styles.textCaptors}> Temperature : {temperature}</Text>
+        <Text style={styles.textCaptors}> Nb Lines : {nbLines}</Text>
+        <Text style={styles.textCaptors}> Coeff Police : {coefPolice}</Text>
 
-        </View>
-        }
-        {/* Back button */}
-        <TouchableOpacity
-            style={{flex: 1, position: 'absolute', bottom: 0, left: 0, marginBottom: 5, marginLeft: 5}}
-            onPress={() => navigation.navigate('WelcomeScreen')}>
-            <Ionicons name="md-arrow-back-circle-outline" size={32} color="darkgrey"/>
-        </TouchableOpacity>
-        {/* Debug button */}
-        <TouchableOpacity
-            style={{flex: 1, position: 'absolute', bottom: 0, right: 0, marginBottom: 5, marginRight: 5}}
-            onPress={() => setDebugModal(!debugModal)}>
-            <Ionicons name="md-information-circle-outline" size={32} color="darkgrey"/>
-        </TouchableOpacity>
+      </View>
+      }
+      {/* Back button */}
+      <TouchableOpacity
+        style={{flex: 1, position: 'absolute', bottom: 0, left: 0, marginBottom: 5, marginLeft: 5}}
+        onPress={() => navigation.navigate('WelcomeScreen')}>
+        <Ionicons name="md-arrow-back-circle-outline" size={32} color="darkgrey"/>
+      </TouchableOpacity>
+      {/* Debug button */}
+      <TouchableOpacity
+        style={{flex: 1, position: 'absolute', bottom: 0, right: 0, marginBottom: 5, marginRight: 5}}
+        onPress={() => setDebugModal(!debugModal)}>
+        <Ionicons name="md-information-circle-outline" size={32} color="darkgrey"/>
+      </TouchableOpacity>
     </View>
   )
 }
