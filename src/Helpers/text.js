@@ -1,8 +1,8 @@
-import Matin from "../data/Textes/Matin";
-import Midi from "../data/Textes/Midi";
-import Soir from "../data/Textes/Soir";
-import Nuit from "../data/Textes/Nuit";
-import WordBase from "../data/Textes/WordBase";
+import Matin from "../Texts/Matin";
+import Midi from "../Texts/Midi";
+import Soir from "../Texts/Soir";
+import Nuit from "../Texts/Nuit";
+import WordBase from "../Texts/WordBase";
 
 /**
  * Chargement du bon texte en fonction de la période de la journée

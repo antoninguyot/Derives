@@ -87,7 +87,7 @@ const TextGenerator = ({navigation}) => {
     let speedNoise
     useEffect(() => {
         urlSound = (getUrlSound(moment))
-        if(urlSound === "../data/Musics/midi_mus_3.mp3" && !isPlayed) {
+        if(urlSound === "../data/Musics/noon3.mp3" && !isPlayed) {
             music = soundFor(urlSound)
             setIsPlayed(true)
         }
@@ -101,7 +101,7 @@ const TextGenerator = ({navigation}) => {
             music = soundFor(urlSound)
             ambiance = ambianceNoiseFor(localityType)
         }
-        //punctual = punctualNoiseFor(moment,vers)
+        //oneoff = punctualNoiseFor(moment,vers)
         speedNoise = speedNoiseFor()
     }, [vers])
     /**
