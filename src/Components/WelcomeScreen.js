@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react'
-import { View, Text } from 'react-native'
+import React, {useEffect, useState} from 'react'
+import {Text, View} from 'react-native'
 import {calculateMoment} from '../Helpers/time';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {setColorBackground, setColorWriting} from '../Helpers/colorInterface';
@@ -19,35 +19,35 @@ const WelcomeScreen = ({navigation}) => {
   const getData = async () => {
     try {
       const value = await AsyncStorage.getItem('firstConnexionDate')
-      if(value !== null) {
+      if (value !== null) {
         setDestinationScreen('ChooseParams')
       } else {
         setDestinationScreen('TextGenerator')
         const jsonValue = JSON.stringify(new Date)
         await AsyncStorage.setItem('firstConnexionDate', jsonValue)
       }
-    } catch(e) {
+    } catch (e) {
       console.log("erreur", e)
     }
   }
-  
-  useEffect( () => {
+
+  useEffect(() => {
     getData()
   }, [])
 
   let moment = calculateMoment()
 
   return (
-      <View style={[styles.mainContainer, {backgroundColor: setColorBackground(moment)}]}>
-        <Text style={[styles.welcomeText, {color:setColorWriting(moment)}]}>
-          {description}
-        </Text>
-        <TouchableOpacity
-          style={[styles.buttonGo,{backgroundColor:setColorWriting(moment)}]}
-          onPress={() => navigation.navigate(destinationScreen)}>
-          <Text style={[styles.buttonText, {color:setColorBackground(moment)}]}>GO</Text>
-        </TouchableOpacity>
-      </View>
+    <View style={[styles.mainContainer, {backgroundColor: setColorBackground(moment)}]}>
+      <Text style={[styles.welcomeText, {color: setColorWriting(moment)}]}>
+        {description}
+      </Text>
+      <TouchableOpacity
+        style={[styles.buttonGo, {backgroundColor: setColorWriting(moment)}]}
+        onPress={() => navigation.navigate(destinationScreen)}>
+        <Text style={[styles.buttonText, {color: setColorBackground(moment)}]}>GO</Text>
+      </TouchableOpacity>
+    </View>
   )
 }
 
