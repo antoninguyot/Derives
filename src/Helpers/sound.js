@@ -88,72 +88,76 @@ const noiseFiles = {
     ]
   },
 }
-//URL DE LA MUSIQUE
-export const getUrlSound = (moment) => {
-  let random = Math.floor((Math.random() * 3))
 
+export const play = async (soundUrl) => {
+  let {sound} = await Audio.Sound.createAsync(soundUrl, {shouldPlay: true})
+  sound.setOnPlaybackStatusUpdate((status) => {
+    if (!status.shouldPlay && !status.isPlaying && status.isLoaded) sound.unloadAsync()
+  })
+  return sound
+}
+
+const randomIn = (array) => {
+  return array[Math.floor(Math.random() * array.length)]
+}
+
+//URL DE LA MUSIQUE
+export const getMusic = (moment) => {
+  let musicFile
   switch (moment) {
     case "matin": {
-      return soundFiles.matin[random]
+      musicFile = randomIn(soundFiles.matin)
+      break;
     }
     case "midi": {
-      return soundFiles.midi[random]
+      musicFile = randomIn(soundFiles.midi)
+      break;
     }
     case "soir": {
-      return soundFiles.soir[random]
+      musicFile = randomIn(soundFiles.soir)
+      break;
     }
     case "nuit": {
-      return soundFiles.nuit[random]
-    }
-    default: {
-      return null
+      musicFile = randomIn(soundFiles.nuit)
+      break;
     }
   }
+  return musicFile
 }
-//MUSIQUE
-export const soundFor = async (urlSound) => {
-  return Audio.Sound.createAsync(urlSound, {shouldPlay: true, volume: 0.6})
-}
-export const playMusic = async (urlSound) => {
-  let music = new Audio.Sound()
-  if (!urlSound) return
-  music = await Audio.Sound.createAsync(urlSound, {shouldPlay: true})
-  await music.sound.unloadAsync()
-}
+
 //BRUITS
-export const punctualNoiseFor = async (moment, vers) => {
+export const getOneOff = (moment, vers) => {
   let random;
-  let music;
-  let punctualNoiseFile;
+  let oneOffFile;
   switch (moment) {
     case "matin": {
       if (vers.includes("oiseau")) {
-        punctualNoiseFile = noiseFiles.punctual.matin[0]
+        oneOffFile = noiseFiles.punctual.matin[0]
       } else if (vers.includes("rire")) {
-        punctualNoiseFile = noiseFiles.punctual.matin[1]
+        oneOffFile = noiseFiles.punctual.matin[1]
       } else if (vers.includes("chantier")) {
-        punctualNoiseFile = noiseFiles.punctual.matin[2]
+        oneOffFile = noiseFiles.punctual.matin[2]
       } else if (vers.includes("rumeur")) {
-        punctualNoiseFile = noiseFiles.punctual.matin[3]
+        oneOffFile = noiseFiles.punctual.matin[3]
       } else if (vers.includes("chant")) {
-        punctualNoiseFile = noiseFiles.punctual.matin[4]
+        oneOffFile = noiseFiles.punctual.matin[4]
       } else if (vers.includes("bête")) {
-        punctualNoiseFile = noiseFiles.punctual.matin[5]
+        oneOffFile = noiseFiles.punctual.matin[5]
       }
       break
     }
     case "midi": {
       if (vers.includes("pas")) {
         random = Math.floor(Math.random() * 3)
-        punctualNoiseFile = noiseFiles.punctual.midi[random]
+        oneOffFile = noiseFiles.punctual.midi[random]
       } else if (vers.includes("tempête")) {
-        punctualNoiseFile = noiseFiles.punctual.midi[3]
+        oneOffFile = noiseFiles.punctual.midi[3]
       } else if (vers.includes("chant")) {
-        punctualNoiseFile = noiseFiles.punctual.midi[4]
+        oneOffFile = noiseFiles.punctual.midi[4]
       } else if (vers.includes("guerre")) {
-        punctualNoiseFile = noiseFiles.punctual.midi[5]
+        oneOffFile = noiseFiles.punctual.midi[5]
       } else if (vers.includes("navire")) {
-        punctualNoiseFile = noiseFiles.punctual.midi[6]
+        oneOffFile = noiseFiles.punctual.midi[6]
       }
       break
     }
@@ -167,36 +171,32 @@ export const punctualNoiseFor = async (moment, vers) => {
       break
     }
   }
-  music = await Audio.Sound.createAsync(punctualNoiseFile, {shouldPlay: true, volume: 0.1})
-  await music.sound.unloadAsync()
-  return music
+  return oneOffFile
 }
 
-export const speedNoiseFor = (moment) => {
-  let random = Math.floor(Math.random() * 28)
-  let speepNoiseFile = noiseFiles.punctual.acceleration[random]
-  return Audio.Sound.createAsync(speepNoiseFile, {shouldPlay: true, volume: 0.2})
+export const getAcceleration = () => {
+  return randomIn(noiseFiles.punctual.acceleration)
 
 }
 //AMBIANCE
-export const ambianceNoiseFor = async (location) => {
-  let ambianceNoiseFile;
+export const getAmbiance = (location) => {
+  let ambianceFile;
   switch (location) {
     case "city": {
-      ambianceNoiseFile = noiseFiles.ambiance.city[Math.floor(Math.random() * noiseFiles.ambiance.city.length)]
+      ambianceFile = randomIn(noiseFiles.ambiance.city)
       break
     }
     case "country": {
-      ambianceNoiseFile = noiseFiles.ambiance.country[Math.floor(Math.random() * noiseFiles.country.length)]
+      ambianceFile = randomIn(noiseFiles.ambiance.country)
       break
     }
     case "beach": {
-      ambianceNoiseFile = noiseFiles.ambiance.beach[Math.floor(Math.random() * noiseFiles.beach.length)]
+      ambianceFile = randomIn(noiseFiles.ambiance.beach)
       break
     }
     default: {
       break
     }
   }
-  return Audio.Sound.createAsync(ambianceNoiseFile, {shouldPlay: true, volume: 0.6})
+  return ambianceFile
 }

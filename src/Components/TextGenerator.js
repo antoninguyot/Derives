@@ -10,7 +10,7 @@ import * as Location from "expo-location";
 import {calculateMoment, calculateSeason} from '../Helpers/time';
 import {weatherRequest} from "../Helpers/weather";
 import {combine, getTextArray} from "../Helpers/text";
-import {ambianceNoiseFor, getUrlSound, soundFor, speedNoiseFor} from "../Helpers/sound";
+import {getAcceleration, getAmbiance, getMusic, getOneOff, play} from "../Helpers/sound";
 import OptionsModal from "./OptionsModal";
 
 const TextGenerator = ({navigation}) => {
@@ -30,7 +30,10 @@ const TextGenerator = ({navigation}) => {
   const [weather, setWeather] = useState(navigation.getParam('weather'))
 
   //Music states
-  const [isPlayed, setIsPlayed] = useState(false)
+  const [isReadyToPlay, setIsReadyToPlay] = useState(false)
+  const [currentlyPlaying, setCurrentlyPlaying] = useState([])
+  const [shouldPlayAmbiance, setShouldPlayAmbiance] = useState(false)
+  const [musicInterval, setMusicInterval] = useState()
 
   // Poems states
   const [vers, setVers] = useState("Commencez à marcher !")
@@ -76,33 +79,62 @@ const TextGenerator = ({navigation}) => {
   }, [localityDensity])
 
   /**
-   * Démarrage du son lorsque le moment de la journée change
+   * Lance la lecture de la musique
    */
-  let music
-  let urlSound
-  let ambiance
-  let punctual
-  let speedNoise
   useEffect(() => {
-    urlSound = (getUrlSound(moment))
-    if (urlSound === "../data/Musics/noon3.mp3" && !isPlayed) {
-      music = soundFor(urlSound)
-      setIsPlayed(true)
-    } else if (!isPlayed && moment &&
-      (vers.includes("Partout") ||
-        vers.includes("Autre moment") ||
-        vers.includes("La nuit") ||
-        vers.includes("Déjà"))) {
-      setIsPlayed(true)
-      music = soundFor(urlSound)
-      ambiance = ambianceNoiseFor(localityType)
-    }
-    //oneoff = punctualNoiseFor(moment,vers)
-    speedNoise = speedNoiseFor()
-  }, [vers])
+    if (!isReadyToPlay) return
+
+    // On commence par démarrer la musique
+    let musicFile = getMusic(moment)
+    play(musicFile).then((sound) => {
+      setCurrentlyPlaying(currentlyPlaying.concat([sound]))
+    })
+
+    // Si la musique choisie permet d'ajouter un son d'ambiance, on le fait
+    if (musicFile !== "../data/Musics/noon3.mp3") setShouldPlayAmbiance(true)
+
+  }, [isReadyToPlay])
+
   /**
-   * Mise à jour des coefficients
+   * Lance la lecture d'un son d'ambiance
    */
+  useEffect(() => {
+    if (!shouldPlayAmbiance) return
+    let ambianceFile = getAmbiance(localityType)
+    play(ambianceFile).then((sound) => {
+      setCurrentlyPlaying(currentlyPlaying.concat([sound]))
+    })
+  }, [shouldPlayAmbiance])
+
+  /**
+   * Lance la lecture des sons ponctuels
+   */
+  useEffect(() => {
+    // La musique 3 n'admet pas non plus de son ponctuels
+    if (!shouldPlayAmbiance) return
+    let oneOffFile = getOneOff(moment, vers)
+    if (oneOffFile) play(oneOffFile)
+  }, [vers])
+
+  /**
+   * Joue les sons lorsque l'accélération change
+   */
+  useEffect(() => {
+    // On supprime l'intervalle précédent
+    if (musicInterval) clearInterval(musicInterval)
+
+    // On en crée un nouveau en fonction de l'accélération actuelle
+    if (speedIncreased) {
+      setMusicInterval(setInterval(() => {
+        play(getAcceleration())
+      }, 3000))
+    } else {
+      setMusicInterval(setInterval(() => {
+        play(getAcceleration())
+      }, 5000))
+    }
+
+  }, [speedIncreased])
 
   /**
    * componentDidMount()
@@ -157,6 +189,10 @@ const TextGenerator = ({navigation}) => {
       locationWatcher.then(subscriber => {
         subscriber.remove()
       })
+      // TODO : ne marche pas
+      currentlyPlaying.forEach((sound) => {
+        sound.unloadAsync()
+      })
     }
 
   }, [])
@@ -175,9 +211,9 @@ const TextGenerator = ({navigation}) => {
   }, [currentSpeed])
 
   useInterval(() => {
-    if (!isMounted || !localityType || !weather || !season || !moment || !currentSpeed || !localityDensity) {
-      return;
-    }
+    if (!isMounted || !localityType || !weather || !season || !moment || !currentSpeed || !localityDensity) return
+
+    if (!isReadyToPlay) setIsReadyToPlay(true)
 
     let text = getTextArray('matin')
     let relevantText = speedIncreased ? text.acceleration : text.stable
