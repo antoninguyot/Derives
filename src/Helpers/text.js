@@ -126,7 +126,7 @@ export const interpretText = (sentence, localityType, activity, season, heat, sp
 
 export const fadeTo = (value, to, during = 1000, native = true) => {
   Animated.timing(value, {
-    to: to,
+    toValue: to,
     duration: during,
     useNativeDriver: native
   }).start()
