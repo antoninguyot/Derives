@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Button, Modal, Text, TouchableOpacity, View} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import useInterval from "@use-it/interval";
 import {Ionicons} from '@expo/vector-icons';
 import CCamera from './CCamera';
@@ -11,13 +11,11 @@ import {calculateMoment, calculateSeason} from '../Helpers/time';
 import {weatherRequest} from "../Helpers/weather";
 import {combine, getTextArray} from "../Helpers/text";
 import {ambianceNoiseFor, getUrlSound, soundFor, speedNoiseFor} from "../Helpers/sound";
-import OptionsModal from "./OptionsModal";
 
 const TextGenerator = ({navigation}) => {
   // Page states
   const [isMounted, setIsMounted] = useState(true)
   const [debug, setDebug] = useState(false)
-  const [debugModal, setDebugModal] = useState(false)
 
   //Localisation states 
   const [longitude, setLongitude] = useState()
@@ -205,28 +203,6 @@ const TextGenerator = ({navigation}) => {
       <View style={styles.cameraContener}>
         <CCamera/>
       </View>
-      <Modal
-        animationType="slide"
-        transparent={false}
-        visible={debugModal}>
-        <View style={{marginTop: 50}}>
-          <OptionsModal
-            latitude={latitude}
-            longitude={longitude}
-            localityDensity={localityDensity}
-            localityType={localityType}
-            speed={currentSpeed}
-            temperature={temperature}
-            weather={weather}
-            season={season}
-            moment={moment}
-          ></OptionsModal>
-          <Button title='Fermer'
-                  onPress={() => {
-                    setDebugModal(!debugModal);
-                  }}></Button>
-        </View>
-      </Modal>
       <View style={styles.textContainer}>
         <TouchableOpacity onLongPress={() => {
           setDebug(!debug)
@@ -262,7 +238,7 @@ const TextGenerator = ({navigation}) => {
       {/* Debug button */}
       <TouchableOpacity
         style={{flex: 1, position: 'absolute', bottom: 0, right: 0, marginBottom: 5, marginRight: 5}}
-        onPress={() => setDebugModal(!debugModal)}>
+        onPress={() => setDebug(!debug)}>
         <Ionicons name="md-information-circle-outline" size={32} color="darkgrey"/>
       </TouchableOpacity>
     </View>
