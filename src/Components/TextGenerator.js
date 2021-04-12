@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Button, Modal, Text, TouchableOpacity, View} from 'react-native';
+import {Animated, Text, TouchableOpacity, View} from 'react-native';
 import useInterval from "@use-it/interval";
 import {Ionicons} from '@expo/vector-icons';
 import CCamera from './CCamera';
@@ -9,15 +9,13 @@ import {sedacDataset, sedacLocationRequest} from "../Helpers/location.js";
 import * as Location from "expo-location";
 import {calculateMoment, calculateSeason} from '../Helpers/time';
 import {weatherRequest} from "../Helpers/weather";
-import {combine, getTextArray} from "../Helpers/text";
+import {combine, fadeTo, getTextArray} from "../Helpers/text";
 import {ambianceNoiseFor, getUrlSound, soundFor, speedNoiseFor} from "../Helpers/sound";
-import OptionsModal from "./OptionsModal";
 
 const TextGenerator = ({navigation}) => {
   // Page states
   const [isMounted, setIsMounted] = useState(true)
   const [debug, setDebug] = useState(false)
-  const [debugModal, setDebugModal] = useState(false)
 
   //Localisation states 
   const [longitude, setLongitude] = useState()
@@ -33,7 +31,8 @@ const TextGenerator = ({navigation}) => {
   const [isPlayed, setIsPlayed] = useState(false)
 
   // Poems states
-  const [vers, setVers] = useState("Commencez à marcher !")
+  const [vers, setVers] = useState()
+  const [versOpacity] = useState(new Animated.Value(0))
   const [index, setIndex] = useState(0);
   const [nbLines, setNbLines] = useState(4)
   const [coefPolice, setCoefPolice] = useState(1)
@@ -174,6 +173,18 @@ const TextGenerator = ({navigation}) => {
     setPreviousSpeed(currentSpeed)
   }, [currentSpeed])
 
+  useEffect(() => {
+    setVers("Dérive du " + moment)
+    setTimeout(() => {
+      setVers("Commencez à marcher")
+    }, 5000)
+  }, [moment])
+
+  useEffect(() => {
+    versOpacity.setValue(0)
+    fadeTo(versOpacity, 1)
+  }, [vers])
+
   useInterval(() => {
     if (!isMounted || !localityType || !weather || !season || !moment || !currentSpeed || !localityDensity) {
       return;
@@ -205,35 +216,13 @@ const TextGenerator = ({navigation}) => {
       <View style={styles.cameraContener}>
         <CCamera/>
       </View>
-      <Modal
-        animationType="slide"
-        transparent={false}
-        visible={debugModal}>
-        <View style={{marginTop: 50}}>
-          <OptionsModal
-            latitude={latitude}
-            longitude={longitude}
-            localityDensity={localityDensity}
-            localityType={localityType}
-            speed={currentSpeed}
-            temperature={temperature}
-            weather={weather}
-            season={season}
-            moment={moment}
-          ></OptionsModal>
-          <Button title='Fermer'
-                  onPress={() => {
-                    setDebugModal(!debugModal);
-                  }}></Button>
-        </View>
-      </Modal>
       <View style={styles.textContainer}>
         <TouchableOpacity onLongPress={() => {
           setDebug(!debug)
         }}>
-          <Text style={[styles.textOver, {fontSize: 20 * coefPolice}]}>
+          <Animated.Text style={[styles.textOver, {fontSize: 20 * coefPolice, opacity: versOpacity}]}>
             {vers}
-          </Text>
+          </Animated.Text>
         </TouchableOpacity>
       </View>
       {debug &&
@@ -262,7 +251,7 @@ const TextGenerator = ({navigation}) => {
       {/* Debug button */}
       <TouchableOpacity
         style={{flex: 1, position: 'absolute', bottom: 0, right: 0, marginBottom: 5, marginRight: 5}}
-        onPress={() => setDebugModal(!debugModal)}>
+        onPress={() => setDebug(!debug)}>
         <Ionicons name="md-information-circle-outline" size={32} color="darkgrey"/>
       </TouchableOpacity>
     </View>

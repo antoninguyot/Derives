@@ -3,6 +3,7 @@ import Midi from "../Texts/Midi";
 import Soir from "../Texts/Soir";
 import Nuit from "../Texts/Nuit";
 import WordBase from "../Texts/WordBase";
+import {Animated} from "react-native";
 
 /**
  * Chargement du bon texte en fonction de la période de la journée
@@ -121,4 +122,12 @@ export const interpretText = (sentence, localityType, activity, season, heat, sp
     }
   }
   return sentence_new
+}
+
+export const fadeTo = (value, to, during = 1000, native = true) => {
+  Animated.timing(value, {
+    to: to,
+    duration: during,
+    useNativeDriver: native
+  }).start()
 }
