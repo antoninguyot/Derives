@@ -210,7 +210,8 @@ const TextGenerator = ({navigation}) => {
   }, [currentSpeed])
 
   useEffect(() => {
-    setVers("Dérive du " + moment)
+    if (moment === "nuit") setVers("Dérive de la  " + moment)
+    else setVers("Dérive du " + moment)
     setTimeout(() => {
       setVers("Commencez à marcher")
     }, 5000)
