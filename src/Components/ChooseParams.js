@@ -4,6 +4,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import {calculateMoment} from '../Helpers/time';
 import {setColorBackground, setColorWriting} from "../Helpers/colorInterface";
 import {groupStyleSheet} from "../../Appcss";
+import {Ionicons} from "@expo/vector-icons";
 
 const ChooseParams = ({navigation}) => {
   const [moment, setMoment] = useState()
@@ -86,14 +87,13 @@ const ChooseParams = ({navigation}) => {
             </TouchableOpacity>
           </TouchableOpacity>
         </View>
-        <View>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Credits')}
-            style={[styles.buttonStyle, {backgroundColor: setColorWriting(tmp)}]}>
-            <Text style={[styles.textStyle, {color: setColorBackground(tmp)}]}>Crédits</Text>
-          </TouchableOpacity>
-        </View>
-
+      </View>
+      <View style={[styles.flexCreditsContainer, {backgroundColor: setColorBackground(tmp)}]}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Credits')}
+          style={[styles.buttonCreditsStyle, {backgroundColor: setColorWriting(tmp)}]}>
+          <Text style={[styles.textCreditsStyle, {color: setColorBackground(tmp)}]}>Crédits</Text>
+        </TouchableOpacity>
       </View>
     </>
   )
