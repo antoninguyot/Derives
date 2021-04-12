@@ -20,14 +20,22 @@ const StackNavigator = createStackNavigator({
     screen: WelcomeScreen,
     navigationOptions: {
       title: 'WelcomeScreen',
-      headerShown: false
+      headerShown: false,
     }
   },
   TextGenerator: {
     screen: TextGenerator,
     navigationOptions: {
       title: 'Dérives',
-      headerShown: false
+      headerShown: false,
+      transitionSpec: {
+        open:{
+          animation:"timing",
+          config:{
+            duration:1000
+          }
+        }
+      }
     }
   },
   Sas: {

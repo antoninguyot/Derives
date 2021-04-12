@@ -9,7 +9,7 @@ import TextGenerator from './TextGenerator';
 import {fadeTo} from "../Helpers/text";
 
 const description = ["Vous allez vivre une expérience poétique – visuelle et sonore – en marchant.",
-                     "Selon votre vitesse, mais aussi le moment de la journée, la season, la température," + " l'environnement, votre expérience ne sera pas la même..."]
+                     "Selon votre vitesse, mais aussi le moment de la journée, la saison, la température," + " l'environnement, votre expérience ne sera pas la même..."]
 
 const WelcomeScreen = ({navigation}) => {
 
@@ -33,15 +33,21 @@ const WelcomeScreen = ({navigation}) => {
       console.log("erreur", e)
     }
   }
+
   // Function which permit to change screen
   function moveTo(){
     navigation.navigate('TextGenerator')
   }
+
   // Change opacity of text when it appears
   useEffect(() => {
     versOpacity.setValue(0)
-    fadeTo(versOpacity, 1)
+    fadeTo(versOpacity, 1, 2000)
+    setTimeout(() => {
+      fadeTo(versOpacity, 0)
+    },6000)
   }, [welcomeText])
+
   // GetData and tet the text
   useEffect(() => {
     getData()
@@ -50,8 +56,8 @@ const WelcomeScreen = ({navigation}) => {
       setWelcomeText(description[1])
       setTimeout(() => {
         moveTo()
-      }, 5000)
-    }, 10000)
+      }, 9000)
+    }, 9000)
   }, [])
 
   let moment = calculateMoment()
