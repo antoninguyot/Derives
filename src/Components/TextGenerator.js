@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Text, TouchableOpacity, View} from 'react-native';
+import {Animated, Text, TouchableOpacity, View} from 'react-native';
 import useInterval from "@use-it/interval";
 import {Ionicons} from '@expo/vector-icons';
 import CCamera from './CCamera';
@@ -31,7 +31,8 @@ const TextGenerator = ({navigation}) => {
   const [isPlayed, setIsPlayed] = useState(false)
 
   // Poems states
-  const [vers, setVers] = useState("Commencez à marcher !")
+  const [vers, setVers] = useState()
+  const [versOpacity, setVersOpacity] = useState(new Animated.Value(0))
   const [index, setIndex] = useState(0);
   const [nbLines, setNbLines] = useState(4)
   const [coefPolice, setCoefPolice] = useState(1)
@@ -172,6 +173,22 @@ const TextGenerator = ({navigation}) => {
     setPreviousSpeed(currentSpeed)
   }, [currentSpeed])
 
+  useEffect(() => {
+    setVers("Dérive du " + moment)
+    setTimeout(() => {
+      setVers("Commencez à marcher")
+    }, 5000)
+  }, [moment])
+
+  useEffect(() => {
+    versOpacity.setValue(0)
+    Animated.timing(versOpacity, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true
+    }).start();
+  }, [vers])
+
   useInterval(() => {
     if (!isMounted || !localityType || !weather || !season || !moment || !currentSpeed || !localityDensity) {
       return;
@@ -207,9 +224,9 @@ const TextGenerator = ({navigation}) => {
         <TouchableOpacity onLongPress={() => {
           setDebug(!debug)
         }}>
-          <Text style={[styles.textOver, {fontSize: 20 * coefPolice}]}>
+          <Animated.Text style={[styles.textOver, {fontSize: 20 * coefPolice, opacity: versOpacity}]}>
             {vers}
-          </Text>
+          </Animated.Text>
         </TouchableOpacity>
       </View>
       {debug &&
