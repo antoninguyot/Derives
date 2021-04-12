@@ -33,16 +33,16 @@ const WelcomeScreen = ({navigation}) => {
       console.log("erreur", e)
     }
   }
-
+  // Function which permit to change screen
   function moveTo(){
     navigation.navigate('TextGenerator')
   }
-
+  // Change opacity of text when it appears
   useEffect(() => {
     versOpacity.setValue(0)
     fadeTo(versOpacity, 1)
   }, [welcomeText])
-
+  // GetData and tet the text
   useEffect(() => {
     getData()
     setWelcomeText(description[0])
@@ -51,7 +51,7 @@ const WelcomeScreen = ({navigation}) => {
       setTimeout(() => {
         moveTo()
       }, 5000)
-    }, 5000)
+    }, 10000)
   }, [])
 
   let moment = calculateMoment()
