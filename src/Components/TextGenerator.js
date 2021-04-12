@@ -9,7 +9,7 @@ import {sedacDataset, sedacLocationRequest} from "../Helpers/location.js";
 import * as Location from "expo-location";
 import {calculateMoment, calculateSeason} from '../Helpers/time';
 import {weatherRequest} from "../Helpers/weather";
-import {combine, getTextArray} from "../Helpers/text";
+import {combine, fadeTo, getTextArray} from "../Helpers/text";
 import {ambianceNoiseFor, getUrlSound, soundFor, speedNoiseFor} from "../Helpers/sound";
 
 const TextGenerator = ({navigation}) => {
@@ -32,7 +32,7 @@ const TextGenerator = ({navigation}) => {
 
   // Poems states
   const [vers, setVers] = useState()
-  const [versOpacity, setVersOpacity] = useState(new Animated.Value(0))
+  const [versOpacity] = useState(new Animated.Value(0))
   const [index, setIndex] = useState(0);
   const [nbLines, setNbLines] = useState(4)
   const [coefPolice, setCoefPolice] = useState(1)
@@ -182,11 +182,7 @@ const TextGenerator = ({navigation}) => {
 
   useEffect(() => {
     versOpacity.setValue(0)
-    Animated.timing(versOpacity, {
-      toValue: 1,
-      duration: 1000,
-      useNativeDriver: true
-    }).start();
+    fadeTo(versOpacity, 1)
   }, [vers])
 
   useInterval(() => {
