@@ -3,7 +3,7 @@ import {StyleSheet} from "react-native";
 export const groupStyleSheet = {
   styleAccueil: StyleSheet.create({
     welcomeText: {
-      fontSize: 28,
+      fontSize: 32,
       textAlign: "center",
       marginBottom: 50,
     },
@@ -110,6 +110,7 @@ export const groupStyleSheet = {
       flexDirection: 'column',
       alignItems: 'center',
       padding: 10,
+
     },
     flexCreditsContainer: {
       justifyContent: 'space-evenly',
