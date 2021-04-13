@@ -73,7 +73,7 @@ const TextGenerator = ({navigation}) => {
    */
   useEffect(() => {
     if (isMounted && localityType === undefined) {
-      setLocalityType(localityDensity < 1000 ? 'country' : 'city')
+      setLocalityType(localityDensity < 250 ? 'country' : 'city')
     }
   }, [localityDensity])
 
