@@ -3,7 +3,7 @@ import {StyleSheet} from "react-native";
 export const groupStyleSheet = {
   styleAccueil: StyleSheet.create({
     welcomeText: {
-      fontSize: 28,
+      fontSize: 32,
       textAlign: "center",
       marginBottom: 50,
     },
@@ -80,7 +80,11 @@ export const groupStyleSheet = {
       fontSize: 28,
       textAlign: "center",
       padding: 10,
-
+    },
+    textCreditsStyle: {
+      fontSize: 14,
+      textAlign: "center",
+      padding: 0,
     },
     buttonStyle: {
       paddingTop: 20,
@@ -91,11 +95,28 @@ export const groupStyleSheet = {
       borderRadius: 10,
       borderWidth: 0,
     },
+    buttonCreditsStyle: {
+      paddingTop: 5,
+      paddingLeft: 3,
+      paddingRight: 3,
+      paddingBottom: 5,
+      textAlign: 'center',
+      borderRadius: 10,
+      borderWidth: 0,
+    },
     flexContainer: {
       flex: 1,
       justifyContent: 'space-evenly',
       flexDirection: 'column',
       alignItems: 'center',
+      padding: 10,
+
+    },
+    flexCreditsContainer: {
+      justifyContent: 'space-evenly',
+      flexDirection: 'column',
+      alignItems: 'stretch',
+      paddingLeft:320,
       padding: 10,
     },
   }),
