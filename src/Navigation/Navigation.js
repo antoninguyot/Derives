@@ -21,6 +21,7 @@ const StackNavigator = createStackNavigator({
     navigationOptions: {
       title: 'WelcomeScreen',
       headerShown: false,
+      animationEnabled: false
     }
   },
   TextGenerator: {
@@ -42,7 +43,8 @@ const StackNavigator = createStackNavigator({
     screen: Sas,
     navigationOptions: {
       title: 'Dérives',
-      headerShown: false
+      headerShown: false,
+      animationEnabled: false
     }
   },
   ChooseParams: {
