@@ -7,6 +7,8 @@ import TouchableOpacity from "react-native-gesture-handler/src/components/toucha
 import {groupStyleSheet} from "../../Appcss";
 import TextGenerator from './TextGenerator';
 import {fadeTo} from "../Helpers/text";
+import * as Font from 'expo-font';
+import { useFonts } from 'expo-font';
 
 const description = ["Vous allez vivre une expérience poétique – visuelle et sonore – en marchant.",
                      "Selon votre vitesse, mais aussi le moment de la journée, la saison, la température," + " l'environnement, votre expérience ne sera pas la même..."]
@@ -16,6 +18,14 @@ const WelcomeScreen = ({navigation}) => {
   const [destinationScreen, setDestinationScreen] = useState()
   const [welcomeText, setWelcomeText] = useState("")
   const [versOpacity] = useState(new Animated.Value(0))
+
+  const [loaded] = useFonts({
+    'Caveat-SemiBold': require('../../assets/fonts/Caveat-SemiBold.ttf'),
+    'AmaticSC': require('../../assets/fonts/AmaticSC-Regular.ttf'),
+    'Tangerine': require('../../assets/fonts/Tangerine-Bold.ttf'),
+    'Antonio': require('../../assets/fonts/Antonio.ttf'),
+  });
+
   /**
    * Mise à jour du temps de la journée
    */
@@ -61,10 +71,14 @@ const WelcomeScreen = ({navigation}) => {
   }, [])
 
   let moment = calculateMoment()
+  
+  if (!loaded) {
+    return null;
+  }
 
   return (
     <View style={[styles.mainContainer, {backgroundColor: setColorBackground(moment)}]}>
-      <Animated.Text style={[styles.welcomeText, {opacity: versOpacity, color:setColorWriting(moment)}]}>
+      <Animated.Text style={[styles.welcomeText, {fontFamily: 'Antonio'}, {opacity: versOpacity, color:setColorWriting(moment)}]}>
         {welcomeText}
       </Animated.Text>
     </View>
