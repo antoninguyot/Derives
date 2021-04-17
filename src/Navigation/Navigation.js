@@ -13,7 +13,8 @@ const StackNavigator = createStackNavigator({
     screen: PermissionsC,
     navigationOptions: {
       title: 'Avant de commencer...',
-      animationEnabled: false
+      animationEnabled: false,
+      headerShown: false,
     }
   },
   WelcomeScreen: {

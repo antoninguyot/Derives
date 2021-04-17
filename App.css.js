@@ -5,13 +5,24 @@ export const styles = StyleSheet.create({
     fontFamily: 'Antonio',
     fontSize: 34,
     textAlign: 'center',
-    color: 'gray',
+    color: 'white',
+  },
+  text: {
+    color: 'white'
   },
   view: {
     flex: 1,
     justifyContent: 'center',
     padding: 10,
     backgroundColor: 'black'
+  },
+  row: {
+    flexDirection: "row",
+    paddingTop: 14,
+  },
+  button: {
+    flex: 2,
+    textAlign: "center"
   }
 })
 

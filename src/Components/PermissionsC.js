@@ -2,9 +2,15 @@ import React, {useEffect} from 'react'
 import {Button, Text, View} from "react-native";
 import * as Permissions from 'expo-permissions';
 import {usePermissions} from 'expo-permissions';
-import {groupStyleSheet} from "../../App.css";
+import {styles} from "../../App.css";
+import {useFonts} from "expo-font";
+import {Ionicons} from "@expo/vector-icons";
 
 const PermissionsC = ({navigation}) => {
+  const [loaded] = useFonts({
+    'Antonio': require('../../assets/fonts/Antonio.ttf'),
+  });
+
   const [locationPermission, askLocationPermission] = usePermissions(Permissions.LOCATION);
   const [cameraPermission, askCameraPermission] = usePermissions(Permissions.CAMERA);
 
@@ -14,26 +20,38 @@ const PermissionsC = ({navigation}) => {
     }
   }, [locationPermission, cameraPermission]);
 
+  if (!loaded) {
+    return null;
+  }
+
   return (
-    <View>
+    <View style={[styles.view, {flexDirection: 'column', justifyContent: 'space-around'}]}>
+      <Text style={styles.title}>Avant de commencer...</Text>
       <View style={styles.row}>
-        <Text style={styles.text}>
-          Nous avons besoin de votre position
-        </Text>
-        {(!locationPermission || locationPermission.status !== 'granted') &&
-        <Button title="Autoriser" style={styles.button} onPress={askLocationPermission}></Button> ||
-        <Button title="Autorisé" style={styles.button} disabled></Button>
-        }
+        <View>
+          <Ionicons name="location-outline" size={48} color="white" style={{textAlign: 'center'}}/>
+          <Text style={[styles.text, {textAlign: 'center'}]}>
+            Nous avons besoin de votre position pour prendre en compte vos changements de vitesse et votre
+            environnement.
+          </Text>
+          {(!locationPermission || locationPermission.status !== 'granted') &&
+          <Button title="Autoriser" style={styles.button} onPress={askLocationPermission}></Button> ||
+          <Button title="Autorisé" style={styles.button} disabled></Button>
+          }
+        </View>
 
       </View>
       <View style={styles.row}>
-        <Text style={styles.text}>
-          Nous avons besoin de votre caméra
-        </Text>
-        {(!cameraPermission || cameraPermission.status !== 'granted') &&
-        <Button title="Autoriser" style={styles.button} onPress={askCameraPermission}></Button> ||
-        <Button title="Autorisé" style={styles.button} disabled></Button>
-        }
+        <View>
+          <Ionicons name="camera-outline" size={48} color="white" style={{textAlign: 'center'}}/>
+          <Text style={[styles.text, {textAlign: 'center'}]}>
+            Nous avons besoin de votre caméra pour vous montrer le monde qui vous entoure.
+          </Text>
+          {(!cameraPermission || cameraPermission.status !== 'granted') &&
+          <Button title="Autoriser" style={styles.button} onPress={askCameraPermission}></Button> ||
+          <Button title="Autorisé" style={styles.button} disabled></Button>
+          }
+        </View>
       </View>
 
       <View>
@@ -47,7 +65,5 @@ const PermissionsC = ({navigation}) => {
     </View>
   )
 }
-
-const styles = groupStyleSheet.stylePermissionsC
 
 export default PermissionsC
