@@ -35,8 +35,8 @@ const PermissionsC = ({navigation}) => {
             environnement.
           </Text>
           {(!locationPermission || locationPermission.status !== 'granted') &&
-          <Button title="Autoriser" style={styles.button} onPress={askLocationPermission}></Button> ||
-          <Button title="Autorisé" style={styles.button} disabled></Button>
+          <Button title="Autoriser" style={styles.button} onPress={askLocationPermission}/> ||
+          <Button title="Autorisé" style={styles.button} disabled/>
           }
         </View>
 
@@ -48,8 +48,8 @@ const PermissionsC = ({navigation}) => {
             Nous avons besoin de votre caméra pour vous montrer le monde qui vous entoure.
           </Text>
           {(!cameraPermission || cameraPermission.status !== 'granted') &&
-          <Button title="Autoriser" style={styles.button} onPress={askCameraPermission}></Button> ||
-          <Button title="Autorisé" style={styles.button} disabled></Button>
+          <Button title="Autoriser" style={styles.button} onPress={askCameraPermission}/> ||
+          <Button title="Autorisé" style={styles.button} disabled/>
           }
         </View>
       </View>
@@ -58,8 +58,8 @@ const PermissionsC = ({navigation}) => {
         {locationPermission?.status === 'granted' && cameraPermission?.status === 'granted' &&
         <Button title="Continuer" onPress={() => {
           navigation.replace('WelcomeScreen')
-        }}></Button> ||
-        <Button title="Continuer" disabled></Button>
+        }}/> ||
+        <Button title="Continuer" disabled/>
         }
       </View>
     </View>

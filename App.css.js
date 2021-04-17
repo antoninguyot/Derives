@@ -5,10 +5,10 @@ export const styles = StyleSheet.create({
     fontFamily: 'Antonio',
     fontSize: 34,
     textAlign: 'center',
-    color: 'white',
+    color: '#bfbfbf',
   },
   text: {
-    color: 'white'
+    color: '#bfbfbf'
   },
   view: {
     flex: 1,
