@@ -1,21 +1,26 @@
 import React, {useEffect, useState} from 'react'
-import {Animated, Text, View} from 'react-native'
+import {Animated, View} from 'react-native'
 import {calculateMoment} from '../Helpers/time';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {setColorBackground, setColorWriting} from '../Helpers/colorInterface';
-import TouchableOpacity from "react-native-gesture-handler/src/components/touchables/TouchableOpacity";
 import {groupStyleSheet} from "../../Appcss";
 import TextGenerator from './TextGenerator';
 import {fadeTo} from "../Helpers/text";
+import {useFonts} from 'expo-font';
 
 const description = ["Vous allez vivre une expérience poétique – visuelle et sonore – en marchant.",
-                     "Selon votre vitesse, mais aussi le moment de la journée, la saison, la température," + " l'environnement, votre expérience ne sera pas la même..."]
+  "Selon votre vitesse, mais aussi le moment de la journée, la saison, la température," + " l'environnement, votre expérience ne sera pas la même..."]
 
 const WelcomeScreen = ({navigation}) => {
 
   const [destinationScreen, setDestinationScreen] = useState()
   const [welcomeText, setWelcomeText] = useState("")
   const [versOpacity] = useState(new Animated.Value(0))
+
+  const [loaded] = useFonts({
+    'Antonio': require('../../assets/fonts/Antonio.ttf'),
+  });
+
   /**
    * Mise à jour du temps de la journée
    */
@@ -35,7 +40,7 @@ const WelcomeScreen = ({navigation}) => {
   }
 
   // Function which permit to change screen
-  function moveTo(){
+  function moveTo() {
     navigation.navigate('TextGenerator')
   }
 
@@ -45,7 +50,7 @@ const WelcomeScreen = ({navigation}) => {
     fadeTo(versOpacity, 1, 2000)
     setTimeout(() => {
       fadeTo(versOpacity, 0)
-    },6000)
+    }, 6000)
   }, [welcomeText])
 
   // GetData and tet the text
@@ -62,9 +67,13 @@ const WelcomeScreen = ({navigation}) => {
 
   let moment = calculateMoment()
 
+  if (!loaded) {
+    return null;
+  }
+
   return (
     <View style={[styles.mainContainer, {backgroundColor: setColorBackground(moment)}]}>
-      <Animated.Text style={[styles.welcomeText, {opacity: versOpacity, color:setColorWriting(moment)}]}>
+      <Animated.Text style={[styles.welcomeText, {fontFamily: 'Antonio', opacity: versOpacity, color:setColorWriting(moment)}]}>
         {welcomeText}
       </Animated.Text>
     </View>

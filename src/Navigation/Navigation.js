@@ -29,14 +29,7 @@ const StackNavigator = createStackNavigator({
     navigationOptions: {
       title: 'Dérives',
       headerShown: false,
-      transitionSpec: {
-        open:{
-          animation:"timing",
-          config:{
-            duration:1000
-          }
-        }
-      }
+      animationEnabled: false
     }
   },
   Sas: {
