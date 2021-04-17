@@ -186,6 +186,7 @@ export const groupStyleSheet = {
       alignSelf: 'center'
     },
     textOver: {
+      fontFamily: 'Antonio',
       fontSize: 40,
       textAlign: 'center',
       color: 'white',

@@ -11,8 +11,14 @@ import {calculateMoment, calculateSeason} from '../Helpers/time';
 import {weatherRequest} from "../Helpers/weather";
 import {combine, fadeTo, getTextArray} from "../Helpers/text";
 import {getAcceleration, getAmbiance, getMusic, getOneOff, play} from "../Helpers/sound";
+import {useFonts} from "expo-font";
 
 const TextGenerator = ({navigation}) => {
+
+  const [loaded] = useFonts({
+    'Antonio': require('../../assets/fonts/Antonio.ttf'),
+  });
+
   // Page states
   const [isMounted, setIsMounted] = useState(true)
   const [debug, setDebug] = useState(false)
@@ -248,6 +254,10 @@ const TextGenerator = ({navigation}) => {
     setVers(vers)
   }, 12000)
 
+  if (!loaded) {
+    return null;
+  }
+  
   return (
     <View style={styles.mainContainer}>
       <View style={styles.cameraContener}>
