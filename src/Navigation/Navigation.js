@@ -44,7 +44,8 @@ const StackNavigator = createStackNavigator({
     screen: ChooseParams,
     navigationOptions: {
       title: 'ChooseParams',
-      headerShown: false
+      headerShown: false,
+      animationEnabled: false
     }
   },
   Credits: {

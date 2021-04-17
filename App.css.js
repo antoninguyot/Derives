@@ -1,5 +1,20 @@
 import {StyleSheet} from "react-native";
 
+export const styles = StyleSheet.create({
+  title: {
+    fontFamily: 'Antonio',
+    fontSize: 34,
+    textAlign: 'center',
+    color: 'gray',
+  },
+  view: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 10,
+    backgroundColor: 'black'
+  }
+})
+
 export const groupStyleSheet = {
   styleAccueil: StyleSheet.create({
     welcomeText: {

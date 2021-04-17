@@ -2,7 +2,7 @@ import {Image, SafeAreaView, ScrollView, Text, TouchableOpacity} from "react-nat
 import React from 'react';
 import {setColorBackground, setColorWriting} from "../Helpers/colorInterface";
 import {calculateMoment, calculateSeason} from "../Helpers/time";
-import {groupStyleSheet} from "../../Appcss";
+import {groupStyleSheet} from "../../App.css";
 
 const photos = [
   '../data/Photo/cecile.jpeg',

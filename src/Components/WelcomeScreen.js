@@ -3,7 +3,7 @@ import {Animated, View} from 'react-native'
 import {calculateMoment} from '../Helpers/time';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {setColorBackground, setColorWriting} from '../Helpers/colorInterface';
-import {groupStyleSheet} from "../../Appcss";
+import {styles} from "../../App.css";
 import TextGenerator from './TextGenerator';
 import {fadeTo} from "../Helpers/text";
 import {useFonts} from 'expo-font';
@@ -31,11 +31,11 @@ const WelcomeScreen = ({navigation}) => {
   const navigateToNextScreen = async () => {
     const value = await AsyncStorage.getItem('firstConnexionDate')
     if (value != null) {
-      navigation.navigate('ChooseParams')
+      navigation.replace('ChooseParams')
     } else {
       const jsonValue = JSON.stringify(new Date)
       await AsyncStorage.setItem('firstConnexionDate', jsonValue)
-      navigation.navigate('TextGenerator')
+      navigation.replace('TextGenerator')
     }
   }
 
@@ -60,22 +60,18 @@ const WelcomeScreen = ({navigation}) => {
     }, welcomeTexts.length * 9000)
   }, [])
 
-  let moment = calculateMoment()
-
   if (!loaded) {
     return null;
   }
 
   return (
-    <View style={[styles.mainContainer, {backgroundColor: setColorBackground(moment)}]}>
+    <View style={styles.view}>
       <Animated.Text
-        style={[styles.welcomeText, {fontFamily: 'Antonio', opacity: versOpacity, color: setColorWriting(moment)}]}>
+        style={[styles.title, {opacity: versOpacity}]}>
         {welcomeText}
       </Animated.Text>
     </View>
   )
 }
-
-const styles = groupStyleSheet.styleAccueil
 
 export default WelcomeScreen

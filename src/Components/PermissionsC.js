@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import {Button, Text, View} from "react-native";
 import * as Permissions from 'expo-permissions';
 import {usePermissions} from 'expo-permissions';
-import {groupStyleSheet} from "../../Appcss";
+import {groupStyleSheet} from "../../App.css";
 
 const PermissionsC = ({navigation}) => {
   const [locationPermission, askLocationPermission] = usePermissions(Permissions.LOCATION);

@@ -3,7 +3,7 @@ import {Text, TouchableOpacity, View} from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker';
 import {calculateMoment} from '../Helpers/time';
 import {setColorBackground, setColorWriting} from "../Helpers/colorInterface";
-import {groupStyleSheet} from "../../Appcss";
+import {groupStyleSheet} from "../../App.css";
 import {Ionicons} from "@expo/vector-icons";
 
 const ChooseParams = ({navigation}) => {

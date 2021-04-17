@@ -3,7 +3,7 @@ import {Animated, Text, TouchableOpacity, View} from 'react-native';
 import useInterval from "@use-it/interval";
 import {Ionicons} from '@expo/vector-icons';
 import CCamera from './CCamera';
-import {groupStyleSheet} from "../../Appcss";
+import {groupStyleSheet} from "../../App.css";
 
 import {sedacDataset, sedacLocationRequest} from "../Helpers/location.js";
 import * as Location from "expo-location";

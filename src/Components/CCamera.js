@@ -3,7 +3,7 @@
 import React from 'react'
 import {View} from 'react-native'
 import {Camera} from "expo-camera";
-import {groupStyleSheet} from "../../Appcss";
+import {groupStyleSheet} from "../../App.css";
 
 const CCamera = () => {
 
