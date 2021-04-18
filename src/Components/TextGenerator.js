@@ -188,7 +188,7 @@ const TextGenerator = ({navigation}) => {
 
   }, [])
 
-  useEffect(() => {
+  // useEffect(() => {
     // if (currentSpeed - previousSpeed > 0.3) {
     //   setCoefPolice(Math.min(fontSize + 1, 3))
     //   setNbLines(Math.max(nbLines - 1, 2))
@@ -200,14 +200,8 @@ const TextGenerator = ({navigation}) => {
     // }
     // setPreviousSpeed(currentSpeed)
 
-    if (currentSpeed > speedAverage) {
-      fadeTo(fontSize, 30 * Math.max(Math.min(3, (currentSpeed ?? 0) / 2), 1), 1000, false)
-      setNbLines(Math.max(nbLines - 1, 2))
-    } else {
-      fadeTo(fontSize, 15 * Math.max(Math.min(3, (currentSpeed ?? 0) / 2), 1), 1000, false)
-      setNbLines(Math.min(nbLines + 1, 4))
-    }
-  }, [currentSpeed, speedAverage])
+    
+  // }, [currentSpeed])
 
   useEffect(() => {
     setVers("Dérive du " + moment)
@@ -251,6 +245,15 @@ const TextGenerator = ({navigation}) => {
     }
     setIndex(index + nbLines)
     setVers(vers)
+
+    if (speedIncreased) {
+      fadeTo(fontSize, 30 * Math.max(Math.min(3, (currentSpeed ?? 0) / 2), 1), 1000, false)
+      setNbLines(Math.max(nbLines - 1, 2))
+    } else {
+      fadeTo(fontSize, 15 * Math.max(Math.min(3, (currentSpeed ?? 0) / 2), 1), 1000, false)
+      setNbLines(Math.min(nbLines + 1, 4))
+    }
+
   }, 12000)
 
   return (
