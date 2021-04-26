@@ -5,7 +5,7 @@ import {Ionicons} from '@expo/vector-icons';
 import CCamera from './CCamera';
 import {groupStyleSheet} from "../../App.css";
 
-import {sedacDataset, sedacLocationRequest} from "../Helpers/location.js";
+import {emulateWalking, sedacDataset, sedacLocationRequest} from "../Helpers/location.js";
 import * as Location from "expo-location";
 import {calculateMoment, calculateSeason} from '../Helpers/time';
 import {weatherRequest} from "../Helpers/weather";
@@ -28,8 +28,8 @@ const TextGenerator = ({navigation}) => {
   const [latitude, setLatitude] = useState()
   const [localityDensity, setLocalityDensity] = useState()
   const [localityType, setLocalityType] = useState(navigation.getParam('localityType'))
-  const [season, setSeason] = useState(null)
-  const [moment, setMoment] = useState(navigation.getParam('moment'))
+  const [season] = useState(calculateSeason())
+  const [moment] = useState(navigation.getParam('moment', calculateMoment()))
   const [temperature, setTemperature] = useState(-100)
   const [weather, setWeather] = useState(navigation.getParam('weather'))
 
@@ -41,13 +41,14 @@ const TextGenerator = ({navigation}) => {
 
   // Poems states
   const [vers, setVers] = useState()
-  const [versOpacity] = useState(new Animated.Value(0))
+  const [fontOpacity] = useState(new Animated.Value(0))
   const [index, setIndex] = useState(0);
   const [nbLines, setNbLines] = useState(4)
-  const [coefPolice, setCoefPolice] = useState(1)
+  const [fontSize] = useState(new Animated.Value(20))
   const [currentSpeed, setCurrentSpeed] = useState()
-  const [previousSpeed, setPreviousSpeed] = useState()
   const [speedIncreased, setSpeedIncreased] = useState(false)
+  const [speedAverage, setSpeedAverage] = useState(null)
+  const [previousSpeedAverage, setPreviousSpeedAverage] = useState(null)
 
 
   /**
@@ -61,18 +62,13 @@ const TextGenerator = ({navigation}) => {
       setCurrentSpeed(location.coords.speed)
     }
   }
-  /**
-   * Mise à jour du temps de la journée
-   */
-  const updateTime = () => {
-    if (isMounted) {
-      setSeason(calculateSeason());
-      if (moment === undefined) {
-        setMoment(calculateMoment());
-      }
-    }
-  }
 
+  useEffect(() => {
+    if (!currentSpeed || currentSpeed === -1) return
+    setSpeedAverage((speedAverage)
+      ? (speedAverage + currentSpeed) / 2
+      : currentSpeed)
+  }, [currentSpeed])
 
   /**
    * Mise à jour du type d'environnement lorsque la densité de pop change
@@ -148,9 +144,6 @@ const TextGenerator = ({navigation}) => {
    */
   useEffect(() => {
     setIsMounted(true);
-    // Mise à jour du moment de la journée
-    updateTime();
-    let timerInterval = setInterval(updateTime, 60000);
 
     Location.getCurrentPositionAsync().then((location) => {
       // Mise à jour de la position
@@ -190,7 +183,6 @@ const TextGenerator = ({navigation}) => {
 
     return () => {
       setIsMounted(false)
-      clearInterval(timerInterval)
       locationWatcher.then(subscriber => {
         subscriber.remove()
       })
@@ -202,18 +194,20 @@ const TextGenerator = ({navigation}) => {
 
   }, [])
 
-  useEffect(() => {
-    if (currentSpeed - previousSpeed > 0.3) {
-      setCoefPolice(Math.min(coefPolice + 1, 3))
-      setNbLines(Math.max(nbLines - 1, 2))
-      setSpeedIncreased(true)
-    } else if (currentSpeed - previousSpeed < 0.5) {
-      setCoefPolice(Math.max(coefPolice - 1, 1))
-      setNbLines(Math.min(nbLines + 1, 4))
-      setSpeedIncreased(false)
-    }
-    setPreviousSpeed(currentSpeed)
-  }, [currentSpeed])
+  // useEffect(() => {
+    // if (currentSpeed - previousSpeed > 0.3) {
+    //   setCoefPolice(Math.min(fontSize + 1, 3))
+    //   setNbLines(Math.max(nbLines - 1, 2))
+    //   setSpeedIncreased(true)
+    // } else if (currentSpeed - previousSpeed < 0.5) {
+    //   setCoefPolice(Math.max(fontSize - 1, 1))
+    //   setNbLines(Math.min(nbLines + 1, 4))
+    //   setSpeedIncreased(false)
+    // }
+    // setPreviousSpeed(currentSpeed)
+
+    
+  // }, [currentSpeed])
 
   useEffect(() => {
     if (moment === "nuit") setVers("Dérive de la  " + moment)
@@ -224,8 +218,8 @@ const TextGenerator = ({navigation}) => {
   }, [moment])
 
   useEffect(() => {
-    versOpacity.setValue(0)
-    fadeTo(versOpacity, 1)
+    fontOpacity.setValue(0)
+    fadeTo(fontOpacity, 1)
   }, [vers])
 
   useInterval(() => {
@@ -234,7 +228,13 @@ const TextGenerator = ({navigation}) => {
     if (!isReadyToPlay) setIsReadyToPlay(true)
 
     let text = getTextArray('matin')
+    let speedIncreased = speedAverage > previousSpeedAverage;
+    setSpeedIncreased(speedIncreased)
     let relevantText = speedIncreased ? text.acceleration : text.stable
+
+    // On réinitialise les moyennes de vitesse
+    setPreviousSpeedAverage(speedAverage)
+    setSpeedAverage(null)
 
     // Si on est arrivé à la fin du texte, on boucle
     if (relevantText.length < index + nbLines) {
@@ -252,6 +252,15 @@ const TextGenerator = ({navigation}) => {
     }
     setIndex(index + nbLines)
     setVers(vers)
+
+    if (speedIncreased) {
+      fadeTo(fontSize, 30 * Math.max(Math.min(3, (currentSpeed ?? 0) / 2), 1), 1000, false)
+      setNbLines(Math.max(nbLines - 1, 2))
+    } else {
+      fadeTo(fontSize, 15 * Math.max(Math.min(3, (currentSpeed ?? 0) / 2), 1), 1000, false)
+      setNbLines(Math.min(nbLines + 1, 4))
+    }
+
   }, 12000)
 
   if (!loaded) {
@@ -267,25 +276,27 @@ const TextGenerator = ({navigation}) => {
         <TouchableOpacity onLongPress={() => {
           setDebug(!debug)
         }}>
-          <Animated.Text style={[styles.textOver, {fontSize: 20 * coefPolice, opacity: versOpacity}]}>
-            {vers}
-          </Animated.Text>
+          <Animated.View style={{opacity: fontOpacity}}>
+            <Animated.Text style={[styles.textOver, {fontSize: fontSize}]}>
+              {vers}
+            </Animated.Text>
+          </Animated.View>
         </TouchableOpacity>
       </View>
       {debug &&
       <View style={styles.containerCaptors}>
         <Text style={styles.textCaptors}> Saison : {season}  </Text>
         <Text style={styles.textCaptors}> Moment : {moment}  </Text>
-        <Text style={styles.textCaptors}> Vitesse : {currentSpeed}  </Text>
+        <Text style={styles.textCaptors}> Vitesse : {currentSpeed}</Text>
+        <Text style={styles.textCaptors}> Vit. moyenne / Ancienne Vit.
+          : {speedAverage} / {previousSpeedAverage}  </Text>
         <Text style={styles.textCaptors}> Accélération : {speedIncreased ? 'Oui' : 'Non'}  </Text>
-        <Text style={styles.textCaptors}> Latitude : {latitude}  </Text>
-        <Text style={styles.textCaptors}> Longitude : {longitude}  </Text>
+        <Text style={styles.textCaptors}> Lat / Lon : {latitude.toFixed(5)} / {longitude.toFixed(5)}  </Text>
         <Text style={styles.textCaptors}> Densité de pop : {localityDensity} </Text>
         <Text style={styles.textCaptors}> Milieu : {localityType}</Text>
         <Text style={styles.textCaptors}> Météo : {weather} </Text>
         <Text style={styles.textCaptors}> Temperature : {temperature}</Text>
         <Text style={styles.textCaptors}> Nb Lines : {nbLines}</Text>
-        <Text style={styles.textCaptors}> Coeff Police : {coefPolice}</Text>
 
       </View>
       }
