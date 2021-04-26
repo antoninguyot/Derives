@@ -4,7 +4,7 @@ import CCamera from "./CCamera";
 import * as Location from "expo-location";
 import {calculateNextMoment} from "../Helpers/time";
 import {Ionicons} from '@expo/vector-icons';
-import {groupStyleSheet} from "../../Appcss";
+import {groupStyleSheet} from "../../App.css";
 
 const Sas = ({navigation}) => {
 

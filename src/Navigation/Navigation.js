@@ -13,7 +13,8 @@ const StackNavigator = createStackNavigator({
     screen: PermissionsC,
     navigationOptions: {
       title: 'Avant de commencer...',
-      animationEnabled: false
+      animationEnabled: false,
+      headerShown: false,
     }
   },
   WelcomeScreen: {
@@ -44,7 +45,8 @@ const StackNavigator = createStackNavigator({
     screen: ChooseParams,
     navigationOptions: {
       title: 'ChooseParams',
-      headerShown: false
+      headerShown: false,
+      animationEnabled: false
     }
   },
   Credits: {
