@@ -18,7 +18,7 @@ export const getTextArray = (moment) => {
     case "soir":
       return Soir
     case "nuit":
-      return Nuit
+      return Soir
     default:
       return undefined
   }
@@ -29,8 +29,9 @@ export const getTextArray = (moment) => {
  * @param {string} sentence
  * @param {string} location
  * @param {string} weather
+ * @param {string} season
  */
-export const combine = (sentence, location, weather) => {
+export const combine = (sentence, location, weather, season) => {
   // On repère les sections entre brackets {}
   let toCombine = sentence.match(/{([^}]+)}/g);
 
@@ -67,6 +68,8 @@ export const combine = (sentence, location, weather) => {
           return selectionChoices[location]
         case 'weather':
           return selectionChoices[weather]
+        case 'season':
+          return selectionChoices[season]
         default:
           return selectionChoices[0];
       }

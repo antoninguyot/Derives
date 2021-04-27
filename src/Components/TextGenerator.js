@@ -233,7 +233,7 @@ const TextGenerator = ({navigation}) => {
 
     if (!isReadyToPlay) setIsReadyToPlay(true)
 
-    let text = getTextArray('matin')
+    let text = getTextArray(moment)
     let relevantText = speedIncreased ? text.acceleration : text.stable
 
     // Si on est arrivé à la fin du texte, on boucle
@@ -248,7 +248,7 @@ const TextGenerator = ({navigation}) => {
 
     for (let i = index; i < index + nbLines; i++) {
       // On récupère une partie du texte et on la fait varier avec interpretText
-      vers += "\n" + combine(relevantText[i], localityType, weather)
+      vers += "\n" + combine(relevantText[i], localityType, weather, season)
     }
     setIndex(index + nbLines)
     setVers(vers)
