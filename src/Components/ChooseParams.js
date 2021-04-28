@@ -1,10 +1,8 @@
 import React, {useState} from 'react'
 import {Text, TouchableOpacity, View} from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker';
-import {calculateMoment} from '../Helpers/time';
-import {setColorBackground, setColorWriting} from "../Helpers/colorInterface";
-import {groupStyleSheet} from "../../App.css";
-import {Ionicons} from "@expo/vector-icons";
+import {styles} from "../../App.css";
+
 
 const ChooseParams = ({navigation}) => {
   const [moment, setMoment] = useState()
@@ -28,22 +26,21 @@ const ChooseParams = ({navigation}) => {
     {label: 'Tempéré', value: 'sweet'},
     {label: 'Chaud', value: 'hot'}
   ]
-  let tmp = calculateMoment()
 
   return (
     <>
-      <View style={[styles.flexContainer, {backgroundColor: setColorBackground(tmp)}]}>
+      <View style={styles.flexContainer}>
         <View>
           <TouchableOpacity
             onPress={() => navigation.navigate('TextGenerator')}
-            style={[styles.buttonStyle, {backgroundColor: setColorWriting(tmp)}]}>
-            <Text style={[styles.textStyle, {color: setColorBackground(tmp)}]}>Mode immersif</Text>
+            style={styles.buttonStyle}>
+            <Text style={styles.textStyle}>Mode immersif</Text>
           </TouchableOpacity>
         </View>
         <View>
           <TouchableOpacity
-            style={[styles.buttonStyle, {backgroundColor: setColorWriting(tmp)}]}>
-            <Text style={[styles.textStyle, {color: setColorBackground(tmp)}]}>Choisir les paramètres</Text>
+            style={styles.buttonStyle}>
+            <Text style={styles.textStyle}>Choisir les paramètres</Text>
             <DropDownPicker zIndex={5000}
                             items={momentItems}
                             defaultValue={moment}
@@ -72,7 +69,8 @@ const ChooseParams = ({navigation}) => {
                             placeholder="Choisissez la météo"
                             containerStyle={{height: 40, marginTop: 10}}
                             itemStyle={{
-                              justifyContent: 'flex-start'
+                              justifyContent: 'flex-start',
+                              fontFamily:'Antonio'
                             }}
                             dropDownStyle={{backgroundColor: '#fafafa'}}
                             onChangeItem={item => setWeather(item.value)}
@@ -83,23 +81,21 @@ const ChooseParams = ({navigation}) => {
                 weather: weather
               }
             )}>
-              <Text style={[styles.textStyle, {color: setColorBackground(tmp)}]}>Commencer l'expérience</Text>
+              <Text style={styles.textStyle}>Commencer l'expérience</Text>
             </TouchableOpacity>
           </TouchableOpacity>
         </View>
       </View>
-      <View style={[styles.flexCreditsContainer, {backgroundColor: setColorBackground(tmp)}]}>
+      <View style={styles.flexCreditsContainer}>
         <TouchableOpacity
           onPress={() => navigation.navigate('Credits')}
-          style={[styles.buttonCreditsStyle, {backgroundColor: setColorWriting(tmp)}]}>
-          <Text style={[styles.textCreditsStyle, {color: setColorBackground(tmp)}]}>Crédits</Text>
+          style={styles.buttonCreditsStyle}>
+          <Text style={styles.textCreditsStyle}>Crédits</Text>
         </TouchableOpacity>
       </View>
     </>
   )
 
 }
-
-const styles = groupStyleSheet.styleMenu
 
 export default ChooseParams

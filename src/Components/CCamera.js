@@ -3,10 +3,9 @@
 import React from 'react'
 import {View} from 'react-native'
 import {Camera} from "expo-camera";
-import {groupStyleSheet} from "../../App.css";
+import {styles} from "../../App.css";
 
 const CCamera = () => {
-
   return (
     <View style={styles.mainContainer}>
       <Camera style={styles.preview}>
@@ -17,6 +16,5 @@ const CCamera = () => {
   )
 }
 
-const styles = groupStyleSheet.styleCCamera
 
 export default CCamera

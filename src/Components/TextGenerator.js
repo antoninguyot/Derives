@@ -3,7 +3,7 @@ import {Animated, Text, TouchableOpacity, View} from 'react-native';
 import useInterval from "@use-it/interval";
 import {Ionicons} from '@expo/vector-icons';
 import CCamera from './CCamera';
-import {groupStyleSheet} from "../../App.css";
+import {styles} from "../../App.css";
 
 import {emulateWalking, sedacDataset, sedacLocationRequest} from "../Helpers/location.js";
 import * as Location from "expo-location";
@@ -268,8 +268,8 @@ const TextGenerator = ({navigation}) => {
   }
   
   return (
-    <View style={styles.mainContainer}>
-      <View style={styles.cameraContener}>
+    <View style={styles.mainContainerCamera}>
+      <View style={styles.cameraContainer}>
         <CCamera/>
       </View>
       <View style={styles.textContainer}>
@@ -303,7 +303,7 @@ const TextGenerator = ({navigation}) => {
       {/* Back button */}
       <TouchableOpacity
         style={{flex: 1, position: 'absolute', bottom: 0, left: 0, marginBottom: 5, marginLeft: 5}}
-        onPress={() => navigation.navigate('WelcomeScreen')}>
+        onPress={() => navigation.navigate('ChooseParams')}>
         <Ionicons name="md-arrow-back-circle-outline" size={32} color="darkgrey"/>
       </TouchableOpacity>
       {/* Debug button */}
@@ -316,6 +316,5 @@ const TextGenerator = ({navigation}) => {
   )
 }
 
-const styles = groupStyleSheet.styleTexte
 
 export default TextGenerator
