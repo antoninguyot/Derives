@@ -1,15 +1,11 @@
 import React, {useEffect, useState} from 'react'
 import {Button, Text, View} from "react-native";
 import {styles} from "../../App.css";
-import {useFonts} from "expo-font";
 import {Ionicons} from "@expo/vector-icons";
 import * as Location from 'expo-location';
 import {Camera} from 'expo-camera';
 
 const PermissionsC = ({navigation}) => {
-  const [loaded] = useFonts({
-    'Antonio': require('../../assets/fonts/Antonio.ttf'),
-  });
 
   const [locationPermission, setLocationPermission] = useState(false)
   const [cameraPermission, setCameraPermission] = useState(false)
@@ -47,10 +43,6 @@ const PermissionsC = ({navigation}) => {
       navigation.replace('WelcomeScreen')
     }
   }, [locationPermission, cameraPermission]);
-
-  if (!loaded) {
-    return null;
-  }
 
   return (
     <View style={[styles.view, {flexDirection: 'column', justifyContent: 'space-around'}]}>
