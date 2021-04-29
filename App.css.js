@@ -1,117 +1,103 @@
-import {StyleSheet} from "react-native";
+import {StyleSheet, StatusBar} from "react-native";
 
 export const styles = StyleSheet.create({
-  title: {
+  //TEXT STYLES
+  textTitleW: {
+    color: '#bfbfbf',
     fontFamily: 'Antonio',
     fontSize: 34,
     textAlign: 'center',
-    color: '#bfbfbf',
   },
-  text: {
+  textW: {
     color: '#bfbfbf',
-    padding : 10,
+    fontFamily: 'Antonio',
     fontSize: 28,
+    padding : 10,
   },
-  view: {
-    flex: 1,
-    justifyContent: 'center',
-    padding: 10,
-    backgroundColor: 'black'
+  textLittleW: {
+    color:'#bfbfbf',
+    fontSize: 14,
+    padding: 0,
   },
-  row: {
-    flexDirection: "row",
-    paddingTop: 14,
+  textB: {
+    color: 'black',
+    fontFamily: 'Antonio',
+    fontSize: 28,
+    padding : 10,
   },
-  button: {
-    flex: 2,
-    textAlign: "center",
-    padding: 20
+  textLittleB: {
+    color:'black',
+    fontSize: 14,
+    textAlign:'center' // Button "Credits" From Choose Params
+  },
+  textVers: {
+    fontFamily: 'Antonio',
+    fontSize: 40,
+    textAlign: 'center',
+    color: 'white',
+    textShadowColor: 'black',
+    textShadowRadius: 10
+  },
+  textCaptorsTest: {
+    fontSize: 12,
+    color: 'white',
+    textShadowColor: 'black',
+    textShadowRadius: 10
   },
 
-  welcomeText: {
-    fontSize: 32,
-    textAlign: "center",
-    marginBottom: 50,
-  },
-  buttonGo: {
-    paddingTop: 20,
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingBottom: 20,
-    textAlign: 'center',
-    borderRadius: 10,
-    borderWidth: 0,
-  },
-  //mainContainer: {
-  //  flex: 1,
-  //  justifyContent: 'center',
-  //  padding: 10,
-  //},
-  buttonText: {
-    fontSize: 28,
-    textAlign: "center",
-  },
-  mainContainer: {
+  // CONTAINER STYLES
+  containerWelcomeScreens: {
     flex: 1,
-    flexDirection: 'column',
+    justifyContent:'center',
+    padding: 10,
     backgroundColor: 'black',
   },
-  preview: {
+  containerCredits: {
+    flex: 1,
+    padding: 10,
+    backgroundColor: 'black',
+  },
+  containerCaptorsTest: {
+    flex: 1,
+    position: 'absolute',
+    bottom: '10%',
+  },
+  containerPreviewCamera: {
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
-  container: {
+  containerCamera: {
+    flex: 10,
+    justifyContent: 'center',
+  },
+  containerText: {
+    flex: 1,
+    position: 'absolute',
+    alignSelf: 'center'
+  },
+  containerRow: {
+    flexDirection: "row",
+    paddingTop: 14,
+  },
+  containerChooseParams: {
     flex: 1,
     justifyContent: 'space-evenly',
     flexDirection: 'column',
     alignItems: 'center',
-    alignContent: 'center',
+    backgroundColor:'black',
     padding: 10,
   },
-  scrollView: {
-    marginLeft: 50,
-    marginRight:50
-  },
-  //text: {
-  //  fontSize: 28,
-  //  padding: 10,
-  //},
-  textTitle: {
-    fontSize: 28,
+  containerButtonCredits: {
+    justifyContent: 'space-evenly',
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    paddingLeft:320,
     padding: 10,
-    fontWeight: 'bold',
-  },
-  photo: {
-    width: 250,
-    height: 250,
-    borderRadius: 150,
-    resizeMode: 'stretch',
-  },
-  retourMenu: {
-    paddingTop: 20,
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingBottom: 20,
-    textAlign: 'center',
-    borderRadius: 10,
-    borderWidth: 0,
+    backgroundColor:'black'
   },
 
-  textStyle: {
-    fontSize: 28,
-    textAlign: "center",
-    padding: 10,
-    color:'black',
-    fontFamily:'Antonio'
-  },
-  textCreditsStyle: {
-    fontSize: 14,
-    textAlign: "center",
-    padding: 0,
-    fontFamily:'Antonio',
-    color:'black'
-  },
+  //BUTTON STYLE
   buttonStyle: {
     paddingTop: 20,
     paddingLeft: 20,
@@ -132,98 +118,12 @@ export const styles = StyleSheet.create({
     borderWidth: 0,
     backgroundColor:'white'
   },
-  flexContainer: {
-    flex: 1,
-    justifyContent: 'space-evenly',
-    flexDirection: 'column',
-    alignItems: 'center',
-    backgroundColor:'black',
-    padding: 10,
 
+  //IMAGE STYLE
+  photo: {
+    width: 250,
+    height: 250,
+    borderRadius: 150,
+    resizeMode: 'stretch',
   },
-  flexCreditsContainer: {
-    justifyContent: 'space-evenly',
-    flexDirection: 'column',
-    alignItems: 'stretch',
-    paddingLeft:320,
-    padding: 10,
-    backgroundColor:'black'
-  },
-  listItem: {
-    flexDirection: 'row',
-    borderBottomWidth: 0.5,
-    borderBottomColor: 'gray',
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    alignContent: 'space-between',
-      backgroundColor: 'white',
-  },
-  listKey: {
-    flex: 1,
-    fontWeight: '400'
-  },
-  listValue: {
-    flex: 1,
-    textAlign: 'right',
-    color: 'grey'
-  },
-  sectionHeader: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    paddingHorizontal: 10,
-    marginTop: 15,
-    // backgroundColor: 'white'
-  },
-  //row: {
-  //  flexDirection: "row",
-  //  paddingTop: 14,
-  //},
-  //text: {
-  //  flex: 1,
-  //  fontSize: 16,
-  //  textAlign: "center",
-  //  marginBottom: 50,
-  //},
-  //button: {
-  //  flex: 2,
-  //  textAlign: "center"
-  //},
-  mainContainerCamera: {
-    flex: 10,
-    justifyContent: 'center',
-  },
-  cameraContainer: {
-    flex: 9
-  },
-  //mainContainer: {
-  //  flex: 10,
-  //  justifyContent: 'center',
-  //},
-  //cameraContener: {
-  //  flex:  9
-  //},
-  textContainer: {
-    flex: 1,
-    position: 'absolute',
-    alignSelf: 'center'
-  },
-  textOver: {
-    fontFamily: 'Antonio',
-    fontSize: 40,
-    textAlign: 'center',
-    color: 'white',
-    textShadowColor: 'black',
-    textShadowRadius: 10
-  },
-  containerCaptors: {
-    flex: 1,
-    position: 'absolute',
-    bottom: '10%',
-  },
-  textCaptors: {
-    fontSize: 12,
-    color: 'white',
-    textShadowColor: 'black',
-    textShadowRadius: 10
-  }
 })

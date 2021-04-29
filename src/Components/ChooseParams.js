@@ -29,18 +29,18 @@ const ChooseParams = ({navigation}) => {
 
   return (
     <>
-      <View style={styles.flexContainer}>
+      <View style={styles.containerChooseParams}>
         <View>
           <TouchableOpacity
             onPress={() => navigation.navigate('TextGenerator')}
             style={styles.buttonStyle}>
-            <Text style={styles.textStyle}>Mode immersif</Text>
+            <Text style={styles.textB}>Mode immersif</Text>
           </TouchableOpacity>
         </View>
         <View>
           <TouchableOpacity
             style={styles.buttonStyle}>
-            <Text style={styles.textStyle}>Choisir les paramètres</Text>
+            <Text style={styles.textB}>Choisir les paramètres</Text>
             <DropDownPicker zIndex={5000}
                             items={momentItems}
                             defaultValue={moment}
@@ -81,16 +81,16 @@ const ChooseParams = ({navigation}) => {
                 weather: weather
               }
             )}>
-              <Text style={styles.textStyle}>Commencer l'expérience</Text>
+              <Text style={styles.textB}>Commencer l'expérience</Text>
             </TouchableOpacity>
           </TouchableOpacity>
         </View>
       </View>
-      <View style={styles.flexCreditsContainer}>
+      <View style={styles.containerButtonCredits}>
         <TouchableOpacity
           onPress={() => navigation.navigate('Credits')}
           style={styles.buttonCreditsStyle}>
-          <Text style={styles.textCreditsStyle}>Crédits</Text>
+          <Text style={styles.textLittleB}>Crédits</Text>
         </TouchableOpacity>
       </View>
     </>

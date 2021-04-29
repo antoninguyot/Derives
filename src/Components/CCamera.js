@@ -7,8 +7,8 @@ import {styles} from "../../App.css";
 
 const CCamera = () => {
   return (
-    <View style={styles.mainContainer}>
-      <Camera style={styles.preview}>
+    <View style={styles.containerCamera}>
+      <Camera style={styles.containerPreviewCamera}>
         <View style={{flex: 0, flexDirection: 'row', justifyContent: 'center'}}>
         </View>
       </Camera>

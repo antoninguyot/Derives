@@ -13,7 +13,7 @@
     "@react-native-async-storage/async-storage": "^1.13.0",
     "@use-it/interval": "^1.0.0",
     "axios": "^0.21.1",
-    "expo": "^41.0.0",
+    "expo": "^41.0.1",
     "expo-av": "~9.1.2",
     "expo-camera": "~11.0.2",
     "expo-constants": "~10.1.3",

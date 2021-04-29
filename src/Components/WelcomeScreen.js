@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {styles} from "../../App.css";
 import TextGenerator from './TextGenerator';
 import {fadeTo} from "../Helpers/text";
-import {useFonts} from 'expo-font';
+import {useFonts} from "@expo-google-fonts/caveat";
 
 const welcomeTexts = [
   "Vous allez vivre une expérience poétique – visuelle et sonore – en marchant.",
@@ -15,6 +15,9 @@ const WelcomeScreen = ({navigation}) => {
 
   const [welcomeText, setWelcomeText] = useState("")
   const [versOpacity] = useState(new Animated.Value(0))
+  const [loaded] = useFonts({
+    'Antonio': require('../../assets/fonts/Antonio.ttf'),
+  });
 
   /**
    * Navigue soit
@@ -55,9 +58,9 @@ const WelcomeScreen = ({navigation}) => {
   }, [])
 
   return (
-    <View style={styles.view}>
+    <View style={styles.containerWelcomeScreens}>
       <Animated.Text
-        style={[styles.title, {opacity: versOpacity}]}>
+        style={[styles.textTitleW, {opacity: versOpacity}]}>
         {welcomeText}
       </Animated.Text>
     </View>

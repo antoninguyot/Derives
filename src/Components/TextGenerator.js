@@ -5,7 +5,7 @@ import {Ionicons} from '@expo/vector-icons';
 import CCamera from './CCamera';
 import {styles} from "../../App.css";
 
-import {sedacDataset, sedacLocationRequest} from "../Helpers/location.js";
+import {emulateWalking, sedacDataset, sedacLocationRequest} from "../Helpers/location.js";
 import * as Location from "expo-location";
 import {calculateMoment, calculateSeason} from '../Helpers/time';
 import {weatherRequest} from "../Helpers/weather";
@@ -15,11 +15,15 @@ import {useFonts} from "expo-font";
 
 const TextGenerator = ({navigation}) => {
 
+  const [loaded] = useFonts({
+    'Antonio': require('../../assets/fonts/Antonio.ttf'),
+  });
+
   // Page states
   const [isMounted, setIsMounted] = useState(true)
   const [debug, setDebug] = useState(false)
 
-  //Localisation states 
+  //Localisation states
   const [longitude, setLongitude] = useState()
   const [latitude, setLatitude] = useState()
   const [localityDensity, setLocalityDensity] = useState()
@@ -190,6 +194,21 @@ const TextGenerator = ({navigation}) => {
 
   }, [])
 
+  // useEffect(() => {
+    // if (currentSpeed - previousSpeed > 0.3) {
+    //   setCoefPolice(Math.min(fontSize + 1, 3))
+    //   setNbLines(Math.max(nbLines - 1, 2))
+    //   setSpeedIncreased(true)
+    // } else if (currentSpeed - previousSpeed < 0.5) {
+    //   setCoefPolice(Math.max(fontSize - 1, 1))
+    //   setNbLines(Math.min(nbLines + 1, 4))
+    //   setSpeedIncreased(false)
+    // }
+    // setPreviousSpeed(currentSpeed)
+
+
+  // }, [currentSpeed])
+
   useEffect(() => {
     if (moment === "nuit") setVers("Dérive de la  " + moment)
     else setVers("Dérive du " + moment)
@@ -243,37 +262,41 @@ const TextGenerator = ({navigation}) => {
     }
 
   }, 12000)
-  
+
+  if (!loaded) {
+    return null;
+  }
+
   return (
-    <View style={styles.mainContainerCamera}>
-      <View style={styles.cameraContainer}>
+    <View style={styles.containerCamera}>
+      <View style={styles.containerCamera}>
         <CCamera/>
       </View>
-      <View style={styles.textContainer}>
+      <View style={styles.containerText}>
         <TouchableOpacity onLongPress={() => {
           setDebug(!debug)
         }}>
           <Animated.View style={{opacity: fontOpacity}}>
-            <Animated.Text style={[styles.textOver, {fontSize: fontSize}]}>
+            <Animated.Text style={[styles.textVers, {fontSize: fontSize}]}>
               {vers}
             </Animated.Text>
           </Animated.View>
         </TouchableOpacity>
       </View>
       {debug &&
-      <View style={styles.containerCaptors}>
-        <Text style={styles.textCaptors}> Saison : {season}  </Text>
-        <Text style={styles.textCaptors}> Moment : {moment}  </Text>
-        <Text style={styles.textCaptors}> Vitesse : {currentSpeed}</Text>
-        <Text style={styles.textCaptors}> Vit. moyenne / Ancienne Vit.
+      <View style={styles.containerCaptorsTest}>
+        <Text style={styles.textCaptorsTest}> Saison : {season}  </Text>
+        <Text style={styles.textCaptorsTest}> Moment : {moment}  </Text>
+        <Text style={styles.textCaptorsTest}> Vitesse : {currentSpeed}</Text>
+        <Text style={styles.textCaptorsTest}> Vit. moyenne / Ancienne Vit.
           : {speedAverage} / {previousSpeedAverage}  </Text>
-        <Text style={styles.textCaptors}> Accélération : {speedIncreased ? 'Oui' : 'Non'}  </Text>
-        <Text style={styles.textCaptors}> Lat / Lon : {latitude.toFixed(5)} / {longitude.toFixed(5)}  </Text>
-        <Text style={styles.textCaptors}> Densité de pop : {localityDensity} </Text>
-        <Text style={styles.textCaptors}> Milieu : {localityType}</Text>
-        <Text style={styles.textCaptors}> Météo : {weather} </Text>
-        <Text style={styles.textCaptors}> Temperature : {temperature}</Text>
-        <Text style={styles.textCaptors}> Nb Lines : {nbLines}</Text>
+        <Text style={styles.textCaptorsTest}> Accélération : {speedIncreased ? 'Oui' : 'Non'}  </Text>
+        <Text style={styles.textCaptorsTest}> Lat / Lon : {latitude.toFixed(5)} / {longitude.toFixed(5)}  </Text>
+        <Text style={styles.textCaptorsTest}> Densité de pop : {localityDensity} </Text>
+        <Text style={styles.textCaptorsTest}> Milieu : {localityType}</Text>
+        <Text style={styles.textCaptorsTest}> Météo : {weather} </Text>
+        <Text style={styles.textCaptorsTest}> Temperature : {temperature}</Text>
+        <Text style={styles.textCaptorsTest}> Nb Lines : {nbLines}</Text>
 
       </View>
       }

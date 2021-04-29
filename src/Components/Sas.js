@@ -79,8 +79,8 @@ const Sas = ({navigation}) => {
   }, []);
 
   return (
-    <View style={styles.mainContainer}>
-      <View style={styles.cameraContener}>
+    <View style={styles.containerCamera}>
+      <View style={styles.containerCamera}>
         <CCamera/>
         {willTimeTravel &&
         <Animated.View style={{
