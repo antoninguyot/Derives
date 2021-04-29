@@ -1,7 +1,9 @@
 {
   "expo": {
-    "name": "Derives",
+    "name": "Dérives",
     "slug": "Derives",
+    "owner": "derives",
+    "description": "Dérives est une expérience poétique visuelle et sonore.",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -25,7 +27,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "Derives.sounds.accueil.apk"
+      "package": "fr.utc.derives"
     },
     "web": {
       "favicon": "./assets/favicon.png"

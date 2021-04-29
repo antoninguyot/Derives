@@ -16,9 +16,6 @@ const WelcomeScreen = ({navigation}) => {
   const [welcomeText, setWelcomeText] = useState("")
   const [versOpacity] = useState(new Animated.Value(0))
 
-  const [loaded] = useFonts({
-    'Antonio': require('../../assets/fonts/Antonio.ttf'),
-  });
   /**
    * Navigue soit
    * - jusqu'au texte (première expérience)
@@ -56,10 +53,6 @@ const WelcomeScreen = ({navigation}) => {
       navigateToNextScreen()
     }, welcomeTexts.length * 9000)
   }, [])
-
-  if (!loaded) {
-    return null;
-  }
 
   return (
     <View style={styles.view}>

@@ -1,28 +1,48 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Button, Text, View} from "react-native";
-import * as Permissions from 'expo-permissions';
-import {usePermissions} from 'expo-permissions';
 import {styles} from "../../App.css";
-import {useFonts} from "expo-font";
 import {Ionicons} from "@expo/vector-icons";
+import * as Location from 'expo-location';
+import {Camera} from 'expo-camera';
 
 const PermissionsC = ({navigation}) => {
-  const [loaded] = useFonts({
-    'Antonio': require('../../assets/fonts/Antonio.ttf'),
-  });
 
-  const [locationPermission, askLocationPermission] = usePermissions(Permissions.LOCATION);
-  const [cameraPermission, askCameraPermission] = usePermissions(Permissions.CAMERA);
+  const [locationPermission, setLocationPermission] = useState(false)
+  const [cameraPermission, setCameraPermission] = useState(false)
 
+  const askLocationPermission = async () => {
+    let {status} = await Location.requestForegroundPermissionsAsync()
+    setLocationPermission(status === 'granted')
+  }
+
+  const askCameraPermission = async () => {
+    let {status} = await Camera.requestPermissionsAsync()
+    setCameraPermission(status === 'granted')
+  }
+
+  /**
+   * Récupère les permissions lors du chargement de l'écran
+   */
   useEffect(() => {
-    if (locationPermission?.status === 'granted' && cameraPermission?.status === 'granted') {
+    (async () => {
+      const {status} = await Camera.getPermissionsAsync()
+      setCameraPermission(status === 'granted')
+    })();
+    (async () => {
+      const {status} = await Location.getForegroundPermissionsAsync()
+      setLocationPermission(status === 'granted')
+    })();
+
+  }, [])
+
+  /**
+   * Navigate to the next screen if both permissions are granted
+   */
+  useEffect(() => {
+    if (locationPermission && cameraPermission) {
       navigation.replace('WelcomeScreen')
     }
   }, [locationPermission, cameraPermission]);
-
-  if (!loaded) {
-    return null;
-  }
 
   return (
     <View style={[styles.view, {flexDirection: 'column', justifyContent: 'space-around'}]}>
@@ -34,7 +54,7 @@ const PermissionsC = ({navigation}) => {
             Nous avons besoin de votre position pour prendre en compte vos changements de vitesse et votre
             environnement.
           </Text>
-          {(!locationPermission || locationPermission.status !== 'granted') &&
+          {(!locationPermission) &&
           <Button title="Autoriser" style={styles.button} onPress={askLocationPermission}/> ||
           <Button title="Autorisé" style={styles.button} disabled/>
           }
@@ -47,7 +67,7 @@ const PermissionsC = ({navigation}) => {
           <Text style={[styles.text, {textAlign: 'center'}]}>
             Nous avons besoin de votre caméra pour vous montrer le monde qui vous entoure.
           </Text>
-          {(!cameraPermission || cameraPermission.status !== 'granted') &&
+          {(!cameraPermission) &&
           <Button title="Autoriser" style={styles.button} onPress={askCameraPermission}/> ||
           <Button title="Autorisé" style={styles.button} disabled/>
           }
@@ -55,7 +75,7 @@ const PermissionsC = ({navigation}) => {
       </View>
 
       <View>
-        {locationPermission?.status === 'granted' && cameraPermission?.status === 'granted' &&
+        {locationPermission && cameraPermission &&
         <Button title="Continuer" onPress={() => {
           navigation.replace('WelcomeScreen')
         }}/> ||

@@ -5,7 +5,7 @@ import {Ionicons} from '@expo/vector-icons';
 import CCamera from './CCamera';
 import {styles} from "../../App.css";
 
-import {emulateWalking, sedacDataset, sedacLocationRequest} from "../Helpers/location.js";
+import {sedacDataset, sedacLocationRequest} from "../Helpers/location.js";
 import * as Location from "expo-location";
 import {calculateMoment, calculateSeason} from '../Helpers/time';
 import {weatherRequest} from "../Helpers/weather";
@@ -14,10 +14,6 @@ import {getAcceleration, getAmbiance, getMusic, getOneOff, play} from "../Helper
 import {useFonts} from "expo-font";
 
 const TextGenerator = ({navigation}) => {
-
-  const [loaded] = useFonts({
-    'Antonio': require('../../assets/fonts/Antonio.ttf'),
-  });
 
   // Page states
   const [isMounted, setIsMounted] = useState(true)
@@ -194,21 +190,6 @@ const TextGenerator = ({navigation}) => {
 
   }, [])
 
-  // useEffect(() => {
-    // if (currentSpeed - previousSpeed > 0.3) {
-    //   setCoefPolice(Math.min(fontSize + 1, 3))
-    //   setNbLines(Math.max(nbLines - 1, 2))
-    //   setSpeedIncreased(true)
-    // } else if (currentSpeed - previousSpeed < 0.5) {
-    //   setCoefPolice(Math.max(fontSize - 1, 1))
-    //   setNbLines(Math.min(nbLines + 1, 4))
-    //   setSpeedIncreased(false)
-    // }
-    // setPreviousSpeed(currentSpeed)
-
-    
-  // }, [currentSpeed])
-
   useEffect(() => {
     if (moment === "nuit") setVers("Dérive de la  " + moment)
     else setVers("Dérive du " + moment)
@@ -262,10 +243,6 @@ const TextGenerator = ({navigation}) => {
     }
 
   }, 12000)
-
-  if (!loaded) {
-    return null;
-  }
   
   return (
     <View style={styles.mainContainerCamera}>
