@@ -1,22 +1,24 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
 import Navigation from "./src/Navigation/Navigation";
+import {useFonts} from "expo-font";
+import {Text, View} from "react-native";
 
-export default class AppTest extends React.Component {
+const App = () => {
+  const [loaded] = useFonts({
+    'Antonio': require('./assets/fonts/Antonio.ttf'),
+  });
 
-  render() {
+  if (!loaded) {
     return (
-      <Navigation/>
+      <View>
+        <Text>Chargement...</Text>
+      </View>
     )
   }
+
+  return (
+    <Navigation/>
+  )
 }
 
-const stylesNavigation = StyleSheet.create({
-  container: {
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    paddingTop: 20 //this amount should be equal to the header height so that any items displayed inside the container will start after the absolute positioned header
-  },
-});
+export default App

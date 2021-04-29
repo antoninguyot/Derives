@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {Animated, View} from 'react-native'
-import {calculateMoment} from '../Helpers/time';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {setColorBackground, setColorWriting} from '../Helpers/colorInterface';
 import {styles} from "../../App.css";
 import TextGenerator from './TextGenerator';
 import {fadeTo} from "../Helpers/text";
@@ -17,10 +15,6 @@ const WelcomeScreen = ({navigation}) => {
 
   const [welcomeText, setWelcomeText] = useState("")
   const [versOpacity] = useState(new Animated.Value(0))
-
-  const [loaded] = useFonts({
-    'Antonio': require('../../assets/fonts/Antonio.ttf'),
-  });
 
   /**
    * Navigue soit
@@ -59,10 +53,6 @@ const WelcomeScreen = ({navigation}) => {
       navigateToNextScreen()
     }, welcomeTexts.length * 9000)
   }, [])
-
-  if (!loaded) {
-    return null;
-  }
 
   return (
     <View style={styles.view}>
