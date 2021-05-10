@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {Animated, View} from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {styles} from "../../App.css";
-import TextGenerator from './TextGenerator';
 import {fadeTo} from "../Helpers/text";
 import {useFonts} from "@expo-google-fonts/caveat";
 
@@ -26,14 +24,7 @@ const WelcomeScreen = ({navigation}) => {
    * @returns {Promise<void>}
    */
   const navigateToNextScreen = async () => {
-    const value = await AsyncStorage.getItem('firstConnexionDate')
-    if (value != null) {
-      navigation.replace('ChooseParams')
-    } else {
-      const jsonValue = JSON.stringify(new Date)
-      await AsyncStorage.setItem('firstConnexionDate', jsonValue)
-      navigation.replace('TextGenerator')
-    }
+    navigation.replace('ChooseModeSense')
   }
 
   // GetData and tet the text

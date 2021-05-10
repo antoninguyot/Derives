@@ -47,7 +47,7 @@ const Credits = ({navigation}) => {
                 description="Étudiant à l'UTC. Développement de l'application."/>
       </ScrollView>
       <TouchableOpacity
-        onPress={() => navigation.navigate('ChooseParams')}>
+        onPress={() => navigation.navigate('ChooseMode')}>
         <Ionicons name="md-arrow-back-circle-outline" size={32} color="darkgrey"/>
       </TouchableOpacity>
     </SafeAreaView>
