@@ -227,7 +227,7 @@ const TextGenerator = ({navigation}) => {
 
     if (!isReadyToPlay) setIsReadyToPlay(true)
 
-    let text = getTextArray(moment)
+    let text = getTextArray('matin')
     let speedIncreased = speedAverage > previousSpeedAverage;
     setSpeedIncreased(speedIncreased)
     let relevantText = speedIncreased ? text.acceleration : text.stable
@@ -248,7 +248,7 @@ const TextGenerator = ({navigation}) => {
 
     for (let i = index; i < index + nbLines; i++) {
       // On récupère une partie du texte et on la fait varier avec interpretText
-      vers += "\n" + combine(relevantText[i], localityType, weather, season)
+      vers += "\n" + combine(relevantText[i], localityType, weather)
     }
     setIndex(index + nbLines)
     setVers(vers)
@@ -303,7 +303,7 @@ const TextGenerator = ({navigation}) => {
       {/* Back button */}
       <TouchableOpacity
         style={{flex: 1, position: 'absolute', bottom: 0, left: 0, marginBottom: 5, marginLeft: 5}}
-        onPress={() => navigation.navigate('ChooseParams')}>
+        onPress={() => navigation.navigate('ChooseMode')}>
         <Ionicons name="md-arrow-back-circle-outline" size={32} color="darkgrey"/>
       </TouchableOpacity>
       {/* Debug button */}

@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
   textW: {
     color: '#bfbfbf',
     fontFamily: 'Antonio',
-    fontSize: 28,
+    fontSize: 24,
     padding : 10,
   },
   textLittleW: {
@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
   textB: {
     color: 'black',
     fontFamily: 'Antonio',
-    fontSize: 28,
+    fontSize: 24,
     padding : 10,
   },
   textLittleB: {
@@ -80,7 +80,7 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     paddingTop: 14,
   },
-  containerChooseParams: {
+  containerChooseMode: {
     flex: 1,
     justifyContent: 'space-evenly',
     flexDirection: 'column',
@@ -92,7 +92,6 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     flexDirection: 'column',
     alignItems: 'stretch',
-    paddingLeft:320,
     padding: 10,
     backgroundColor:'black'
   },
@@ -105,8 +104,10 @@ export const styles = StyleSheet.create({
     paddingBottom: 20,
     textAlign: 'center',
     borderRadius: 10,
-    borderWidth: 0,
-    backgroundColor:'white'
+    borderWidth: 1,
+    borderColor:'white',
+    backgroundColor:'black',
+
   },
   buttonCreditsStyle: {
     paddingTop: 5,
@@ -115,8 +116,9 @@ export const styles = StyleSheet.create({
     paddingBottom: 5,
     textAlign: 'center',
     borderRadius: 10,
-    borderWidth: 0,
-    backgroundColor:'white'
+    borderWidth: 1,
+    borderColor:'white',
+    backgroundColor:'black',
   },
 
   //IMAGE STYLE

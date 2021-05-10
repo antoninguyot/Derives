@@ -21,7 +21,7 @@ const PermissionsC = ({navigation}) => {
   }
 
   /**
-   * Récupère les permissions lors du chargement de l'écran
+   * Get permissions during screen loading
    */
   useEffect(() => {
     (async () => {
@@ -59,7 +59,6 @@ const PermissionsC = ({navigation}) => {
           <Button title="Autorisé"  disabled/>
           }
         </View>
-
       </View>
       <View style={styles.containerRow}>
         <View>
