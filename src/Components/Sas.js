@@ -5,6 +5,7 @@ import * as Location from "expo-location";
 import {calculateNextMoment} from "../Helpers/time";
 import {Ionicons} from '@expo/vector-icons';
 import {styles} from "../../App.css";
+import {fadeTo} from "../Helpers/text";
 
 const Sas = ({navigation}) => {
 
@@ -16,15 +17,17 @@ const Sas = ({navigation}) => {
   let sasTimeout;
 
   React.useEffect(() => {
-    Animated.loop(Animated.timing(
-      fadeAnim,
-      {
-        toValue: 1,
-        duration: 2000,
-        useNativeDriver: true,
-      }
-    )).start();
-  }, [fadeAnim])
+    fadeTo(fadeAnim,1,2000)
+    setTimeout(function (){
+      fadeTo(fadeAnim,0,2000)
+    },2000)
+    setInterval(function (){
+      fadeTo(fadeAnim,1,2000)
+      setTimeout(function (){
+        fadeTo(fadeAnim,0,2000)
+      },2000)
+    },4000)
+  }, [])
 
   useEffect(() => {
     if (willTimeTravel === true) {

@@ -303,7 +303,7 @@ const TextGenerator = ({navigation}) => {
       {/* Back button */}
       <TouchableOpacity
         style={{flex: 1, position: 'absolute', bottom: 0, left: 0, marginBottom: 5, marginLeft: 5}}
-        onPress={() => navigation.navigate('ChooseParams')}>
+        onPress={() => navigation.navigate('ChooseMode')}>
         <Ionicons name="md-arrow-back-circle-outline" size={32} color="darkgrey"/>
       </TouchableOpacity>
       {/* Debug button */}
