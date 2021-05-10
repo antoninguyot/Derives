@@ -4,7 +4,7 @@ import CCamera from "./CCamera";
 import * as Location from "expo-location";
 import {calculateNextMoment} from "../Helpers/time";
 import {Ionicons} from '@expo/vector-icons';
-import {groupStyleSheet} from "../../App.css";
+import {styles} from "../../App.css";
 
 const Sas = ({navigation}) => {
 
@@ -79,8 +79,8 @@ const Sas = ({navigation}) => {
   }, []);
 
   return (
-    <View style={styles.mainContainer}>
-      <View style={styles.cameraContener}>
+    <View style={styles.containerCamera}>
+      <View style={styles.containerCamera}>
         <CCamera/>
         {willTimeTravel &&
         <Animated.View style={{
@@ -116,7 +116,5 @@ const Sas = ({navigation}) => {
     </View>
   )
 }
-
-const styles = groupStyleSheet.styleSas
 
 export default Sas

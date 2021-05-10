@@ -45,31 +45,31 @@ const PermissionsC = ({navigation}) => {
   }, [locationPermission, cameraPermission]);
 
   return (
-    <View style={[styles.view, {flexDirection: 'column', justifyContent: 'space-around'}]}>
-      <Text style={styles.title}>Avant de commencer...</Text>
-      <View style={styles.row}>
+    <View style={[styles.containerWelcomeScreens, {flexDirection: 'column', justifyContent: 'space-around'}]}>
+      <Text style={styles.textTitleW}>Avant de commencer...</Text>
+      <View style={styles.containerRow}>
         <View>
           <Ionicons name="location-outline" size={48} color="white" style={{textAlign: 'center'}}/>
-          <Text style={[styles.text, {textAlign: 'center'}]}>
+          <Text style={[styles.textW, {textAlign: 'center'}]}>
             Nous avons besoin de votre position pour prendre en compte vos changements de vitesse et votre
             environnement.
           </Text>
           {(!locationPermission) &&
-          <Button title="Autoriser" style={styles.button} onPress={askLocationPermission}/> ||
-          <Button title="Autorisé" style={styles.button} disabled/>
+          <Button title="Autoriser" onPress={askLocationPermission}/> ||
+          <Button title="Autorisé"  disabled/>
           }
         </View>
 
       </View>
-      <View style={styles.row}>
+      <View style={styles.containerRow}>
         <View>
           <Ionicons name="camera-outline" size={48} color="white" style={{textAlign: 'center'}}/>
-          <Text style={[styles.text, {textAlign: 'center'}]}>
+          <Text style={[styles.textW, {textAlign: 'center'}]}>
             Nous avons besoin de votre caméra pour vous montrer le monde qui vous entoure.
           </Text>
           {(!cameraPermission) &&
-          <Button title="Autoriser" style={styles.button} onPress={askCameraPermission}/> ||
-          <Button title="Autorisé" style={styles.button} disabled/>
+          <Button title="Autoriser" onPress={askCameraPermission}/> ||
+          <Button title="Autorisé" disabled/>
           }
         </View>
       </View>
