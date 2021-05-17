@@ -254,14 +254,16 @@ const TextGenerator = ({navigation}) => {
     setVers(vers)
 
     if (speedIncreased) {
-      fadeTo(fontSize, 30 * Math.max(Math.min(3, (currentSpeed ?? 0) / 2), 1), 1000, false)
       setNbLines(Math.max(nbLines - 1, 2))
     } else {
-      fadeTo(fontSize, 15 * Math.max(Math.min(3, (currentSpeed ?? 0) / 2), 1), 1000, false)
       setNbLines(Math.min(nbLines + 1, 4))
     }
 
   }, 12000)
+
+  useEffect(() => {
+    fadeTo(fontSize, 15 * Math.max(Math.min(3, (currentSpeed ?? 0) / 2), 1), 1000, false)
+  }, [currentSpeed])
 
   if (!loaded) {
     return null;
