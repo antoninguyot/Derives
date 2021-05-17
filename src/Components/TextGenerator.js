@@ -258,7 +258,10 @@ const TextGenerator = ({navigation}) => {
   }, 12000)
 
   useEffect(() => {
-    fadeTo(fontSize, 15 * Math.max(Math.min(3, (currentSpeed ?? 0) / 2), 1), 1000, false)
+    let newFontSize = ((currentSpeed ?? 0) / 2) * 15;
+    newFontSize = Math.min(40, newFontSize) // Max font size : 40
+    newFontSize = Math.max(20, newFontSize) // Min font size : 20
+    fadeTo(fontSize, newFontSize, 1000, false)
   }, [currentSpeed])
 
   if (!loaded) {
