@@ -1,7 +1,7 @@
-import {StyleSheet, StatusBar} from "react-native";
+import { StyleSheet } from 'react-native';
 
-export const styles = StyleSheet.create({
-  //TEXT STYLES
+export default StyleSheet.create({
+  // TEXT STYLES
   textTitleW: {
     color: '#bfbfbf',
     fontFamily: 'Antonio',
@@ -12,10 +12,10 @@ export const styles = StyleSheet.create({
     color: '#bfbfbf',
     fontFamily: 'Antonio',
     fontSize: 24,
-    padding : 10,
+    padding: 10,
   },
   textLittleW: {
-    color:'#bfbfbf',
+    color: '#bfbfbf',
     fontSize: 14,
     padding: 0,
   },
@@ -23,12 +23,12 @@ export const styles = StyleSheet.create({
     color: 'black',
     fontFamily: 'Antonio',
     fontSize: 24,
-    padding : 10,
+    padding: 10,
   },
   textLittleB: {
-    color:'black',
+    color: 'black',
     fontSize: 14,
-    textAlign:'center' // Button "Credits" From Choose Params
+    textAlign: 'center', // Button "Credits" From Choose Params
   },
   textVers: {
     fontFamily: 'Antonio',
@@ -36,19 +36,19 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     color: 'white',
     textShadowColor: 'black',
-    textShadowRadius: 10
+    textShadowRadius: 10,
   },
   textCaptorsTest: {
     fontSize: 12,
     color: 'white',
     textShadowColor: 'black',
-    textShadowRadius: 10
+    textShadowRadius: 10,
   },
 
   // CONTAINER STYLES
   containerWelcomeScreens: {
     flex: 1,
-    justifyContent:'center',
+    justifyContent: 'center',
     padding: 10,
     backgroundColor: 'black',
   },
@@ -74,11 +74,11 @@ export const styles = StyleSheet.create({
   containerText: {
     flex: 1,
     position: 'absolute',
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   containerRow: {
-    flexDirection: "row",
-    justifyContent: "center",
+    flexDirection: 'row',
+    justifyContent: 'center',
     paddingTop: 14,
   },
   containerChooseMode: {
@@ -86,7 +86,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor:'black',
+    backgroundColor: 'black',
     padding: 10,
   },
   containerButtonCredits: {
@@ -94,10 +94,10 @@ export const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'stretch',
     padding: 10,
-    backgroundColor:'black'
+    backgroundColor: 'black',
   },
 
-  //BUTTON STYLE
+  // BUTTON STYLE
   buttonStyle: {
     paddingTop: 20,
     paddingLeft: 20,
@@ -106,8 +106,8 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     borderRadius: 10,
     borderWidth: 1,
-    borderColor:'white',
-    backgroundColor:'black',
+    borderColor: 'white',
+    backgroundColor: 'black',
 
   },
   buttonCreditsStyle: {
@@ -118,15 +118,15 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     borderRadius: 10,
     borderWidth: 1,
-    borderColor:'white',
-    backgroundColor:'black',
+    borderColor: 'white',
+    backgroundColor: 'black',
   },
 
-  //IMAGE STYLE
+  // IMAGE STYLE
   photo: {
     width: 250,
     height: 250,
     borderRadius: 150,
     resizeMode: 'stretch',
   },
-})
+});
