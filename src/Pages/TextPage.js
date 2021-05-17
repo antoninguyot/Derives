@@ -223,7 +223,7 @@ const TextPage = ({navigation}) => {
 
     if (!isReadyToPlay) setIsReadyToPlay(true)
 
-    let text = getTextArray('matin')
+    let text = getTextArray(moment)
     let speedIncreased = speedAverage > previousSpeedAverage;
     setSpeedIncreased(speedIncreased)
     let relevantText = speedIncreased ? text.acceleration : text.stable
