@@ -9,7 +9,7 @@ const welcomeTexts = [
   "Selon votre vitesse, mais aussi le moment de la journée, la saison, la température, l'environnement, votre expérience ne sera pas la même..."
 ]
 
-const WelcomeScreen = ({navigation}) => {
+const WelcomePage = ({navigation}) => {
 
   const [welcomeText, setWelcomeText] = useState("")
   const [versOpacity] = useState(new Animated.Value(0))
@@ -58,4 +58,4 @@ const WelcomeScreen = ({navigation}) => {
   )
 }
 
-export default WelcomeScreen
+export default WelcomePage

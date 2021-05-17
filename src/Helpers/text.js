@@ -1,6 +1,6 @@
-import Matin from "../Texts/Matin";
-import Midi from "../Texts/Midi";
-import Soir from "../Texts/Soir";
+import Matin from "../../assets/texts/morning.json";
+import Midi from "../../assets/texts/afternoon.json";
+import Soir from "../../assets/texts/evening.json";
 import {Animated} from "react-native";
 
 /**

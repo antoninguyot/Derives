@@ -1,13 +1,12 @@
 import React, {useRef, useState} from "react";
-import {Text, View, StyleSheet, TouchableOpacity, Animated} from "react-native";
+import {Text, View, TouchableOpacity, Animated} from "react-native";
 import ViewPager from "@react-native-community/viewpager";
 import {styles} from "../../App.css";
 import DropDownPicker from "react-native-dropdown-picker";
-import {calculateNextMoment} from "../Helpers/time";
 import {fadeTo} from "../Helpers/text";
 
 
-const ChooseMode = ({navigation}) => {
+const ChooseModePage = ({navigation}) => {
   const [moment, setMoment] = useState()
   const [localityType, setLocalityType] = useState()
   const [weather, setWeather] = useState()
@@ -138,14 +137,4 @@ const ChooseMode = ({navigation}) => {
   )
 }
 
-const style = StyleSheet.create({
-  viewPager: {
-    flex: 1,
-  },
-  page: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
-
-export default ChooseMode
+export default ChooseModePage

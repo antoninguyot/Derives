@@ -1,5 +1,5 @@
-export default {
-  stable: [
+{
+  "stable": [
     "Déjà le jour {random|se penche,s’appuie contre, engourdit}",
     "{random|dans ton dos,tes épaules}",
     "\n",
@@ -37,7 +37,7 @@ export default {
     "Tu {random|te fonds dans, t’allies à",
     "l’ombre qui {random|amorce,ouvre, lève} la nuit.",
   ],
-  acceleration: [
+  "acceleration": [
     "{stable|Ton dos, Tes épaules} éclipse le jour",
     "\n",
     "Tu vas",

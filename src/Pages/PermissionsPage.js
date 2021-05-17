@@ -5,7 +5,7 @@ import {Ionicons} from "@expo/vector-icons";
 import * as Location from 'expo-location';
 import {Camera} from 'expo-camera';
 
-const PermissionsC = ({navigation}) => {
+const PermissionsPage = ({navigation}) => {
 
   const [locationPermission, setLocationPermission] = useState(false)
   const [cameraPermission, setCameraPermission] = useState(false)
@@ -85,4 +85,4 @@ const PermissionsC = ({navigation}) => {
   )
 }
 
-export default PermissionsC
+export default PermissionsPage

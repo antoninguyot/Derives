@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {Animated, Text, TouchableOpacity, View} from 'react-native';
 import useInterval from "@use-it/interval";
 import {Ionicons} from '@expo/vector-icons';
-import CCamera from './CCamera';
+import CCamera from '../Components/CCamera';
 import {styles} from "../../App.css";
 
 import {emulateWalking, sedacDataset, sedacLocationRequest} from "../Helpers/location.js";
@@ -13,7 +13,7 @@ import {combine, fadeTo, getTextArray} from "../Helpers/text";
 import {getAcceleration, getAmbiance, getMusic, getOneOff, play} from "../Helpers/sound";
 import {useFonts} from "expo-font";
 
-const TextGenerator = ({navigation}) => {
+const TextPage = ({navigation}) => {
 
   const [loaded] = useFonts({
     'Antonio': require('../../assets/fonts/Antonio.ttf'),
@@ -323,4 +323,4 @@ const TextGenerator = ({navigation}) => {
 }
 
 
-export default TextGenerator
+export default TextPage

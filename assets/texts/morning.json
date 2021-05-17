@@ -1,5 +1,5 @@
-export default {
-  stable: [
+{
+  "stable": [
     "Le jour {random|t’approche,s’épaissit,s’éveille}",
     "et t’{random|effleure,étreint}",
     "Partout l’air",
@@ -47,7 +47,7 @@ export default {
     "Il vient",
     "Calmement"
   ],
-  acceleration: [
+  "acceleration": [
     "Tu {random|t’avances,entres}",
     "dans {random|le réveil,l’entrebâillement} du jour",
     "Partout tes pas {random|ouvrent,animent} l’air",

@@ -1,17 +1,17 @@
 import {createStackNavigator} from 'react-navigation-stack';
 import {createAppContainer} from 'react-navigation';
 
-import PermissionsC from '../Components/PermissionsC'
-import WelcomeScreen from '../Components/WelcomeScreen'
-import TextGenerator from '../Components/TextGenerator'
-import Sas from '../Components/Sas'
-import Credits from '../Components/Credits'
-import ChooseModeSense from "../Components/ChooseModeSense";
-import ChooseMode from "../Components/ChooseMode";
+import PermissionsPage from '../Pages/PermissionsPage'
+import WelcomePage from '../Pages/WelcomePage'
+import TextPage from '../Pages/TextPage'
+import SasPage from '../Pages/SasPage'
+import CreditsPage from '../Pages/CreditsPage'
+import ChooseExperiencePage from "../Pages/ChooseExperiencePage";
+import ChooseModePage from "../Pages/ChooseModePage";
 
 const StackNavigator = createStackNavigator({
   Permissions: {
-    screen: PermissionsC,
+    screen: PermissionsPage,
     navigationOptions: {
       title: 'Avant de commencer...',
       animationEnabled: false,
@@ -19,7 +19,7 @@ const StackNavigator = createStackNavigator({
     }
   },
   WelcomeScreen: {
-    screen: WelcomeScreen,
+    screen: WelcomePage,
     navigationOptions: {
       title: 'WelcomeScreen',
       headerShown: false,
@@ -27,21 +27,21 @@ const StackNavigator = createStackNavigator({
     }
   },
   ChooseModeSense: {
-    screen: ChooseModeSense,
+    screen: ChooseExperiencePage,
     navigationOptions: {
       title: 'Choix du Sens de l expérience ',
       headerShown: false
     }
   },
   ChooseMode: {
-    screen: ChooseMode,
+    screen: ChooseModePage,
     navigationOptions: {
       title: 'Ecran central de choix du mode',
       headerShown: false
     }
   },
   TextGenerator: {
-    screen: TextGenerator,
+    screen: TextPage,
     navigationOptions: {
       title: 'Dérives',
       headerShown: false,
@@ -49,7 +49,7 @@ const StackNavigator = createStackNavigator({
     }
   },
   Sas: {
-    screen: Sas,
+    screen: SasPage,
     navigationOptions: {
       title: 'Dérives',
       headerShown: false,
@@ -57,7 +57,7 @@ const StackNavigator = createStackNavigator({
     }
   },
   Credits: {
-    screen: Credits,
+    screen: CreditsPage,
     navigationOptions: {
       title: 'Credits',
       headerShown: false,

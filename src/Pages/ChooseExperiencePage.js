@@ -3,13 +3,12 @@ import {styles} from "../../App.css";
 import { Text, TouchableOpacity, View} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
 
-const ChooseModeSense = ({navigation}) => {
+const ChooseExperiencePage = ({navigation}) => {
   return(
     <View style={[styles.containerWelcomeScreens, {flexDirection: 'column', justifyContent: 'space-around'}]}>
       <Text style={styles.textTitleW}>Choix du sens de l'expérience</Text>
       <View style={styles.containerRow}>
         <View>
-
           <TouchableOpacity
             style={[styles.buttonStyle,{backgroundColor: 'black', borderWidth: 1, borderColor: 'white'}]}
             onPress={() => {
@@ -41,4 +40,4 @@ const ChooseModeSense = ({navigation}) => {
   )
 }
 
-export default ChooseModeSense;
+export default ChooseExperiencePage;

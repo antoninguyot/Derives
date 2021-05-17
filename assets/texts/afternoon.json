@@ -1,8 +1,8 @@
-export default {
-  stable: [
+{
+  "stable": [
     "Autre moment",
     "\n",
-    "La {random|terre,forêt,plage,montagne}", // Marine veut avec GPS mais on a pas info sur milieu 
+    "La {random|terre,forêt,plage,montagne}",
     "{random|allonge sa langue, s’entrouvre}",
     "\n",
     "Elle {random|répand tisse,livre} ses {random|histoires,secrets}",
@@ -37,12 +37,12 @@ export default {
     "{random|comme on imite le jour,un hôte du chemin}",
     "\n",
     "Tu es là",
-    "où {random|s’abritent,veillent, demeurent} les mondes",
+    "où {random|s’abritent,veillent, demeurent} les mondes"
   ],
-  acceleration: [
+  "acceleration": [
     "Autre moment",
     "\n",
-    "Tu mets la terre en {random|route,marche}", // Marine veut avec GPS mais on a pas info sur milieu 
+    "Tu mets la terre en {random|route,marche}",
     "{random|allonge sa langue, s’entrouvre}",
     "\n",
     "Tu l’écoutes",
@@ -79,6 +79,6 @@ export default {
     "à taille {random|de pays,du midi}",
     "\n",
     "Tu es là",
-    "où {random|s’abritent,veillent, demeurent} les mondes",
+    "où {random|s’abritent,veillent, demeurent} les mondes"
   ]
 }
