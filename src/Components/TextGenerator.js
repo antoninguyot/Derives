@@ -241,12 +241,17 @@ const TextGenerator = ({navigation}) => {
     // Sinon, on génère le nouveau vers
     // Pour chaque ligne (dépend de la vitesse)
     let vers = ""
-
-    for (let i = index; i < index + nbLines; i++) {
+    let i
+    for (i = index; i < index + nbLines; i++) {
+      // Si on atteint une nouvelle strophe, on n'ajoute plus de texte
+      if(relevantText[i] === "\n"){
+        i++
+        break
+      }
       // On récupère une partie du texte et on la fait varier avec interpretText
       vers += "\n" + combine(relevantText[i], localityType, weather, season)
     }
-    setIndex(index + nbLines)
+    setIndex(i)
     setVers(vers)
 
     if (speedIncreased) {
