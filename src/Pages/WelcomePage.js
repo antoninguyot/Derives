@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react'
 import {Animated, View} from 'react-native'
 import {styles} from "../../App.css";
 import {fadeTo} from "../Helpers/text";
-import {useFonts} from "@expo-google-fonts/caveat";
 
 const welcomeTexts = [
   "Vous allez vivre une expérience poétique – visuelle et sonore – en marchant.",
@@ -13,19 +12,6 @@ const WelcomePage = ({navigation}) => {
 
   const [welcomeText, setWelcomeText] = useState("")
   const [versOpacity] = useState(new Animated.Value(0))
-  const [loaded] = useFonts({
-    'Antonio': require('../../assets/fonts/Antonio.ttf'),
-  });
-
-  /**
-   * Navigue soit
-   * - jusqu'au texte (première expérience)
-   * - jusqu'au paramètres sinon
-   * @returns {Promise<void>}
-   */
-  const navigateToNextScreen = async () => {
-    navigation.replace('ChooseModeSense')
-  }
 
   // GetData and tet the text
   useEffect(() => {
@@ -44,7 +30,7 @@ const WelcomePage = ({navigation}) => {
     })
     // Then navigate to the next screen
     setTimeout(() => {
-      navigateToNextScreen()
+      navigation.replace("TextGenerator")
     }, welcomeTexts.length * 9000)
   }, [])
 

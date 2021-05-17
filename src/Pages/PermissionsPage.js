@@ -4,6 +4,7 @@ import {styles} from "../../App.css";
 import {Ionicons} from "@expo/vector-icons";
 import * as Location from 'expo-location';
 import {Camera} from 'expo-camera';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const PermissionsPage = ({navigation}) => {
 
@@ -40,9 +41,26 @@ const PermissionsPage = ({navigation}) => {
    */
   useEffect(() => {
     if (locationPermission && cameraPermission) {
-      navigation.replace('WelcomeScreen')
+      _navigateToNextPage()
     }
   }, [locationPermission, cameraPermission]);
+
+  /**
+   * Determines what is the next screen if
+   * this isn't the first time the app is opened
+   * @returns {Promise<void>}
+   * @private
+   */
+  const _navigateToNextPage = async () => {
+    const firstOpenedAtKey = 'firstOpenedAt'
+    let firstOpenedAt = await AsyncStorage.getItem(firstOpenedAtKey)
+    if(firstOpenedAt !== null) {
+      navigation.replace('ChooseModeSense')
+    } else {
+      await AsyncStorage.setItem(firstOpenedAtKey, Date.now().toString())
+      navigation.replace('WelcomeScreen')
+    }
+  }
 
   return (
     <View style={[styles.containerWelcomeScreens, {flexDirection: 'column', justifyContent: 'space-around'}]}>
