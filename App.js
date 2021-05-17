@@ -1,18 +1,20 @@
 import React from 'react';
 import Navigation from "./src/Navigation/Navigation";
 import {useFonts} from "expo-font";
-import {Text, View} from "react-native";
+import AppLoading from 'expo-app-loading';
 
 const App = () => {
-  const [loaded] = useFonts({
+  const [loaded, error] = useFonts({
     'Antonio': require('./assets/fonts/Antonio.ttf'),
   });
 
+  if(error){
+    console.error(error)
+  }
+
   if (!loaded) {
     return (
-      <View>
-        <Text>Chargement...</Text>
-      </View>
+      <AppLoading/>
     )
   }
 
