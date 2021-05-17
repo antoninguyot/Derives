@@ -129,10 +129,6 @@ const TextGenerator = ({navigation}) => {
       setMusicInterval(setInterval(() => {
         play(getAcceleration())
       }, 1500))
-    } else {
-      setMusicInterval(setInterval(() => {
-        play(getAcceleration())
-      }, 4000))
     }
 
   }, [speedIncreased])
@@ -245,23 +241,33 @@ const TextGenerator = ({navigation}) => {
     // Sinon, on génère le nouveau vers
     // Pour chaque ligne (dépend de la vitesse)
     let vers = ""
-
-    for (let i = index; i < index + nbLines; i++) {
+    let i
+    for (i = index; i < index + nbLines; i++) {
+      // Si on atteint une nouvelle strophe, on n'ajoute plus de texte
+      if(relevantText[i] === "\n"){
+        i++
+        break
+      }
       // On récupère une partie du texte et on la fait varier avec interpretText
       vers += "\n" + combine(relevantText[i], localityType, weather)
     }
-    setIndex(index + nbLines)
+    setIndex(i)
     setVers(vers)
 
     if (speedIncreased) {
-      fadeTo(fontSize, 30 * Math.max(Math.min(3, (currentSpeed ?? 0) / 2), 1), 1000, false)
       setNbLines(Math.max(nbLines - 1, 2))
     } else {
-      fadeTo(fontSize, 15 * Math.max(Math.min(3, (currentSpeed ?? 0) / 2), 1), 1000, false)
       setNbLines(Math.min(nbLines + 1, 4))
     }
 
   }, 12000)
+
+  useEffect(() => {
+    let newFontSize = ((currentSpeed ?? 0) / 2) * 15;
+    newFontSize = Math.min(40, newFontSize) // Max font size : 40
+    newFontSize = Math.max(20, newFontSize) // Min font size : 20
+    fadeTo(fontSize, newFontSize, 1000, false)
+  }, [currentSpeed])
 
   if (!loaded) {
     return null;
