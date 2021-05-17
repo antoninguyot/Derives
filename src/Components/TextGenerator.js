@@ -129,10 +129,6 @@ const TextGenerator = ({navigation}) => {
       setMusicInterval(setInterval(() => {
         play(getAcceleration())
       }, 1500))
-    } else {
-      setMusicInterval(setInterval(() => {
-        play(getAcceleration())
-      }, 4000))
     }
 
   }, [speedIncreased])
