@@ -7,7 +7,7 @@ import {calculateNextMoment} from "../Helpers/time";
 import {fadeTo} from "../Helpers/text";
 
 
-const ChooseMode = ({navigation}) => {
+const ChooseModePage = ({navigation}) => {
   const [moment, setMoment] = useState()
   const [localityType, setLocalityType] = useState()
   const [weather, setWeather] = useState()
@@ -148,4 +148,4 @@ const style = StyleSheet.create({
   },
 });
 
-export default ChooseMode
+export default ChooseModePage

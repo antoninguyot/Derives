@@ -1,11 +1,11 @@
 import {SafeAreaView, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import React from 'react';
 import {styles} from "../../App.css";
-import {Person} from "./Person";
+import {Person} from "../Components/Person";
 import {useFonts} from "expo-font";
 import {Ionicons} from "@expo/vector-icons";
 
-const Credits = ({navigation}) => {
+const CreditsPage = ({navigation}) => {
 
   const [loaded] = useFonts({
     'Antonio': require('../../assets/fonts/Antonio.ttf'),
@@ -54,4 +54,4 @@ const Credits = ({navigation}) => {
   )
 }
 
-export default Credits
+export default CreditsPage

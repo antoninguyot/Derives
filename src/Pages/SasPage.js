@@ -1,13 +1,13 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {Animated, Text, View} from "react-native";
-import CCamera from "./CCamera";
+import CCamera from "../Components/CCamera";
 import * as Location from "expo-location";
 import {calculateNextMoment} from "../Helpers/time";
 import {Ionicons} from '@expo/vector-icons';
 import {styles} from "../../App.css";
 import {fadeTo} from "../Helpers/text";
 
-const Sas = ({navigation}) => {
+const SasPage = ({navigation}) => {
 
   const [initialSpeed, setInitialSpeed] = useState(null)
   const [speedAverage, setSpeedAverage] = useState(null)
@@ -120,4 +120,4 @@ const Sas = ({navigation}) => {
   )
 }
 
-export default Sas
+export default SasPage
