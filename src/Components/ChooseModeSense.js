@@ -9,7 +9,6 @@ const ChooseModeSense = ({navigation}) => {
       <Text style={styles.textTitleW}>Choix du sens de l'expérience</Text>
       <View style={styles.containerRow}>
         <View>
-
           <TouchableOpacity
             style={[styles.buttonStyle,{backgroundColor: 'black', borderWidth: 1, borderColor: 'white'}]}
             onPress={() => {

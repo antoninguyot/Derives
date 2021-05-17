@@ -78,6 +78,7 @@ export const styles = StyleSheet.create({
   },
   containerRow: {
     flexDirection: "row",
+    justifyContent: "center",
     paddingTop: 14,
   },
   containerChooseMode: {
