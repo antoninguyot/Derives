@@ -1,0 +1,26 @@
+{
+  "env": {
+    "node": true, // this is the best starting point
+    "browser": true, // for react web
+    "es6": true // enables es6 features
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb",
+    "airbnb/hooks"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react"
+  ],
+  "rules": {
+    "global-require": "off",
+    "prefer-destructuring": "off"
+  }
+}
