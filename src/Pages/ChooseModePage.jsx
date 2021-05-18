@@ -8,6 +8,13 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import styles from '../../App.css';
 import { fadeTo } from '../Helpers/text';
 
+let manualMode = "Construire votre expérience »"
+let immersiveMode = "« Mode immersif "
+let derive = "Dériver"
+let credits = "credits"
+let immersive = "Mode Immersif"
+let manual = "Construire votre expérience :"
+
 const ChooseModePage = ({ navigation }) => {
   const [moment, setMoment] = useState();
   const [localityType, setLocalityType] = useState();
@@ -51,12 +58,12 @@ const ChooseModePage = ({ navigation }) => {
       {/* Immersive Mode */}
       <ViewPager style={{ flex: 1 }} initialPage={1}>
         <View style={[styles.containerWelcomeScreens, { flexDirection: 'column', justifyContent: 'space-around' }]} keys="1">
-          <Text style={styles.textTitleW}>Mode Immersif</Text>
+          <Text style={styles.textTitleW}>{immersive}</Text>
           <TouchableOpacity
             onPress={() => navigation.replace('TextGenerator')}
             style={[styles.buttonStyle, { marginHorizontal: 40 }]}
           >
-            <Text style={[styles.textW, { textAlign: 'center' }]}>Dériver</Text>
+            <Text style={[styles.textW, { textAlign: 'center' }]}>{derive}</Text>
           </TouchableOpacity>
         </View>
         {/* Central Screen */}
@@ -66,28 +73,28 @@ const ChooseModePage = ({ navigation }) => {
             opacity: fadeAnim,
           }}
           >
-            <Text style={[styles.textW, { textAlign: 'left', marginTop: 50 }]}> &laquo; Mode immersif</Text>
+            <Text style={[styles.textW, { textAlign: 'left', marginTop: 50 }]}> {immersiveMode}</Text>
           </Animated.View>
           <Animated.View style={{
             marginTop: 50,
             opacity: fadeAnim,
           }}
           >
-            <Text style={[styles.textW, { textAlign: 'right' }]}> Mode Manuel &raquo;</Text>
+            <Text style={[styles.textW, { textAlign: 'right' }]}> {manualMode}</Text>
           </Animated.View>
           <View style={styles.containerButtonCredits}>
             <TouchableOpacity
               onPress={() => navigation.navigate('Credits')}
               style={[styles.buttonStyle, { marginHorizontal: 100, marginTop: 300 }]}
             >
-              <Text style={[styles.textLittleW, { textAlign: 'center' }]}>Crédits</Text>
+              <Text style={[styles.textLittleW, { textAlign: 'center' }]}>{credits}</Text>
             </TouchableOpacity>
           </View>
         </View>
         {/* Manual Mode */}
         <View style={styles.containerWelcomeScreens} key="3">
           <View style={styles.containerChooseMode}>
-            <Text style={styles.textTitleW}>Mode Manuel</Text>
+            <Text style={styles.textTitleW}>{manual}</Text>
             <View>
               <DropDownPicker
                 zIndex={5000}
@@ -135,7 +142,7 @@ const ChooseModePage = ({ navigation }) => {
               })}
               style={[styles.buttonStyle, { width: 310 }]}
             >
-              <Text style={[styles.textW, { textAlign: 'center' }]}>Dériver</Text>
+              <Text style={[styles.textW, { textAlign: 'center' }]}>{derive}</Text>
             </TouchableOpacity>
           </View>
         </View>

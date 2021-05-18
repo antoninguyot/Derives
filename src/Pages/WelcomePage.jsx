@@ -13,12 +13,6 @@ const WelcomePage = ({ navigation }) => {
   const [welcomeText, setWelcomeText] = useState('');
   const [versOpacity] = useState(new Animated.Value(0));
 
-  /**
-   * Navigue soit
-   * - jusqu'au texte (première expérience)
-   * - jusqu'au paramètres sinon
-   * @returns {Promise<void>}
-   */
   const navigateToNextScreen = async () => {
     navigation.replace('ChooseModeSense');
   };
@@ -35,13 +29,13 @@ const WelcomePage = ({ navigation }) => {
         setTimeout(() => {
           // And out
           fadeTo(versOpacity, 0, 1000);
-        }, 7000);
-      }, index * 9000);
+        }, 5000);
+      }, index * 7000);
     });
     // Then navigate to the next screen
     setTimeout(() => {
       navigateToNextScreen();
-    }, welcomeTexts.length * 9000);
+    }, welcomeTexts.length * 7000);
   }, []);
 
   return (
