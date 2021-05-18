@@ -18,7 +18,7 @@ const PermissionsPage = ({ navigation }) => {
    * @returns {Promise<void>}
    * @private
    */
-  const getData = async () => {
+  const _navigateToNextPage = async () => {
     try {
       const value = await AsyncStorage.getItem('firstConnexionDate')
       if(value !== null) {
@@ -47,7 +47,7 @@ const PermissionsPage = ({ navigation }) => {
    * Get permissions during screen loading
    */
   useEffect(() => {
-    getData().then(() => {
+    _navigateToNextPage().then(() => {
       (async () => {
         const { status } = await Camera.getPermissionsAsync();
         setCameraPermission(status === 'granted');
