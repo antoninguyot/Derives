@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { Button, Text, View } from 'react-native';
+import {Button, Text, View} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import { Camera } from 'expo-camera';
@@ -9,6 +10,26 @@ import styles from '../../App.css';
 const PermissionsPage = ({ navigation }) => {
   const [locationPermission, setLocationPermission] = useState(false);
   const [cameraPermission, setCameraPermission] = useState(false);
+  const [destinationScreen, setDestinationScreen] = useState('');
+
+  /**
+   * Determines what is the next screen if
+   * this isn't the first time the app is opened
+   * @returns {Promise<void>}
+   * @private
+   */
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('firstConnexionDate')
+      if(value !== null) {
+        await setDestinationScreen('ChooseModeSense')
+      } else {
+        await setDestinationScreen('WelcomeScreen')
+      }
+    } catch(e) {
+      console.log("erreur", e)
+    }
+  };
 
   const askLocationPermission = async () => {
     const { status } = await Location.requestForegroundPermissionsAsync();
@@ -24,14 +45,16 @@ const PermissionsPage = ({ navigation }) => {
    * Get permissions during screen loading
    */
   useEffect(() => {
-    (async () => {
-      const { status } = await Camera.getPermissionsAsync();
-      setCameraPermission(status === 'granted');
-    })();
-    (async () => {
-      const { status } = await Location.getForegroundPermissionsAsync();
-      setLocationPermission(status === 'granted');
-    })();
+    getData().then(() => {
+      (async () => {
+        const { status } = await Camera.getPermissionsAsync();
+        setCameraPermission(status === 'granted');
+      })();
+      (async () => {
+        const { status } = await Location.getForegroundPermissionsAsync();
+        setLocationPermission(status === 'granted');
+      })();
+    })
   }, []);
 
   /**
@@ -39,7 +62,7 @@ const PermissionsPage = ({ navigation }) => {
    */
   useEffect(() => {
     if (locationPermission && cameraPermission) {
-      navigation.replace('WelcomeScreen');
+      navigation.replace(destinationScreen);
     }
   }, [locationPermission, cameraPermission]);
 
@@ -76,7 +99,7 @@ const PermissionsPage = ({ navigation }) => {
         <Button
           title="Continuer"
           onPress={() => {
-            navigation.replace('WelcomeScreen');
+            navigation.replace(destinationScreen);
           }}
         />
         )
