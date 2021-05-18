@@ -89,7 +89,7 @@ const TextPage = ({ navigation }) => {
 
     // On commence par démarrer la musique
     const musicFile = getMusic(moment);
-    play(musicFile).then((sound) => {
+    play(musicFile, 0.1).then((sound) => {
       setCurrentlyPlaying(currentlyPlaying.concat([sound]));
     });
 
@@ -103,7 +103,7 @@ const TextPage = ({ navigation }) => {
   useEffect(() => {
     if (!shouldPlayAmbiance) return;
     const ambianceFile = getAmbiance(localityType);
-    play(ambianceFile).then((sound) => {
+    play(ambianceFile, 1).then((sound) => {
       setCurrentlyPlaying(currentlyPlaying.concat([sound]));
     });
   }, [shouldPlayAmbiance]);
@@ -115,7 +115,7 @@ const TextPage = ({ navigation }) => {
     // La musique 3 n'admet pas non plus de son ponctuels
     if (!shouldPlayAmbiance) return;
     const oneOffFile = getOneOff(moment, vers);
-    if (oneOffFile) play(oneOffFile);
+    if (oneOffFile) play(oneOffFile, 1);
   }, [vers]);
 
   /**
@@ -128,7 +128,7 @@ const TextPage = ({ navigation }) => {
     // On en crée un nouveau en fonction de l'accélération actuelle
     if (speedIncreased) {
       setMusicInterval(setInterval(() => {
-        play(getAcceleration());
+        play(getAcceleration(), 0);
       }, 1500));
     }
   }, [speedIncreased]);

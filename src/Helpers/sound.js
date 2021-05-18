@@ -110,8 +110,8 @@ const oneOffFiles = {
  * @param soundUrl
  * @returns {Promise<Sound>}
  */
-export const play = async (soundUrl) => {
-  const { sound } = await Audio.Sound.createAsync(soundUrl, { shouldPlay: true });
+export const play = async (soundUrl, vol) => {
+  const { sound } = await Audio.Sound.createAsync(soundUrl, { shouldPlay: true, volume: vol });
   sound.setOnPlaybackStatusUpdate((status) => {
     if (!status.shouldPlay && !status.isPlaying && status.isLoaded) sound.unloadAsync();
   });
