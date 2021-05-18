@@ -12,6 +12,12 @@ const PermissionsPage = ({ navigation }) => {
   const [cameraPermission, setCameraPermission] = useState(false);
   const [destinationScreen, setDestinationScreen] = useState('');
 
+  /**
+   * Determines what is the next screen if
+   * this isn't the first time the app is opened
+   * @returns {Promise<void>}
+   * @private
+   */
   const getData = async () => {
     try {
       const value = await AsyncStorage.getItem('firstConnexionDate')
