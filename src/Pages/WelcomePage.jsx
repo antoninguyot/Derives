@@ -14,7 +14,7 @@ const WelcomePage = ({ navigation }) => {
   const [versOpacity] = useState(new Animated.Value(0));
 
   const navigateToNextScreen = async () => {
-    navigation.replace('ChooseModeSense');
+    navigation.replace('TextGenerator');
   };
 
   // GetData and tet the text

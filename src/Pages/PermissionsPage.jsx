@@ -25,6 +25,8 @@ const PermissionsPage = ({ navigation }) => {
         await setDestinationScreen('ChooseModeSense')
       } else {
         await setDestinationScreen('WelcomeScreen')
+        const jsonValue = JSON.stringify(new Date)
+        await AsyncStorage.setItem('firstConnexionDate', jsonValue)
       }
     } catch(e) {
       console.log("erreur", e)
