@@ -107,7 +107,8 @@ const oneOffFiles = {
 
 /**
  * Joue un son à partir d'une URL, le décharge lorsqu'il est fini et retourne l'objet son
- * @param soundUrl
+ * @param soundUrl,
+ * @param vol,
  * @returns {Promise<Sound>}
  */
 export const play = async (soundUrl, vol) => {
