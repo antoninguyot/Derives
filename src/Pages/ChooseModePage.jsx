@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { useRef, useState } from 'react';
-import {
-  Text, View, TouchableOpacity, Animated,
-} from 'react-native';
+import {Text, View, TouchableOpacity, Animated,} from 'react-native';
 import ViewPager from '@react-native-community/viewpager';
 import DropDownPicker from 'react-native-dropdown-picker';
 import styles from '../../App.css';
 import { fadeTo } from '../Helpers/text';
+import Button from "../Components/Button";
+
 
 let manualMode = "Construire votre expérience »"
 let immersiveMode = "« Mode immersif "
@@ -57,14 +57,9 @@ const ChooseModePage = ({ navigation }) => {
     <View style={{ flex: 1 }}>
       {/* Immersive Mode */}
       <ViewPager style={{ flex: 1 }} initialPage={1}>
-        <View style={[styles.containerWelcomeScreens, { flexDirection: 'column', justifyContent: 'space-around' }]} keys="1">
+        <View style={[styles.containerWelcomeScreens, { flexDirection: 'column', justifyContent: 'space-around', paddingHorizontal:110}]} keys="1">
           <Text style={styles.textTitleW}>{immersive}</Text>
-          <TouchableOpacity
-            onPress={() => navigation.replace('TextGenerator')}
-            style={[styles.buttonStyle, { marginHorizontal: 40 }]}
-          >
-            <Text style={[styles.textW, { textAlign: 'center' }]}>{derive}</Text>
-          </TouchableOpacity>
+          <Button navigation={navigation} destination='TextGenerator' text={derive}/>
         </View>
         {/* Central Screen */}
         <View style={styles.containerWelcomeScreens} key="2">
@@ -134,16 +129,7 @@ const ChooseModePage = ({ navigation }) => {
                 onChangeItem={(item) => setWeather(item.value)}
               />
             </View>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('TextGenerator', {
-                moment,
-                localityType,
-                weather,
-              })}
-              style={[styles.buttonStyle, { width: 310 }]}
-            >
-              <Text style={[styles.textW, { textAlign: 'center' }]}>{derive}</Text>
-            </TouchableOpacity>
+            <Button navigation={navigation} destination='TextGenerator' param={{moment, localityType, weather}} text={derive}/>
           </View>
         </View>
       </ViewPager>

@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
-import React, {useState, useEffect} from 'react';
-import {Button, Text, TouchableOpacity, View} from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import React from 'react';
+import {Text, View} from 'react-native';
 import styles from '../../App.css';
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import Button from '../Components/Button'
+
 
 const presentationText = "Choix du mode de l'expérience : "
 const lectureMode = "Mode Lecture"
@@ -16,30 +16,12 @@ const ChooseExperiencePage = ({ navigation }) => {
             <Text style={styles.textTitleW}>{presentationText}</Text>
             <View style={styles.containerRow}>
                 <View>
-                    <TouchableOpacity
-                        style={[styles.buttonStyle, {backgroundColor: 'black', borderWidth: 1, borderColor: 'white'}]}
-                        onPress={() => {
-                            navigation.replace('ChooseMode');
-                        }}>
-                        <Ionicons name="camera-outline" size={48} color="white" style={{textAlign: 'center'}}/>
-                        <Text style={[styles.textTitleW, {textAlign: 'center'}]}>
-                            {lectureMode}
-                        </Text>
-                    </TouchableOpacity>
+                    <Button navigation={navigation} destination='ChooseMode' icon='camera-outline' text={lectureMode}/>
                 </View>
             </View>
             <View style={styles.containerRow}>
                 <View>
-                    <TouchableOpacity
-                        style={[styles.buttonStyle, {backgroundColor: 'black', borderWidth: 1, borderColor: 'white'}]}
-                        onPress={() => {
-                            navigation.replace('ChooseMode', {mode: 'audio'});
-                        }}>
-                        <Ionicons name="headset-outline" size={48} color="white" style={{textAlign: 'center'}}/>
-                        <Text style={[styles.textTitleW, {textAlign: 'center'}]}>
-                            {AudioMode}
-                        </Text>
-                    </TouchableOpacity>
+                    <Button navigation={navigation} destination='ChooseMode' icon='headset-outline' text={AudioMode}/>
                 </View>
             </View>
         </View>
