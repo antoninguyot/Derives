@@ -49,10 +49,7 @@ const TextPage = ({ navigation }) => {
   const [nbLines, setNbLines] = useState(4);
   const [fontSize] = useState(new Animated.Value(20));
   const [currentSpeed, setCurrentSpeed] = useState();
-  const [speedIncreased, setSpeedIncreased] = useState(false);
   const [walking, setWalking] = useState(false);
-  const [speedAverage, setSpeedAverage] = useState(null);
-  const [previousSpeedAverage, setPreviousSpeedAverage] = useState(null);
 
   /**
    * Mise à jour de la position du téléphone
@@ -125,12 +122,12 @@ const TextPage = ({ navigation }) => {
     if (musicInterval) clearInterval(musicInterval);
 
     // On en crée un nouveau en fonction de l'accélération actuelle
-    if (speedIncreased) {
+    if (walking) {
       setMusicInterval(setInterval(() => {
         play(getAcceleration(), 0);
       }, 1500));
     }
-  }, [speedIncreased]);
+  }, [walking]);
 
   /**
    * componentDidMount()
@@ -239,7 +236,7 @@ const TextPage = ({ navigation }) => {
     setIndex(i);
     setVers(vers);
 
-    if (speedIncreased) {
+    if (walking) {
       setNbLines(Math.max(nbLines - 1, 2));
     } else {
       setNbLines(Math.min(nbLines + 1, 4));
@@ -247,9 +244,10 @@ const TextPage = ({ navigation }) => {
   }, 10000);
 
   useEffect(() => {
-    let newFontSize = ((currentSpeed ?? 0) / 2) * 15;
+    let newFontSize = (currentSpeed ?? 0) * 25;
     newFontSize = Math.min(40, newFontSize); // Max font size : 40
     newFontSize = Math.max(20, newFontSize); // Min font size : 20
+    console.log(newFontSize);
     fadeTo(fontSize, newFontSize, 1000, false);
   }, [currentSpeed]);
 
@@ -291,20 +289,6 @@ const TextPage = ({ navigation }) => {
           {' '}
           Vitesse :
           {currentSpeed}
-        </Text>
-        <Text style={styles.textCaptorsTest}>
-          {' '}
-          Vit. moyenne / Ancienne Vit.
-          :
-          {speedAverage}
-          {' '}
-          /
-          {previousSpeedAverage}
-        </Text>
-        <Text style={styles.textCaptorsTest}>
-          {' '}
-          Accélération :
-          {speedIncreased ? 'Oui' : 'Non'}
         </Text>
         <Text style={styles.textCaptorsTest}>
           {' '}
