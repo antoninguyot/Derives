@@ -68,15 +68,7 @@ const TextPage = ({ navigation }) => {
 
   useEffect(() => {
     if (!currentSpeed || currentSpeed === -1) return;
-    // setSpeedAverage((speedAverage)
-    //   ? (speedAverage + currentSpeed) / 2
-    //   : currentSpeed);
-    if ( currentSpeed < 1 ) {
-      setWalking(false)
-    }
-    else {
-      setWalking(true)
-    }
+    setWalking(currentSpeed < 1 ? false : true)
   }, [currentSpeed]);
 
   /**
@@ -196,20 +188,6 @@ const TextPage = ({ navigation }) => {
     };
   }, []);
 
-  // useEffect(() => {
-  // if (currentSpeed - previousSpeed > 0.3) {
-  //   setCoefPolice(Math.min(fontSize + 1, 3))
-  //   setNbLines(Math.max(nbLines - 1, 2))
-  //   setSpeedIncreased(true)
-  // } else if (currentSpeed - previousSpeed < 0.5) {
-  //   setCoefPolice(Math.max(fontSize - 1, 1))
-  //   setNbLines(Math.min(nbLines + 1, 4))
-  //   setSpeedIncreased(false)
-  // }
-  // setPreviousSpeed(currentSpeed)
-
-  // }, [currentSpeed])
-
   useEffect(() => {
     if (moment === 'nuit') setVers(`Dérive de la  ${moment}`);
     else setVers(`Dérive du ${moment}`);
@@ -237,13 +215,7 @@ const TextPage = ({ navigation }) => {
     if (!isReadyToPlay) setIsReadyToPlay(true);
 
     const text = getTextArray(moment);
-    // const speedIncreased = speedAverage > previousSpeedAverage;
-    // setSpeedIncreased(speedIncreased);
     const relevantText = walking ? text.acceleration : text.stable;
-
-    // On réinitialise les moyennes de vitesse
-    // setPreviousSpeedAverage(speedAverage);
-    // setSpeedAverage(null);
 
     // Si on est arrivé à la fin du texte, on boucle
     if (relevantText.length < index + nbLines) {
