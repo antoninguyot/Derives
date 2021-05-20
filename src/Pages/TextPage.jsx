@@ -265,7 +265,7 @@ const TextPage = ({ navigation }) => {
     } else {
       setNbLines(Math.min(nbLines + 1, 4));
     }
-  }, 12000);
+  }, 10000);
 
   useEffect(() => {
     let newFontSize = ((currentSpeed ?? 0) / 2) * 15;
