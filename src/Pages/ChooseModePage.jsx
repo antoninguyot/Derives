@@ -6,6 +6,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import styles from '../../App.css';
 import { fadeTo } from '../Helpers/text';
 import Button from "../Components/Button";
+import {Ionicons} from "@expo/vector-icons";
 
 
 let manualMode = "Construire votre expérience »"
@@ -59,7 +60,11 @@ const ChooseModePage = ({ navigation }) => {
       <ViewPager style={{ flex: 1 }} initialPage={1}>
         <View style={[styles.containerWelcomeScreens, { flexDirection: 'column', justifyContent: 'space-around', paddingHorizontal:110}]} keys="1">
           <Text style={styles.textTitleW}>{immersive}</Text>
-          <Button navigation={navigation} destination='TextGenerator' text={derive}/>
+          {navigation.getParam('mode') === "read" &&
+            <Button navigation={navigation} destination='TextGenerator' text={derive}/>
+          ||
+            <Button navigation={navigation} destination='AudioPage' text={derive}/>
+          }
         </View>
         {/* Central Screen */}
         <View style={styles.containerWelcomeScreens} key="2">
@@ -83,6 +88,16 @@ const ChooseModePage = ({ navigation }) => {
               style={[styles.buttonStyle, { marginHorizontal: 100, marginTop: 300 }]}
             >
               <Text style={[styles.textLittleW, { textAlign: 'center' }]}>{credits}</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={{flex: 1}}>
+            <TouchableOpacity
+                style={{
+                  flex: 1, position: 'absolute', bottom: 0, left: 0, marginBottom: 5, marginLeft: 5,
+                }}
+                onPress={() => navigation.replace('ChooseModeSense')}
+            >
+              <Ionicons name="md-arrow-back-circle-outline" size={32} color="darkgrey" />
             </TouchableOpacity>
           </View>
         </View>
@@ -129,7 +144,11 @@ const ChooseModePage = ({ navigation }) => {
                 onChangeItem={(item) => setWeather(item.value)}
               />
             </View>
+            {navigation.getParam('mode') === "read" &&
             <Button navigation={navigation} destination='TextGenerator' param={{moment, localityType, weather}} text={derive}/>
+            ||
+            <Button navigation={navigation} destination='AudioPage' param={{moment, localityType, weather}} text={derive}/>
+            }
           </View>
         </View>
       </ViewPager>

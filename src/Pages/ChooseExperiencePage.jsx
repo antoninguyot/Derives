@@ -16,12 +16,12 @@ const ChooseExperiencePage = ({ navigation }) => {
             <Text style={styles.textTitleW}>{presentationText}</Text>
             <View style={styles.containerRow}>
                 <View>
-                    <Button navigation={navigation} destination='ChooseMode' icon='camera-outline' text={lectureMode}/>
+                    <Button navigation={navigation} destination='ChooseMode' icon='camera-outline' text={lectureMode} param ={{mode: "read"}}/>
                 </View>
             </View>
             <View style={styles.containerRow}>
                 <View>
-                    <Button navigation={navigation} destination='ChooseMode' icon='headset-outline' text={AudioMode}/>
+                    <Button navigation={navigation} destination='ChooseMode' icon='headset-outline' text={AudioMode} param={{mode: "listen"}}/>
                 </View>
             </View>
         </View>
