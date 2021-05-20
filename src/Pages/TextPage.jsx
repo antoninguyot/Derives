@@ -50,6 +50,7 @@ const TextPage = ({ navigation }) => {
   const [fontSize] = useState(new Animated.Value(20));
   const [currentSpeed, setCurrentSpeed] = useState();
   const [speedIncreased, setSpeedIncreased] = useState(false);
+  const [walking, setWalking] = useState(false);
   const [speedAverage, setSpeedAverage] = useState(null);
   const [previousSpeedAverage, setPreviousSpeedAverage] = useState(null);
 
@@ -67,9 +68,15 @@ const TextPage = ({ navigation }) => {
 
   useEffect(() => {
     if (!currentSpeed || currentSpeed === -1) return;
-    setSpeedAverage((speedAverage)
-      ? (speedAverage + currentSpeed) / 2
-      : currentSpeed);
+    // setSpeedAverage((speedAverage)
+    //   ? (speedAverage + currentSpeed) / 2
+    //   : currentSpeed);
+    if ( currentSpeed < 1 ) {
+      setWalking(false)
+    }
+    else {
+      setWalking(true)
+    }
   }, [currentSpeed]);
 
   /**
@@ -230,13 +237,13 @@ const TextPage = ({ navigation }) => {
     if (!isReadyToPlay) setIsReadyToPlay(true);
 
     const text = getTextArray(moment);
-    const speedIncreased = speedAverage > previousSpeedAverage;
-    setSpeedIncreased(speedIncreased);
-    const relevantText = speedIncreased ? text.acceleration : text.stable;
+    // const speedIncreased = speedAverage > previousSpeedAverage;
+    // setSpeedIncreased(speedIncreased);
+    const relevantText = walking ? text.acceleration : text.stable;
 
     // On réinitialise les moyennes de vitesse
-    setPreviousSpeedAverage(speedAverage);
-    setSpeedAverage(null);
+    // setPreviousSpeedAverage(speedAverage);
+    // setSpeedAverage(null);
 
     // Si on est arrivé à la fin du texte, on boucle
     if (relevantText.length < index + nbLines) {
