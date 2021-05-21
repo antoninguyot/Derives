@@ -65,7 +65,7 @@ const TextPage = ({ navigation }) => {
 
   useEffect(() => {
     if (!currentSpeed || currentSpeed === -1) return;
-    setWalking(currentSpeed < 1 ? false : true)
+    setWalking(!(currentSpeed < 1));
   }, [currentSpeed]);
 
   /**
