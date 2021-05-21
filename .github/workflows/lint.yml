@@ -6,7 +6,9 @@ on:
       - master
       - develop
   push:
-
+    branches:
+      - master
+      - develop
 jobs:
   eslint:
     runs-on: ubuntu-latest
