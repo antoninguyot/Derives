@@ -10,7 +10,6 @@ import styles from '../../App.css';
 const PermissionsPage = ({ navigation }) => {
   const [locationPermission, setLocationPermission] = useState(false);
   const [cameraPermission, setCameraPermission] = useState(false);
-  const [destinationScreen, setDestinationScreen] = useState('');
 
   /**
    * Determines what is the next screen if
@@ -19,17 +18,13 @@ const PermissionsPage = ({ navigation }) => {
    * @private
    */
   const navigateToNextPage = async () => {
-    try {
-      const value = await AsyncStorage.getItem('firstConnexionDate');
-      if (value !== null) {
-        await setDestinationScreen('ChooseModeSense');
-      } else {
-        await setDestinationScreen('WelcomeScreen');
-        const jsonValue = JSON.stringify(new Date());
-        await AsyncStorage.setItem('firstConnexionDate', jsonValue);
-      }
-    } catch (e) {
-      console.log('erreur', e);
+    const firstOpenedAtKey = 'firstOpenedAt';
+    const firstOpenedAt = await AsyncStorage.getItem(firstOpenedAtKey);
+    if (firstOpenedAt !== null) {
+      navigation.replace('ChooseModeSense');
+    } else {
+      await AsyncStorage.setItem(firstOpenedAtKey, Date.now().toString());
+      navigation.replace('WelcomeScreen');
     }
   };
 
@@ -64,7 +59,7 @@ const PermissionsPage = ({ navigation }) => {
    */
   useEffect(() => {
     if (locationPermission && cameraPermission) {
-      navigation.replace(destinationScreen);
+      navigateToNextPage();
     }
   }, [locationPermission, cameraPermission]);
 
@@ -100,9 +95,7 @@ const PermissionsPage = ({ navigation }) => {
         && (
         <Button
           title="Continuer"
-          onPress={() => {
-            navigation.replace(destinationScreen);
-          }}
+          onPress={navigateToNextPage}
         />
         )
         || <Button title="Continuer" disabled />}
