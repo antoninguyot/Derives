@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import {Button, Text, View} from 'react-native';
+import { Button, Text, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
@@ -18,18 +18,18 @@ const PermissionsPage = ({ navigation }) => {
    * @returns {Promise<void>}
    * @private
    */
-  const _navigateToNextPage = async () => {
+  const navigateToNextPage = async () => {
     try {
-      const value = await AsyncStorage.getItem('firstConnexionDate')
-      if(value !== null) {
-        await setDestinationScreen('ChooseModeSense')
+      const value = await AsyncStorage.getItem('firstConnexionDate');
+      if (value !== null) {
+        await setDestinationScreen('ChooseModeSense');
       } else {
-        await setDestinationScreen('WelcomeScreen')
-        const jsonValue = JSON.stringify(new Date)
-        await AsyncStorage.setItem('firstConnexionDate', jsonValue)
+        await setDestinationScreen('WelcomeScreen');
+        const jsonValue = JSON.stringify(new Date());
+        await AsyncStorage.setItem('firstConnexionDate', jsonValue);
       }
-    } catch(e) {
-      console.log("erreur", e)
+    } catch (e) {
+      console.log('erreur', e);
     }
   };
 
@@ -47,7 +47,7 @@ const PermissionsPage = ({ navigation }) => {
    * Get permissions during screen loading
    */
   useEffect(() => {
-    _navigateToNextPage().then(() => {
+    navigateToNextPage().then(() => {
       (async () => {
         const { status } = await Camera.getPermissionsAsync();
         setCameraPermission(status === 'granted');
@@ -56,7 +56,7 @@ const PermissionsPage = ({ navigation }) => {
         const { status } = await Location.getForegroundPermissionsAsync();
         setLocationPermission(status === 'granted');
       })();
-    })
+    });
   }, []);
 
   /**

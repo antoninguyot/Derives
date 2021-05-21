@@ -1,20 +1,21 @@
 import PropTypes from 'prop-types';
 import React, { useRef, useState } from 'react';
-import {Text, View, TouchableOpacity, Animated,} from 'react-native';
+import {
+  Text, View, TouchableOpacity, Animated,
+} from 'react-native';
 import ViewPager from '@react-native-community/viewpager';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { Ionicons } from '@expo/vector-icons';
 import styles from '../../App.css';
 import { fadeTo } from '../Helpers/text';
-import Button from "../Components/Button";
-import {Ionicons} from "@expo/vector-icons";
+import Button from '../Components/Button';
 
-
-let manualMode = "Construire votre expérience »"
-let immersiveMode = "« Mode immersif "
-let derive = "Dériver"
-let credits = "credits"
-let immersive = "Mode Immersif"
-let manual = "Construire votre expérience :"
+const manualMode = 'Construire votre expérience »';
+const immersiveMode = '« Mode immersif ';
+const derive = 'Dériver';
+const credits = 'credits';
+const immersive = 'Mode Immersif';
+const manual = 'Construire votre expérience :';
 
 const ChooseModePage = ({ navigation }) => {
   const [moment, setMoment] = useState();
@@ -58,13 +59,11 @@ const ChooseModePage = ({ navigation }) => {
     <View style={{ flex: 1 }}>
       {/* Immersive Mode */}
       <ViewPager style={{ flex: 1 }} initialPage={1}>
-        <View style={[styles.containerWelcomeScreens, { flexDirection: 'column', justifyContent: 'space-around', paddingHorizontal:110}]} keys="1">
+        <View style={[styles.containerWelcomeScreens, { flexDirection: 'column', justifyContent: 'space-around', paddingHorizontal: 110 }]} keys="1">
           <Text style={styles.textTitleW}>{immersive}</Text>
-          {navigation.getParam('mode') === "read" &&
-            <Button navigation={navigation} destination='TextGenerator' text={derive}/>
-          ||
-            <Button navigation={navigation} destination='AudioPage' text={derive}/>
-          }
+          {navigation.getParam('mode') === 'read'
+            && <Button navigation={navigation} destination="TextGenerator" text={derive} />
+          || <Button navigation={navigation} destination="AudioPage" text={derive} />}
         </View>
         {/* Central Screen */}
         <View style={styles.containerWelcomeScreens} key="2">
@@ -73,14 +72,20 @@ const ChooseModePage = ({ navigation }) => {
             opacity: fadeAnim,
           }}
           >
-            <Text style={[styles.textW, { textAlign: 'left', marginTop: 50 }]}> {immersiveMode}</Text>
+            <Text style={[styles.textW, { textAlign: 'left', marginTop: 50 }]}>
+              {' '}
+              {immersiveMode}
+            </Text>
           </Animated.View>
           <Animated.View style={{
             marginTop: 50,
             opacity: fadeAnim,
           }}
           >
-            <Text style={[styles.textW, { textAlign: 'right' }]}> {manualMode}</Text>
+            <Text style={[styles.textW, { textAlign: 'right' }]}>
+              {' '}
+              {manualMode}
+            </Text>
           </Animated.View>
           <View style={styles.containerButtonCredits}>
             <TouchableOpacity
@@ -90,12 +95,12 @@ const ChooseModePage = ({ navigation }) => {
               <Text style={[styles.textLittleW, { textAlign: 'center' }]}>{credits}</Text>
             </TouchableOpacity>
           </View>
-          <View style={{flex: 1}}>
+          <View style={{ flex: 1 }}>
             <TouchableOpacity
-                style={{
-                  flex: 1, position: 'absolute', bottom: 0, left: 0, marginBottom: 5, marginLeft: 5,
-                }}
-                onPress={() => navigation.replace('ChooseModeSense')}
+              style={{
+                flex: 1, position: 'absolute', bottom: 0, left: 0, marginBottom: 5, marginLeft: 5,
+              }}
+              onPress={() => navigation.replace('ChooseModeSense')}
             >
               <Ionicons name="md-arrow-back-circle-outline" size={32} color="darkgrey" />
             </TouchableOpacity>
@@ -144,11 +149,9 @@ const ChooseModePage = ({ navigation }) => {
                 onChangeItem={(item) => setWeather(item.value)}
               />
             </View>
-            {navigation.getParam('mode') === "read" &&
-            <Button navigation={navigation} destination='TextGenerator' param={{moment, localityType, weather}} text={derive}/>
-            ||
-            <Button navigation={navigation} destination='AudioPage' param={{moment, localityType, weather}} text={derive}/>
-            }
+            {navigation.getParam('mode') === 'read'
+            && <Button navigation={navigation} destination="TextGenerator" param={{ moment, localityType, weather }} text={derive} />
+            || <Button navigation={navigation} destination="AudioPage" param={{ moment, localityType, weather }} text={derive} />}
           </View>
         </View>
       </ViewPager>
@@ -160,6 +163,7 @@ ChooseModePage.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
     replace: PropTypes.func.isRequired,
+    getParam: PropTypes.func.isRequired,
   }).isRequired,
 };
 

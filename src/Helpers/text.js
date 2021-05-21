@@ -95,7 +95,8 @@ export const combine = (sentence, location, weather, season) => {
     } else {
       // Si c'est un combinatoire complexe
       newSentence = newSentence.replace(rawString, evalCombi(
-        combinationString, location, weather, season));
+        combinationString, location, weather, season,
+      ));
     }
   });
   return newSentence;
