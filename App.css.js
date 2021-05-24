@@ -4,13 +4,13 @@ export default StyleSheet.create({
   // TEXT STYLES
   textTitleW: {
     color: '#bfbfbf',
-    fontFamily: 'Antonio',
+    // fontFamily: 'Antonio',
     fontSize: 34,
     textAlign: 'center',
   },
   textW: {
     color: '#bfbfbf',
-    fontFamily: 'Antonio',
+    // fontFamily: 'Antonio',
     fontSize: 24,
     padding: 10,
   },
@@ -21,7 +21,7 @@ export default StyleSheet.create({
   },
   textB: {
     color: 'black',
-    fontFamily: 'Antonio',
+    // fontFamily: 'Antonio',
     fontSize: 24,
     padding: 10,
   },
@@ -31,7 +31,7 @@ export default StyleSheet.create({
     textAlign: 'center', // Button "Credits" From Choose Params
   },
   textVers: {
-    fontFamily: 'Antonio',
+    // fontFamily: 'Antonio',
     fontSize: 40,
     textAlign: 'center',
     color: 'white',

@@ -8,7 +8,7 @@ import SasPage from '../Pages/SasPage';
 import CreditsPage from '../Pages/CreditsPage';
 import ChooseExperiencePage from '../Pages/ChooseExperiencePage';
 import ChooseModePage from '../Pages/ChooseModePage';
-import AudioPage from "../Pages/AudioPage";
+import AudioPage from '../Pages/AudioPage';
 
 const StackNavigator = createStackNavigator({
   Permissions: {
