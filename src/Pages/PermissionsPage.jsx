@@ -42,15 +42,11 @@ const PermissionsPage = ({ navigation }) => {
    * Get permissions during screen loading
    */
   useEffect(() => {
-    navigateToNextPage().then(() => {
-      (async () => {
-        const { status } = await Camera.getPermissionsAsync();
-        setCameraPermission(status === 'granted');
-      })();
-      (async () => {
-        const { status } = await Location.getForegroundPermissionsAsync();
-        setLocationPermission(status === 'granted');
-      })();
+    navigateToNextPage().then(async () => {
+      const { cameraStatus } = await Camera.getPermissionsAsync();
+      setCameraPermission(cameraStatus === 'granted');
+      const { locationStatus } = await Location.getForegroundPermissionsAsync();
+      setLocationPermission(locationStatus === 'granted');
     });
   }, []);
 
