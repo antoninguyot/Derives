@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFonts } from 'expo-font';
-import { Text, View } from 'react-native';
+import AppLoading from 'expo-app-loading';
 import Navigation from './src/Navigation/Navigation';
 
 const App = () => {
@@ -9,11 +9,7 @@ const App = () => {
   });
 
   if (!loaded) {
-    return (
-      <View>
-        <Text>Chargement...</Text>
-      </View>
-    );
+    return <AppLoading />;
   }
 
   return (
