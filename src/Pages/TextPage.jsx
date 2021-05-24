@@ -6,7 +6,6 @@ import {
 import useInterval from '@use-it/interval';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
-import { useFonts } from 'expo-font';
 import CCamera from '../Components/CCamera';
 import styles from '../../App.css';
 import { sedacDataset, sedacLocationRequest } from '../Helpers/location';
@@ -19,10 +18,6 @@ import {
 } from '../Helpers/sound';
 
 const TextPage = ({ navigation }) => {
-  const [loaded] = useFonts({
-    Antonio: require('../../assets/fonts/Antonio.ttf'),
-  });
-
   // Page states
   const [isMounted, setIsMounted] = useState(true);
   const [debug, setDebug] = useState(false);
@@ -130,6 +125,45 @@ const TextPage = ({ navigation }) => {
     }
   }, [walking]);
 
+  const registerLocationServices = async () => {
+    const locationAccuracy = Location.Accuracy.BestForNavigation;
+    const location = await Location.getCurrentPositionAsync({
+      accuracy: locationAccuracy,
+    });
+
+    // Mise à jour de la position
+    updateLocation(location);
+
+    // Récupération des données météo
+    const weatherResponse = await weatherRequest(
+      location.coords.latitude, location.coords.longitude,
+    );
+    setTemperature(weatherResponse.data.main.temp);
+    // Inférer un état de la température
+    if (temperature < 12) {
+      setWeather('cold');
+    } else if (temperature > 25) {
+      setWeather('hot');
+    } else {
+      setWeather('sweet');
+    }
+
+    // Récupération des données de densité de pop
+    const sedacResponse = await sedacLocationRequest(
+      location.coords.latitude, location.coords.longitude,
+    );
+    if (sedacResponse.data.results[0]) {
+      setLocalityDensity(sedacResponse.data.results[0].value.estimates[sedacDataset].MEAN);
+    }
+
+    // On update la position GPS en direct
+    return Location.watchPositionAsync({
+      accuracy: locationAccuracy,
+      distanceInterval: 1,
+      timeInterval: 1000,
+    }, updateLocation);
+  };
+
   /**
    * componentDidMount()
    * Démarrage de toutes les requêtes API
@@ -137,48 +171,14 @@ const TextPage = ({ navigation }) => {
    */
   useEffect(() => {
     setIsMounted(true);
-
-    Location.getCurrentPositionAsync().then((location) => {
-      // Mise à jour de la position
-      updateLocation(location);
-
-      // Récupération des données météo
-      weatherRequest(location.coords.latitude, location.coords.longitude)
-        .then((response) => {
-          if (isMounted) {
-            setTemperature(response.data.main.temp);
-            // Inférer un état de la température
-            if (temperature < 12) {
-              setWeather('cold');
-            } else if (temperature > 25) {
-              setWeather('hot');
-            } else {
-              setWeather('sweet');
-            }
-          }
-        });
-
-      // Récupération des données de densité de pop
-      sedacLocationRequest(location.coords.latitude, location.coords.longitude)
-        .then((response) => {
-          if (isMounted && response.data.results[0]) {
-            setLocalityDensity(response.data.results[0].value.estimates[sedacDataset].MEAN);
-          }
-        });
+    let subscriberRemove;
+    registerLocationServices().then((removeMethod) => {
+      subscriberRemove = removeMethod;
     });
-
-    // On update la position GPS en direct
-    const locationWatcher = Location.watchPositionAsync({
-      accuracy: Location.Accuracy.BestForNavigation,
-      distanceInterval: 1,
-      timeInterval: 1000,
-    }, updateLocation);
 
     return () => {
       setIsMounted(false);
-      locationWatcher.then((subscriber) => {
-        subscriber.remove();
-      });
+      if (subscriberRemove instanceof Function) subscriberRemove();
       // TODO : ne marche pas
       currentlyPlaying.forEach((sound) => {
         sound.unloadAsync();
@@ -202,12 +202,12 @@ const TextPage = ({ navigation }) => {
   useInterval(() => {
     if (
       !isMounted
-        || !localityType
-        || !weather
-        || !season
-        || !moment
-        || !currentSpeed
-        || !localityDensity
+      || !localityType
+      || !weather
+      || !season
+      || !moment
+      || !currentSpeed
+      || !localityDensity
     ) return;
 
     if (!isReadyToPlay) setIsReadyToPlay(true);
@@ -248,13 +248,8 @@ const TextPage = ({ navigation }) => {
     let newFontSize = (currentSpeed ?? 0) * 25;
     newFontSize = Math.min(40, newFontSize); // Max font size : 40
     newFontSize = Math.max(20, newFontSize); // Min font size : 20
-    console.log(newFontSize);
     fadeTo(fontSize, newFontSize, 1000, false);
   }, [currentSpeed]);
-
-  if (!loaded) {
-    return null;
-  }
 
   return (
     <View style={styles.containerCamera}>
@@ -275,57 +270,17 @@ const TextPage = ({ navigation }) => {
       </View>
       {debug
       && (
-      <View style={styles.containerCaptorsTest}>
-        <Text style={styles.textCaptorsTest}>
-          {' '}
-          Saison :
-          {season}
-        </Text>
-        <Text style={styles.textCaptorsTest}>
-          {' '}
-          Moment :
-          {moment}
-        </Text>
-        <Text style={styles.textCaptorsTest}>
-          {' '}
-          Vitesse :
-          {currentSpeed}
-        </Text>
-        <Text style={styles.textCaptorsTest}>
-          {' '}
-          Lat / Lon :
-          {latitude.toFixed(5)}
-          {' '}
-          /
-          {longitude.toFixed(5)}
-        </Text>
-        <Text style={styles.textCaptorsTest}>
-          {' '}
-          Densité de pop :
-          {localityDensity}
-        </Text>
-        <Text style={styles.textCaptorsTest}>
-          {' '}
-          Milieu :
-          {localityType}
-        </Text>
-        <Text style={styles.textCaptorsTest}>
-          {' '}
-          Météo :
-          {weather}
-        </Text>
-        <Text style={styles.textCaptorsTest}>
-          {' '}
-          Temperature :
-          {temperature}
-        </Text>
-        <Text style={styles.textCaptorsTest}>
-          {' '}
-          Nb Lines :
-          {nbLines}
-        </Text>
-
-      </View>
+        <View style={styles.containerCaptorsTest}>
+          <Text style={styles.textCaptorsTest}>Saison : {season}</Text>
+          <Text style={styles.textCaptorsTest}>Moment : {moment}</Text>
+          <Text style={styles.textCaptorsTest}>Vitesse : {currentSpeed}</Text>
+          <Text style={styles.textCaptorsTest}>Lat / Lon : {latitude} / {longitude}</Text>
+          <Text style={styles.textCaptorsTest}>Densité de pop : {localityDensity}</Text>
+          <Text style={styles.textCaptorsTest}>Milieu : {localityType}</Text>
+          <Text style={styles.textCaptorsTest}>Météo : {weather}</Text>
+          <Text style={styles.textCaptorsTest}>Temperature : {temperature}</Text>
+          <Text style={styles.textCaptorsTest}>Nb Lines : {nbLines}</Text>
+        </View>
       )}
       {/* Back button */}
       <TouchableOpacity
