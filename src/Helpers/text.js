@@ -101,11 +101,3 @@ export const combine = (sentence, location, weather, season) => {
   });
   return newSentence;
 };
-
-export const fadeTo = (value, to, during = 1000, native = true) => {
-  Animated.timing(value, {
-    toValue: to,
-    duration: during,
-    useNativeDriver: native,
-  }).start();
-};

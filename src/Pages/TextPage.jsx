@@ -12,7 +12,8 @@ import styles from '../../App.css';
 import { sedacDataset, sedacLocationRequest } from '../Helpers/location';
 import { calculateMoment, calculateSeason } from '../Helpers/time';
 import weatherRequest from '../Helpers/weather';
-import { combine, fadeTo, getTextArray } from '../Helpers/text';
+import { combine, getTextArray } from '../Helpers/text';
+import { fadeTo } from '../Helpers/anim';
 import {
   getAcceleration, getAmbiance, getMusic, getOneOff, play,
 } from '../Helpers/sound';
