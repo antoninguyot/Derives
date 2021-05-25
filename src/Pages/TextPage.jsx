@@ -81,7 +81,7 @@ const TextPage = ({ navigation }) => {
 
     // On commence par démarrer la musique
     const musicFile = getMusic(moment);
-    play(musicFile, 0.1).then((sound) => {
+    play(musicFile, 0.5).then((sound) => {
       setCurrentlyPlaying(currentlyPlaying.concat([sound]));
     });
 
