@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { TouchableOpacity, View, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { calculateMoment } from '../Helpers/time';
 import styles from '../../App.css';
@@ -8,7 +8,8 @@ import files from '../../assets/audio/manifest';
 import { play } from '../Helpers/sound';
 
 const AudioPage = ({ navigation }) => {
-  const moment = calculateMoment();
+  const [text, setText] = useState('');
+  const moment = navigation.getParam('moment') || calculateMoment();
   const state = 'moving';
   const [versIndex, setVersIndex] = useState(0);
 
@@ -25,12 +26,26 @@ const AudioPage = ({ navigation }) => {
         navigation.replace('ChooseModeSense');
       }
     })();
+    setText((moment === 'nuit') ? 'Dérive de la nuit ' : `Dérive du ${moment}`);
   }, [versIndex]);
 
   return (
-    <View style={[styles.containerWelcomeScreens, { textAlign: 'center' }]}>
-      <Ionicons name="headset-outline" size={48} color="white" style={{ textAlign: 'center' }} />
-    </View>
+    <>
+      <View style={[styles.containerWelcomeScreens, { textAlign: 'center' }]}>
+        <Text style={[styles.textTitleW, { marginBottom: 50 }]}>{text}</Text>
+        <Ionicons name="headset-outline" size={48} color="white" style={{ textAlign: 'center' }} />
+      </View>
+      <View>
+        <TouchableOpacity
+          style={{
+            flex: 1, position: 'absolute', bottom: 0, left: 0, marginBottom: 5, marginLeft: 5,
+          }}
+          onPress={() => navigation.replace('ChooseModeSense')}
+        >
+          <Ionicons name="md-arrow-back-circle-outline" size={32} color="darkgrey" />
+        </TouchableOpacity>
+      </View>
+    </>
   );
 };
 

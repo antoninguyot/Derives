@@ -104,31 +104,35 @@ const ChooseModePage = ({ navigation }) => {
                 dropDownStyle={{ backgroundColor: '#fafafa' }}
                 onChangeItem={(item) => setMoment(item.value)}
               />
-              <DropDownPicker
-                zIndex={4000}
-                items={localityItems}
-                defaultValue={localityType}
-                placeholder="Choisissez le milieu"
-                containerStyle={{ height: 40, marginTop: 10 }}
-                itemStyle={{
-                  justifyContent: 'flex-start',
-                }}
-                dropDownStyle={{ backgroundColor: '#fafafa' }}
-                onChangeItem={(item) => setLocalityType(item.value)}
-              />
-              <DropDownPicker
-                zIndex={3000}
-                items={weatherItems}
-                defaultValue={weather}
-                placeholder="Choisissez la météo"
-                containerStyle={{ height: 40, marginTop: 10 }}
-                itemStyle={{
-                  justifyContent: 'flex-start',
-                  fontFamily: 'Antonio',
-                }}
-                dropDownStyle={{ backgroundColor: '#fafafa' }}
-                onChangeItem={(item) => setWeather(item.value)}
-              />
+              { navigation.getParam('mode') === 'read' && (
+                <>
+                  <DropDownPicker
+                    zIndex={4000}
+                    items={localityItems}
+                    defaultValue={localityType}
+                    placeholder="Choisissez le milieu"
+                    containerStyle={{ height: 40, marginTop: 10 }}
+                    itemStyle={{
+                      justifyContent: 'flex-start',
+                    }}
+                    dropDownStyle={{ backgroundColor: '#fafafa' }}
+                    onChangeItem={(item) => setLocalityType(item.value)}
+                  />
+                  <DropDownPicker
+                    zIndex={3000}
+                    items={weatherItems}
+                    defaultValue={weather}
+                    placeholder="Choisissez la météo"
+                    containerStyle={{ height: 40, marginTop: 10 }}
+                    itemStyle={{
+                      justifyContent: 'flex-start',
+                      fontFamily: 'Antonio',
+                    }}
+                    dropDownStyle={{ backgroundColor: '#fafafa' }}
+                    onChangeItem={(item) => setWeather(item.value)}
+                  />
+                </>
+              )}
             </View>
             {navigation.getParam('mode') === 'read'
             && <Button navigation={navigation} destination="TextGenerator" param={{ moment, localityType, weather }} text="Dériver" />

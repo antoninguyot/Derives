@@ -11,7 +11,7 @@ const ChooseExperiencePage = ({ navigation }) => (
       <Button navigation={navigation} destination="ChooseMode" icon="camera-outline" text="Mode Lecture" param={{ mode: 'read' }} />
     </View>
     <View style={styles.containerRow}>
-      <Button navigation={navigation} destination="AudioPage" icon="headset-outline" text="Mode écoute" param={{ mode: 'listen' }} />
+      <Button navigation={navigation} destination="ChooseMode" icon="headset-outline" text="Mode écoute" param={{ mode: 'listen' }} />
     </View>
   </View>
 );
