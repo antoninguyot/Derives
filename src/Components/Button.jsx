@@ -16,7 +16,9 @@ const Button = ({
   navigation, icon, text, destination, param,
 }) => (
   <TouchableOpacity
-    style={[styles.buttonStyle, { backgroundColor: 'black', borderWidth: 1, borderColor: 'white', width: '100%' }]}
+    style={[styles.buttonStyle, {
+      backgroundColor: 'black', borderWidth: 1, borderColor: 'white', width: '100%',
+    }]}
     onPress={() => {
       navigation.replace(destination, param);
     }}
@@ -34,9 +36,11 @@ Button.propTypes = {
     navigate: PropTypes.func.isRequired,
     replace: PropTypes.func.isRequired,
   }).isRequired,
+  // eslint-disable-next-line react/require-default-props
   icon: PropTypes.string,
   text: PropTypes.string.isRequired,
   destination: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types,react/require-default-props
   param: PropTypes.object,
 };
 

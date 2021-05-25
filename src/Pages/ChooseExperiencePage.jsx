@@ -6,7 +6,7 @@ import Button from '../Components/Button';
 
 const ChooseExperiencePage = ({ navigation }) => (
   <View style={[styles.containerWelcomeScreens, { flexDirection: 'column', justifyContent: 'space-around' }]}>
-    <Text style={styles.textTitleW}>Choix du mode de l'expérience : </Text>
+    <Text style={styles.textTitleW}>Choix du mode de l&apos;expérience : </Text>
     <View style={styles.containerRow}>
       <Button navigation={navigation} destination="ChooseMode" icon="camera-outline" text="Mode Lecture" param={{ mode: 'read' }} />
     </View>
