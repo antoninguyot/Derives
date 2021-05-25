@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { Animated, View } from 'react-native';
 import styles from '../../App.css';
-import { fadeTo } from '../Helpers/text';
+import { fadeTo } from '../Helpers/anim';
 
 const welcomeTexts = [
   'Vous allez vivre une expérience poétique – visuelle et sonore – en marchant.',

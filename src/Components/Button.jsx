@@ -1,7 +1,8 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import {Text, TouchableOpacity, View} from "react-native";
-import styles from "../../App.css";
-import {Ionicons} from "@expo/vector-icons";
+import { Text, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import styles from '../../App.css';
 
 /**
  * Component which return the button
@@ -11,20 +12,36 @@ import {Ionicons} from "@expo/vector-icons";
  * @param   text
  * @param   param
  */
-const Button = (props) => {
-    return(
-        <TouchableOpacity
-            style={[styles.buttonStyle, {backgroundColor: 'black', borderWidth: 1, borderColor: 'white'}]}
-            onPress={() => {
-                props.navigation.replace(props.destination, props.param);
-            }}>
-            {props.icon &&
-            <Ionicons name={props.icon} size={48} color="white" style={{textAlign: 'center'}}/>}
-            <Text style={[styles.textTitleW, {textAlign: 'center'}]}>
-                {props.text}
-            </Text>
-        </TouchableOpacity>
-    );
-}
+const Button = ({
+  navigation, icon, text, destination, param,
+}) => (
+  <TouchableOpacity
+    style={[styles.buttonStyle, {
+      backgroundColor: 'black', borderWidth: 1, borderColor: 'white', width: '100%',
+    }]}
+    onPress={() => {
+      navigation.replace(destination, param);
+    }}
+  >
+    {icon
+            && <Ionicons name={icon} size={48} color="white" style={{ textAlign: 'center' }} />}
+    <Text style={[styles.textTitleW, { textAlign: 'center' }]}>
+      {text}
+    </Text>
+  </TouchableOpacity>
+);
+
+Button.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+    replace: PropTypes.func.isRequired,
+  }).isRequired,
+  // eslint-disable-next-line react/require-default-props
+  icon: PropTypes.string,
+  text: PropTypes.string.isRequired,
+  destination: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types,react/require-default-props
+  param: PropTypes.object,
+};
 
 export default Button;

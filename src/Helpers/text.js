@@ -1,7 +1,7 @@
-import { Animated } from 'react-native';
 import Matin from '../../assets/texts/morning.json';
 import Midi from '../../assets/texts/afternoon.json';
 import Soir from '../../assets/texts/evening.json';
+import Nuit from '../../assets/texts/night.json'
 
 /**
  * Chargement du bon texte en fonction de la période de la journée
@@ -16,7 +16,7 @@ export const getTextArray = (moment) => {
     case 'soir':
       return Soir;
     case 'nuit':
-      return Soir;
+      return Nuit;
     default:
       return undefined;
   }
@@ -100,12 +100,4 @@ export const combine = (sentence, location, weather, season) => {
     }
   });
   return newSentence;
-};
-
-export const fadeTo = (value, to, during = 1000, native = true) => {
-  Animated.timing(value, {
-    toValue: to,
-    duration: during,
-    useNativeDriver: native,
-  }).start();
 };

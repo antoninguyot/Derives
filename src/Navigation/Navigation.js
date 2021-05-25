@@ -8,6 +8,7 @@ import SasPage from '../Pages/SasPage';
 import CreditsPage from '../Pages/CreditsPage';
 import ChooseExperiencePage from '../Pages/ChooseExperiencePage';
 import ChooseModePage from '../Pages/ChooseModePage';
+import AudioPage from '../Pages/AudioPage';
 
 const StackNavigator = createStackNavigator({
   Permissions: {
@@ -42,6 +43,14 @@ const StackNavigator = createStackNavigator({
   },
   TextGenerator: {
     screen: TextPage,
+    navigationOptions: {
+      title: 'Dérives',
+      headerShown: false,
+      animationEnabled: false,
+    },
+  },
+  AudioPage: {
+    screen: AudioPage,
     navigationOptions: {
       title: 'Dérives',
       headerShown: false,

@@ -54,8 +54,7 @@ export const calculateMoment = () => {
   }
 };
 
-export const calculateNextMoment = () => {
-  const moment = calculateMoment();
+export const calculateNextMoment = (moment) => {
   switch (moment) {
     case 'nuit':
       return 'matin';

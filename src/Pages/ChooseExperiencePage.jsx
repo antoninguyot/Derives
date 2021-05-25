@@ -4,22 +4,14 @@ import { Text, View } from 'react-native';
 import styles from '../../App.css';
 import Button from '../Components/Button';
 
-const presentationText = "Choix du mode de l'expérience : ";
-const lectureMode = 'Mode Lecture';
-const AudioMode = 'Mode écoute';
-
 const ChooseExperiencePage = ({ navigation }) => (
   <View style={[styles.containerWelcomeScreens, { flexDirection: 'column', justifyContent: 'space-around' }]}>
-    <Text style={styles.textTitleW}>{presentationText}</Text>
+    <Text style={styles.textTitleW}>Choix du mode de l&apos;expérience : </Text>
     <View style={styles.containerRow}>
-      <View>
-        <Button navigation={navigation} destination="ChooseMode" icon="camera-outline" text={lectureMode} param={{ mode: 'read' }} />
-      </View>
+      <Button navigation={navigation} destination="ChooseMode" icon="camera-outline" text="Mode Lecture" param={{ mode: 'read' }} />
     </View>
     <View style={styles.containerRow}>
-      <View>
-        <Button navigation={navigation} destination="ChooseMode" icon="headset-outline" text={AudioMode} param={{ mode: 'listen' }} />
-      </View>
+      <Button navigation={navigation} destination="ChooseMode" icon="headset-outline" text="Mode écoute" param={{ mode: 'listen' }} />
     </View>
   </View>
 );
