@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import CCamera from '../Components/CCamera';
 import { calculateNextMoment } from '../Helpers/time';
 import styles from '../../App.css';
-import {  fadeLoop } from '../Helpers/anim';
+import { fadeLoop } from '../Helpers/anim';
 
 const SasPage = ({ navigation }) => {
   const [initialSpeed, setInitialSpeed] = useState(null);
@@ -27,11 +27,13 @@ const SasPage = ({ navigation }) => {
     if (willTimeTravel === true) {
       setTimeout(() => {
         navigation.replace('TextGenerator', {
-          moment: calculateNextMoment(),
+          // eslint-disable-next-line react/prop-types
+          moment: calculateNextMoment(navigation.getParam('momentPlayed')),
         });
       }, 2000);
     } else if (willTimeTravel === false) {
-      navigation.replace('TextGenerator');
+      // eslint-disable-next-line react/prop-types
+      navigation.replace('TextGenerator', { moment: navigation.getParam('momentPlayed') });
     }
   }, [willTimeTravel]);
 
@@ -111,7 +113,8 @@ const SasPage = ({ navigation }) => {
         >
           <Text>
             Accélérez pour passer à :
-            {calculateNextMoment()}
+            {/* eslint-disable-next-line react/prop-types */}
+            {calculateNextMoment(navigation.getParam('momentPlayed'))}
           </Text>
         </Animated.View>
         )}

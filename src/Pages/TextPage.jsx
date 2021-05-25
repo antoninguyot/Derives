@@ -217,12 +217,13 @@ const TextPage = ({ navigation }) => {
 
     // Si on est arrivé à la fin du texte, on boucle
     if (relevantText.length < index + nbLines) {
-      navigation.replace('Sas');
+      navigation.replace('Sas', { momentPlayed: moment });
       return;
     }
 
     // Sinon, on génère le nouveau vers
     // Pour chaque ligne (dépend de la vitesse)
+    // eslint-disable-next-line no-shadow
     let vers = '';
     let i;
     for (i = index; i < index + nbLines; i += 1) {
