@@ -225,16 +225,20 @@ const TextPage = ({ navigation }) => {
     // Pour chaque ligne (dépend de la vitesse)
     // eslint-disable-next-line no-shadow
     let vers = '';
-    let i;
-    for (i = index; i < index + nbLines; i += 1) {
-      // Si on atteint une nouvelle strophe, on n'ajoute plus de texte
-      if (relevantText[i] === '\n' && i !== index) {
-        i += 1;
-        break;
-      }
-      // On récupère une partie du texte et on la fait varier avec interpretText
-      vers += `\n${combine(relevantText[i], localityType, weather, season)}`;
+    let i = index;
+
+    let sentence = '';
+    while (relevantText[i] !== '\n') {
+      sentence += relevantText[i] + '\n';
+      i += 1;
     }
+    // Si on atteint une nouvelle strophe, on n'ajoute plus de texte
+    if (relevantText[i] === '\n') {
+      i += 1;
+    }
+    // On récupère une partie du texte et on la fait varier avec interpretText
+    vers += `\n${combine(sentence, localityType, weather, season)}`;
+  
     setIndex(i);
     setVers(vers);
 
