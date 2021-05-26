@@ -1,82 +1,107 @@
 {
   "stable": [
-    "Autre moment",
-    "\n",
-    "La {random|terre,forêt,plage,montagne}",
-    "{random|allonge sa langue, s’entrouvre}",
-    "\n",
-    "Elle {random|répand tisse,livre} ses {random|histoires,secrets}",
-    "aux odeurs {season|printemps:d’oranges,été:framboises,automne:raisins,hiver:clémentines}",
-    "de {season|printemps:narcisses,été:géranium,automne:dahlias,hiver:cyclamen}",
-    "\n",
-    "Elle {random|t’envahit, déborde, te gagne} et te raconte",
-    "de pas en pas",
-    "{random|la vie,tout ce} qui {random|bouge,bruit} au bord de toi",
-    "{random|la vie,tout ce} qui te rencontre",
-    "\n",
-    "{random|Le jour vous relie,Vous marchez l’un dans l’autre}",
-    "\n",
-    "Chaque seconde {random|t’apprend,te parcourt, t’étreint}",
-    "{random|vendange tes traces,emprunte,suit,épouse}",
-    "et {random|fredonne,mémorise} tes {random|visages,noms,traits}",
-    "\n",
-    "{random|Quelque chose se calme,Le vent tombe,L’air s’apaise}",
-    "dans la grossesse de {season|automne:l’automne,été:l'été,hiver:l'hiver,printemps:le printemps}",
-    "\n",
-    "Le souvenir {random|se tait,se couche, se range}",
-    "{random|La mère s’apaise,Le père,L’enfant}",
-    "Les {random|champs,fontaines,clochers} reposent",
-    "\n",
-    "Tu laisses venir le temps à toi",
-    "{random|Tu le loges,Peupler ton sillage},",
-    "\n",
-    "Tu ne te retournes pas",
-    "\n",
-    "Tu marches",
-    "Tu habites ta marche",
-    "{random|comme on imite le jour,un hôte du chemin}",
-    "\n",
-    "Tu es là",
-    "où {random|s’abritent,veillent, demeurent} les mondes"
+    [
+      "Autre moment"
+    ],
+    [
+      "La {random|terre,forêt,plage,montagne} {random|allonge sa langue, s’entrouvre}"
+    ],
+    [
+      "Elle {random|répand tisse,livre} ses {random|histoires,secrets}",
+      "aux odeurs {season|printemps:d’orange,été:de framboise,automne:de raisin,hiver:de clémentine}",
+      "et de {season|printemps:narcisse,été:géranium,automne:dahlia,hiver:camélia}"
+    ],
+    [
+      "Elle {random|t’envahit, déborde, te gagne} et te raconte",
+      "de pas en pas",
+      "{random|la vie,tout ce} qui {random|bouge,bruit} au bord de toi",
+      "{random|la vie,tout ce} qui te rencontre"
+    ],
+    [
+      "{random|Le jour vous relie,Vous marchez l’un dans l’autre}"
+    ],
+    [
+      "Chaque seconde {random|t’apprend,te parcourt,t’étreint}",
+      "{random|vendange tes traces,emprunte,suit,épouse}",
+      "et {random|fredonne,mémorise} tes {random|visages,noms,traits}"
+    ],
+    [
+      "{random|Quelque chose se calme,Le vent tombe,L’air s’apaise}",
+      "dans la grossesse de {season|automne:l’automne,été:l'été,hiver:l'hiver,printemps:le printemps}"
+    ],
+    [
+      "Le souvenir {random|se tait,se couche,se range}",
+      "{random|La mère,Le père,L’enfant} s’apaise",
+      "Les {random|champs,fontaines,clochers} reposent"
+    ],
+    [
+      "Tu laisses venir le temps à toi",
+      "{random|Tu le loges,Peupler ton sillage},"
+    ],
+    [
+      "Tu ne te retournes pas"
+    ],
+    [
+      "Tu marches",
+      "Tu habites ta marche",
+      "comme {random|on imite le jour,un hôte du chemin}"
+    ],
+    [
+      "Tu es là",
+      "où {random|s’abritent,veillent,demeurent} les mondes"
+    ]
   ],
   "acceleration": [
-    "Autre moment",
-    "\n",
-    "Tu mets la terre en {random|route,marche}",
-    "\n",
-    "Tu l’écoutes",
-    "Tu cueilles {random|collectes,respires} ses {random|histoires,secrets}",
-    "aux odeurs {season|printemps:d’oranges,été:framboises,automne:raisins,hiver:clémentines} de {season|printemps:narcisses,été:géranium,automne:dahlias,hiver:cyclamen}",
-    "\n",
-    "Tu vas à sa rencontre",
-    "{random|À ton tour,Dans ton élan}, tu lui confies",
-    "de pas en pas",
-    "{random|la vie,tout ce} qui rage au bord de toi",
-    "{random|la vie,tout ce} qui {random|rugit,s’entête}",
-    "\n",
-    "{random|Le jour vous relie,Vous marchez l’un dans l’autre}",
-    "\n",
-    "Tu {random|l’apprends,le parcours,l’étreins}",
-    "{random|vendange,emprunte, suit, épouse} tes traces",
-    "et sculte tes {random|visages,noms,traits}",
-    "\n",
-    "{season|automne:L’automne,été:L'été,hiver:L'hiver,printemps:Le printemps} partout {random|éclot,s’éclaire,grandit}",
-    "dans la grossesse de {season|automne:l’automne,été:l'été,hiver:l'hiver,printemps:le printemps}",
-    "\n",
-    "Le souvenir {random|se tait,se couche,se range}",
-    "{random|La mère s’apaise,Le père,L’enfant}",
-    "Les {random|champs,fontaines,clochers} reposent",
-    "\n",
-    "Tu {random|vas,cours} à l’instant",
-    "Tu le {random|saisis,l’empoches}",
-    "\n",
-    "Tu ne te retournes pas",
-    "\n",
-    "Tu accélères",
-    "Ton corps {random|s’augmente,s’ouvre}",
-    "à taille {random|de pays,du midi}",
-    "\n",
-    "Tu es là",
-    "où {random|s’abritent,veillent,demeurent} les mondes"
+    [
+      "Autre moment"
+    ],
+    [
+      "Tu mets la terre en {random|route,marche}"
+    ],
+    [
+      "Tu l’écoutes",
+      "Tu {random|cueilles,collectes,respires} ses {random|histoires,secrets}",
+      "aux odeurs {season|printemps:d’orange,été:de framboise,automne:de raisin,hiver:de clémentine}",
+      "et de {season|printemps:narcisse,été:géranium,automne:dahlia,hiver:camélia}"
+    ],
+    [
+      "Tu vas à sa rencontre",
+      "{random|À ton tour,Dans ton élan}, tu lui confies",
+      "de pas en pas",
+      "{random|la vie,tout ce} qui rage au bord de toi",
+      "{random|la vie,tout ce} qui {random|rugit,s’entête}"
+    ],
+    [
+      "{random|Le jour vous relie,Vous marchez l’un dans l’autre}"
+    ],
+    [
+      "Tu {random|l’apprends,le parcours,l’étreins}",
+      "{random|vendanges,empruntes,suis,épouses} ses traces",
+      "et sculptes ses {random|visages,noms,traits}"
+    ],
+    [
+      "{season|automne:L’automne,été:L'été,hiver:L'hiver,printemps:Le printemps} partout {random|éclot,s’éclaire,grandit}"
+    ],
+    [
+      "Le souvenir {random|se tait,se couche,se range}",
+      "{random|La mère,Le père,L’enfant} s’apaise",
+      "Les {random|champs,fontaines,clochers} reposent"
+    ],
+    [
+      "Tu {random|vas,cours} à l’instant",
+      "Tu le {random|saisis,l’empoches}"
+    ],
+    [
+      "Tu ne te retournes pas"
+    ],
+    [
+      "Tu accélères",
+      "Ton corps {random|s’augmente,s’ouvre}",
+      "à taille {random|de pays,du midi}"
+    ],
+    [
+      "Tu es là",
+      "où {random|s’abritent,veillent,demeurent} les mondes"
+    ]
   ]
 }
