@@ -4,13 +4,13 @@ export default StyleSheet.create({
   // TEXT STYLES
   textTitleW: {
     color: '#bfbfbf',
-    fontFamily: 'Antonio',
+    // fontFamily: 'Antonio',
     fontSize: 34,
     textAlign: 'center',
   },
   textW: {
     color: '#bfbfbf',
-    fontFamily: 'Antonio',
+    // fontFamily: 'Antonio',
     fontSize: 24,
     padding: 10,
   },
@@ -21,7 +21,7 @@ export default StyleSheet.create({
   },
   textB: {
     color: 'black',
-    fontFamily: 'Antonio',
+    // fontFamily: 'Antonio',
     fontSize: 24,
     padding: 10,
   },
@@ -31,7 +31,7 @@ export default StyleSheet.create({
     textAlign: 'center', // Button "Credits" From Choose Params
   },
   textVers: {
-    fontFamily: 'Antonio',
+    // fontFamily: 'Antonio',
     fontSize: 40,
     textAlign: 'center',
     color: 'white',
@@ -99,10 +99,7 @@ export default StyleSheet.create({
 
   // BUTTON STYLE
   buttonStyle: {
-    paddingTop: 20,
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingBottom: 20,
+    padding: 20,
     textAlign: 'center',
     borderRadius: 10,
     borderWidth: 1,
@@ -111,10 +108,8 @@ export default StyleSheet.create({
 
   },
   buttonCreditsStyle: {
-    paddingTop: 5,
-    paddingLeft: 3,
-    paddingRight: 3,
-    paddingBottom: 5,
+    paddingVertical: 5,
+    paddingHorizontal: 3,
     textAlign: 'center',
     borderRadius: 10,
     borderWidth: 1,

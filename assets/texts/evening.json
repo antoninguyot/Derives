@@ -1,75 +1,100 @@
 {
   "stable": [
-    "Déjà le jour {random|se penche,s’appuie contre, engourdit}",
-    "{random|dans ton dos,tes épaules}",
-    "\n",
-    "Tu vas",
-    "Tu avances",
-    "\n",
-    "comme {random|se secoue la nappe,s’attardent les rires, s’allongent les jeux} après",
-    "{random|le vin du dimanche,devant les braises chaudes}",
-    "comme {random|s’empochent,se récoltent,se ramassent} {random|les silences,rumeurs, traces}",
-    "et {random|perdurent,règnent} les {random|statues,forêts}",
-    "\n",
-    "Toi",
-    "{random|les yeux,le corps} en {random|avenue,ligne de fuite}",
-    "Tu te laisses conduire par {weather|cold: le froid, sweet: la douceur, hot: l’été} qui passe",
-    "\n",
-    "Tu te laisses conduire",
-    "sans {random|te retourner,faiblir, ralentir}",
-    "\n",
-    "sans savoir si la {location|city:ville,country:terre} s’imprime sur {random|tes talons,tes semelles, ton souffle}",
-    "ou si c’est toi sur elle",
-    "Qui {random|emprunte,sème, suit, borde} l’autre ?",
-    "Qui {random|pèse,s’achemine} ?",
-    "{random|Silencieusement,Discrètement, Délicatement}",
-    "tu te joins à tout ce qui veille",
-    "\n",
-    "Tout ce qui {random|s’est dressé,a dansé, s’est usé} avec nous {random|dans le soleil,sous le gel, en travers des saisons}",
-    "Tout ce qu’on {random|raconte,emporte, cultive} sous ce qui vient",
-    "\n",
-    "Tu avances",
-    "en portant tes âges",
-    "{random|comme des torches à bout de bras,comme des vêtements à même la peau, comme des lucioles à fleur de doigts}",
-    "\n",
-    "Tu prolonges",
-    "\n",
-    "Tu {random|te fonds dans, t’allies à",
-    "l’ombre qui {random|amorce,ouvre, lève} la nuit.",
+    [
+      "Déjà le jour {random|se penche,s’appuie contre,engourdit}",
+      "dans {random|ton dos,tes épaules}"
+    ],
+    [
+      "Tu vas",
+      "Tu avances"
+    ],
+    [
+      "comme {random|se secoue la nappe,s’attardent les rires,s’allongent les jeux} après {random|le vin du dimanche,devant les braises chaudes}",
+      "comme {random|s’empochent,se récoltent,se ramassent} les {random|silences,rumeurs, traces}",
+      "et {random|perdurent,règnent} les {random|statues,forêts}"
+    ],
+    [
+      "Toi",
+      "{random|les yeux,le corps} en {random|avenue,ligne de fuite}",
+      "Tu te laisses conduire par {weather|cold:le froid,sweet:la douceur,hot:l’été} qui passe"
+    ],
+    [
+      "Tu te laisses conduire",
+      "sans {random|te retourner,faiblir,ralentir}"
+    ],
+    [
+      "sans savoir si la {location|city:ville,country:terre} s’imprime sur {random|tes talons,tes semelles, ton souffle}",
+      "ou si c’est toi sur elle",
+      "Qui {random|emprunte,sème,suit,borde} l’autre ?",
+      "Qui {random|pèse,s’achemine} ?"
+    ],
+    [
+      "{random|Silencieusement,Discrètement,Délicatement}",
+      "tu te joins à tout ce qui veille"
+    ],
+    [
+      "Tout ce qui {random|s’est dressé,a dansé,s’est usé} avec nous {random|dans le soleil,sous le gel,en travers des saisons}",
+      "Tout ce qu’on {random|raconte,emporte,cultive} sous ce qui vient"
+    ],
+    [
+      "Tu avances",
+      "en portant tes âges",
+      "{random|comme des torches à bout de bras,comme des vêtements à même la peau, comme des lucioles à fleur de doigts}"
+    ],
+    [
+      "Tu prolonges"
+    ],
+    [
+      "Tu {random|te fonds dans,t’allies à",
+      "l’ombre qui {random|amorce,ouvre,lève} la nuit."
+    ]
   ],
   "acceleration": [
-    "{stable|Ton dos, Tes épaules} éclipse le jour",
-    "\n",
-    "Tu vas",
-    "Tu t’élances",
-    "\n",
-    "{random|comme se secoue la nappe,s’attardent les rires, s’allongent les jeux} ",
-    "{random|après le vin du dimanche,devant les braises chaudes}",
-    "comme {random|s’empochent,se récoltent, se ramassent} les {random|silences,rumeurs, traces}",
-    "et {random|perdurent,règnent} les {random|statues,forêts}",
-    "\n",
-    "Toi",
-    "{random|les yeux,le corps} en {random|avenue,ligne de fuite}",
-    "Tu prends {weather|cold: le froid, sweet: la douceur, hot: l’été,} qui passe",
-    "\n",
-    "Tu prends",
-    "sans {random|te retourner,faiblir, ralentir}",
-    "\n",
-    "et la {location|city:ville,country:terre} se sculpte à {rnadom|ta cadence,ton souffle, ta dérive}",
-    "Elle retient un peu de {random|ta mémoire,ton passage}",
-    "dans {random|le tissage,la sciure} de tes pas",
-    "\n",
-    "Tu prends",
-    "{random|bruissant,te hâtant} dans les bruits de tout ce qui s’acharne,",
-    "{random|gyrophares,néons, phares, manèges} et {random|grues,marées, cimes, chapiteaux, tours}",
-    "\n",
-    "Tout ce qui {random|s’est dressé,a dansé, s’est usé} avec nous {random|dans le soleil,sous le gel, en travers des saisons}",
-    "Tout ce qu’on {random|raconte,emporte, cultive} sous ce qui vient",
-    "\n",
-    "Tu t’élances",
-    "et tes pas ont {random|l’aplomb,la vaillance, l’allure} de toutes les métamorphoses",
-    "Tu t’aventures",
-    "Tu saisis",
-    "l’ombre qui {random|amorce,ouvre, lève} la nuit."
+    [
+      "{stable|Ton dos éclipse, Tes épaules éclipsent} le jour"
+    ],
+    [
+      "Tu vas",
+      "Tu t’élances"
+    ],
+    [
+      "{random|comme se secoue la nappe,s’attardent les rires,s’allongent les jeux} {random|après le vin du dimanche,devant les braises chaudes}",
+      "comme {random|s’empochent,se récoltent,se ramassent} les {random|silences,rumeurs,traces}",
+      "et {random|perdurent,règnent} les {random|statues,forêts}"
+    ],
+    [
+      "Toi",
+      "{random|les yeux,le corps} en {random|avenue,ligne de fuite}",
+      "Tu prends {weather|cold:le froid,sweet:la douceur,hot:l’été,} qui passe"
+    ],
+    [
+      "Tu prends",
+      "sans {random|te retourner,faiblir,ralentir}"
+    ],
+    [
+      "et la {location|city:ville,country:terre} se sculpte à {rnadom|ta cadence,ton souffle,ta dérive}",
+      "Elle retient un peu de {random|ta mémoire,ton passage}",
+      "dans {random|le tissage,la sciure} de tes pas"
+    ],
+    [
+      "Tu prends",
+      "{random|bruissant,te hâtant} dans les bruits de tout ce qui s’acharne,",
+      "{random|gyrophares,néons,phares,manèges} et {random|grues,marées,cimes,chapiteaux,tours}"
+    ],
+    [
+      "Tout ce qui {random|s’est dressé,a dansé,s’est usé} avec nous {random|dans le soleil,sous le gel,en travers des saisons}",
+      "Tout ce qu’on {random|raconte,emporte,cultive} sous ce qui vient"
+    ],
+    [
+      "Tu t’élances",
+      "et tes pas ont {random|l’aplomb,la vaillance,l’allure} de toutes les métamorphoses"
+    ],
+    [
+      "Tu t’aventures"
+    ],
+    [
+      "Tu saisis",
+      "l’ombre qui {random|amorce,ouvre,lève} la nuit."
+    ]
   ]
 }

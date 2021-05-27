@@ -3,12 +3,12 @@ import { createAppContainer } from 'react-navigation';
 
 import PermissionsPage from '../Pages/PermissionsPage';
 import WelcomePage from '../Pages/WelcomePage';
-import TextPage from '../Pages/TextPage';
+import PoemPage from '../Pages/PoemPage';
 import SasPage from '../Pages/SasPage';
 import CreditsPage from '../Pages/CreditsPage';
 import ChooseExperiencePage from '../Pages/ChooseExperiencePage';
 import ChooseModePage from '../Pages/ChooseModePage';
-import AudioPage from "../Pages/AudioPage";
+import AudioPage from '../Pages/AudioPage';
 
 const StackNavigator = createStackNavigator({
   Permissions: {
@@ -42,7 +42,7 @@ const StackNavigator = createStackNavigator({
     },
   },
   TextGenerator: {
-    screen: TextPage,
+    screen: PoemPage,
     navigationOptions: {
       title: 'Dérives',
       headerShown: false,

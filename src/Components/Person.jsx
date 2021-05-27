@@ -21,7 +21,7 @@ const Person = ({ image, name, description }) => (
 Person.propTypes = {
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
+  image: PropTypes.number.isRequired,
 };
 
 export default Person;
