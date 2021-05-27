@@ -49,13 +49,19 @@ const TextPoem = ({
 
 TextPoem.propTypes = {
   stropheIndex: PropTypes.number.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types,react/require-default-props
   fontOpacity: PropTypes.object,
+  // eslint-disable-next-line react/forbid-prop-types,react/require-default-props
   fontSize: PropTypes.object,
   walking: PropTypes.bool.isRequired,
+  // eslint-disable-next-line react/require-default-props
   localityType: PropTypes.string,
+  // eslint-disable-next-line react/require-default-props
   weather: PropTypes.string,
+  // eslint-disable-next-line react/require-default-props
   season: PropTypes.string,
   isReadyToPlay: PropTypes.bool.isRequired,
 };
 
-export default React.memo(TextPoem, (props, nextProps) => (props.stropheIndex === nextProps.stropheIndex));
+export default React.memo(TextPoem,
+  (props, nextProps) => (props.stropheIndex === nextProps.stropheIndex));

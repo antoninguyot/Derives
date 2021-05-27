@@ -47,4 +47,5 @@ AudioPoem.propTypes = {
   isReadyToPlay: PropTypes.bool.isRequired,
 };
 
-export default React.memo(AudioPoem, (props, nextProps) => (props.stropheIndex === nextProps.stropheIndex));
+export default React.memo(AudioPoem,
+  (props, nextProps) => (props.stropheIndex === nextProps.stropheIndex));
