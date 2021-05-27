@@ -29,16 +29,16 @@ const Debug = ({
 );
 
 Debug.propTypes = {
-  season: PropTypes.string.isRequired,
-  moment: PropTypes.string.isRequired,
-  currentSpeed: PropTypes.number.isRequired,
-  latitude: PropTypes.number.isRequired,
-  longitude: PropTypes.number.isRequired,
-  localityDensity: PropTypes.string.isRequired,
-  localityType: PropTypes.string.isRequired,
-  weather: PropTypes.string.isRequired,
-  temperature: PropTypes.number.isRequired,
-  walking: PropTypes.bool.isRequired,
+  season: PropTypes.string,
+  moment: PropTypes.string,
+  currentSpeed: PropTypes.number,
+  latitude: PropTypes.number,
+  longitude: PropTypes.number,
+  localityDensity: PropTypes.string,
+  localityType: PropTypes.string,
+  weather: PropTypes.string,
+  temperature: PropTypes.number,
+  walking: PropTypes.bool,
 };
 
 export default Debug;
