@@ -3,17 +3,26 @@ import React from 'react';
 import styles from '../../App.css';
 
 const Debug = ({
-  season, moment, currentSpeed, latitude, longitude, localityDensity, localityType, weather, temperature, walking
+  season, moment, currentSpeed, latitude, longitude, localityDensity, localityType, weather, temperature, walking,
 }) => (
   <View style={styles.containerCaptorsTest}>
-    <Text style={styles.textCaptorsTest}>Saison : {season}</Text>
-    <Text style={styles.textCaptorsTest}>Moment : {moment}</Text>
-    <Text style={styles.textCaptorsTest}>Vitesse : {currentSpeed}</Text>
-    <Text style={styles.textCaptorsTest}>Lat / Lon : {latitude} / {longitude}</Text>
-    <Text style={styles.textCaptorsTest}>Densité de pop : {localityDensity}</Text>
-    <Text style={styles.textCaptorsTest}>Milieu : {localityType}</Text>
-    <Text style={styles.textCaptorsTest}>Météo : {weather}</Text>
-    <Text style={styles.textCaptorsTest}>Temperature : {temperature}</Text>
+    <Text style={styles.textCaptorsTest}>Poème : {moment}</Text>
+    <Text style={styles.textCaptorsTest}>Position : {latitude}, {longitude}</Text>
+    <Text style={styles.textCaptorsTest}>Vitesse : {currentSpeed} m/s ({walking ? 'en mouvement' : 'à l\'arrêt'})</Text>
+    <Text style={styles.textCaptorsTest}>Densité de pop : {localityDensity ?? 'Chargement...'} habs/pixel ({{
+      city: 'ville',
+      country: 'campagne',
+      null: 'Chargement...',
+    }[localityType]})
+    </Text>
+    <Text style={styles.textCaptorsTest}>Saison : {season ?? 'Chargement...'}</Text>
+    <Text style={styles.textCaptorsTest}>Temperature : {temperature ?? 'Chargement...'} °C ({{
+      cold: 'froid',
+      hot: 'chaud',
+      sweet: 'doux',
+      null: 'Chargement...',
+    }[weather]})
+    </Text>
   </View>
 );
 
