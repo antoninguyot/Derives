@@ -15,7 +15,7 @@ const BackIcon = ({ onPress, mode }) => (
     }}
     onPress={onPress}
   >
-    {mode === 'text'
+    {mode === 'read'
     && <Ionicons name="md-headset-outline" size={32} color="darkgrey" />
     || <Ionicons name="md-camera-outline" size={32} color="darkgrey" />}
   </TouchableOpacity>
