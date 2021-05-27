@@ -16,6 +16,7 @@ const ChooseModePage = ({ navigation }) => {
   const [weather, setWeather] = useState();
 
   const fadeAnim = useRef(new Animated.Value(0)).current; // Initial value for opacity: 0
+  const mode = navigation.getParam('mode', 'read');
 
   React.useEffect(() => {
     const fadeInterval = fadeLoop(fadeAnim, 0, 1, 2000);
@@ -48,9 +49,7 @@ const ChooseModePage = ({ navigation }) => {
       <ViewPager style={{ flex: 1 }} initialPage={1}>
         <View style={[styles.containerWelcomeScreens, { flexDirection: 'column', justifyContent: 'space-around', paddingHorizontal: 110 }]} keys="1">
           <Text style={styles.textTitleW}>Mode Immersif</Text>
-          {navigation.getParam('mode') === 'read'
-            && <Button navigation={navigation} destination="TextGenerator" text="Dériver" />
-          || <Button navigation={navigation} destination="AudioPage" text="Dériver" />}
+          <Button navigation={navigation} destination="TextGenerator" text="Dériver" param={{ mode }} />
         </View>
         {/* Central Screen */}
         <View style={styles.containerWelcomeScreens} key="2">
@@ -81,7 +80,7 @@ const ChooseModePage = ({ navigation }) => {
               style={{
                 flex: 1, position: 'absolute', bottom: 0, left: 0, marginBottom: 5, marginLeft: 5,
               }}
-              onPress={() => navigation.replace('ChooseModeSense')}
+              onPress={() => navigation.navigate('ChooseModeSense')}
             >
               <Ionicons name="md-arrow-back-circle-outline" size={32} color="darkgrey" />
             </TouchableOpacity>
@@ -104,39 +103,40 @@ const ChooseModePage = ({ navigation }) => {
                 dropDownStyle={{ backgroundColor: '#fafafa' }}
                 onChangeItem={(item) => setMoment(item.value)}
               />
-              { navigation.getParam('mode') === 'read' && (
-                <>
-                  <DropDownPicker
-                    zIndex={4000}
-                    items={localityItems}
-                    defaultValue={localityType}
-                    placeholder="Choisissez le milieu"
-                    containerStyle={{ height: 40, marginTop: 10 }}
-                    itemStyle={{
-                      justifyContent: 'flex-start',
-                    }}
-                    dropDownStyle={{ backgroundColor: '#fafafa' }}
-                    onChangeItem={(item) => setLocalityType(item.value)}
-                  />
-                  <DropDownPicker
-                    zIndex={3000}
-                    items={weatherItems}
-                    defaultValue={weather}
-                    placeholder="Choisissez la météo"
-                    containerStyle={{ height: 40, marginTop: 10 }}
-                    itemStyle={{
-                      justifyContent: 'flex-start',
-                      fontFamily: 'Antonio',
-                    }}
-                    dropDownStyle={{ backgroundColor: '#fafafa' }}
-                    onChangeItem={(item) => setWeather(item.value)}
-                  />
-                </>
-              )}
+              <DropDownPicker
+                zIndex={4000}
+                items={localityItems}
+                defaultValue={localityType}
+                placeholder="Choisissez le milieu"
+                containerStyle={{ height: 40, marginTop: 10 }}
+                itemStyle={{
+                  justifyContent: 'flex-start',
+                }}
+                dropDownStyle={{ backgroundColor: '#fafafa' }}
+                onChangeItem={(item) => setLocalityType(item.value)}
+              />
+              <DropDownPicker
+                zIndex={3000}
+                items={weatherItems}
+                defaultValue={weather}
+                placeholder="Choisissez la météo"
+                containerStyle={{ height: 40, marginTop: 10 }}
+                itemStyle={{
+                  justifyContent: 'flex-start',
+                  fontFamily: 'Antonio',
+                }}
+                dropDownStyle={{ backgroundColor: '#fafafa' }}
+                onChangeItem={(item) => setWeather(item.value)}
+              />
             </View>
-            {navigation.getParam('mode') === 'read'
-            && <Button navigation={navigation} destination="TextGenerator" param={{ moment, localityType, weather }} text="Dériver" />
-            || <Button navigation={navigation} destination="AudioPage" param={{ moment, localityType, weather }} text="Dériver" />}
+            <Button
+              navigation={navigation}
+              destination="TextGenerator"
+              param={{
+                mode, moment, localityType, weather,
+              }}
+              text="Dériver"
+            />
           </View>
         </View>
       </ViewPager>

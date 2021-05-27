@@ -1,23 +1,25 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import {
-  Animated, Text, TouchableOpacity, View,
-} from 'react-native';
+import { Animated, View } from 'react-native';
 import useInterval from '@use-it/interval';
-import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
-import CCamera from '../Components/CCamera';
 import styles from '../../App.css';
 import { sedacDataset, sedacLocationRequest } from '../Helpers/location';
 import { calculateMoment, calculateSeason } from '../Helpers/time';
 import weatherRequest from '../Helpers/weather';
-import { combine, getTextArray } from '../Helpers/text';
+import { getTextArray } from '../Helpers/text';
 import { fadeTo } from '../Helpers/anim';
 import {
-  getAcceleration, getAmbiance, getMusic, getOneOff, play,
+  getAcceleration, getAmbiance, getMusic, play,
 } from '../Helpers/sound';
+import Debug from '../Components/Debug';
+import TextPoem from '../Components/TextPoem';
+import AudioPoem from '../Components/AudioPoem';
+import BackIcon from '../Components/BackIcon';
+import DebugIcon from '../Components/DebugIcon';
+import SwitchModeIcon from '../Components/SwitchModeIcon';
 
-const TextPage = ({ navigation }) => {
+const PoemPage = ({ navigation }) => {
   // Page states
   const [isMounted, setIsMounted] = useState(true);
   const [debug, setDebug] = useState(false);
@@ -34,15 +36,13 @@ const TextPage = ({ navigation }) => {
 
   // Music states
   const [isReadyToPlay, setIsReadyToPlay] = useState(false);
-  const [currentlyPlaying, setCurrentlyPlaying] = useState([]);
   const [shouldPlayAmbiance, setShouldPlayAmbiance] = useState(false);
   const [musicInterval, setMusicInterval] = useState();
 
   // Poems states
-  const [vers, setVers] = useState();
+  const [mode, setMode] = useState(navigation.getParam('mode', 'read'));
   const [fontOpacity] = useState(new Animated.Value(0));
-  const [index, setIndex] = useState(0);
-  const [nbLines, setNbLines] = useState(4);
+  const [stropheIndex, setStropheIndex] = useState(-1);
   const [fontSize] = useState(new Animated.Value(20));
   const [currentSpeed, setCurrentSpeed] = useState();
   const [walking, setWalking] = useState(false);
@@ -78,15 +78,22 @@ const TextPage = ({ navigation }) => {
    */
   useEffect(() => {
     if (!isReadyToPlay) return;
+    let musicSound;
 
     // On commence par démarrer la musique
     const musicFile = getMusic(moment);
-    play(musicFile, 0.5).then((sound) => {
-      setCurrentlyPlaying(currentlyPlaying.concat([sound]));
-    });
+    play(musicFile, 0.25)
+      .then((sound) => {
+        musicSound = sound;
+      });
 
     // Si la musique choisie permet d'ajouter un son d'ambiance, on le fait
     if (musicFile !== '../data/Musics/noon3.mp3') setShouldPlayAmbiance(true);
+
+    // Arrêt de la musique lors de l'unmount
+    return () => {
+      musicSound.unloadAsync();
+    };
   }, [isReadyToPlay]);
 
   /**
@@ -95,20 +102,17 @@ const TextPage = ({ navigation }) => {
   useEffect(() => {
     if (!shouldPlayAmbiance) return;
     const ambianceFile = getAmbiance(localityType);
-    play(ambianceFile, 1).then((sound) => {
-      setCurrentlyPlaying(currentlyPlaying.concat([sound]));
-    });
-  }, [shouldPlayAmbiance]);
+    let ambianceSound;
+    play(ambianceFile, 0.5)
+      .then((sound) => {
+        ambianceSound = sound;
+      });
 
-  /**
-   * Lance la lecture des sons ponctuels
-   */
-  useEffect(() => {
-    // La musique 3 n'admet pas non plus de son ponctuels
-    if (!shouldPlayAmbiance) return;
-    const oneOffFile = getOneOff(moment, vers);
-    if (oneOffFile) play(oneOffFile, 1);
-  }, [vers]);
+    // Arrêt du son lors de l'unmount
+    return () => {
+      ambianceSound.unloadAsync();
+    };
+  }, [shouldPlayAmbiance]);
 
   /**
    * Joue les sons lorsque l'accélération change
@@ -172,32 +176,21 @@ const TextPage = ({ navigation }) => {
   useEffect(() => {
     setIsMounted(true);
     let subscriberRemove;
-    registerLocationServices().then((removeMethod) => {
-      subscriberRemove = removeMethod;
-    });
+    registerLocationServices()
+      .then((removeObject) => {
+        subscriberRemove = removeObject.remove;
+      });
 
     return () => {
       setIsMounted(false);
       if (subscriberRemove instanceof Function) subscriberRemove();
-      // TODO : ne marche pas
-      currentlyPlaying.forEach((sound) => {
-        sound.unloadAsync();
-      });
     };
   }, []);
 
   useEffect(() => {
-    if (moment === 'nuit') setVers(`Dérive de la  ${moment}`);
-    else setVers(`Dérive du ${moment}`);
-    setTimeout(() => {
-      setVers('Commencez à marcher');
-    }, 5000);
-  }, [moment]);
-
-  useEffect(() => {
     fontOpacity.setValue(0);
     fadeTo(fontOpacity, 1);
-  }, [vers]);
+  }, [stropheIndex]);
 
   useInterval(() => {
     if (
@@ -216,37 +209,11 @@ const TextPage = ({ navigation }) => {
     const relevantText = walking ? text.acceleration : text.stable;
 
     // Si on est arrivé à la fin du texte, on boucle
-    if (relevantText.length < index + nbLines) {
+    if (relevantText.length < stropheIndex) {
       navigation.replace('Sas', { momentPlayed: moment });
       return;
     }
-
-    // Sinon, on génère le nouveau vers
-    // Pour chaque ligne (dépend de la vitesse)
-    // eslint-disable-next-line no-shadow
-    let vers = '';
-    let i = index;
-
-    let sentence = '';
-    while (relevantText[i] !== '\n') {
-      sentence += relevantText[i] + '\n';
-      i += 1;
-    }
-    // Si on atteint une nouvelle strophe, on n'ajoute plus de texte
-    if (relevantText[i] === '\n') {
-      i += 1;
-    }
-    // On récupère une partie du texte et on la fait varier avec interpretText
-    vers += `\n${combine(sentence, localityType, weather, season)}`;
-  
-    setIndex(i);
-    setVers(vers);
-
-    if (walking) {
-      setNbLines(Math.max(nbLines - 1, 2));
-    } else {
-      setNbLines(Math.min(nbLines + 1, 4));
-    }
+    setStropheIndex(stropheIndex + 1);
   }, 10000);
 
   useEffect(() => {
@@ -258,58 +225,45 @@ const TextPage = ({ navigation }) => {
 
   return (
     <View style={styles.containerCamera}>
-      <View style={styles.containerCamera}>
-        <CCamera />
-      </View>
-      <View style={styles.containerText}>
-        <TouchableOpacity onLongPress={() => {
-          setDebug(!debug);
-        }}
-        >
-          <Animated.View style={{ opacity: fontOpacity }}>
-            <Animated.Text style={[styles.textVers, { fontSize }]}>
-              {vers}
-            </Animated.Text>
-          </Animated.View>
-        </TouchableOpacity>
-      </View>
+      {mode === 'read'
+      && (
+      <TextPoem
+        fontOpacity={fontOpacity}
+        fontSize={fontSize}
+        stropheIndex={stropheIndex}
+        walking={walking}
+        localityType={localityType}
+        weather={weather}
+        season={season}
+        isReadyToPlay={isReadyToPlay}
+      />
+      )
+      || <AudioPoem stropheIndex={stropheIndex} walking={walking} isReadyToPlay={isReadyToPlay} />}
       {debug
       && (
-        <View style={styles.containerCaptorsTest}>
-          <Text style={styles.textCaptorsTest}>Saison : {season}</Text>
-          <Text style={styles.textCaptorsTest}>Moment : {moment}</Text>
-          <Text style={styles.textCaptorsTest}>Vitesse : {currentSpeed}</Text>
-          <Text style={styles.textCaptorsTest}>Lat / Lon : {latitude} / {longitude}</Text>
-          <Text style={styles.textCaptorsTest}>Densité de pop : {localityDensity}</Text>
-          <Text style={styles.textCaptorsTest}>Milieu : {localityType}</Text>
-          <Text style={styles.textCaptorsTest}>Météo : {weather}</Text>
-          <Text style={styles.textCaptorsTest}>Temperature : {temperature}</Text>
-          <Text style={styles.textCaptorsTest}>Nb Lines : {nbLines}</Text>
-        </View>
+        <Debug
+          season={season}
+          moment={moment}
+          currentSpeed={currentSpeed}
+          latitude={latitude}
+          longitude={longitude}
+          localityDensity={localityDensity}
+          localityType={localityType}
+          weather={weather}
+          temperature={temperature}
+          walking={walking}
+        />
       )}
+      <SwitchModeIcon mode={mode} onPress={() => setMode(mode === 'read' ? 'listen' : 'read')} />
       {/* Back button */}
-      <TouchableOpacity
-        style={{
-          flex: 1, position: 'absolute', bottom: 0, left: 0, marginBottom: 5, marginLeft: 5,
-        }}
-        onPress={() => navigation.replace('ChooseMode', { mode: 'read' })}
-      >
-        <Ionicons name="md-arrow-back-circle-outline" size={32} color="darkgrey" />
-      </TouchableOpacity>
+      <BackIcon onPress={() => navigation.replace('ChooseMode', { mode })} />
       {/* Debug button */}
-      <TouchableOpacity
-        style={{
-          flex: 1, position: 'absolute', bottom: 0, right: 0, marginBottom: 5, marginRight: 5,
-        }}
-        onPress={() => setDebug(!debug)}
-      >
-        <Ionicons name="md-information-circle-outline" size={32} color="darkgrey" />
-      </TouchableOpacity>
+      <DebugIcon onPress={() => setDebug(!debug)} />
     </View>
   );
 };
 
-TextPage.propTypes = {
+PoemPage.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
     replace: PropTypes.func.isRequired,
@@ -317,4 +271,4 @@ TextPage.propTypes = {
   }).isRequired,
 };
 
-export default TextPage;
+export default PoemPage;

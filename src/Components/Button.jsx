@@ -20,11 +20,10 @@ const Button = ({
       backgroundColor: 'black', borderWidth: 1, borderColor: 'white', width: '100%',
     }]}
     onPress={() => {
-      navigation.replace(destination, param);
+      navigation.navigate(destination, param);
     }}
   >
-    {icon
-            && <Ionicons name={icon} size={48} color="white" style={{ textAlign: 'center' }} />}
+    {icon && <Ionicons name={icon} size={48} color="white" style={{ textAlign: 'center' }} />}
     <Text style={[styles.textTitleW, { textAlign: 'center' }]}>
       {text}
     </Text>
