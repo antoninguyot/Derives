@@ -4,10 +4,10 @@
       "Autre moment"
     ],
     [
-      "La {random|terre,forêt,plage,montagne} {random|allonge sa langue, s’entrouvre}"
+      "La {random|terre,forêt,plage,montagne} {random|allonge sa langue,s’entrouvre}"
     ],
     [
-      "Elle {random|répand tisse,livre} ses {random|histoires,secrets}",
+      "Elle {random|répand,tisse,livre} ses {random|histoires,secrets}",
       "aux odeurs {season|printemps:d’orange,été:de framboise,automne:de raisin,hiver:de clémentine}",
       "et de {season|printemps:narcisse,été:géranium,automne:dahlia,hiver:camélia}"
     ],
