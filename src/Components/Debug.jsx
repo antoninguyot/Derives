@@ -25,7 +25,6 @@ const Debug = ({
       null: 'Chargement...',
     }[weather]})
     </Text>
-    <Text style={styles.textCaptorsTest}>Etat: {walking ? 'Marche' : 'Arrêt'}</Text>
   </View>
 );
 
