@@ -177,8 +177,8 @@ const PoemPage = ({ navigation }) => {
     setIsMounted(true);
     let subscriberRemove;
     registerLocationServices()
-      .then((removeMethod) => {
-        subscriberRemove = removeMethod;
+      .then((removeObject) => {
+        subscriberRemove = removeObject.remove;
       });
 
     return () => {
