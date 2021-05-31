@@ -4,9 +4,9 @@ import * as PropTypes from 'prop-types';
 import styles from '../../App.css';
 import CCamera from './CCamera';
 import { combine, getTextArray } from '../Helpers/text';
-import { calculateMoment } from '../Helpers/time';
 
 const TextPoem = ({
+  moment,
   stropheIndex,
   fontOpacity,
   fontSize,
@@ -16,7 +16,6 @@ const TextPoem = ({
   season,
   isReadyToPlay,
 }) => {
-  const moment = calculateMoment();
   const text = getTextArray(moment);
   const relevantText = walking ? text.acceleration : text.stable;
   let strophe;
@@ -48,17 +47,13 @@ const TextPoem = ({
 };
 
 TextPoem.propTypes = {
+  moment: PropTypes.string.isRequired,
   stropheIndex: PropTypes.number.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types,react/require-default-props
   fontOpacity: PropTypes.object,
-  // eslint-disable-next-line react/forbid-prop-types,react/require-default-props
   fontSize: PropTypes.object,
   walking: PropTypes.bool.isRequired,
-  // eslint-disable-next-line react/require-default-props
   localityType: PropTypes.string,
-  // eslint-disable-next-line react/require-default-props
   weather: PropTypes.string,
-  // eslint-disable-next-line react/require-default-props
   season: PropTypes.string,
   isReadyToPlay: PropTypes.bool.isRequired,
 };

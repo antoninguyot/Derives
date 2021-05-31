@@ -24,6 +24,8 @@
     "prefer-destructuring": "off",
     "react-hooks/exhaustive-deps": "off",
     "no-mixed-operators": "off",
-    "react/jsx-one-expression-per-line": "off"
+    "react/jsx-one-expression-per-line": "off",
+    "react/require-default-props": "off",
+    "react/forbid-prop-types": "off"
   }
 }

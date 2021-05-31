@@ -120,7 +120,7 @@ const ChooseModePage = ({ navigation }) => {
                 items={weatherItems}
                 defaultValue={weather}
                 placeholder="Choisissez la météo"
-                containerStyle={{ height: 40, marginTop: 10 }}
+                containerStyle={{ height: 40, marginTop: 10, marginBottom: 80 }}
                 itemStyle={{
                   justifyContent: 'flex-start',
                   fontFamily: 'Antonio',

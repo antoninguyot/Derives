@@ -4,7 +4,7 @@ import { Animated, View } from 'react-native';
 import useInterval from '@use-it/interval';
 import * as Location from 'expo-location';
 import styles from '../../App.css';
-import { sedacDataset, sedacLocationRequest } from '../Helpers/location';
+import { worldPopLocationRequest } from '../Helpers/location';
 import { calculateMoment, calculateSeason } from '../Helpers/time';
 import weatherRequest from '../Helpers/weather';
 import { getTextArray } from '../Helpers/text';
@@ -27,7 +27,7 @@ const PoemPage = ({ navigation }) => {
   // Localisation states
   const [longitude, setLongitude] = useState();
   const [latitude, setLatitude] = useState();
-  const [localityDensity, setLocalityDensity] = useState();
+  const [populationDensity, setPopulationDensity] = useState();
   const [localityType, setLocalityType] = useState(navigation.getParam('localityType'));
   const [season] = useState(calculateSeason());
   const [moment] = useState(navigation.getParam('moment', calculateMoment()));
@@ -47,18 +47,6 @@ const PoemPage = ({ navigation }) => {
   const [currentSpeed, setCurrentSpeed] = useState();
   const [walking, setWalking] = useState(false);
 
-  /**
-   * Mise à jour de la position du téléphone
-   * @param location
-   */
-  const updateLocation = (location) => {
-    if (isMounted) {
-      setLongitude(location.coords.longitude);
-      setLatitude(location.coords.latitude);
-      setCurrentSpeed(location.coords.speed);
-    }
-  };
-
   useEffect(() => {
     if (!currentSpeed || currentSpeed === -1) return;
     setWalking(!(currentSpeed < 1));
@@ -68,10 +56,21 @@ const PoemPage = ({ navigation }) => {
    * Mise à jour du type d'environnement lorsque la densité de pop change
    */
   useEffect(() => {
-    if (isMounted && localityType === undefined) {
-      setLocalityType(localityDensity < 250 ? 'country' : 'city');
+    setLocalityType(populationDensity < 1000 ? 'country' : 'city');
+  }, [populationDensity]);
+
+  /**
+   * Mise à jour de la météo lorsque la température change
+   */
+  useEffect(() => {
+    if (temperature < 12) {
+      setWeather('cold');
+    } else if (temperature > 25) {
+      setWeather('hot');
+    } else {
+      setWeather('sweet');
     }
-  }, [localityDensity]);
+  }, [temperature]);
 
   /**
    * Lance la lecture de la musique
@@ -129,45 +128,6 @@ const PoemPage = ({ navigation }) => {
     }
   }, [walking]);
 
-  const registerLocationServices = async () => {
-    const locationAccuracy = Location.Accuracy.BestForNavigation;
-    const location = await Location.getCurrentPositionAsync({
-      accuracy: locationAccuracy,
-    });
-
-    // Mise à jour de la position
-    updateLocation(location);
-
-    // Récupération des données météo
-    const weatherResponse = await weatherRequest(
-      location.coords.latitude, location.coords.longitude,
-    );
-    setTemperature(weatherResponse.data.main.temp);
-    // Inférer un état de la température
-    if (temperature < 12) {
-      setWeather('cold');
-    } else if (temperature > 25) {
-      setWeather('hot');
-    } else {
-      setWeather('sweet');
-    }
-
-    // Récupération des données de densité de pop
-    const sedacResponse = await sedacLocationRequest(
-      location.coords.latitude, location.coords.longitude,
-    );
-    if (sedacResponse.data.results[0]) {
-      setLocalityDensity(sedacResponse.data.results[0].value.estimates[sedacDataset].MEAN);
-    }
-
-    // On update la position GPS en direct
-    return Location.watchPositionAsync({
-      accuracy: locationAccuracy,
-      distanceInterval: 1,
-      timeInterval: 1000,
-    }, updateLocation);
-  };
-
   /**
    * componentDidMount()
    * Démarrage de toutes les requêtes API
@@ -175,11 +135,45 @@ const PoemPage = ({ navigation }) => {
    */
   useEffect(() => {
     setIsMounted(true);
-    let subscriberRemove;
-    registerLocationServices()
-      .then((removeObject) => {
-        subscriberRemove = removeObject.remove;
+
+    (async () => {
+      let currentLocation;
+      // Si on a une localisation en cache, on l'utilise pour les premières requêtes
+      currentLocation = await Location.getLastKnownPositionAsync({
+        maxAge: 60000,
+        requiredAccuracy: 1000,
       });
+      // Sinon, on fait une requête avec une faible précision (+ rapide)
+      if (currentLocation == null) {
+        currentLocation = await Location.getCurrentPositionAsync({
+          accuracy: Location.Accuracy.Balanced,
+        });
+      }
+      // Première requête async pour la météo
+      // noinspection ES6MissingAwait
+      (async () => {
+        setTemperature(await weatherRequest(
+          currentLocation.coords.longitude, currentLocation.coords.latitude,
+        ));
+      })();
+      // Seconde requête async pour la population
+      // noinspection ES6MissingAwait
+      (async () => {
+        setPopulationDensity(await worldPopLocationRequest(
+          currentLocation.coords.longitude, currentLocation.coords.latitude,
+        ));
+      })();
+    })();
+
+    const { subscriberRemove } = Location.watchPositionAsync({
+      accuracy: Location.Accuracy.BestForNavigation,
+      distanceInterval: 1,
+      timeInterval: 1000,
+    }, (location) => {
+      setLongitude(location.coords.longitude);
+      setLatitude(location.coords.latitude);
+      setCurrentSpeed(location.coords.speed);
+    });
 
     return () => {
       setIsMounted(false);
@@ -200,8 +194,10 @@ const PoemPage = ({ navigation }) => {
       || !season
       || !moment
       || !currentSpeed
-      || !localityDensity
-    ) return;
+      || !populationDensity
+    ) {
+      return;
+    }
 
     if (!isReadyToPlay) setIsReadyToPlay(true);
 
@@ -227,18 +223,26 @@ const PoemPage = ({ navigation }) => {
     <View style={styles.containerCamera}>
       {mode === 'read'
       && (
-      <TextPoem
-        fontOpacity={fontOpacity}
-        fontSize={fontSize}
-        stropheIndex={stropheIndex}
-        walking={walking}
-        localityType={localityType}
-        weather={weather}
-        season={season}
-        isReadyToPlay={isReadyToPlay}
-      />
+        <TextPoem
+          moment={moment}
+          fontOpacity={fontOpacity}
+          fontSize={fontSize}
+          stropheIndex={stropheIndex}
+          walking={walking}
+          localityType={localityType}
+          weather={weather}
+          season={season}
+          isReadyToPlay={isReadyToPlay}
+        />
       )
-      || <AudioPoem stropheIndex={stropheIndex} walking={walking} isReadyToPlay={isReadyToPlay} />}
+      || (
+        <AudioPoem
+          moment={moment}
+          stropheIndex={stropheIndex}
+          walking={walking}
+          isReadyToPlay={isReadyToPlay}
+        />
+      )}
       {debug
       && (
         <Debug
@@ -247,7 +251,7 @@ const PoemPage = ({ navigation }) => {
           currentSpeed={currentSpeed}
           latitude={latitude}
           longitude={longitude}
-          localityDensity={localityDensity}
+          localityDensity={populationDensity}
           localityType={localityType}
           weather={weather}
           temperature={temperature}
