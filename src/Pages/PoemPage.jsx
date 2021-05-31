@@ -201,7 +201,9 @@ const PoemPage = ({ navigation }) => {
       || !moment
       || !currentSpeed
       || !localityDensity
-    ) return;
+    ) {
+      return;
+    }
 
     if (!isReadyToPlay) setIsReadyToPlay(true);
 
@@ -227,18 +229,26 @@ const PoemPage = ({ navigation }) => {
     <View style={styles.containerCamera}>
       {mode === 'read'
       && (
-      <TextPoem
-        fontOpacity={fontOpacity}
-        fontSize={fontSize}
+        <TextPoem
+          moment={moment}
+          fontOpacity={fontOpacity}
+          fontSize={fontSize}
+          stropheIndex={stropheIndex}
+          walking={walking}
+          localityType={localityType}
+          weather={weather}
+          season={season}
+          isReadyToPlay={isReadyToPlay}
+        />
+      )
+      || (
+      <AudioPoem
+        moment={moment}
         stropheIndex={stropheIndex}
         walking={walking}
-        localityType={localityType}
-        weather={weather}
-        season={season}
         isReadyToPlay={isReadyToPlay}
       />
-      )
-      || <AudioPoem stropheIndex={stropheIndex} walking={walking} isReadyToPlay={isReadyToPlay} />}
+      )}
       {debug
       && (
         <Debug

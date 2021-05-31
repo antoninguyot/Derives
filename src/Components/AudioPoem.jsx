@@ -2,18 +2,16 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as PropTypes from 'prop-types';
-import { calculateMoment } from '../Helpers/time';
 import styles from '../../App.css';
 import files from '../../assets/audio/manifest';
 import { play } from '../Helpers/sound';
 
 const AudioPoem = ({
+  moment,
   stropheIndex,
   walking,
   isReadyToPlay,
 }) => {
-  const moment = calculateMoment();
-
   const playFile = async () => {
     const relevantFiles = files[moment][walking ? 'moving' : 'still'];
     const sound = await play(relevantFiles[stropheIndex], 1);
@@ -42,6 +40,7 @@ const AudioPoem = ({
 };
 
 AudioPoem.propTypes = {
+  moment: PropTypes.string.isRequired,
   stropheIndex: PropTypes.number.isRequired,
   walking: PropTypes.bool.isRequired,
   isReadyToPlay: PropTypes.bool.isRequired,
