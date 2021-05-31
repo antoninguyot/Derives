@@ -60,6 +60,19 @@ const PoemPage = ({ navigation }) => {
   }, [populationDensity]);
 
   /**
+   * Mise à jour de la météo lorsque la température change
+   */
+  useEffect(() => {
+    if (temperature < 12) {
+      setWeather('cold');
+    } else if (temperature > 25) {
+      setWeather('hot');
+    } else {
+      setWeather('sweet');
+    }
+  }, [temperature]);
+
+  /**
    * Lance la lecture de la musique
    */
   useEffect(() => {
@@ -139,18 +152,9 @@ const PoemPage = ({ navigation }) => {
       // Première requête async pour la météo
       // noinspection ES6MissingAwait
       (async () => {
-        const weatherResponse = await weatherRequest(
-          currentLocation.coords.latitude, currentLocation.coords.longitude,
-        );
-        setTemperature(weatherResponse.data.main.temp);
-        // Inférer un état de la température
-        if (temperature < 12) {
-          setWeather('cold');
-        } else if (temperature > 25) {
-          setWeather('hot');
-        } else {
-          setWeather('sweet');
-        }
+        setTemperature(await weatherRequest(
+          currentLocation.coords.longitude, currentLocation.coords.latitude,
+        ));
       })();
       // Seconde requête async pour la population
       // noinspection ES6MissingAwait
