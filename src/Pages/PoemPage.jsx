@@ -9,9 +9,7 @@ import { calculateSeason } from '../Helpers/time';
 import weatherRequest from '../Helpers/weather';
 import { getTextArray } from '../Helpers/text';
 import { fadeTo } from '../Helpers/anim';
-import {
-  getAcceleration, getAmbiance, getMusic, play,
-} from '../Helpers/sound';
+import { getAmbiance, getMusic, play } from '../Helpers/sound';
 import Debug from '../Components/Debug';
 import TextPoem from '../Components/TextPoem';
 import AudioPoem from '../Components/AudioPoem';
@@ -37,7 +35,6 @@ const PoemPage = ({ route, navigation }) => {
   // Music states
   const [isReadyToPlay, setIsReadyToPlay] = useState(false);
   const [shouldPlayAmbiance, setShouldPlayAmbiance] = useState(false);
-  const [musicInterval, setMusicInterval] = useState();
 
   // Poems states
   const [mode, setMode] = useState(route.params.mode);
@@ -114,21 +111,6 @@ const PoemPage = ({ route, navigation }) => {
       ambianceSound.unloadAsync();
     };
   }, [shouldPlayAmbiance]);
-
-  /**
-   * Joue les sons lorsque l'accélération change
-   */
-  useEffect(() => {
-    // On supprime l'intervalle précédent
-    if (musicInterval) clearInterval(musicInterval);
-
-    // On en crée un nouveau en fonction de l'accélération actuelle
-    if (walking) {
-      setMusicInterval(setInterval(() => {
-        play(getAcceleration(), 0);
-      }, 1500));
-    }
-  }, [walking]);
 
   /**
    * componentDidMount()
