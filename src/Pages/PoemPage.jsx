@@ -5,7 +5,7 @@ import useInterval from '@use-it/interval';
 import * as Location from 'expo-location';
 import styles from '../../App.css';
 import { worldPopLocationRequest } from '../Helpers/location';
-import { calculateMoment, calculateSeason } from '../Helpers/time';
+import { calculateSeason } from '../Helpers/time';
 import weatherRequest from '../Helpers/weather';
 import { getTextArray } from '../Helpers/text';
 import { fadeTo } from '../Helpers/anim';
@@ -19,7 +19,7 @@ import BackIcon from '../Components/BackIcon';
 import DebugIcon from '../Components/DebugIcon';
 import SwitchModeIcon from '../Components/SwitchModeIcon';
 
-const PoemPage = ({ navigation }) => {
+const PoemPage = ({ route, navigation }) => {
   // Page states
   const [isMounted, setIsMounted] = useState(true);
   const [debug, setDebug] = useState(false);
@@ -28,11 +28,11 @@ const PoemPage = ({ navigation }) => {
   const [longitude, setLongitude] = useState();
   const [latitude, setLatitude] = useState();
   const [populationDensity, setPopulationDensity] = useState();
-  const [localityType, setLocalityType] = useState(navigation.getParam('localityType'));
+  const [localityType, setLocalityType] = useState(route.params.localityType);
   const [season] = useState(calculateSeason());
-  const [moment] = useState(navigation.getParam('moment', calculateMoment()));
+  const [moment] = useState(route.params.moment);
   const [temperature, setTemperature] = useState(-100);
-  const [weather, setWeather] = useState(navigation.getParam('weather'));
+  const [weather, setWeather] = useState(route.params.weather);
 
   // Music states
   const [isReadyToPlay, setIsReadyToPlay] = useState(false);
@@ -40,7 +40,7 @@ const PoemPage = ({ navigation }) => {
   const [musicInterval, setMusicInterval] = useState();
 
   // Poems states
-  const [mode, setMode] = useState(navigation.getParam('mode', 'read'));
+  const [mode, setMode] = useState(route.params.mode);
   const [fontOpacity] = useState(new Animated.Value(0));
   const [stropheIndex, setStropheIndex] = useState(-1);
   const [fontSize] = useState(new Animated.Value(20));
@@ -56,6 +56,7 @@ const PoemPage = ({ navigation }) => {
    * Mise à jour du type d'environnement lorsque la densité de pop change
    */
   useEffect(() => {
+    if (localityType !== null) return;
     setLocalityType(populationDensity < 1000 ? 'country' : 'city');
   }, [populationDensity]);
 
@@ -63,6 +64,7 @@ const PoemPage = ({ navigation }) => {
    * Mise à jour de la météo lorsque la température change
    */
   useEffect(() => {
+    if (weather !== null) return;
     if (temperature < 12) {
       setWeather('cold');
     } else if (temperature > 25) {
@@ -165,7 +167,8 @@ const PoemPage = ({ navigation }) => {
       })();
     })();
 
-    const { subscriberRemove } = Location.watchPositionAsync({
+    let subscriberRemove;
+    Location.watchPositionAsync({
       accuracy: Location.Accuracy.BestForNavigation,
       distanceInterval: 1,
       timeInterval: 1000,
@@ -173,7 +176,7 @@ const PoemPage = ({ navigation }) => {
       setLongitude(location.coords.longitude);
       setLatitude(location.coords.latitude);
       setCurrentSpeed(location.coords.speed);
-    });
+    }).then(({ remove }) => { subscriberRemove = remove; });
 
     return () => {
       setIsMounted(false);
@@ -205,7 +208,7 @@ const PoemPage = ({ navigation }) => {
     const relevantText = walking ? text.acceleration : text.stable;
 
     // Si on est arrivé à la fin du texte, on boucle
-    if (relevantText.length < stropheIndex) {
+    if (relevantText.length <= (stropheIndex + 1)) {
       navigation.replace('Sas', { momentPlayed: moment });
       return;
     }
@@ -271,8 +274,8 @@ PoemPage.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
     replace: PropTypes.func.isRequired,
-    getParam: PropTypes.func.isRequired,
   }).isRequired,
+  route: PropTypes.object.isRequired,
 };
 
 export default PoemPage;
