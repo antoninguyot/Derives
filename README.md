@@ -1,4 +1,8 @@
-# Derives
-Version Expo Dérives
+# Dérives
 
-Projet de développement d'application poétique sous bibliothèque Expo.
+Projet d'application poétique réalisée à l'UTC au printemps 2021.
+
+### [Tester l'application](Tester.md)
+
+Voir aussi :
+- [Règles sonores](Règles%20son.md)
