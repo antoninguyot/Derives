@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Animated, View } from 'react-native';
 import useInterval from '@use-it/interval';
 import * as Location from 'expo-location';
+import { useKeepAwake } from 'expo-keep-awake';
 import styles from '../../App.css';
 import { worldPopLocationRequest } from '../Helpers/location';
 import { calculateSeason } from '../Helpers/time';
@@ -18,6 +19,9 @@ import DebugIcon from '../Components/DebugIcon';
 import SwitchModeIcon from '../Components/SwitchModeIcon';
 
 const PoemPage = ({ route, navigation }) => {
+  // Prevent phones from going to sleep
+  useKeepAwake();
+
   // Page states
   const [isMounted, setIsMounted] = useState(true);
   const [debug, setDebug] = useState(false);
