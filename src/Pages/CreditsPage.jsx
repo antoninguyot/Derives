@@ -12,7 +12,7 @@ const CreditsPage = ({ navigation }) => (
     <ScrollView>
       <Text style={[styles.textTitleW, { marginVertical: 15 }]}>Crédits</Text>
       <Person
-        image={require('../../assets/images/team/serge.png')}
+        image={require('../../assets/images/team/serge.jpg')}
         name="Serge Bouchardon"
         description="Enseignant chercheur à l'Université de Technologie de Compiègne. Coordination du projet."
       />
@@ -37,7 +37,7 @@ const CreditsPage = ({ navigation }) => (
         description="Étudiant à l'UTC. Développement de l'application."
       />
       <Person
-        image={require('../../assets/images/team/cecile.jpeg')}
+        image={require('../../assets/images/team/cecile.jpg')}
         name="Cécile Asselin"
         description="Étudiante à l'UTC. Développement de l'application."
       />
@@ -47,7 +47,7 @@ const CreditsPage = ({ navigation }) => (
         description="Étudiant à l'UTC. Développement de l'application."
       />
       <Person
-        image={require('../../assets/images/team/maylis.jpeg')}
+        image={require('../../assets/images/team/maylis.jpg')}
         name="Maylis de Talhouet"
         description="Étudiante à l'UTC. Développement de l'application."
       />

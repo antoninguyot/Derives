@@ -3,15 +3,14 @@ import React, { useEffect, useState } from 'react';
 import { Animated, View } from 'react-native';
 import useInterval from '@use-it/interval';
 import * as Location from 'expo-location';
+import { useKeepAwake } from 'expo-keep-awake';
 import styles from '../../App.css';
-import { sedacDataset, sedacLocationRequest } from '../Helpers/location';
-import { calculateMoment, calculateSeason } from '../Helpers/time';
+import { worldPopLocationRequest } from '../Helpers/location';
+import { calculateSeason } from '../Helpers/time';
 import weatherRequest from '../Helpers/weather';
 import { getTextArray } from '../Helpers/text';
 import { fadeTo } from '../Helpers/anim';
-import {
-  getAcceleration, getAmbiance, getMusic, play,
-} from '../Helpers/sound';
+import { getAmbiance, getMusic, play } from '../Helpers/sound';
 import Debug from '../Components/Debug';
 import TextPoem from '../Components/TextPoem';
 import AudioPoem from '../Components/AudioPoem';
@@ -19,7 +18,10 @@ import BackIcon from '../Components/BackIcon';
 import DebugIcon from '../Components/DebugIcon';
 import SwitchModeIcon from '../Components/SwitchModeIcon';
 
-const PoemPage = ({ navigation }) => {
+const PoemPage = ({ route, navigation }) => {
+  // Prevent phones from going to sleep
+  useKeepAwake();
+
   // Page states
   const [isMounted, setIsMounted] = useState(true);
   const [debug, setDebug] = useState(false);
@@ -27,37 +29,24 @@ const PoemPage = ({ navigation }) => {
   // Localisation states
   const [longitude, setLongitude] = useState();
   const [latitude, setLatitude] = useState();
-  const [localityDensity, setLocalityDensity] = useState();
-  const [localityType, setLocalityType] = useState(navigation.getParam('localityType'));
+  const [populationDensity, setPopulationDensity] = useState();
+  const [localityType, setLocalityType] = useState(route.params.localityType);
   const [season] = useState(calculateSeason());
-  const [moment] = useState(navigation.getParam('moment', calculateMoment()));
+  const [moment] = useState(route.params.moment);
   const [temperature, setTemperature] = useState(-100);
-  const [weather, setWeather] = useState(navigation.getParam('weather'));
+  const [weather, setWeather] = useState(route.params.weather);
 
   // Music states
   const [isReadyToPlay, setIsReadyToPlay] = useState(false);
   const [shouldPlayAmbiance, setShouldPlayAmbiance] = useState(false);
-  const [musicInterval, setMusicInterval] = useState();
 
   // Poems states
-  const [mode, setMode] = useState(navigation.getParam('mode', 'read'));
+  const [mode, setMode] = useState(route.params.mode);
   const [fontOpacity] = useState(new Animated.Value(0));
   const [stropheIndex, setStropheIndex] = useState(-1);
   const [fontSize] = useState(new Animated.Value(20));
   const [currentSpeed, setCurrentSpeed] = useState();
   const [walking, setWalking] = useState(false);
-
-  /**
-   * Mise à jour de la position du téléphone
-   * @param location
-   */
-  const updateLocation = (location) => {
-    if (isMounted) {
-      setLongitude(location.coords.longitude);
-      setLatitude(location.coords.latitude);
-      setCurrentSpeed(location.coords.speed);
-    }
-  };
 
   useEffect(() => {
     if (!currentSpeed || currentSpeed === -1) return;
@@ -68,10 +57,23 @@ const PoemPage = ({ navigation }) => {
    * Mise à jour du type d'environnement lorsque la densité de pop change
    */
   useEffect(() => {
-    if (isMounted && localityType === undefined) {
-      setLocalityType(localityDensity < 250 ? 'country' : 'city');
+    if (localityType !== null) return;
+    setLocalityType(populationDensity < 1000 ? 'country' : 'city');
+  }, [populationDensity]);
+
+  /**
+   * Mise à jour de la météo lorsque la température change
+   */
+  useEffect(() => {
+    if (weather !== null) return;
+    if (temperature < 12) {
+      setWeather('cold');
+    } else if (temperature > 25) {
+      setWeather('hot');
+    } else {
+      setWeather('sweet');
     }
-  }, [localityDensity]);
+  }, [temperature]);
 
   /**
    * Lance la lecture de la musique
@@ -115,71 +117,52 @@ const PoemPage = ({ navigation }) => {
   }, [shouldPlayAmbiance]);
 
   /**
-   * Joue les sons lorsque l'accélération change
-   */
-  useEffect(() => {
-    // On supprime l'intervalle précédent
-    if (musicInterval) clearInterval(musicInterval);
-
-    // On en crée un nouveau en fonction de l'accélération actuelle
-    if (walking) {
-      setMusicInterval(setInterval(() => {
-        play(getAcceleration(), 0);
-      }, 1500));
-    }
-  }, [walking]);
-
-  const registerLocationServices = async () => {
-    const locationAccuracy = Location.Accuracy.BestForNavigation;
-    const location = await Location.getCurrentPositionAsync({
-      accuracy: locationAccuracy,
-    });
-
-    // Mise à jour de la position
-    updateLocation(location);
-
-    // Récupération des données météo
-    const weatherResponse = await weatherRequest(
-      location.coords.latitude, location.coords.longitude,
-    );
-    setTemperature(weatherResponse.data.main.temp);
-    // Inférer un état de la température
-    if (temperature < 12) {
-      setWeather('cold');
-    } else if (temperature > 25) {
-      setWeather('hot');
-    } else {
-      setWeather('sweet');
-    }
-
-    // Récupération des données de densité de pop
-    const sedacResponse = await sedacLocationRequest(
-      location.coords.latitude, location.coords.longitude,
-    );
-    if (sedacResponse.data.results[0]) {
-      setLocalityDensity(sedacResponse.data.results[0].value.estimates[sedacDataset].MEAN);
-    }
-
-    // On update la position GPS en direct
-    return Location.watchPositionAsync({
-      accuracy: locationAccuracy,
-      distanceInterval: 1,
-      timeInterval: 1000,
-    }, updateLocation);
-  };
-
-  /**
    * componentDidMount()
    * Démarrage de toutes les requêtes API
    * Lancé une seule fois au démarrage
    */
   useEffect(() => {
     setIsMounted(true);
-    let subscriberRemove;
-    registerLocationServices()
-      .then((removeObject) => {
-        subscriberRemove = removeObject.remove;
+
+    (async () => {
+      let currentLocation;
+      // Si on a une localisation en cache, on l'utilise pour les premières requêtes
+      currentLocation = await Location.getLastKnownPositionAsync({
+        maxAge: 60000,
+        requiredAccuracy: 1000,
       });
+      // Sinon, on fait une requête avec une faible précision (+ rapide)
+      if (currentLocation == null) {
+        currentLocation = await Location.getCurrentPositionAsync({
+          accuracy: Location.Accuracy.Balanced,
+        });
+      }
+      // Première requête async pour la météo
+      // noinspection ES6MissingAwait
+      (async () => {
+        setTemperature(await weatherRequest(
+          currentLocation.coords.longitude, currentLocation.coords.latitude,
+        ));
+      })();
+      // Seconde requête async pour la population
+      // noinspection ES6MissingAwait
+      (async () => {
+        setPopulationDensity(await worldPopLocationRequest(
+          currentLocation.coords.longitude, currentLocation.coords.latitude,
+        ));
+      })();
+    })();
+
+    let subscriberRemove;
+    Location.watchPositionAsync({
+      accuracy: Location.Accuracy.BestForNavigation,
+      distanceInterval: 1,
+      timeInterval: 1000,
+    }, (location) => {
+      setLongitude(location.coords.longitude);
+      setLatitude(location.coords.latitude);
+      setCurrentSpeed(location.coords.speed);
+    }).then(({ remove }) => { subscriberRemove = remove; });
 
     return () => {
       setIsMounted(false);
@@ -200,8 +183,10 @@ const PoemPage = ({ navigation }) => {
       || !season
       || !moment
       || !currentSpeed
-      || !localityDensity
-    ) return;
+      || !populationDensity
+    ) {
+      return;
+    }
 
     if (!isReadyToPlay) setIsReadyToPlay(true);
 
@@ -209,7 +194,7 @@ const PoemPage = ({ navigation }) => {
     const relevantText = walking ? text.acceleration : text.stable;
 
     // Si on est arrivé à la fin du texte, on boucle
-    if (relevantText.length < stropheIndex) {
+    if (relevantText.length <= (stropheIndex + 1)) {
       navigation.replace('Sas', { momentPlayed: moment });
       return;
     }
@@ -227,18 +212,26 @@ const PoemPage = ({ navigation }) => {
     <View style={styles.containerCamera}>
       {mode === 'read'
       && (
-      <TextPoem
-        fontOpacity={fontOpacity}
-        fontSize={fontSize}
-        stropheIndex={stropheIndex}
-        walking={walking}
-        localityType={localityType}
-        weather={weather}
-        season={season}
-        isReadyToPlay={isReadyToPlay}
-      />
+        <TextPoem
+          moment={moment}
+          fontOpacity={fontOpacity}
+          fontSize={fontSize}
+          stropheIndex={stropheIndex}
+          walking={walking}
+          localityType={localityType}
+          weather={weather}
+          season={season}
+          isReadyToPlay={isReadyToPlay}
+        />
       )
-      || <AudioPoem stropheIndex={stropheIndex} walking={walking} isReadyToPlay={isReadyToPlay} />}
+      || (
+        <AudioPoem
+          moment={moment}
+          stropheIndex={stropheIndex}
+          walking={walking}
+          isReadyToPlay={isReadyToPlay}
+        />
+      )}
       {debug
       && (
         <Debug
@@ -247,7 +240,7 @@ const PoemPage = ({ navigation }) => {
           currentSpeed={currentSpeed}
           latitude={latitude}
           longitude={longitude}
-          localityDensity={localityDensity}
+          localityDensity={populationDensity}
           localityType={localityType}
           weather={weather}
           temperature={temperature}
@@ -267,8 +260,8 @@ PoemPage.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
     replace: PropTypes.func.isRequired,
-    getParam: PropTypes.func.isRequired,
   }).isRequired,
+  route: PropTypes.object.isRequired,
 };
 
 export default PoemPage;

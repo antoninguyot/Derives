@@ -10,19 +10,19 @@ const Debug = ({
   <View style={styles.containerCaptorsTest}>
     <Text style={styles.textCaptorsTest}>Poème : {moment}</Text>
     <Text style={styles.textCaptorsTest}>Position : {latitude}, {longitude}</Text>
-    <Text style={styles.textCaptorsTest}>Vitesse : {currentSpeed} m/s ({walking ? 'en mouvement' : 'à l\'arrêt'})</Text>
-    <Text style={styles.textCaptorsTest}>Densité de pop : {localityDensity ?? 'Chargement...'} habs/pixel ({{
+    <Text style={styles.textCaptorsTest}>Vitesse : {currentSpeed ?? '...'} m/s ({walking ? 'en mouvement' : 'à l\'arrêt'})</Text>
+    <Text style={styles.textCaptorsTest}>Densité de pop : {localityDensity ?? '...'} habs/km&sup2; ({{
       city: 'ville',
       country: 'campagne',
-      null: 'Chargement...',
+      null: '...',
     }[localityType]})
     </Text>
-    <Text style={styles.textCaptorsTest}>Saison : {season ?? 'Chargement...'}</Text>
-    <Text style={styles.textCaptorsTest}>Temperature : {temperature ?? 'Chargement...'} °C ({{
+    <Text style={styles.textCaptorsTest}>Saison : {season ?? '...'}</Text>
+    <Text style={styles.textCaptorsTest}>Temperature : {temperature ?? '...'} °C ({{
       cold: 'froid',
       hot: 'chaud',
       sweet: 'doux',
-      null: 'Chargement...',
+      null: '...',
     }[weather]})
     </Text>
   </View>
@@ -34,7 +34,7 @@ Debug.propTypes = {
   currentSpeed: PropTypes.number,
   latitude: PropTypes.number,
   longitude: PropTypes.number,
-  localityDensity: PropTypes.string,
+  localityDensity: PropTypes.number,
   localityType: PropTypes.string,
   weather: PropTypes.string,
   temperature: PropTypes.number,

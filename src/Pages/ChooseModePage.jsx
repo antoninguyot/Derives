@@ -10,13 +10,13 @@ import styles from '../../App.css';
 import { fadeLoop } from '../Helpers/anim';
 import Button from '../Components/Button';
 
-const ChooseModePage = ({ navigation }) => {
+const ChooseModePage = ({ route, navigation }) => {
   const [moment, setMoment] = useState();
   const [localityType, setLocalityType] = useState();
   const [weather, setWeather] = useState();
 
   const fadeAnim = useRef(new Animated.Value(0)).current; // Initial value for opacity: 0
-  const mode = navigation.getParam('mode', 'read');
+  const { mode } = route.params;
 
   React.useEffect(() => {
     const fadeInterval = fadeLoop(fadeAnim, 0, 1, 2000);
@@ -120,7 +120,7 @@ const ChooseModePage = ({ navigation }) => {
                 items={weatherItems}
                 defaultValue={weather}
                 placeholder="Choisissez la météo"
-                containerStyle={{ height: 40, marginTop: 10 }}
+                containerStyle={{ height: 40, marginTop: 10, marginBottom: 80 }}
                 itemStyle={{
                   justifyContent: 'flex-start',
                   fontFamily: 'Antonio',
@@ -148,8 +148,8 @@ ChooseModePage.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
     replace: PropTypes.func.isRequired,
-    getParam: PropTypes.func.isRequired,
   }).isRequired,
+  route: PropTypes.object.isRequired,
 };
 
 export default ChooseModePage;

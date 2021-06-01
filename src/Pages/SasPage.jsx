@@ -8,7 +8,7 @@ import { calculateNextMoment } from '../Helpers/time';
 import styles from '../../App.css';
 import { fadeLoop } from '../Helpers/anim';
 
-const SasPage = ({ navigation }) => {
+const SasPage = ({ route, navigation }) => {
   const [initialSpeed, setInitialSpeed] = useState(null);
   const [speedAverage, setSpeedAverage] = useState(null);
   const [willTimeTravel, setWillTimeTravel] = useState(null);
@@ -27,13 +27,11 @@ const SasPage = ({ navigation }) => {
     if (willTimeTravel === true) {
       setTimeout(() => {
         navigation.replace('TextGenerator', {
-          // eslint-disable-next-line react/prop-types
-          moment: calculateNextMoment(navigation.getParam('momentPlayed')),
+          moment: calculateNextMoment(route.params.momentPlayed),
         });
       }, 2000);
     } else if (willTimeTravel === false) {
-      // eslint-disable-next-line react/prop-types
-      navigation.replace('TextGenerator', { moment: navigation.getParam('momentPlayed') });
+      navigation.replace('TextGenerator', { moment: route.params.momentPlayed });
     }
   }, [willTimeTravel]);
 
@@ -113,8 +111,7 @@ const SasPage = ({ navigation }) => {
         >
           <Text>
             Accélérez pour passer à :
-            {/* eslint-disable-next-line react/prop-types */}
-            {calculateNextMoment(navigation.getParam('momentPlayed'))}
+            {calculateNextMoment(route.params.momentPlayed)}
           </Text>
         </Animated.View>
         )}
@@ -128,6 +125,7 @@ SasPage.propTypes = {
     navigate: PropTypes.func.isRequired,
     replace: PropTypes.func.isRequired,
   }).isRequired,
+  route: PropTypes.object.isRequired,
 };
 
 export default SasPage;
