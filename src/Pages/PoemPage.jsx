@@ -29,7 +29,7 @@ const PoemPage = ({ route, navigation }) => {
   const [latitude, setLatitude] = useState();
   const [populationDensity, setPopulationDensity] = useState();
   const [localityType, setLocalityType] = useState(route.params.localityType);
-  const [season] = useState(calculateSeason());
+  const [season, setSeason] = useState();
   const [moment] = useState(route.params.moment);
   const [temperature, setTemperature] = useState(-100);
   const [weather, setWeather] = useState(route.params.weather);
@@ -51,6 +51,13 @@ const PoemPage = ({ route, navigation }) => {
     if (!currentSpeed || currentSpeed === -1) return;
     setWalking(!(currentSpeed < 1));
   }, [currentSpeed]);
+
+  /**
+   * Mise à jour de la saison avec mode paramétré
+   */
+  useEffect(() => {
+    setSeason(route.params.season ? route.params.season : calculateSeason())
+  }, []);
 
   /**
    * Mise à jour du type d'environnement lorsque la densité de pop change
