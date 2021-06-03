@@ -14,7 +14,7 @@ const AudioPoem = ({
 }) => {
   const playFile = async () => {
     const relevantFiles = files[moment][walking ? 'moving' : 'still'];
-    const sound = await play(relevantFiles[stropheIndex], 1);
+    const sound = await play(relevantFiles[stropheIndex], 1, false);
     sound.setOnPlaybackStatusUpdate((status) => {
       if (!status.shouldPlay && !status.isPlaying && status.isLoaded) sound.unloadAsync();
     });

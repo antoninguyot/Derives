@@ -52,8 +52,8 @@ const ambianceFiles = {
  * @param vol,
  * @returns {Promise<Sound>}
  */
-export const play = async (soundUrl, vol) => {
-  const { sound } = await Audio.Sound.createAsync(soundUrl, { shouldPlay: true, volume: vol, isLooping: true });
+export const play = async (soundUrl, vol, islooping) => {
+  const { sound } = await Audio.Sound.createAsync(soundUrl, { shouldPlay: true, volume: vol, isLooping: islooping });
   sound.setOnPlaybackStatusUpdate((status) => {
     if (!status.shouldPlay && !status.isPlaying && status.isLoaded) sound.unloadAsync();
   });
