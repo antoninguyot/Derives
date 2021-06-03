@@ -5,19 +5,18 @@ import useInterval from '@use-it/interval';
 import * as Location from 'expo-location';
 import styles from '../../App.css';
 import { worldPopLocationRequest } from '../Helpers/location';
-import { calculateSeason } from '../Helpers/time';
+import { calculateNextMoment, calculateSeason } from '../Helpers/time';
 import weatherRequest from '../Helpers/weather';
 import { getTextArray } from '../Helpers/text';
 import { fadeTo } from '../Helpers/anim';
-import {
-  getAmbiance, getMusic, play,
-} from '../Helpers/sound';
+import { getAmbiance, getMusic, play } from '../Helpers/sound';
 import Debug from '../Components/Debug';
 import TextPoem from '../Components/TextPoem';
 import AudioPoem from '../Components/AudioPoem';
 import BackIcon from '../Components/BackIcon';
 import DebugIcon from '../Components/DebugIcon';
 import SwitchModeIcon from '../Components/SwitchModeIcon';
+import ForwardIcon from '../Components/ForwardIcon';
 
 const PoemPage = ({ route, navigation }) => {
   // Page states
@@ -37,7 +36,6 @@ const PoemPage = ({ route, navigation }) => {
   // Music states
   const [isReadyToPlay, setIsReadyToPlay] = useState(false);
   const [shouldPlayAmbiance, setShouldPlayAmbiance] = useState(false);
-  const [musicInterval, setMusicInterval] = useState();
 
   // Poems states
   const [mode, setMode] = useState(route.params.mode);
@@ -56,7 +54,7 @@ const PoemPage = ({ route, navigation }) => {
    * Mise à jour de la saison avec mode paramétré
    */
   useEffect(() => {
-    setSeason(route.params.season ? route.params.season : calculateSeason())
+    setSeason(route.params.season ? route.params.season : calculateSeason());
   }, []);
 
   /**
@@ -183,6 +181,13 @@ const PoemPage = ({ route, navigation }) => {
     fadeTo(fontOpacity, 1);
   }, [stropheIndex]);
 
+  useEffect(() => {
+    if (mode !== 'sas') return;
+    setTimeout(() => {
+      navigation.replace('TextGenerator', { moment: calculateNextMoment(moment) });
+    }, 5000);
+  }, [mode]);
+
   useInterval(() => {
     if (
       !isMounted
@@ -203,7 +208,7 @@ const PoemPage = ({ route, navigation }) => {
 
     // Si on est arrivé à la fin du texte, on boucle
     if (relevantText.length <= (stropheIndex + 1)) {
-      navigation.replace('Sas', { momentPlayed: moment });
+      setMode('sas');
       return;
     }
     setStropheIndex(stropheIndex + 1);
@@ -218,28 +223,28 @@ const PoemPage = ({ route, navigation }) => {
 
   return (
     <View style={styles.containerCamera}>
-      {mode === 'read'
-      && (
-        <TextPoem
-          moment={moment}
-          fontOpacity={fontOpacity}
-          fontSize={fontSize}
-          stropheIndex={stropheIndex}
-          walking={walking}
-          localityType={localityType}
-          weather={weather}
-          season={season}
-          isReadyToPlay={isReadyToPlay}
-        />
-      )
-      || (
-        <AudioPoem
-          moment={moment}
-          stropheIndex={stropheIndex}
-          walking={walking}
-          isReadyToPlay={isReadyToPlay}
-        />
-      )}
+      {
+        {
+          read: <TextPoem
+            moment={moment}
+            fontOpacity={fontOpacity}
+            fontSize={fontSize}
+            stropheIndex={stropheIndex}
+            walking={walking}
+            localityType={localityType}
+            weather={weather}
+            season={season}
+            isReadyToPlay={isReadyToPlay}
+          />,
+          listen: <AudioPoem
+            moment={moment}
+            stropheIndex={stropheIndex}
+            walking={walking}
+            isReadyToPlay={isReadyToPlay}
+          />,
+          sas: <ForwardIcon />,
+        }[mode]
+      }
       {debug
       && (
         <Debug

@@ -10,7 +10,6 @@ import WelcomePage from './src/Pages/WelcomePage';
 import ChooseExperiencePage from './src/Pages/ChooseExperiencePage';
 import ChooseModePage from './src/Pages/ChooseModePage';
 import PoemPage from './src/Pages/PoemPage';
-import SasPage from './src/Pages/SasPage';
 import CreditsPage from './src/Pages/CreditsPage';
 import { calculateMoment } from './src/Helpers/time';
 
@@ -82,7 +81,6 @@ const App = () => {
             }}
             options={{ animationEnabled: false }}
           />
-          <Stack.Screen name="Sas" component={SasPage} options={{ animationEnabled: false }} />
           <Stack.Screen name="Credits" component={CreditsPage} />
         </>
       </Stack.Navigator>
