@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { useRef, useState } from 'react';
 import {
-  Text, View, TouchableOpacity, Animated,
+  Text, View, TouchableOpacity, Animated, StyleSheet
 } from 'react-native';
 import ViewPager from '@react-native-community/viewpager';
-import DropDownPicker from 'react-native-dropdown-picker';
+import { Picker } from '@react-native-picker/picker';
+import RNPickerSelect from 'react-native-picker-select/src';
 import { Ionicons } from '@expo/vector-icons';
 import styles from '../../App.css';
 import { fadeLoop } from '../Helpers/anim';
@@ -14,6 +15,7 @@ const ChooseModePage = ({ route, navigation }) => {
   const [moment, setMoment] = useState();
   const [localityType, setLocalityType] = useState();
   const [weather, setWeather] = useState();
+  const [season, setSeason] = useState();
 
   const fadeAnim = useRef(new Animated.Value(0)).current; // Initial value for opacity: 0
   const { mode } = route.params;
@@ -42,6 +44,13 @@ const ChooseModePage = ({ route, navigation }) => {
     { label: 'Tempéré', value: 'sweet' },
     { label: 'Chaud', value: 'hot' },
   ];
+
+  const seasonItems = [
+    { value: 'été', label: 'Été' },
+    { value: 'automne', label: 'Automne' },
+    { value: 'printemps', label: 'Printemps' },
+    { value: 'hivers', label: 'Hiver' },
+  ]
 
   return (
     <View style={{ flex: 1 }}>
@@ -91,49 +100,56 @@ const ChooseModePage = ({ route, navigation }) => {
           <View style={styles.containerChooseMode}>
             <Text style={styles.textTitleW}>Construire votre expérience</Text>
             <View>
-              <DropDownPicker
-                zIndex={5000}
-                items={momentItems}
-                defaultValue={moment}
-                containerStyle={{ height: 40, width: 250 }}
-                placeholder="Choisissez un moment de la journée"
-                itemStyle={{
-                  justifyContent: 'flex-start',
-                }}
-                dropDownStyle={{ backgroundColor: '#fafafa' }}
-                onChangeItem={(item) => setMoment(item.value)}
-              />
-              <DropDownPicker
-                zIndex={4000}
-                items={localityItems}
-                defaultValue={localityType}
-                placeholder="Choisissez le milieu"
-                containerStyle={{ height: 40, marginTop: 10 }}
-                itemStyle={{
-                  justifyContent: 'flex-start',
-                }}
-                dropDownStyle={{ backgroundColor: '#fafafa' }}
-                onChangeItem={(item) => setLocalityType(item.value)}
-              />
-              <DropDownPicker
-                zIndex={3000}
-                items={weatherItems}
-                defaultValue={weather}
-                placeholder="Choisissez la météo"
-                containerStyle={{ height: 40, marginTop: 10, marginBottom: 80 }}
-                itemStyle={{
-                  justifyContent: 'flex-start',
-                  fontFamily: 'Antonio',
-                }}
-                dropDownStyle={{ backgroundColor: '#fafafa' }}
-                onChangeItem={(item) => setWeather(item.value)}
-              />
+              <View style={{ paddingBottom: 10 }}>
+                <RNPickerSelect
+                    placeholder = {{
+                      label: 'Choisissez le moment de la journée',
+                      value: null,
+                    }}
+                    items={momentItems}
+                    style = {customPickerStyles}
+                    onValueChange={(value) => setMoment(value)}
+                  />
+              </View>
+              <View style={{ paddingBottom: 10 }}>
+                <RNPickerSelect
+                  placeholder = {{
+                    label: 'Choisissez le milieu',
+                    value: null,
+                  }}
+                  items={localityItems}
+                  style = {customPickerStyles}
+                onValueChange={(value) => setLocalityType(value)}
+                />
+              </View>
+              <View style={{ paddingBottom: 10 }}>
+                <RNPickerSelect
+                  placeholder = {{
+                    label: 'Choisissez la météo',
+                    value: null,
+                  }}
+                  items={weatherItems}
+                  style = {customPickerStyles}
+                  onValueChange={(value) => setWeather(value)}
+                />
+              </View>
+              <View style={{ paddingBottom: 10 }}>
+                <RNPickerSelect
+                  placeholder = {{
+                    label: 'Choisissez la saison',
+                    value: null,
+                  }}
+                  items={seasonItems}
+                  style = {customPickerStyles}
+                  onValueChange={(value) => setSeason(value)}
+                />
+              </View>
             </View>
             <Button
               navigation={navigation}
               destination="TextGenerator"
               param={{
-                mode, moment, localityType, weather,
+                mode, moment, localityType, weather, season
               }}
               text="Dériver"
             />
@@ -143,6 +159,36 @@ const ChooseModePage = ({ route, navigation }) => {
     </View>
   );
 };
+
+const customPickerStyles = StyleSheet.create({
+  inputIOS: {
+    fontSize: 14,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    borderWidth: 1,
+    borderColor: '#bfbfbf',
+    borderRadius: 8,
+    color: '#bfbfbf',
+    backgroundColor: 'black',
+    textAlign: 'center',
+    height: 40, 
+    width: 300,
+  },
+  inputAndroid: {
+    fontSize: 14,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderColor: '#bfbfbf',
+    borderWidth: 1,
+    borderColor: 'white',
+    borderRadius: 8,
+    color: '#bfbfbf',
+    backgroundColor: 'black',
+    textAlign: 'center',
+    height: 40, 
+    width: 300,
+  },
+});
 
 ChooseModePage.propTypes = {
   navigation: PropTypes.shape({
