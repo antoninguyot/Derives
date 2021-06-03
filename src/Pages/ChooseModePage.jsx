@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { useRef, useState } from 'react';
 import {
-  Text, View, TouchableOpacity, Animated, StyleSheet
+  Animated, StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
 import ViewPager from '@react-native-community/viewpager';
-import { Picker } from '@react-native-picker/picker';
 import RNPickerSelect from 'react-native-picker-select/src';
 import { Ionicons } from '@expo/vector-icons';
 import styles from '../../App.css';
@@ -46,11 +45,11 @@ const ChooseModePage = ({ route, navigation }) => {
   ];
 
   const seasonItems = [
-    { value: 'été', label: 'Été' },
-    { value: 'automne', label: 'Automne' },
-    { value: 'printemps', label: 'Printemps' },
-    { value: 'hivers', label: 'Hiver' },
-  ]
+    { label: 'Été', value: 'été' },
+    { label: 'Automne', value: 'automne' },
+    { label: 'Printemps', value: 'printemps' },
+    { label: 'Hiver', value: 'hivers' },
+  ];
 
   return (
     <View style={{ flex: 1 }}>
@@ -102,45 +101,45 @@ const ChooseModePage = ({ route, navigation }) => {
             <View>
               <View style={{ paddingBottom: 10 }}>
                 <RNPickerSelect
-                    placeholder = {{
-                      label: 'Choisissez le moment de la journée',
-                      value: null,
-                    }}
-                    items={momentItems}
-                    style = {customPickerStyles}
-                    onValueChange={(value) => setMoment(value)}
-                  />
-              </View>
-              <View style={{ paddingBottom: 10 }}>
-                <RNPickerSelect
-                  placeholder = {{
-                    label: 'Choisissez le milieu',
+                  placeholder={{
+                    label: 'Choisissez le moment de la journée',
                     value: null,
                   }}
-                  items={localityItems}
-                  style = {customPickerStyles}
-                onValueChange={(value) => setLocalityType(value)}
+                  items={momentItems}
+                  style={customPickerStyles}
+                  onValueChange={(value) => setMoment(value)}
                 />
               </View>
               <View style={{ paddingBottom: 10 }}>
                 <RNPickerSelect
-                  placeholder = {{
+                  placeholder={{
+                    label: 'Choisissez le milieu',
+                    value: null,
+                  }}
+                  items={localityItems}
+                  style={customPickerStyles}
+                  onValueChange={(value) => setLocalityType(value)}
+                />
+              </View>
+              <View style={{ paddingBottom: 10 }}>
+                <RNPickerSelect
+                  placeholder={{
                     label: 'Choisissez la météo',
                     value: null,
                   }}
                   items={weatherItems}
-                  style = {customPickerStyles}
+                  style={customPickerStyles}
                   onValueChange={(value) => setWeather(value)}
                 />
               </View>
               <View style={{ paddingBottom: 10 }}>
                 <RNPickerSelect
-                  placeholder = {{
+                  placeholder={{
                     label: 'Choisissez la saison',
                     value: null,
                   }}
                   items={seasonItems}
-                  style = {customPickerStyles}
+                  style={customPickerStyles}
                   onValueChange={(value) => setSeason(value)}
                 />
               </View>
@@ -149,7 +148,7 @@ const ChooseModePage = ({ route, navigation }) => {
               navigation={navigation}
               destination="TextGenerator"
               param={{
-                mode, moment, localityType, weather, season
+                mode, moment, localityType, weather, season,
               }}
               text="Dériver"
             />
@@ -171,7 +170,7 @@ const customPickerStyles = StyleSheet.create({
     color: '#bfbfbf',
     backgroundColor: 'black',
     textAlign: 'center',
-    height: 40, 
+    height: 40,
     width: 300,
   },
   inputAndroid: {
@@ -180,12 +179,11 @@ const customPickerStyles = StyleSheet.create({
     paddingVertical: 8,
     borderColor: '#bfbfbf',
     borderWidth: 1,
-    borderColor: 'white',
     borderRadius: 8,
     color: '#bfbfbf',
     backgroundColor: 'black',
     textAlign: 'center',
-    height: 40, 
+    height: 40,
     width: 300,
   },
 });
