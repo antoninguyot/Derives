@@ -33,16 +33,16 @@ const music = {
  */
 const ambianceFiles = {
   city: [
-    require('../../assets/sounds/effects/ambiance/city1.mp3'),
-    require('../../assets/sounds/effects/ambiance/city2.mp3'),
-    require('../../assets/sounds/effects/ambiance/city3.mp3'),
+    require('../../assets/sounds/ambiance/city1.mp3'),
+    require('../../assets/sounds/ambiance/city2.mp3'),
+    require('../../assets/sounds/ambiance/city3.mp3'),
   ],
   country: [
-    require('../../assets/sounds/effects/ambiance/country1.mp3'),
+    require('../../assets/sounds/ambiance/country1.mp3'),
   ],
   beach: [
-    require('../../assets/sounds/effects/ambiance/beach1.mp3'),
-    require('../../assets/sounds/effects/ambiance/beach2.mp3'),
+    require('../../assets/sounds/ambiance/beach1.mp3'),
+    require('../../assets/sounds/ambiance/beach2.mp3'),
   ],
 };
 
@@ -53,7 +53,7 @@ const ambianceFiles = {
  * @returns {Promise<Sound>}
  */
 export const play = async (soundUrl, vol) => {
-  const { sound } = await Audio.Sound.createAsync(soundUrl, { shouldPlay: true, volume: vol });
+  const { sound } = await Audio.Sound.createAsync(soundUrl, { shouldPlay: true, volume: vol, isLooping: true });
   sound.setOnPlaybackStatusUpdate((status) => {
     if (!status.shouldPlay && !status.isPlaying && status.isLoaded) sound.unloadAsync();
   });

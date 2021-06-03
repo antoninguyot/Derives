@@ -10,7 +10,7 @@ import weatherRequest from '../Helpers/weather';
 import { getTextArray } from '../Helpers/text';
 import { fadeTo } from '../Helpers/anim';
 import {
-  getAcceleration, getAmbiance, getMusic, play,
+  getAmbiance, getMusic, play,
 } from '../Helpers/sound';
 import Debug from '../Components/Debug';
 import TextPoem from '../Components/TextPoem';
@@ -90,7 +90,7 @@ const PoemPage = ({ route, navigation }) => {
 
     // On commence par démarrer la musique
     const musicFile = getMusic(moment);
-    play(musicFile, 0.25)
+    play(musicFile, 0.75)
       .then((sound) => {
         musicSound = sound;
       });
@@ -111,31 +111,17 @@ const PoemPage = ({ route, navigation }) => {
     if (!shouldPlayAmbiance) return;
     const ambianceFile = getAmbiance(localityType);
     let ambianceSound;
-    play(ambianceFile, 0.5)
+    play(ambianceFile, 0.75)
       .then((sound) => {
         ambianceSound = sound;
       });
 
     // Arrêt du son lors de l'unmount
+    // eslint-disable-next-line consistent-return
     return () => {
       ambianceSound.unloadAsync();
     };
   }, [shouldPlayAmbiance]);
-
-  /**
-   * Joue les sons lorsque l'accélération change
-   */
-  useEffect(() => {
-    // On supprime l'intervalle précédent
-    if (musicInterval) clearInterval(musicInterval);
-
-    // On en crée un nouveau en fonction de l'accélération actuelle
-    if (walking) {
-      setMusicInterval(setInterval(() => {
-        play(getAcceleration(), 0);
-      }, 1500));
-    }
-  }, [walking]);
 
   /**
    * componentDidMount()
