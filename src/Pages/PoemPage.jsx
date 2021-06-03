@@ -88,7 +88,7 @@ const PoemPage = ({ route, navigation }) => {
 
     // On commence par démarrer la musique
     const musicFile = getMusic(moment);
-    play(musicFile, 0.25)
+    play(musicFile, 0.4, true)
       .then((sound) => {
         musicSound = sound;
       });
@@ -97,6 +97,7 @@ const PoemPage = ({ route, navigation }) => {
     if (musicFile !== '../data/Musics/noon3.mp3') setShouldPlayAmbiance(true);
 
     // Arrêt de la musique lors de l'unmount
+    // eslint-disable-next-line consistent-return
     return () => {
       musicSound.unloadAsync();
     };
@@ -109,12 +110,13 @@ const PoemPage = ({ route, navigation }) => {
     if (!shouldPlayAmbiance) return;
     const ambianceFile = getAmbiance(localityType);
     let ambianceSound;
-    play(ambianceFile, 0.5)
+    play(ambianceFile, 0.4, true)
       .then((sound) => {
         ambianceSound = sound;
       });
 
     // Arrêt du son lors de l'unmount
+    // eslint-disable-next-line consistent-return
     return () => {
       ambianceSound.unloadAsync();
     };
