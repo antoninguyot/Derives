@@ -29,14 +29,13 @@ const PoemPage = ({ route, navigation }) => {
   const [populationDensity, setPopulationDensity] = useState();
   const [localityType, setLocalityType] = useState(route.params.localityType);
   const [season, setSeason] = useState();
-  const [moment, setMoment] = useState(route.params.moment);
+  const [moment] = useState(route.params.moment);
   const [temperature, setTemperature] = useState(-100);
   const [weather, setWeather] = useState(route.params.weather);
 
   // Music states
   const [isReadyToPlay, setIsReadyToPlay] = useState(false);
   const [shouldPlayAmbiance, setShouldPlayAmbiance] = useState(false);
-  const [musicInterval, setMusicInterval] = useState();
 
   // Poems states
   const [mode, setMode] = useState(route.params.mode);
@@ -183,11 +182,8 @@ const PoemPage = ({ route, navigation }) => {
   useEffect(() => {
     if (mode !== 'sas') return;
     setTimeout(() => {
-      setMoment(calculateNextMoment(moment));
-      setStropheIndex(-1);
-      setIsReadyToPlay(false);
-      setMode('read');
-    }, 4000);
+      navigation.replace('TextGenerator', { moment: calculateNextMoment(moment) });
+    }, 5000);
   }, [mode]);
 
   useInterval(() => {
