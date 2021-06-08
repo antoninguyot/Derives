@@ -2,25 +2,25 @@
   "stable": [
     [
       "Déjà le jour {random|se penche,s’appuie contre,s'engourdit}",
-      "{random|dans ton dos,sur tes épaules}"
+      "{random|Dans ton dos,Sur tes épaules}"
     ],
     [
       "Tu vas",
       "Tu avances"
     ],
     [
-      "comme {random|se secoue la nappe,s’attardent les rires,s’allongent les jeux} {random|après le vin du dimanche,devant les braises chaudes}",
+      "Comme {random|se secoue la nappe,s’attardent les rires,s’allongent les jeux} {random|après le vin du dimanche,devant les braises chaudes}",
       "comme {random|s’empochent,se récoltent,se ramassent} les {random|silences,rumeurs, traces}",
       "et {random|perdurent,règnent} les {random|statues,forêts}"
     ],
     [
       "Toi",
-      "{random|les yeux,le corps} en {random|avenue,ligne de fuite}",
+      "{random|Les yeux,Le corps} en {random|avenue,ligne de fuite}",
       "Tu te laisses conduire par {weather|cold:le froid,sweet:la douceur,hot:l’été} qui passe"
     ],
     [
       "Tu te laisses conduire",
-      "sans {random|te retourner,faiblir,ralentir}"
+      "Sans {random|te retourner,faiblir,ralentir}"
     ],
     [
       "sans savoir si la {location|city:ville,country:terre} s’imprime sur {random|tes talons,tes semelles, ton souffle}",
@@ -58,7 +58,7 @@
       "Tu t’élances"
     ],
     [
-      "{random|comme se secoue la nappe,s’attardent les rires,s’allongent les jeux} {random|après le vin du dimanche,devant les braises chaudes}",
+      "{random|Comme se secoue la nappe,Comme s’attardent les rires,Comme s’allongent les jeux} {random|après le vin du dimanche,devant les braises chaudes}",
       "comme {random|s’empochent,se récoltent,se ramassent} les {random|silences,rumeurs,traces}",
       "et {random|perdurent,règnent} les {random|statues,forêts}"
     ],

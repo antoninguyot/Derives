@@ -18,7 +18,7 @@
     [
       "un œil impossible à {random|fermer,clore,fuir}",
       "qui {random|te regarde,t’enserre,t’avale}",
-      "{random|les cils mêlés,les doigts mêlés,la langue mêlée} {random|aux arbres,aux gouttes,au vent,aux pavés,au sable}"
+      "Les cils mêlés {random|aux arbres,aux gouttes,au vent,aux pavés,au sable}"
     ],
     [
       "La nuit te rattrape"
@@ -67,7 +67,7 @@
     [
       "l’œil qui veille",
       "et te défie",
-      "{random|les cils,les doigts,la langue} mêlés aux {random|arbres,aux gouttes,au vent,aux pavés,au sable}"
+      "les cils mêlés {random|arbres,aux gouttes,au vent,aux pavés,au sable}"
     ],
     [
       "Tu rattrapes la nuit"

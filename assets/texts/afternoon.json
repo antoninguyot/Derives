@@ -27,7 +27,7 @@
     ],
     [
       "{random|Quelque chose se calme,Le vent tombe,L’air s’apaise}",
-      "dans la grossesse de {season|automne:l’automne,été:l'été,hiver:l'hiver,printemps:le printemps}"
+      "dans la grossesse {season|automne:de l’automne,été:de l'été,hiver:de l'hiver,printemps:du printemps}"
     ],
     [
       "Le souvenir {random|se tait,se couche,se range}",
