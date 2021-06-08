@@ -4,7 +4,6 @@ import { Animated, View } from 'react-native';
 import useInterval from '@use-it/interval';
 import * as Location from 'expo-location';
 import styles from '../../App.css';
-import { worldPopLocationRequest } from '../Helpers/location';
 import { calculateNextMoment, calculateSeason } from '../Helpers/time';
 import weatherRequest from '../Helpers/weather';
 import { getTextArray } from '../Helpers/text';
@@ -88,7 +87,7 @@ const PoemPage = ({ route, navigation }) => {
 
     // On commence par démarrer la musique
     const musicFile = getMusic(moment);
-    play(musicFile, 0.4, true)
+    play(musicFile, 0.2, true)
       .then((sound) => {
         musicSound = sound;
       });
@@ -110,7 +109,7 @@ const PoemPage = ({ route, navigation }) => {
     if (!shouldPlayAmbiance) return;
     const ambianceFile = getAmbiance(localityType);
     let ambianceSound;
-    play(ambianceFile, 0.4, true)
+    play(ambianceFile, 0.2, true)
       .then((sound) => {
         ambianceSound = sound;
       });
