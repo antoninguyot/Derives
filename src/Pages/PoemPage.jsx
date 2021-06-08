@@ -68,7 +68,7 @@ const PoemPage = ({ route, navigation }) => {
    * Mise à jour de la météo lorsque la température change
    */
   useEffect(() => {
-    if (weather == null) return;
+    if (temperature === -100) return;
     if (temperature < 12) {
       setWeather('cold');
     } else if (temperature > 25) {
