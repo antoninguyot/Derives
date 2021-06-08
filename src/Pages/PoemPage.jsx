@@ -152,11 +152,13 @@ const PoemPage = ({ route, navigation }) => {
       })();
       // Seconde requête async pour la population
       // noinspection ES6MissingAwait
-      (async () => {
-        setPopulationDensity(await worldPopLocationRequest(
-          currentLocation.coords.longitude, currentLocation.coords.latitude,
-        ));
-      })();
+      // (async () => {
+      //   setPopulationDensity(await worldPopLocationRequest(
+      //     currentLocation.coords.longitude, currentLocation.coords.latitude,
+      //   ));
+      // })();
+
+      setPopulationDensity(1000);
     })();
 
     let subscriberRemove;
