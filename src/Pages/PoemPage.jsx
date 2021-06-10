@@ -16,6 +16,7 @@ import BackIcon from '../Components/BackIcon';
 import DebugIcon from '../Components/DebugIcon';
 import SwitchModeIcon from '../Components/SwitchModeIcon';
 import ForwardIcon from '../Components/ForwardIcon';
+import { worldPopLocationRequest } from '../Helpers/location';
 
 const PoemPage = ({ route, navigation }) => {
   // Page states
@@ -151,13 +152,11 @@ const PoemPage = ({ route, navigation }) => {
       })();
       // Seconde requête async pour la population
       // noinspection ES6MissingAwait
-      // (async () => {
-      //   setPopulationDensity(await worldPopLocationRequest(
-      //     currentLocation.coords.longitude, currentLocation.coords.latitude,
-      //   ));
-      // })();
-
-      setPopulationDensity(1000);
+      (async () => {
+        setPopulationDensity(await worldPopLocationRequest(
+          currentLocation.coords.longitude, currentLocation.coords.latitude,
+        ));
+      })();
     })();
 
     let subscriberRemove;
@@ -196,11 +195,9 @@ const PoemPage = ({ route, navigation }) => {
       || !weather
       || !season
       || !moment
-      || !currentSpeed
-      || !populationDensity
-    ) {
-      return;
-    }
+      || currentSpeed == null
+      || populationDensity == null
+    ) return;
 
     if (!isReadyToPlay) setIsReadyToPlay(true);
 

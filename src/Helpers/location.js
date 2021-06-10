@@ -25,8 +25,15 @@ export const worldPopLocationRequest = async (longitude, latitude) => {
     runasync: false, // We want to get the result synchronously
   };
 
-  const { data: response } = await axios.get(worldPopBase, { params: requestBody });
-  if (response.error) return 0;
-  if (Number.isNaN(response.data.total_population)) return 0;
-  return Math.round(response.data.total_population / (Math.PI * radius));
+  try {
+    const { data: response } = await axios.get(worldPopBase, {
+      params: requestBody, timeout: 5000,
+    });
+    if (response.error) return 1000;
+    if (Number.isNaN(response.data.total_population)) return 1000;
+    return Math.round(response.data.total_population / (Math.PI * radius));
+  } catch (e) {
+    // Si il y a une erreur dans notre requête on renvoie une valeur par défaut pas trop déconnante
+    return 1000;
+  }
 };

@@ -11,7 +11,12 @@ export default async (longitude, latitude) => {
     units: 'metric',
   };
 
-  const { data: response } = await axios.get(baseUrl, { params: requestBody });
-  if (Number.isNaN(response.main.temp)) return 0;
-  return response.main.temp;
+  try {
+    const { data: response } = await axios.get(baseUrl, { params: requestBody, timeout: 5000 });
+    if (Number.isNaN(response.main.temp)) return 0;
+    return response.main.temp;
+  } catch (e) {
+    // Si il y a une erreur dans notre requête on renvoie une valeur par défaut pas trop déconnante
+    return 15;
+  }
 };
