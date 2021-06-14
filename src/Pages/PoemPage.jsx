@@ -32,7 +32,7 @@ const PoemPage = ({ route, navigation }) => {
   const [longitude, setLongitude] = useState();
   const [latitude, setLatitude] = useState();
   const [populationDensity, setPopulationDensity] = useState();
-  const [localityType, setLocalityType] = useState(route.params.localityType);
+  const [localityType, setLocalityType] = useState(route.params.localityType ?? null);
   const [temperature, setTemperature] = useState(-100);
   const [weather, setWeather] = useState(route.params.weather ?? null);
 
