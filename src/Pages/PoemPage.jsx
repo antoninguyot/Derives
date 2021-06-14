@@ -4,7 +4,7 @@ import { Animated, Modal, View } from 'react-native';
 import useInterval from '@use-it/interval';
 import * as Location from 'expo-location';
 import styles from '../../App.css';
-import { calculateNextMoment, calculateSeason } from '../Helpers/time';
+import { calculateMoment, calculateNextMoment, calculateSeason } from '../Helpers/time';
 import weatherRequest from '../Helpers/weather';
 import { getTextArray } from '../Helpers/text';
 import { fadeTo } from '../Helpers/anim';
@@ -30,8 +30,6 @@ const PoemPage = ({ route, navigation }) => {
   const [latitude, setLatitude] = useState();
   const [populationDensity, setPopulationDensity] = useState();
   const [localityType, setLocalityType] = useState(route.params.localityType);
-  const [season, setSeason] = useState();
-  const [moment] = useState(route.params.moment);
   const [temperature, setTemperature] = useState(-100);
   const [weather, setWeather] = useState(route.params.weather);
 
@@ -47,17 +45,13 @@ const PoemPage = ({ route, navigation }) => {
   const [currentSpeed, setCurrentSpeed] = useState();
   const [walking, setWalking] = useState(false);
 
+  const moment = route.params.moment ?? calculateMoment();
+  const season = route.params.season ?? calculateSeason();
+
   useEffect(() => {
     if (!currentSpeed || currentSpeed === -1) return;
     setWalking(!(currentSpeed < 1));
   }, [currentSpeed]);
-
-  /**
-   * Mise à jour de la saison avec mode paramétré
-   */
-  useEffect(() => {
-    setSeason(route.params.season ? route.params.season : calculateSeason());
-  }, []);
 
   /**
    * Mise à jour du type d'environnement lorsque la densité de pop change
@@ -196,7 +190,6 @@ const PoemPage = ({ route, navigation }) => {
       || !localityType
       || !weather
       || !season
-      || !moment
       || currentSpeed == null
       || populationDensity == null
     ) return;
