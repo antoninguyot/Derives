@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import {
-  SafeAreaView, ScrollView, Text, TouchableOpacity,
+  SafeAreaView, ScrollView, Text,
 } from 'react-native';
 import React from 'react';
-import { Ionicons } from '@expo/vector-icons';
 import styles from '../../App.css';
-import Person from '../Components/Person';
+import Person from './Person';
+import CloseIcon from './CloseIcon';
 
-const CreditsPage = ({ navigation }) => (
+const CreditsModal = ({ close }) => (
   <SafeAreaView style={styles.containerCredits}>
     <ScrollView>
       <Text style={[styles.textTitleW, { marginVertical: 15 }]}>Crédits</Text>
@@ -57,19 +57,12 @@ const CreditsPage = ({ navigation }) => (
         description="Étudiant à l'UTC. Développement de l'application."
       />
     </ScrollView>
-    <TouchableOpacity
-      onPress={() => navigation.navigate('ChooseMode')}
-    >
-      <Ionicons name="md-arrow-back-circle-outline" size={32} color="darkgrey" />
-    </TouchableOpacity>
+    <CloseIcon onPress={close} />
   </SafeAreaView>
 );
 
-CreditsPage.propTypes = {
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-    replace: PropTypes.func.isRequired,
-  }).isRequired,
+CreditsModal.propTypes = {
+  close: PropTypes.func.isRequired,
 };
 
-export default CreditsPage;
+export default CreditsModal;

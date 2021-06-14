@@ -18,12 +18,15 @@ import ForwardIcon from '../Components/ForwardIcon';
 import { worldPopLocationRequest } from '../Helpers/location';
 import CheatIcon from '../Components/CheatIcon';
 import CheatModal from '../Components/CheatModal';
+import CreditsIcon from '../Components/CreditsIcon';
+import CreditsModal from '../Components/CreditsModal';
 
 const PoemPage = ({ route, navigation }) => {
   // Page states
   const [isMounted, setIsMounted] = useState(true);
   const [debug, setDebug] = useState(false);
   const [showCheat, setShowCheat] = useState(false);
+  const [showCredits, setShowCredits] = useState(false);
 
   // Localisation states
   const [longitude, setLongitude] = useState();
@@ -227,6 +230,13 @@ const PoemPage = ({ route, navigation }) => {
           close={() => setShowCheat(!showCheat)}
         />
       </Modal>
+      <Modal
+        animationType="slide"
+        transparent
+        visible={showCredits}
+      >
+        <CreditsModal close={() => setShowCredits(!showCredits)} />
+      </Modal>
       {
         {
           read: <TextPoem
@@ -266,6 +276,7 @@ const PoemPage = ({ route, navigation }) => {
       )}
       <SwitchModeIcon mode={mode} onPress={() => setMode(mode === 'read' ? 'listen' : 'read')} />
       <CheatIcon onPress={() => setShowCheat(!showCheat)} />
+      <CreditsIcon onPress={() => setShowCredits(!showCredits)} />
       <DebugIcon onPress={() => setDebug(!debug)} />
     </View>
   );

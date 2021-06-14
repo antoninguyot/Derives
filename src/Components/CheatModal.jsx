@@ -7,6 +7,7 @@ import RNPickerSelect from 'react-native-picker-select/src';
 import { Ionicons } from '@expo/vector-icons';
 import styles from '../../App.css';
 import Button from './Button';
+import CloseIcon from './CloseIcon';
 
 const customPickerStyles = StyleSheet.create({
   inputIOS: {
@@ -125,23 +126,17 @@ const CheatModal = ({ route, navigation, close }) => {
             navigation={navigation}
             destination="TextGenerator"
             param={{
-              mode, moment, localityType, weather, season,
+              mode,
+              moment,
+              localityType,
+              weather,
+              season,
             }}
             text="Dériver"
           />
         </View>
       </View>
-      <TouchableOpacity
-        style={{
-          flex: 1,
-          position: 'absolute',
-          top: 30,
-          left: 10,
-        }}
-        onPress={close}
-      >
-        <Ionicons name="md-close-circle-outline" size={32} color="darkgrey" />
-      </TouchableOpacity>
+      <CloseIcon onPress={close} />
     </View>
   );
 };

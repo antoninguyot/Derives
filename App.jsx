@@ -8,7 +8,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import PermissionsPage from './src/Pages/PermissionsPage';
 import WelcomePage from './src/Pages/WelcomePage';
 import PoemPage from './src/Pages/PoemPage';
-import CreditsPage from './src/Pages/CreditsPage';
 import { calculateMoment } from './src/Helpers/time';
 
 const App = () => {
@@ -77,7 +76,6 @@ const App = () => {
             }}
             options={{ animationEnabled: false }}
           />
-          <Stack.Screen name="Credits" component={CreditsPage} />
         </>
       </Stack.Navigator>
     </NavigationContainer>
