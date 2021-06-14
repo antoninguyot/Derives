@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { Animated, View } from 'react-native';
+import { Animated, Modal, View } from 'react-native';
 import useInterval from '@use-it/interval';
 import * as Location from 'expo-location';
 import styles from '../../App.css';
@@ -12,16 +12,18 @@ import { getAmbiance, getMusic, play } from '../Helpers/sound';
 import Debug from '../Components/Debug';
 import TextPoem from '../Components/TextPoem';
 import AudioPoem from '../Components/AudioPoem';
-import BackIcon from '../Components/BackIcon';
 import DebugIcon from '../Components/DebugIcon';
 import SwitchModeIcon from '../Components/SwitchModeIcon';
 import ForwardIcon from '../Components/ForwardIcon';
 import { worldPopLocationRequest } from '../Helpers/location';
+import CheatIcon from '../Components/CheatIcon';
+import CheatModal from '../Components/CheatModal';
 
 const PoemPage = ({ route, navigation }) => {
   // Page states
   const [isMounted, setIsMounted] = useState(true);
   const [debug, setDebug] = useState(false);
+  const [showCheat, setShowCheat] = useState(false);
 
   // Localisation states
   const [longitude, setLongitude] = useState();
@@ -221,6 +223,17 @@ const PoemPage = ({ route, navigation }) => {
 
   return (
     <View style={styles.containerCamera}>
+      <Modal
+        animationType="slide"
+        transparent
+        visible={showCheat}
+      >
+        <CheatModal
+          route={route}
+          navigation={navigation}
+          close={() => setShowCheat(!showCheat)}
+        />
+      </Modal>
       {
         {
           read: <TextPoem
@@ -259,9 +272,7 @@ const PoemPage = ({ route, navigation }) => {
         />
       )}
       <SwitchModeIcon mode={mode} onPress={() => setMode(mode === 'read' ? 'listen' : 'read')} />
-      {/* Back button */}
-      <BackIcon onPress={() => navigation.replace('ChooseMode', { mode })} />
-      {/* Debug button */}
+      <CheatIcon onPress={() => setShowCheat(!showCheat)} />
       <DebugIcon onPress={() => setDebug(!debug)} />
     </View>
   );

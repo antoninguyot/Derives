@@ -19,6 +19,8 @@ const DebugIcon = ({ onPress }) => (
   </TouchableOpacity>
 );
 
-DebugIcon.propTypes = { onPress: PropTypes.func.isRequired };
+DebugIcon.propTypes = {
+  onPress: PropTypes.func.isRequired,
+};
 
 export default DebugIcon;
