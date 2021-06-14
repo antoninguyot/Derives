@@ -22,7 +22,7 @@
     [
       "{weather|cold:Sa brise,sweet:Son souffle,hot:Sa chaleur} t’entraîne",
       "te guide sur {random|la fatigue,le silence,le sommeil} des {location|city:pierres,country:bêtes}",
-      "et {random|ébruite les, fait danser les, fait tinter les} cimes {location|city:d’acier,country:de blé}",
+      "et {random|ébruite les,fait danser les,fait tinter les} cimes {location|city:d’acier,country:de blé}",
       "contre tes tempes"
     ],
     [
