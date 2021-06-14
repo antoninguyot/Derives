@@ -23,10 +23,27 @@ const AudioPoem = ({
   if (isReadyToPlay) playFile();
 
   let title;
-  if (moment === 'nuit') {
-    title = ['Dérive de la nuit'];
-  } else {
-    title = [`Dérive du ${moment}`];
+  // if (moment === 'nuit') {
+  //   title = ['Dérive de la nuit'];
+  // } else if (moment === 'nuit'){
+  //   title = [`Dérive du ${moment}`];
+  // }
+  
+  switch ('matin') {
+    case 'matin':
+      title = ['Dérive du matin'];
+      break;
+    case 'midi':
+      title = title = ["Dérive de l'après-midi"];
+      break;
+    case 'soir':
+      title = title = ['Dérive du soir'];
+      break;
+    case 'nuit':
+      title = title = ['Dérive de la nuit'];
+      break;
+    default:
+      title = undefined;
   }
 
   return (

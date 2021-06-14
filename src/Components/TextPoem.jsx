@@ -24,10 +24,23 @@ const TextPoem = ({
     strophe = relevantText[stropheIndex].map(
       (vers) => combine(vers, localityType, weather, season),
     );
-  } else if (moment === 'nuit') {
-    strophe = ['Dérive de la nuit'];
   } else {
-    strophe = [`Dérive du ${moment}`];
+    switch (moment) {
+      case 'matin':
+        strophe = ['Dérive du matin'];
+        break;
+      case 'midi':
+        strophe = ["Dérive de l'après-midi"];
+        break;
+      case 'soir':
+        strophe = ['Dérive du soir'];
+        break;
+      case 'nuit':
+        strophe = ['Dérive de la nuit'];
+        break;
+      default:
+        strophe = undefined;
+    }
   }
 
   return (

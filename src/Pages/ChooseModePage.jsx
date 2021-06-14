@@ -1,11 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { useRef, useState } from 'react';
 import {
-  Animated, StyleSheet, Text, TouchableOpacity, View,
+  Animated, StyleSheet, Text, TouchableOpacity, View, Modal, Alert,
 } from 'react-native';
-import ViewPager from '@react-native-community/viewpager';
 import RNPickerSelect from 'react-native-picker-select/src';
-import { Ionicons } from '@expo/vector-icons';
 import styles from '../../App.css';
 import { fadeLoop } from '../Helpers/anim';
 import Button from '../Components/Button';
@@ -18,6 +16,7 @@ const ChooseModePage = ({ route, navigation }) => {
 
   const fadeAnim = useRef(new Animated.Value(0)).current; // Initial value for opacity: 0
   const { mode } = route.params;
+  const [modalVisible, setModalVisible] = useState(false);
 
   React.useEffect(() => {
     const fadeInterval = fadeLoop(fadeAnim, 0, 1, 2000);
@@ -52,109 +51,109 @@ const ChooseModePage = ({ route, navigation }) => {
   ];
 
   return (
-    <View style={{ flex: 1 }}>
-      {/* Immersive Mode */}
-      <ViewPager style={{ flex: 1 }} initialPage={1}>
-        <View style={[styles.containerWelcomeScreens, { flexDirection: 'column', justifyContent: 'space-around', paddingHorizontal: 110 }]} keys="1">
-          <Text style={styles.textTitleW}>Mode Immersif</Text>
-          <Button navigation={navigation} destination="TextGenerator" text="Dériver" param={{ mode }} />
-        </View>
-        {/* Central Screen */}
-        <View style={styles.containerWelcomeScreens} key="2">
-          <Animated.View style={{
-            marginTop: 50,
-            opacity: fadeAnim,
+    <View style={[styles.containerWelcomeScreens, { flexDirection: 'column', justifyContent: 'space-around' }]}>
+      <View style={styles.containerRow}>
+        <Button navigation={navigation} destination="TextGenerator" text="Mode immersif " param={{ mode }} />
+      </View>
+      <View style={styles.containerRow}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+            setModalVisible(!modalVisible);
           }}
-          >
-            <Text style={[styles.textW, { textAlign: 'left', marginTop: 50 }]}>« Mode immersif</Text>
-          </Animated.View>
-          <Animated.View style={{
-            marginTop: 50,
-            opacity: fadeAnim,
-          }}
-          >
-            <Text style={[styles.textW, { textAlign: 'right' }]}>Construire votre expérience »</Text>
-          </Animated.View>
-          <View style={styles.containerButtonCredits}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('Credits')}
-              style={[styles.buttonStyle, { marginHorizontal: 100, marginTop: 300 }]}
-            >
-              <Text style={[styles.textLittleW, { textAlign: 'center' }]}>crédits</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{ flex: 1 }}>
-            <TouchableOpacity
-              style={{
-                flex: 1, position: 'absolute', bottom: 0, left: 0, marginBottom: 5, marginLeft: 5,
-              }}
-              onPress={() => navigation.navigate('ChooseModeSense')}
-            >
-              <Ionicons name="md-arrow-back-circle-outline" size={32} color="darkgrey" />
-            </TouchableOpacity>
-          </View>
-        </View>
-        {/* Manual Mode */}
-        <View style={styles.containerWelcomeScreens} key="3">
-          <View style={styles.containerChooseMode}>
-            <Text style={styles.textTitleW}>Construire votre expérience</Text>
-            <View>
-              <View style={{ paddingBottom: 10 }}>
-                <RNPickerSelect
-                  placeholder={{
-                    label: 'Choisissez le moment de la journée',
-                    value: null,
-                  }}
-                  items={momentItems}
-                  style={customPickerStyles}
-                  onValueChange={(value) => setMoment(value)}
-                />
+        >
+          <View style={customPickerStyles.centeredView}>
+            <View style={customPickerStyles.modalView}>
+              <View>
+                <View style={{ paddingBottom: 10 }}>
+                  <RNPickerSelect
+                    placeholder={{
+                      label: 'Choisissez le moment de la journée',
+                      value: null,
+                    }}
+                    items={momentItems}
+                    style={customPickerStyles}
+                    onValueChange={(value) => setMoment(value)}
+                  />
+                </View>
+                <View style={{ paddingBottom: 10 }}>
+                  <RNPickerSelect
+                    placeholder={{
+                      label: 'Choisissez le milieu',
+                      value: null,
+                    }}
+                    items={localityItems}
+                    style={customPickerStyles}
+                    onValueChange={(value) => setLocalityType(value)}
+                  />
+                </View>
+                <View style={{ paddingBottom: 10 }}>
+                  <RNPickerSelect
+                    placeholder={{
+                      label: 'Choisissez la météo',
+                      value: null,
+                    }}
+                    items={weatherItems}
+                    style={customPickerStyles}
+                    onValueChange={(value) => setWeather(value)}
+                  />
+                </View>
+                <View style={{ paddingBottom: 10 }}>
+                  <RNPickerSelect
+                    placeholder={{
+                      label: 'Choisissez la saison',
+                      value: null,
+                    }}
+                    items={seasonItems}
+                    style={customPickerStyles}
+                    onValueChange={(value) => setSeason(value)}
+                  />
+                </View>
               </View>
-              <View style={{ paddingBottom: 10 }}>
-                <RNPickerSelect
-                  placeholder={{
-                    label: 'Choisissez le milieu',
-                    value: null,
-                  }}
-                  items={localityItems}
-                  style={customPickerStyles}
-                  onValueChange={(value) => setLocalityType(value)}
-                />
-              </View>
-              <View style={{ paddingBottom: 10 }}>
-                <RNPickerSelect
-                  placeholder={{
-                    label: 'Choisissez la météo',
-                    value: null,
-                  }}
-                  items={weatherItems}
-                  style={customPickerStyles}
-                  onValueChange={(value) => setWeather(value)}
-                />
-              </View>
-              <View style={{ paddingBottom: 10 }}>
-                <RNPickerSelect
-                  placeholder={{
-                    label: 'Choisissez la saison',
-                    value: null,
-                  }}
-                  items={seasonItems}
-                  style={customPickerStyles}
-                  onValueChange={(value) => setSeason(value)}
-                />
-              </View>
+              <TouchableOpacity
+                style={[styles.buttonStyle, {
+                  backgroundColor: 'black', borderWidth: 1, borderColor: 'white', width: '100%',
+                }]}
+                onPress={() => {
+                  navigation.navigate('TextGenerator', {
+                    mode, moment, localityType, weather, season,
+                  });
+                  setModalVisible(!modalVisible);
+                }}
+              >
+                <Text style={[styles.textTitleW, { textAlign: 'center' }]}>
+                  Deriver
+                </Text>
+              </TouchableOpacity>
             </View>
-            <Button
-              navigation={navigation}
-              destination="TextGenerator"
-              param={{
-                mode, moment, localityType, weather, season,
-              }}
-              text="Dériver"
-            />
           </View>
+        </Modal>
+        <TouchableOpacity
+          style={[styles.buttonStyle, {
+            backgroundColor: 'black', borderWidth: 1, borderColor: 'white', width: '100%',
+          }]}
+          onPress={() => {
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <Text style={[styles.textTitleW, { textAlign: 'center' }]}>
+            Choisir votre expérience
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.containerRow}>
+        <View style={styles.containerButtonCredits}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Credits')}
+            style={[styles.buttonStyle, { marginHorizontal: 100, marginTop: 300 }]}
+          >
+            <Text style={[styles.textLittleW, { textAlign: 'center' }]}>crédits</Text>
+          </TouchableOpacity>
         </View>
-      </ViewPager>
+      </View>
     </View>
   );
 };
@@ -185,6 +184,36 @@ const customPickerStyles = StyleSheet.create({
     textAlign: 'center',
     height: 40,
     width: 300,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
   },
 });
 

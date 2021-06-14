@@ -41,6 +41,7 @@ Button.propTypes = {
   destination: PropTypes.string.isRequired,
   // eslint-disable-next-line react/forbid-prop-types,react/require-default-props
   param: PropTypes.object,
+  onPressAction: PropTypes.func,
 };
 
 export default Button;
