@@ -69,9 +69,6 @@ const App = () => {
             name="TextGenerator"
             component={PoemPage}
             initialParams={{
-              localityType: null,
-              moment: calculateMoment(),
-              weather: null,
               mode: 'read',
             }}
             options={{ animationEnabled: false }}

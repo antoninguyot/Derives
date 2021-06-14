@@ -34,7 +34,7 @@ const PoemPage = ({ route, navigation }) => {
   const [populationDensity, setPopulationDensity] = useState();
   const [localityType, setLocalityType] = useState(route.params.localityType);
   const [temperature, setTemperature] = useState(-100);
-  const [weather, setWeather] = useState(route.params.weather);
+  const [weather, setWeather] = useState(route.params.weather ?? null);
 
   // Music states
   const [isReadyToPlay, setIsReadyToPlay] = useState(false);
@@ -145,6 +145,7 @@ const PoemPage = ({ route, navigation }) => {
       // Première requête async pour la météo
       // noinspection ES6MissingAwait
       (async () => {
+        if (weather !== null) return;
         setTemperature(await weatherRequest(
           currentLocation.coords.longitude, currentLocation.coords.latitude,
         ));
