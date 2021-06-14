@@ -3,7 +3,7 @@ import React from 'react';
 import * as PropTypes from 'prop-types';
 import styles from '../../App.css';
 import CCamera from './CCamera';
-import { combine, getTextArray } from '../Helpers/text';
+import { combine, getTextArray, getTextTitle } from '../Helpers/text';
 
 const TextPoem = ({
   moment,
@@ -24,10 +24,8 @@ const TextPoem = ({
     strophe = relevantText[stropheIndex].map(
       (vers) => combine(vers, localityType, weather, season),
     );
-  } else if (moment === 'nuit') {
-    strophe = ['Dérive de la nuit'];
   } else {
-    strophe = [`Dérive du ${moment}`];
+    strophe = [getTextTitle(moment)];
   }
 
   return (

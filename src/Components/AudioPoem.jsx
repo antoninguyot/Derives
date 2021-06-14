@@ -5,6 +5,7 @@ import * as PropTypes from 'prop-types';
 import styles from '../../App.css';
 import files from '../../assets/audio/manifest';
 import { play } from '../Helpers/sound';
+import { getTextTitle } from '../Helpers/text';
 
 const AudioPoem = ({
   moment,
@@ -22,12 +23,7 @@ const AudioPoem = ({
 
   if (isReadyToPlay) playFile();
 
-  let title;
-  if (moment === 'nuit') {
-    title = ['Dérive de la nuit'];
-  } else {
-    title = [`Dérive du ${moment}`];
-  }
+  const title = getTextTitle(moment);
 
   return (
     <>

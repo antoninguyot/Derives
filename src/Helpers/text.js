@@ -1,7 +1,7 @@
 import Matin from '../../assets/texts/morning.json';
 import Midi from '../../assets/texts/afternoon.json';
 import Soir from '../../assets/texts/evening.json';
-import Nuit from '../../assets/texts/night.json'
+import Nuit from '../../assets/texts/night.json';
 
 /**
  * Chargement du bon texte en fonction de la période de la journée
@@ -22,6 +22,28 @@ export const getTextArray = (moment) => {
   }
 };
 
+export const getTextTitle = (moment) => {
+  switch (moment) {
+    case 'matin':
+      return 'Dérive du matin';
+    case 'midi':
+      return 'Dérive de l\'après-midi';
+    case 'soir':
+      return 'Dérive du soir';
+    case 'nuit':
+      return 'Dérive de la nuit';
+    default:
+      return undefined;
+  }
+};
+
+/**
+ * @param combinationString
+ * @param location
+ * @param weather
+ * @param season
+ * @returns {(function(): (*))|*}
+ */
 const evalCombi = (combinationString, location, weather, season) => {
   // Type de combinatoire (aléatoire, GPS, localisation...)
   const selectionType = combinationString.substring(0, combinationString.indexOf('|'));
