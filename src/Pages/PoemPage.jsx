@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { Animated, View } from 'react-native';
+import { Animated, Modal, View } from 'react-native';
 import useInterval from '@use-it/interval';
 import * as Location from 'expo-location';
 import styles from '../../App.css';
-import { calculateNextMoment, calculateSeason } from '../Helpers/time';
+import { calculateMoment, calculateNextMoment, calculateSeason } from '../Helpers/time';
 import weatherRequest from '../Helpers/weather';
 import { getTextArray } from '../Helpers/text';
 import { fadeTo } from '../Helpers/anim';
@@ -12,26 +12,29 @@ import { getAmbiance, getMusic, play } from '../Helpers/sound';
 import Debug from '../Components/Debug';
 import TextPoem from '../Components/TextPoem';
 import AudioPoem from '../Components/AudioPoem';
-import BackIcon from '../Components/BackIcon';
 import DebugIcon from '../Components/DebugIcon';
 import SwitchModeIcon from '../Components/SwitchModeIcon';
 import ForwardIcon from '../Components/ForwardIcon';
 import { worldPopLocationRequest } from '../Helpers/location';
+import CheatIcon from '../Components/CheatIcon';
+import CheatModal from '../Components/CheatModal';
+import CreditsIcon from '../Components/CreditsIcon';
+import CreditsModal from '../Components/CreditsModal';
 
 const PoemPage = ({ route, navigation }) => {
   // Page states
   const [isMounted, setIsMounted] = useState(true);
   const [debug, setDebug] = useState(false);
+  const [showCheat, setShowCheat] = useState(false);
+  const [showCredits, setShowCredits] = useState(false);
 
   // Localisation states
   const [longitude, setLongitude] = useState();
   const [latitude, setLatitude] = useState();
   const [populationDensity, setPopulationDensity] = useState();
-  const [localityType, setLocalityType] = useState(route.params.localityType);
-  const [season, setSeason] = useState();
-  const [moment] = useState(route.params.moment);
+  const [localityType, setLocalityType] = useState(route.params.localityType ?? null);
   const [temperature, setTemperature] = useState(-100);
-  const [weather, setWeather] = useState(route.params.weather);
+  const [weather, setWeather] = useState(route.params.weather ?? null);
 
   // Music states
   const [isReadyToPlay, setIsReadyToPlay] = useState(false);
@@ -45,17 +48,13 @@ const PoemPage = ({ route, navigation }) => {
   const [currentSpeed, setCurrentSpeed] = useState();
   const [walking, setWalking] = useState(false);
 
+  const moment = route.params.moment ?? calculateMoment();
+  const season = route.params.season ?? calculateSeason();
+
   useEffect(() => {
     if (!currentSpeed || currentSpeed === -1) return;
     setWalking(!(currentSpeed < 1));
   }, [currentSpeed]);
-
-  /**
-   * Mise à jour de la saison avec mode paramétré
-   */
-  useEffect(() => {
-    setSeason(route.params.season ? route.params.season : calculateSeason());
-  }, []);
 
   /**
    * Mise à jour du type d'environnement lorsque la densité de pop change
@@ -146,6 +145,7 @@ const PoemPage = ({ route, navigation }) => {
       // Première requête async pour la météo
       // noinspection ES6MissingAwait
       (async () => {
+        if (weather !== null) return;
         setTemperature(await weatherRequest(
           currentLocation.coords.longitude, currentLocation.coords.latitude,
         ));
@@ -194,7 +194,6 @@ const PoemPage = ({ route, navigation }) => {
       || !localityType
       || !weather
       || !season
-      || !moment
       || currentSpeed == null
       || populationDensity == null
     ) return;
@@ -221,6 +220,24 @@ const PoemPage = ({ route, navigation }) => {
 
   return (
     <View style={styles.containerCamera}>
+      <Modal
+        animationType="slide"
+        transparent
+        visible={showCheat}
+      >
+        <CheatModal
+          route={route}
+          navigation={navigation}
+          close={() => setShowCheat(!showCheat)}
+        />
+      </Modal>
+      <Modal
+        animationType="slide"
+        transparent
+        visible={showCredits}
+      >
+        <CreditsModal close={() => setShowCredits(!showCredits)} />
+      </Modal>
       {
         {
           read: <TextPoem
@@ -259,9 +276,8 @@ const PoemPage = ({ route, navigation }) => {
         />
       )}
       <SwitchModeIcon mode={mode} onPress={() => setMode(mode === 'read' ? 'listen' : 'read')} />
-      {/* Back button */}
-      <BackIcon onPress={() => navigation.replace('ChooseMode', { mode })} />
-      {/* Debug button */}
+      <CheatIcon onPress={() => setShowCheat(!showCheat)} />
+      <CreditsIcon onPress={() => setShowCredits(!showCredits)} />
       <DebugIcon onPress={() => setDebug(!debug)} />
     </View>
   );

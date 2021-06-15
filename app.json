@@ -4,7 +4,7 @@
     "slug": "Derives",
     "owner": "derives",
     "description": "Dérives est une expérience poétique visuelle et sonore.",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -27,7 +27,13 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "fr.utc.derives"
+      "package": "fr.utc.derives",
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "CAMERA",
+        
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"

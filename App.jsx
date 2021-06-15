@@ -7,10 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import PermissionsPage from './src/Pages/PermissionsPage';
 import WelcomePage from './src/Pages/WelcomePage';
-import ChooseExperiencePage from './src/Pages/ChooseExperiencePage';
-import ChooseModePage from './src/Pages/ChooseModePage';
 import PoemPage from './src/Pages/PoemPage';
-import CreditsPage from './src/Pages/CreditsPage';
 import { calculateMoment } from './src/Helpers/time';
 
 const App = () => {
@@ -68,20 +65,14 @@ const App = () => {
           {firstTimeOpened && (
             <Stack.Screen name="WelcomeScreen" component={WelcomePage} options={{ animationEnabled: false }} />
           )}
-          <Stack.Screen name="ChooseModeSense" component={ChooseExperiencePage} options={{ animationEnabled: false }} />
-          <Stack.Screen name="ChooseMode" component={ChooseModePage} options={{ animationEnabled: false }} />
           <Stack.Screen
             name="TextGenerator"
             component={PoemPage}
             initialParams={{
-              localityType: null,
-              moment: calculateMoment(),
-              weather: null,
               mode: 'read',
             }}
             options={{ animationEnabled: false }}
           />
-          <Stack.Screen name="Credits" component={CreditsPage} />
         </>
       </Stack.Navigator>
     </NavigationContainer>
