@@ -20,7 +20,8 @@
       "assets/sounds/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "fr.utc.derives"
     },
     "android": {
       "adaptiveIcon": {
@@ -31,8 +32,7 @@
       "permissions": [
         "ACCESS_COARSE_LOCATION",
         "ACCESS_FINE_LOCATION",
-        "CAMERA",
-        
+        "CAMERA"
       ]
     },
     "web": {
