@@ -4,7 +4,7 @@
     "slug": "Derives",
     "owner": "derives",
     "description": "Dérives est une expérience poétique visuelle et sonore.",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -21,7 +21,11 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "fr.utc.derives"
+      "bundleIdentifier": "fr.utc.derives",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Nous avons besoin de votre caméra pour vous montrer le monde qui vous entoure.",
+        "NSLocationUsageDescription": "Nous avons besoin de votre position pour prendre en compte vos changements de vitesse  et votre environnement."
+      }
     },
     "android": {
       "adaptiveIcon": {
