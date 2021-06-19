@@ -20,28 +20,28 @@ export const calculateMoment = () => {
     case 'printemps': {
       if (hour <= 6 || hour > 20) return 'nuit';
       if (hour > 6 && hour <= 10) return 'matin';
-      if (hour > 10 && hour <= 17) return 'midi';
+      if (hour > 12 && hour <= 17) return 'midi';
       return 'soir';
     }
 
     case 'été': {
       if (hour <= 5 || hour > 22) return 'nuit';
       if (hour > 5 && hour <= 10) return 'matin';
-      if (hour > 10 && hour <= 18) return 'midi';
+      if (hour > 12 && hour <= 18) return 'midi';
       return 'soir';
     }
 
     case 'automne': {
       if (hour <= 6 || hour > 20) return 'nuit';
       if (hour > 6 && hour <= 10) return 'matin';
-      if (hour > 10 && hour <= 17) return 'midi';
+      if (hour > 12 && hour <= 17) return 'midi';
       return 'soir';
     }
 
     case 'hiver': {
       if (hour <= 7 || hour > 19) return 'nuit';
       if (hour > 7 && hour <= 10) return 'matin';
-      if (hour > 10 && hour <= 17) return 'midi';
+      if (hour > 12 && hour <= 17) return 'midi';
       return 'soir';
     }
 
