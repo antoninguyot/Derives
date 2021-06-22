@@ -1,5 +1,6 @@
 {
   "main": "node_modules/expo/AppEntry.js",
+  "version": "1.0.3",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -49,7 +50,9 @@
     "@expo/ngrok": "^2.4.3",
     "eslint": "^7.26.0",
     "eslint-config-airbnb": "^18.2.1",
-    "eslint-plugin-react": "^7.23.2"
+    "eslint-plugin-react": "^7.23.2",
+    "standard-version": "^7.1.0",
+    "standard-version-expo": "^1.0.3"
   },
   "private": true
 }
