@@ -37,6 +37,7 @@ export default StyleSheet.create({
     color: 'white',
     textShadowColor: 'black',
     textShadowRadius: 10,
+    marginHorizontal: 5,
   },
   textCaptorsTest: {
     fontSize: 12,
