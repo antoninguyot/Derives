@@ -21,6 +21,7 @@
       "assets/sounds/*"
     ],
     "ios": {
+      "buildNumber": "1.0.3",
       "bundleIdentifier": "fr.utc.derives",
       "appStoreUrl": "https://apps.apple.com/fr/app/dérives/id1572646193",
       "associatedDomains": [
@@ -34,6 +35,7 @@
     },
     "android": {
       "package": "fr.utc.derives",
+      "versionCode": 410010003,
       "playStoreUrl": "https://play.google.com/store/apps/details?id=fr.utc.derives",
       "permissions": [
         "ACCESS_COARSE_LOCATION",
