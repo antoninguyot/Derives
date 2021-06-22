@@ -1,7 +1,7 @@
 {
   "stable": [
     [
-      "Déjà le jour {random|se penche,s’appuie contre,s'engourdit}",
+      "Déjà le jour {random|se penche,s’appuie,s'engourdit}",
       "{random|Dans ton dos,Sur tes épaules}"
     ],
     [

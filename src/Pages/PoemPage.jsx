@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { Animated, Modal, View } from 'react-native';
+import { Animated, View } from 'react-native';
 import useInterval from '@use-it/interval';
 import * as Location from 'expo-location';
 import styles from '../../App.css';
@@ -220,24 +220,13 @@ const PoemPage = ({ route, navigation }) => {
 
   return (
     <View style={styles.containerCamera}>
-      <Modal
-        animationType="slide"
-        transparent
+      <CheatModal
+        route={route}
+        navigation={navigation}
+        close={() => setShowCheat(!showCheat)}
         visible={showCheat}
-      >
-        <CheatModal
-          route={route}
-          navigation={navigation}
-          close={() => setShowCheat(!showCheat)}
-        />
-      </Modal>
-      <Modal
-        animationType="slide"
-        transparent
-        visible={showCredits}
-      >
-        <CreditsModal close={() => setShowCredits(!showCredits)} />
-      </Modal>
+      />
+      <CreditsModal close={() => setShowCredits(!showCredits)} visible={showCredits} />
       {
         {
           read: <TextPoem
