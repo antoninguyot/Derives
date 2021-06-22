@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import {
-  StyleSheet, Text, TouchableOpacity, View,
+  Modal,
+  StyleSheet, Text, View,
 } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select/src';
-import { Ionicons } from '@expo/vector-icons';
 import styles from '../../App.css';
 import Button from './Button';
 import CloseIcon from './CloseIcon';
@@ -38,7 +38,9 @@ const customPickerStyles = StyleSheet.create({
   },
 });
 
-const CheatModal = ({ route, navigation, close }) => {
+const CheatModal = ({
+  route, navigation, close, visible,
+}) => {
   const [moment, setMoment] = useState();
   const [localityType, setLocalityType] = useState();
   const [weather, setWeather] = useState();
@@ -72,72 +74,78 @@ const CheatModal = ({ route, navigation, close }) => {
   ];
 
   return (
-    <View style={{ flex: 1 }}>
-      <View style={styles.containerWelcomeScreens}>
-        <View style={styles.containerChooseMode}>
-          <Text style={styles.textTitleW}>Construire votre expérience</Text>
-          <View>
-            <View style={{ paddingBottom: 10 }}>
-              <RNPickerSelect
-                placeholder={{
-                  label: 'Choisissez le moment de la journée',
-                  value: null,
-                }}
-                items={momentItems}
-                style={customPickerStyles}
-                onValueChange={(value) => setMoment(value)}
-              />
+    <Modal
+      animationType="slide"
+      transparent
+      visible={visible}
+    >
+      <View style={{ flex: 1 }}>
+        <View style={styles.containerWelcomeScreens}>
+          <View style={styles.containerChooseMode}>
+            <Text style={styles.textTitleW}>Construire votre expérience</Text>
+            <View>
+              <View style={{ paddingBottom: 10 }}>
+                <RNPickerSelect
+                  placeholder={{
+                    label: 'Choisissez le moment de la journée',
+                    value: null,
+                  }}
+                  items={momentItems}
+                  style={customPickerStyles}
+                  onValueChange={(value) => setMoment(value)}
+                />
+              </View>
+              <View style={{ paddingBottom: 10 }}>
+                <RNPickerSelect
+                  placeholder={{
+                    label: 'Choisissez le milieu',
+                    value: null,
+                  }}
+                  items={localityItems}
+                  style={customPickerStyles}
+                  onValueChange={(value) => setLocalityType(value)}
+                />
+              </View>
+              <View style={{ paddingBottom: 10 }}>
+                <RNPickerSelect
+                  placeholder={{
+                    label: 'Choisissez la météo',
+                    value: null,
+                  }}
+                  items={weatherItems}
+                  style={customPickerStyles}
+                  onValueChange={(value) => setWeather(value)}
+                />
+              </View>
+              <View style={{ paddingBottom: 10 }}>
+                <RNPickerSelect
+                  placeholder={{
+                    label: 'Choisissez la saison',
+                    value: null,
+                  }}
+                  items={seasonItems}
+                  style={customPickerStyles}
+                  onValueChange={(value) => setSeason(value)}
+                />
+              </View>
             </View>
-            <View style={{ paddingBottom: 10 }}>
-              <RNPickerSelect
-                placeholder={{
-                  label: 'Choisissez le milieu',
-                  value: null,
-                }}
-                items={localityItems}
-                style={customPickerStyles}
-                onValueChange={(value) => setLocalityType(value)}
-              />
-            </View>
-            <View style={{ paddingBottom: 10 }}>
-              <RNPickerSelect
-                placeholder={{
-                  label: 'Choisissez la météo',
-                  value: null,
-                }}
-                items={weatherItems}
-                style={customPickerStyles}
-                onValueChange={(value) => setWeather(value)}
-              />
-            </View>
-            <View style={{ paddingBottom: 10 }}>
-              <RNPickerSelect
-                placeholder={{
-                  label: 'Choisissez la saison',
-                  value: null,
-                }}
-                items={seasonItems}
-                style={customPickerStyles}
-                onValueChange={(value) => setSeason(value)}
-              />
-            </View>
+            <Button
+              navigation={navigation}
+              destination="TextGenerator"
+              param={{
+                mode,
+                moment,
+                localityType,
+                weather,
+                season,
+              }}
+              text="Dériver"
+            />
           </View>
-          <Button
-            navigation={navigation}
-            destination="TextGenerator"
-            param={{
-              mode,
-              moment,
-              localityType,
-              weather,
-              season,
-            }}
-            text="Dériver"
-          />
         </View>
+        <CloseIcon onPress={close} />
       </View>
-      <CloseIcon onPress={close} />
-    </View>
+    </Modal>
   );
 };
 
