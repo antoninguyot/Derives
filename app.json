@@ -24,9 +24,6 @@
       "buildNumber": "1.0.3",
       "bundleIdentifier": "fr.utc.derives",
       "appStoreUrl": "https://apps.apple.com/fr/app/dérives/id1572646193",
-      "associatedDomains": [
-        "applinks:derives.utc.fr"
-      ],
       "supportsTablet": true,
       "infoPlist": {
         "NSCameraUsageDescription": "Nous avons besoin de votre caméra pour vous montrer le monde qui vous entoure.",
