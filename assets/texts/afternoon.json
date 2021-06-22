@@ -4,7 +4,7 @@
       "Autre moment"
     ],
     [
-      "La {random|terre,forêt,plage,montagne} {random|allonge sa langue,s’entrouvre}"
+      "La {random|terre,forêt,montagne} {random|allonge sa langue,s’entrouvre}"
     ],
     [
       "Elle {random|répand,tisse,livre} ses {random|histoires,secrets}",
@@ -12,7 +12,7 @@
       "et de {season|printemps:narcisse,été:géranium,automne:dahlia,hiver:camélia}"
     ],
     [
-      "Elle {random|t’envahit, déborde, te gagne} et te raconte",
+      "Elle {random|t’envahit,déborde,te gagne} et te raconte",
       "de pas en pas",
       "Tout ce qui {random|bouge,bruit} au bord de toi",
       "Tout ce qui te rencontre"
@@ -27,7 +27,7 @@
     ],
     [
       "{random|Quelque chose se calme,Le vent tombe,L’air s’apaise}",
-      "dans la grossesse de {season|automne:l’automne,été:l'été,hiver:l'hiver,printemps:le printemps}"
+      "dans la grossesse {season|automne:de l’automne,été:de l'été,hiver:de l'hiver,printemps:du printemps}"
     ],
     [
       "Le souvenir {random|se tait,se couche,se range}",

@@ -5,6 +5,7 @@ import * as PropTypes from 'prop-types';
 import styles from '../../App.css';
 import files from '../../assets/audio/manifest';
 import { play } from '../Helpers/sound';
+import { getTextTitle } from '../Helpers/text';
 
 const AudioPoem = ({
   moment,
@@ -14,7 +15,7 @@ const AudioPoem = ({
 }) => {
   const playFile = async () => {
     const relevantFiles = files[moment][walking ? 'moving' : 'still'];
-    const sound = await play(relevantFiles[stropheIndex], 1);
+    const sound = await play(relevantFiles[stropheIndex], 1, false);
     sound.setOnPlaybackStatusUpdate((status) => {
       if (!status.shouldPlay && !status.isPlaying && status.isLoaded) sound.unloadAsync();
     });
@@ -22,12 +23,7 @@ const AudioPoem = ({
 
   if (isReadyToPlay) playFile();
 
-  let title;
-  if (moment === 'nuit') {
-    title = ['Dérive de la nuit'];
-  } else {
-    title = [`Dérive du ${moment}`];
-  }
+  const title = getTextTitle(moment);
 
   return (
     <>

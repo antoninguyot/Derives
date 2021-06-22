@@ -4,40 +4,41 @@ import { Animated, View } from 'react-native';
 import useInterval from '@use-it/interval';
 import * as Location from 'expo-location';
 import styles from '../../App.css';
-import { worldPopLocationRequest } from '../Helpers/location';
-import { calculateSeason } from '../Helpers/time';
+import { calculateMoment, calculateNextMoment, calculateSeason } from '../Helpers/time';
 import weatherRequest from '../Helpers/weather';
 import { getTextArray } from '../Helpers/text';
 import { fadeTo } from '../Helpers/anim';
-import {
-  getAcceleration, getAmbiance, getMusic, play,
-} from '../Helpers/sound';
+import { getAmbiance, getMusic, play } from '../Helpers/sound';
 import Debug from '../Components/Debug';
 import TextPoem from '../Components/TextPoem';
 import AudioPoem from '../Components/AudioPoem';
-import BackIcon from '../Components/BackIcon';
 import DebugIcon from '../Components/DebugIcon';
 import SwitchModeIcon from '../Components/SwitchModeIcon';
+import ForwardIcon from '../Components/ForwardIcon';
+import { worldPopLocationRequest } from '../Helpers/location';
+import CheatIcon from '../Components/CheatIcon';
+import CheatModal from '../Components/CheatModal';
+import CreditsIcon from '../Components/CreditsIcon';
+import CreditsModal from '../Components/CreditsModal';
 
 const PoemPage = ({ route, navigation }) => {
   // Page states
   const [isMounted, setIsMounted] = useState(true);
   const [debug, setDebug] = useState(false);
+  const [showCheat, setShowCheat] = useState(false);
+  const [showCredits, setShowCredits] = useState(false);
 
   // Localisation states
   const [longitude, setLongitude] = useState();
   const [latitude, setLatitude] = useState();
   const [populationDensity, setPopulationDensity] = useState();
-  const [localityType, setLocalityType] = useState(route.params.localityType);
-  const [season, setSeason] = useState();
-  const [moment] = useState(route.params.moment);
+  const [localityType, setLocalityType] = useState(route.params.localityType ?? null);
   const [temperature, setTemperature] = useState(-100);
-  const [weather, setWeather] = useState(route.params.weather);
+  const [weather, setWeather] = useState(route.params.weather ?? null);
 
   // Music states
   const [isReadyToPlay, setIsReadyToPlay] = useState(false);
   const [shouldPlayAmbiance, setShouldPlayAmbiance] = useState(false);
-  const [musicInterval, setMusicInterval] = useState();
 
   // Poems states
   const [mode, setMode] = useState(route.params.mode);
@@ -47,17 +48,13 @@ const PoemPage = ({ route, navigation }) => {
   const [currentSpeed, setCurrentSpeed] = useState();
   const [walking, setWalking] = useState(false);
 
+  const moment = route.params.moment ?? calculateMoment();
+  const season = route.params.season ?? calculateSeason();
+
   useEffect(() => {
     if (!currentSpeed || currentSpeed === -1) return;
     setWalking(!(currentSpeed < 1));
   }, [currentSpeed]);
-
-  /**
-   * Mise à jour de la saison avec mode paramétré
-   */
-  useEffect(() => {
-    setSeason(route.params.season ? route.params.season : calculateSeason())
-  }, []);
 
   /**
    * Mise à jour du type d'environnement lorsque la densité de pop change
@@ -71,7 +68,7 @@ const PoemPage = ({ route, navigation }) => {
    * Mise à jour de la météo lorsque la température change
    */
   useEffect(() => {
-    if (weather !== null) return;
+    if (temperature === -100) return;
     if (temperature < 12) {
       setWeather('cold');
     } else if (temperature > 25) {
@@ -90,7 +87,7 @@ const PoemPage = ({ route, navigation }) => {
 
     // On commence par démarrer la musique
     const musicFile = getMusic(moment);
-    play(musicFile, 0.25)
+    play(musicFile, 0.2, true)
       .then((sound) => {
         musicSound = sound;
       });
@@ -99,6 +96,7 @@ const PoemPage = ({ route, navigation }) => {
     if (musicFile !== '../data/Musics/noon3.mp3') setShouldPlayAmbiance(true);
 
     // Arrêt de la musique lors de l'unmount
+    // eslint-disable-next-line consistent-return
     return () => {
       musicSound.unloadAsync();
     };
@@ -111,31 +109,17 @@ const PoemPage = ({ route, navigation }) => {
     if (!shouldPlayAmbiance) return;
     const ambianceFile = getAmbiance(localityType);
     let ambianceSound;
-    play(ambianceFile, 0.5)
+    play(ambianceFile, 0.2, true)
       .then((sound) => {
         ambianceSound = sound;
       });
 
     // Arrêt du son lors de l'unmount
+    // eslint-disable-next-line consistent-return
     return () => {
       ambianceSound.unloadAsync();
     };
   }, [shouldPlayAmbiance]);
-
-  /**
-   * Joue les sons lorsque l'accélération change
-   */
-  useEffect(() => {
-    // On supprime l'intervalle précédent
-    if (musicInterval) clearInterval(musicInterval);
-
-    // On en crée un nouveau en fonction de l'accélération actuelle
-    if (walking) {
-      setMusicInterval(setInterval(() => {
-        play(getAcceleration(), 0);
-      }, 1500));
-    }
-  }, [walking]);
 
   /**
    * componentDidMount()
@@ -161,6 +145,7 @@ const PoemPage = ({ route, navigation }) => {
       // Première requête async pour la météo
       // noinspection ES6MissingAwait
       (async () => {
+        if (weather !== null) return;
         setTemperature(await weatherRequest(
           currentLocation.coords.longitude, currentLocation.coords.latitude,
         ));
@@ -196,18 +181,22 @@ const PoemPage = ({ route, navigation }) => {
     fadeTo(fontOpacity, 1);
   }, [stropheIndex]);
 
+  useEffect(() => {
+    if (mode !== 'sas') return;
+    setTimeout(() => {
+      navigation.replace('TextGenerator', { moment: calculateNextMoment(moment) });
+    }, 5000);
+  }, [mode]);
+
   useInterval(() => {
     if (
       !isMounted
       || !localityType
       || !weather
       || !season
-      || !moment
-      || !currentSpeed
-      || !populationDensity
-    ) {
-      return;
-    }
+      || currentSpeed == null
+      || populationDensity == null
+    ) return;
 
     if (!isReadyToPlay) setIsReadyToPlay(true);
 
@@ -216,7 +205,7 @@ const PoemPage = ({ route, navigation }) => {
 
     // Si on est arrivé à la fin du texte, on boucle
     if (relevantText.length <= (stropheIndex + 1)) {
-      navigation.replace('Sas', { momentPlayed: moment });
+      setMode('sas');
       return;
     }
     setStropheIndex(stropheIndex + 1);
@@ -231,28 +220,35 @@ const PoemPage = ({ route, navigation }) => {
 
   return (
     <View style={styles.containerCamera}>
-      {mode === 'read'
-      && (
-        <TextPoem
-          moment={moment}
-          fontOpacity={fontOpacity}
-          fontSize={fontSize}
-          stropheIndex={stropheIndex}
-          walking={walking}
-          localityType={localityType}
-          weather={weather}
-          season={season}
-          isReadyToPlay={isReadyToPlay}
-        />
-      )
-      || (
-        <AudioPoem
-          moment={moment}
-          stropheIndex={stropheIndex}
-          walking={walking}
-          isReadyToPlay={isReadyToPlay}
-        />
-      )}
+      <CheatModal
+        route={route}
+        navigation={navigation}
+        close={() => setShowCheat(!showCheat)}
+        visible={showCheat}
+      />
+      <CreditsModal close={() => setShowCredits(!showCredits)} visible={showCredits} />
+      {
+        {
+          read: <TextPoem
+            moment={moment}
+            fontOpacity={fontOpacity}
+            fontSize={fontSize}
+            stropheIndex={stropheIndex}
+            walking={walking}
+            localityType={localityType}
+            weather={weather}
+            season={season}
+            isReadyToPlay={isReadyToPlay}
+          />,
+          listen: <AudioPoem
+            moment={moment}
+            stropheIndex={stropheIndex}
+            walking={walking}
+            isReadyToPlay={isReadyToPlay}
+          />,
+          sas: <ForwardIcon />,
+        }[mode]
+      }
       {debug
       && (
         <Debug
@@ -269,9 +265,8 @@ const PoemPage = ({ route, navigation }) => {
         />
       )}
       <SwitchModeIcon mode={mode} onPress={() => setMode(mode === 'read' ? 'listen' : 'read')} />
-      {/* Back button */}
-      <BackIcon onPress={() => navigation.replace('ChooseMode', { mode })} />
-      {/* Debug button */}
+      <CheatIcon onPress={() => setShowCheat(!showCheat)} />
+      <CreditsIcon onPress={() => setShowCredits(!showCredits)} />
       <DebugIcon onPress={() => setDebug(!debug)} />
     </View>
   );

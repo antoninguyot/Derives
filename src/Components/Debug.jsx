@@ -9,8 +9,14 @@ const Debug = ({
 }) => (
   <View style={styles.containerCaptorsTest}>
     <Text style={styles.textCaptorsTest}>Poème : {moment}</Text>
-    <Text style={styles.textCaptorsTest}>Position : {latitude}, {longitude}</Text>
-    <Text style={styles.textCaptorsTest}>Vitesse : {currentSpeed ?? '...'} m/s ({walking ? 'en mouvement' : 'à l\'arrêt'})</Text>
+    <Text style={styles.textCaptorsTest}>Position :&nbsp;
+      {Number.isNaN(latitude) ? '...' : latitude.toPrecision(6)},&nbsp;
+      {Number.isNaN(longitude) ? '...' : longitude.toPrecision(6)}
+    </Text>
+    <Text style={styles.textCaptorsTest}>Vitesse :&nbsp;
+      {Number.isNaN(currentSpeed) ? '...' : currentSpeed.toPrecision(3)} m/s&nbsp;
+      ({walking ? 'en mouvement' : 'à l\'arrêt'})
+    </Text>
     <Text style={styles.textCaptorsTest}>Densité de pop : {localityDensity ?? '...'} habs/km&sup2; ({{
       city: 'ville',
       country: 'campagne',

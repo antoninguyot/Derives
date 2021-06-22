@@ -18,7 +18,7 @@
     [
       "un œil impossible à {random|fermer,clore,fuir}",
       "qui {random|te regarde,t’enserre,t’avale}",
-      "{random|les cils mêlés,les doigts mêlés,la langue mêlée} {random|aux arbres,aux gouttes,au vent,aux pavés,au sable}"
+      "Les cils mêlés {random|aux arbres,aux gouttes,au vent,aux pavés,au sable}"
     ],
     [
       "La nuit te rattrape"
@@ -67,7 +67,7 @@
     [
       "l’œil qui veille",
       "et te défie",
-      "{random|les cils,les doigts,la langue} mêlés aux {random|arbres,aux gouttes,au vent,aux pavés,au sable}"
+      "les cils mêlés {random|arbres,aux gouttes,au vent,aux pavés,au sable}"
     ],
     [
       "Tu rattrapes la nuit"
@@ -75,7 +75,7 @@
     [
       "Tu entres dans cet œil où",
       "des {random|royaumes,soleils,terres} {random|bougent,résonnent}",
-      "{random|les traces,le sel,la sciure} des peuples {random|bâtis,dressés} comme des {random|légendes,toits, navires}",
+      "{random|les traces,le sel,la sciure} des peuples {random|bâtis,dressés} comme des {random|légendes,toits,navires}",
       "tous les {random|mondes,matins,rêves} {random|recommencés,bravés,tentés} dans cet œil",
       "qui {random|chante,retient,voit}"
     ],
@@ -84,10 +84,10 @@
     ],
     [
       "Tu la fouilles",
-      "Les {random|bois,lisières} {random|frémissent,enflent, s’éclairent}"
+      "Les {random|bois,lisières} {random|frémissent,enflent,s’éclairent}"
     ],
     [
-      "Et dans {random|l’haleine,la chaleur} {random|épaisse,sèche, humide, brûlante} des ombres de {location|city:labour,country:la ville}",
+      "Et dans {random|l’haleine,la chaleur} {random|épaisse,sèche,humide,brûlante} des ombres de {location|city:labour,country:la ville}",
       "{random|en face,debout,droit}",
       "l’œil de la nuit",
       "fond en toi et te déborde"
