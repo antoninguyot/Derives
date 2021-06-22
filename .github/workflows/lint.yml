@@ -5,22 +5,16 @@ on:
     branches:
       - master
       - develop
-  push:
-    branches:
-      - master
-      - develop
 jobs:
   eslint:
+    name: runner / eslint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: reviewdog/action-eslint@v1
         with:
-          node-version: '14'
-      - run: npm ci # or yarn install
-      - uses: sibiraj-s/action-eslint@v1
-        with:
-          eslintArgs: '--ignore-path=.gitignore --quiet'
+          reporter: github-pr-review # Change reporter.
+          eslint_flags: 'src/'
           extensions: 'js,jsx,ts,tsx'
           annotations: true
         env:
