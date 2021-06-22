@@ -17,6 +17,9 @@ const CreditsIcon = ({ onPress }) => {
         marginLeft: 5,
       }}
       onPress={onPress}
+      accessibilityLabel="Crédits"
+      accessibilityHint="Affiche les crédits dans une nouvelle fenêtre"
+      accessibilityRole="button"
     >
       <Ionicons name="md-people-outline" size={32} color="darkgrey" />
     </TouchableOpacity>

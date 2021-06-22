@@ -17,6 +17,9 @@ const DebugIcon = ({ onPress }) => {
         marginRight: 5,
       }}
       onPress={onPress}
+      accessibilityLabel="Informations"
+      accessibilityHint="Affiche des informations sur l'écran à propos de votre environnement"
+      accessibilityRole="button"
     >
       <Ionicons name="md-information-circle-outline" size={32} color="darkgrey" />
     </TouchableOpacity>

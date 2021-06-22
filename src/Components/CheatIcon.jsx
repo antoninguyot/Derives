@@ -8,18 +8,21 @@ const CheatIcon = ({ onPress }) => {
   const insets = useSafeAreaInsets();
 
   return (
-  <TouchableOpacity
-    style={{
-      position: 'absolute',
-      top: insets.top,
-      left: insets.left,
-      marginTop: 5,
-      marginLeft: 5,
-    }}
-    onPress={onPress}
-  >
-    <Ionicons name="md-cog-outline" size={32} color="darkgrey" />
-  </TouchableOpacity>
+    <TouchableOpacity
+      style={{
+        position: 'absolute',
+        top: insets.top,
+        left: insets.left,
+        marginTop: 5,
+        marginLeft: 5,
+      }}
+      onPress={onPress}
+      accessibilityLabel="Constuire votre expérience"
+      accessibilityHint="Permet de modifier les paramètres de la Dérive"
+      accessibilityRole="button"
+    >
+      <Ionicons name="md-cog-outline" size={32} color="darkgrey" />
+    </TouchableOpacity>
   );
 };
 

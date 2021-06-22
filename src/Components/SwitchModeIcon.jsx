@@ -17,6 +17,9 @@ const BackIcon = ({ onPress, mode }) => {
         marginRight: 5,
       }}
       onPress={onPress}
+      accessibilityLabel="Changer de mode"
+      accessibilityHint="Passe du mode audio au mode texte et vice-versa"
+      accessibilityRole="button"
     >
       {mode === 'read'
     && <Ionicons name="md-headset-outline" size={32} color="darkgrey" />
