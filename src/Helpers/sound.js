@@ -50,9 +50,11 @@ const ambianceFiles = {
  * Joue un son à partir d'une URL, le décharge lorsqu'il est fini et retourne l'objet son
  * @param soundUrl,
  * @param vol,
+ * @param islooping
  * @returns {Promise<Sound>}
  */
 export const play = async (soundUrl, vol, islooping) => {
+  // eslint-disable-next-line max-len
   const { sound } = await Audio.Sound.createAsync(soundUrl, { shouldPlay: true, volume: vol, isLooping: islooping });
   sound.setOnPlaybackStatusUpdate((status) => {
     if (!status.shouldPlay && !status.isPlaying && status.isLoaded) sound.unloadAsync();
