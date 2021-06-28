@@ -1,12 +1,19 @@
 /**
- * Calcul de la season
+ * Calcul de la saison
  */
 export const calculateSeason = () => {
-  const month = (new Date()).getMonth();
-  if (month >= 3 && month < 6) return 'printemps';
-  if (month >= 6 && month < 9) return 'été';
-  if (month >= 9 && month < 12) return 'automne';
-  return 'hiver';
+  const d = new Date();
+
+  const saisons = [
+    // On entre les dates des solstices en prenant en compte les années bissextiles (% 4)
+    { name: 'printemps', date: new Date(d.getFullYear(), 2, (d.getFullYear() % 4 === 0) ? 19 : 20).getTime() },
+    { name: 'été', date: new Date(d.getFullYear(), 5, (d.getFullYear() % 4 === 0) ? 20 : 21).getTime() },
+    { name: 'automne', date: new Date(d.getFullYear(), 8, (d.getFullYear() % 4 === 0) ? 22 : 23).getTime() },
+    { name: 'hiver', date: new Date(d.getFullYear(), 11, (d.getFullYear() % 4 === 0) ? 20 : 21).getTime() },
+  ];
+
+  const saison = saisons.filter(({ date }) => date <= d).slice(-1)[0] || { name: 'hiver' };
+  return saison.name;
 };
 
 /**
