@@ -4,7 +4,7 @@
     "slug": "Derives",
     "owner": "derives",
     "description": "Dérives est une expérience poétique visuelle et sonore.",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "githubUrl": "https://github.com/anto2oo/Derives",
@@ -21,7 +21,7 @@
       "assets/sounds/*"
     ],
     "ios": {
-      "buildNumber": "1.0.4",
+      "buildNumber": "1.0.5",
       "bundleIdentifier": "fr.utc.derives",
       "appStoreUrl": "https://apps.apple.com/fr/app/dérives/id1572646193",
       "supportsTablet": true,
@@ -32,7 +32,7 @@
     },
     "android": {
       "package": "fr.utc.derives",
-      "versionCode": 410010004,
+      "versionCode": 410010005,
       "playStoreUrl": "https://play.google.com/store/apps/details?id=fr.utc.derives",
       "permissions": [
         "ACCESS_COARSE_LOCATION",
