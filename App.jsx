@@ -8,7 +8,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import PermissionsPage from './src/Pages/PermissionsPage';
 import WelcomePage from './src/Pages/WelcomePage';
 import PoemPage from './src/Pages/PoemPage';
-import { calculateMoment } from './src/Helpers/time';
 
 const App = () => {
   const [locationPermission, setLocationPermission] = useState(null);
@@ -19,7 +18,7 @@ const App = () => {
   useEffect(() => {
     // Check if we need to redirect to the permissions screen
     (async () => {
-      const { status: cameraStatus } = await Camera.getPermissionsAsync();
+      const { status: cameraStatus } = await Camera.getCameraPermissionsAsync();
       setCameraPermission(cameraStatus === 'granted');
       const { status: locationStatus } = await Location.getForegroundPermissionsAsync();
       setLocationPermission(locationStatus === 'granted');

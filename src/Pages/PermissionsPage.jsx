@@ -20,7 +20,7 @@ const PermissionsPage = ({ navigation }) => {
    * @returns {Promise<void>}
    */
   const getCurrentPermissions = async () => {
-    setCameraPermission(await Camera.getPermissionsAsync());
+    setCameraPermission(await Camera.getCameraPermissionsAsync());
     setLocationPermission(await Location.getForegroundPermissionsAsync());
   };
 
