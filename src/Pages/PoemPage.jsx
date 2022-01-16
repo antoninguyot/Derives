@@ -20,6 +20,7 @@ import CheatIcon from '../Components/CheatIcon';
 import CheatModal from '../Components/CheatModal';
 import CreditsIcon from '../Components/CreditsIcon';
 import CreditsModal from '../Components/CreditsModal';
+import { localizeContentFromObject } from '../Helpers/locale';
 
 const PoemPage = ({ route, navigation }) => {
   // Page states
@@ -184,7 +185,7 @@ const PoemPage = ({ route, navigation }) => {
   useEffect(() => {
     if (mode !== 'sas') return;
     setTimeout(() => {
-      navigation.replace('TextGenerator', { moment: calculateNextMoment(moment) });
+      navigation.replace('Poem', { moment: calculateNextMoment(moment) });
     }, 5000);
   }, [mode]);
 
@@ -201,7 +202,8 @@ const PoemPage = ({ route, navigation }) => {
     if (!isReadyToPlay) setIsReadyToPlay(true);
 
     const text = getTextArray(moment);
-    const relevantText = walking ? text.acceleration : text.stable;
+    const localizedText = localizeContentFromObject(text);
+    const relevantText = walking ? localizedText.acceleration : localizedText.stable;
 
     // Si on est arrivé à la fin du texte, on boucle
     if (relevantText.length <= (stropheIndex + 1)) {

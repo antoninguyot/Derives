@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import PermissionsPage from './src/Pages/PermissionsPage';
 import WelcomePage from './src/Pages/WelcomePage';
 import PoemPage from './src/Pages/PoemPage';
+import { initLocale } from './src/Helpers/locale';
 
 const App = () => {
   const [locationPermission, setLocationPermission] = useState(null);
@@ -48,6 +49,9 @@ const App = () => {
     }
   });
 
+  // Initialize the localization settings
+  initLocale();
+
   if (!loaded) {
     return <AppLoading />;
   }
@@ -65,7 +69,7 @@ const App = () => {
             <Stack.Screen name="WelcomeScreen" component={WelcomePage} options={{ animationEnabled: false }} />
           )}
           <Stack.Screen
-            name="TextGenerator"
+            name="Poem"
             component={PoemPage}
             initialParams={{
               mode: 'read',

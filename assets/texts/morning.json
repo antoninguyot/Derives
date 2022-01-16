@@ -1,117 +1,236 @@
 {
-  "stable": [
-    [
-      "Le jour {random|t’approche,s’épaissit,s’éveille}",
-      "et t’{random|effleure,étreint}"
+  "fr": {
+    "stable": [
+      [
+        "Le jour {random|t’approche,s’épaissit,s’éveille}",
+        "et t’{random|effleure,étreint}"
+      ],
+      [
+        "Partout l’air {random|s’allonge,frissonne} sous tes pas",
+        "Il {random|s’ébroue,s’ouvre} {random|lentement,doucement}",
+        "et fait monter les {location|country:odeurs de terre,city:battements de la ville}"
+      ],
+      [
+        "Partout le {location|country:chemin,city:trottoir} s’{random|étend,élargit,avance}"
+      ],
+      [
+        "Il t’envahit",
+        "et plante ses {random|rumeurs,nuées} {random|d’oiseaux,sauvages}"
+      ],
+      [
+        "{$month} a ton allure"
+      ],
+      [
+        "{weather|cold:Sa brise,sweet:Son souffle,hot:Sa chaleur} t’entraîne",
+        "te guide sur {random|la fatigue,le silence,le sommeil} des {location|city:pierres,country:bêtes}",
+        "et {random|ébruite les,fait danser les,fait tinter les} cimes {location|city:d’acier,country:de blé}",
+        "contre tes tempes"
+      ],
+      [
+        "Partout le {random|monde,pays} levant",
+        "Partout",
+        "le matin en {random|murmure,chantier} dans la {random|rousseur,clameur,clarté} des {location|country:herbes,city:rues}"
+      ],
+      [
+        "Le {random|sol,ciel} {random|crépite,remue,s’arrondit}",
+        "{random|grand,plein} du jour",
+        "devant",
+        "qui t’{random|appelle,attend}"
+      ],
+      [
+        "Il {random|s’étire,éclot}",
+        "{random|plante,déploie} ses racines",
+        "et s’{random|agrandit,accroît,entête} à chacun de tes {random|pas,mouvements}"
+      ],
+      [
+        "Les {location|country:arbres,city:toits} s’éclairent",
+        "Les ombres {random|tiédissent,plient} et se {random|taisent,rangent,bordent}"
+      ],
+      [
+        "Tu te tiens entre les heures"
+      ],
+      [
+        "Lentement",
+        "la {weather|cold:fraîcheur,sweet:douceur,hot:chaleur} monte",
+        "et {random|s’enfonce dans,résonne dans,se propage dans,gagne} tes {random|mains,jambes}"
+      ],
+      [
+        "Le matin marche",
+        "Il vient"
+      ]
     ],
-    [
-      "Partout l’air {random|s’allonge,frissonne} sous tes pas",
-      "Il {random|s’ébroue,s’ouvre} {random|lentement,doucement}",
-      "et fait monter les {location|country:odeurs de terre,city:battements de la ville}"
-    ],
-    [
-      "Partout le {location|country:chemin,city:trottoir} s’{random|étend,élargit,avance}"
-    ],
-    [
-      "Il t’envahit",
-      "et plante ses {random|rumeurs,nuées} {random|d’oiseaux,sauvages}"
-    ],
-    [
-      "{$month} a ton allure"
-    ],
-    [
-      "{weather|cold:Sa brise,sweet:Son souffle,hot:Sa chaleur} t’entraîne",
-      "te guide sur {random|la fatigue,le silence,le sommeil} des {location|city:pierres,country:bêtes}",
-      "et {random|ébruite les,fait danser les,fait tinter les} cimes {location|city:d’acier,country:de blé}",
-      "contre tes tempes"
-    ],
-    [
-      "Partout le {random|monde,pays} levant",
-      "Partout",
-      "le matin en {random|murmure,chantier} dans la {random|rousseur,clameur,clarté} des {location|country:herbes,city:rues}"
-    ],
-    [
-      "Le {random|sol,ciel} {random|crépite,remue,s’arrondit}",
-      "{random|grand,plein} du jour",
-      "devant",
-      "qui t’{random|appelle,attend}"
-    ],
-    [
-      "Il {random|s’étire,éclot}",
-      "{random|plante,déploie} ses racines",
-      "et s’{random|agrandit,accroît,entête} à chacun de tes {random|pas,mouvements}"
-    ],
-    [
-      "Les {location|country:arbres,city:toits} s’éclairent",
-      "Les ombres {random|tiédissent,plient} et se {random|taisent,rangent,bordent}"
-    ],
-    [
-      "Tu te tiens entre les heures"
-    ],
-    [
-      "Lentement",
-      "la {weather|cold:fraîcheur,sweet:douceur,hot:chaleur} monte",
-      "et {random|s’enfonce dans,résonne dans,se propage dans,gagne} tes {random|mains,jambes}"
-    ],
-    [
-      "Le matin marche",
-      "Il vient"
+    "acceleration": [
+      [
+        "Tu {random|t’avances,entres}",
+        "dans {random|le réveil,l’entrebâillement} du jour"
+      ],
+      [
+        "Partout tes pas {random|ouvrent,animent} l’air",
+        "Ils séparent les heures les unes des autres",
+        "Ils décollent le {random|monde,jour} de nos {random|sommeils,nuits}",
+        "comme {random|s’épluche un fruit,s’écossent des fèves}"
+      ],
+      [
+        "Partout le {location|country:chemin,city:trottoir} s’{random|étend,élargit,avance}"
+      ],
+      [
+        "Il pousse en mille",
+        "et plante ses {random|rumeurs,nuées} {random|d’oiseaux,sauvages}"
+      ],
+      [
+        "{$month} a ton allure"
+      ],
+      [
+        "Tu {random|endosses,chausses,franchis} {weather|cold:la brise,sweet:le vent,hot:la chaleur}",
+        "Tu {random|endosses,chausses,franchis} la rosée sur {random|la fatigue,le silence,le sommeil} des {location|city:pierres,country:bêtes}",
+        "et le temps qui bruit le long des cimes {location|city:d’acier,country:de blé}"
+      ],
+      [
+        "Partout le {random|monde,pays} levant",
+        "Partout",
+        "le matin haletant dans la {random|rousseur,clameur,clarté} des {location|country:herbes,city:rues}"
+      ],
+      [
+        "Le {random|sol,ciel} {random|crépite,remue,s’arrondit}",
+        "{random|grand,plein} du jour",
+        "autour de toi"
+      ],
+      [
+        "Tu le soulèves",
+        "et {random|l’agrandis,accrois} à chacun de tes {random|pas,mouvements}"
+      ],
+      [
+        "Les arbres s’éclairent",
+        "Les ombres tiédissent et se taisent"
+      ],
+      [
+        "Tu te tiens entre les heures"
+      ],
+      [
+        "La {weather|cold:fraîcheur,sweet:douceur,hot:chaleur} monte avec force",
+        "et {random|s’enfonce dans,résonne dans,se propage dans,gagne} tes {random|mains,jambes}"
+      ],
+      [
+        "Tu marches",
+        "Tu viens"
+      ]
     ]
-  ],
-  "acceleration": [
-    [
-      "Tu {random|t’avances,entres}",
-      "dans {random|le réveil,l’entrebâillement} du jour"
+  },
+  "en": {
+    "stable": [
+      [
+        "Dawn comes closer and",
+        "caresses you"
+      ],
+      [
+        "Everywhere, the air spreads as you walk",
+        "It shakes itself",
+        "and raises earthy smells"
+      ],
+      [
+        "The path stretches out"
+      ],
+      [
+        "It penetrates you",
+        "Planting its bird calls"
+      ],
+      [
+        "{$month} adopts your pace"
+      ],
+      [
+        "The breeze pulls you",
+        "and guides you over worn stones",
+        "and brings with it to your temples",
+        "the songs of steel peaks"
+      ],
+      [
+        "The world arises",
+        "Everywhere",
+        "and morning murmurs in the scorched grass"
+      ],
+      [
+        "The land crackles",
+        "already chock full of",
+        "the day ahead",
+        "that calls you"
+      ],
+      [
+        "It stretches itself, plants its roots,",
+        "spreading out and",
+        "growing with every step you take"
+      ],
+      [
+        "Trees are gradually sunlit",
+        "while the shadows fade away and grow quiet"
+      ],
+      [
+        "You are there, hour by hour"
+      ],
+      [
+        "Slowly",
+        "cool air rises",
+        "and bites deeply into your hands"
+      ],
+      [
+        "Morning marches on",
+        "Dawn is near"
+      ]
     ],
-    [
-      "Partout tes pas {random|ouvrent,animent} l’air",
-      "Ils séparent les heures les unes des autres",
-      "Ils décollent le {random|monde,jour} de nos {random|sommeils,nuits}",
-      "comme {random|s’épluche un fruit,s’écossent des fèves}"
-    ],
-    [
-      "Partout le {location|country:chemin,city:trottoir} s’{random|étend,élargit,avance}"
-    ],
-    [
-      "Il pousse en mille",
-      "et plante ses {random|rumeurs,nuées} {random|d’oiseaux,sauvages}"
-    ],
-    [
-      "{$month} a ton allure"
-    ],
-    [
-      "Tu {random|endosses,chausses,franchis} {weather|cold:la brise,sweet:le vent,hot:la chaleur}",
-      "Tu {random|endosses,chausses,franchis} la rosée sur {random|la fatigue,le silence,le sommeil} des {location|city:pierres,country:bêtes}",
-      "et le temps qui bruit le long des cimes {location|city:d’acier,country:de blé}"
-    ],
-    [
-      "Partout le {random|monde,pays} levant",
-      "Partout",
-      "le matin haletant dans la {random|rousseur,clameur,clarté} des {location|country:herbes,city:rues}"
-    ],
-    [
-      "Le {random|sol,ciel} {random|crépite,remue,s’arrondit}",
-      "{random|grand,plein} du jour",
-      "autour de toi"
-    ],
-    [
-      "Tu le soulèves",
-      "et {random|l’agrandis,accrois} à chacun de tes {random|pas,mouvements}"
-    ],
-    [
-      "Les arbres s’éclairent",
-      "Les ombres tiédissent et se taisent"
-    ],
-    [
-      "Tu te tiens entre les heures"
-    ],
-    [
-      "La {weather|cold:fraîcheur,sweet:douceur,hot:chaleur} monte avec force",
-      "et {random|s’enfonce dans,résonne dans,se propage dans,gagne} tes {random|mains,jambes}"
-    ],
-    [
-      "Tu marches",
-      "Tu viens"
+    "acceleration": [
+      [
+        "You set off",
+        "as daylight breaks"
+      ],
+      [
+        "Everywhere you go, your steps open the way",
+        "separating each hour frop the next",
+        "The world is taken from our sleep",
+        "just as one peels a fruit"
+      ],
+      [
+        "The pathway stretches out ahead"
+      ],
+      [
+        "It grows a thousand-fold,",
+        "planting its bird calls"
+      ],
+      [
+        "{$month} adopts your pace"
+      ],
+      [
+        "You shoulder the breeze",
+        "You shoulder the morning dew over worn stones",
+        "and time too, humming along steel peaks"
+      ],
+      [
+        "The world arises",
+        "Everywhere",
+        "and morning gasps in the scorched grass"
+      ],
+      [
+        "The land crackles,",
+        "chock full of the day",
+        "around you"
+      ],
+      [
+        "You lift it",
+        "and make it bigger with every step you take"
+      ],
+      [
+        "Trees gradually become more sunlit",
+        "while the shadows fade away and grow quiet"
+      ],
+      [
+        "You are there, hour by hour"
+      ],
+      [
+        "Cool air forces its way up",
+        "and bites deeply into your hands"
+      ],
+      [
+        "You walk on",
+        "and come closer"
+      ]
     ]
-  ]
+  }
 }

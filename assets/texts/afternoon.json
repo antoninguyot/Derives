@@ -1,107 +1,216 @@
 {
-  "stable": [
-    [
-      "Autre moment"
+  "fr": {
+    "stable": [
+      [
+        "Autre moment"
+      ],
+      [
+        "La {random|terre,forêt,montagne} {random|allonge sa langue,s’entrouvre}"
+      ],
+      [
+        "Elle {random|répand,tisse,livre} ses {random|histoires,secrets}",
+        "aux odeurs {season|printemps:d’orange,été:de framboise,automne:de raisin,hiver:de clémentine}",
+        "et de {season|printemps:narcisse,été:géranium,automne:dahlia,hiver:camélia}"
+      ],
+      [
+        "Elle {random|t’envahit,déborde,te gagne} et te raconte",
+        "de pas en pas",
+        "Tout ce qui {random|bouge,bruit} au bord de toi",
+        "Tout ce qui te rencontre"
+      ],
+      [
+        "{random|Le jour vous relie,Vous marchez l’un dans l’autre}"
+      ],
+      [
+        "Chaque seconde {random|t’apprend,te parcourt,t’étreint}",
+        "{random|vendange,emprunte,suit,épouse} tes traces",
+        "et {random|fredonne,mémorise} tes {random|visages,noms,traits}"
+      ],
+      [
+        "{random|Quelque chose se calme,Le vent tombe,L’air s’apaise}",
+        "dans la grossesse {season|automne:de l’automne,été:de l'été,hiver:de l'hiver,printemps:du printemps}"
+      ],
+      [
+        "Le souvenir {random|se tait,se couche,se range}",
+        "{random|La mère,Le père,L’enfant} s’apaise",
+        "Les {random|champs,fontaines,clochers} reposent"
+      ],
+      [
+        "Tu laisses venir le temps à toi",
+        "{random|Tu le loges,Peupler ton sillage},"
+      ],
+      [
+        "Tu ne te retournes pas"
+      ],
+      [
+        "Tu marches",
+        "Tu habites ta marche",
+        "comme {random|on imite le jour,un hôte du chemin}"
+      ],
+      [
+        "Tu es là",
+        "où {random|s’abritent,veillent,demeurent} les mondes"
+      ]
     ],
-    [
-      "La {random|terre,forêt,montagne} {random|allonge sa langue,s’entrouvre}"
-    ],
-    [
-      "Elle {random|répand,tisse,livre} ses {random|histoires,secrets}",
-      "aux odeurs {season|printemps:d’orange,été:de framboise,automne:de raisin,hiver:de clémentine}",
-      "et de {season|printemps:narcisse,été:géranium,automne:dahlia,hiver:camélia}"
-    ],
-    [
-      "Elle {random|t’envahit,déborde,te gagne} et te raconte",
-      "de pas en pas",
-      "Tout ce qui {random|bouge,bruit} au bord de toi",
-      "Tout ce qui te rencontre"
-    ],
-    [
-      "{random|Le jour vous relie,Vous marchez l’un dans l’autre}"
-    ],
-    [
-      "Chaque seconde {random|t’apprend,te parcourt,t’étreint}",
-      "{random|vendange,emprunte,suit,épouse} tes traces",
-      "et {random|fredonne,mémorise} tes {random|visages,noms,traits}"
-    ],
-    [
-      "{random|Quelque chose se calme,Le vent tombe,L’air s’apaise}",
-      "dans la grossesse {season|automne:de l’automne,été:de l'été,hiver:de l'hiver,printemps:du printemps}"
-    ],
-    [
-      "Le souvenir {random|se tait,se couche,se range}",
-      "{random|La mère,Le père,L’enfant} s’apaise",
-      "Les {random|champs,fontaines,clochers} reposent"
-    ],
-    [
-      "Tu laisses venir le temps à toi",
-      "{random|Tu le loges,Peupler ton sillage},"
-    ],
-    [
-      "Tu ne te retournes pas"
-    ],
-    [
-      "Tu marches",
-      "Tu habites ta marche",
-      "comme {random|on imite le jour,un hôte du chemin}"
-    ],
-    [
-      "Tu es là",
-      "où {random|s’abritent,veillent,demeurent} les mondes"
+    "acceleration": [
+      [
+        "Autre moment"
+      ],
+      [
+        "Tu mets la terre en {random|route,marche}"
+      ],
+      [
+        "Tu l’écoutes",
+        "Tu {random|cueilles,collectes,respires} ses {random|histoires,secrets}",
+        "aux odeurs {season|printemps:d’orange,été:de framboise,automne:de raisin,hiver:de clémentine}",
+        "et de {season|printemps:narcisse,été:géranium,automne:dahlia,hiver:camélia}"
+      ],
+      [
+        "Tu vas à sa rencontre",
+        "{random|À ton tour,Dans ton élan}, tu lui confies",
+        "de pas en pas",
+        "Tout ce qui rage au bord de toi",
+        "Tout ce qui {random|rugit,s’entête}"
+      ],
+      [
+        "{random|Le jour vous relie,Vous marchez l’un dans l’autre}"
+      ],
+      [
+        "Tu {random|l’apprends,le parcours,l’étreins}",
+        "{random|vendanges,empruntes,suis,épouses} ses traces",
+        "et sculptes ses {random|visages,noms,traits}"
+      ],
+      [
+        "{season|automne:L’automne,été:L'été,hiver:L'hiver,printemps:Le printemps} partout {random|éclot,s’éclaire,grandit}"
+      ],
+      [
+        "Le souvenir {random|se tait,se couche,se range}",
+        "{random|La mère,Le père,L’enfant} s’apaise",
+        "Les {random|champs,fontaines,clochers} reposent"
+      ],
+      [
+        "Tu {random|vas,cours} à l’instant",
+        "Tu le {random|saisis,l’empoches}"
+      ],
+      [
+        "Tu ne te retournes pas"
+      ],
+      [
+        "Tu accélères",
+        "Ton corps {random|s’augmente,s’ouvre}",
+        "à taille {random|de pays,du midi}"
+      ],
+      [
+        "Tu es là",
+        "où {random|s’abritent,veillent,demeurent} les mondes"
+      ]
     ]
-  ],
-  "acceleration": [
-    [
-      "Autre moment"
+  },
+  "en": {
+    "stable": [
+      [
+        "Another time"
+      ],
+      [
+        "The {random|earth,forest,montain} {random|stretches its tongue,opens slightly}"
+      ],
+      [
+        "{random|Spreading,Weaving,Delivering} {random|tales,stories,secrets}",
+        "with their smells of {season|printemps:orange,été:strawberry,automne:grape,hiver:clementine}",
+        "and {season|printemps:tulip,été:geranium,automne:dahlia,hiver:camellia}"
+      ],
+      [
+        "It wins you over and tells you",
+        "With every step you take",
+        "Everything that moves near you",
+        "Everything that come to meet you"
+      ],
+      [
+        "Daylight connects you"
+      ],
+      [
+        "You learn with every second that passes",
+        "it harvests your footprints,",
+        "humming your faces"
+      ],
+      [
+        "Something becomes quiet",
+        "As Autumn’s pregnancy grows"
+      ],
+      [
+        "Memories hush",
+        "Mother calms down",
+        "Fields rest a while"
+      ],
+      [
+        "You allow time to approach you",
+        "You host it"
+      ],
+      [
+        "You do not look back"
+      ],
+      [
+        "You walk",
+        "You are alive, walking",
+        "just like you imitate the day"
+      ],
+      [
+        "You are in a place",
+        "that shelters many worlds"
+      ]
     ],
-    [
-      "Tu mets la terre en {random|route,marche}"
-    ],
-    [
-      "Tu l’écoutes",
-      "Tu {random|cueilles,collectes,respires} ses {random|histoires,secrets}",
-      "aux odeurs {season|printemps:d’orange,été:de framboise,automne:de raisin,hiver:de clémentine}",
-      "et de {season|printemps:narcisse,été:géranium,automne:dahlia,hiver:camélia}"
-    ],
-    [
-      "Tu vas à sa rencontre",
-      "{random|À ton tour,Dans ton élan}, tu lui confies",
-      "de pas en pas",
-      "Tout ce qui rage au bord de toi",
-      "Tout ce qui {random|rugit,s’entête}"
-    ],
-    [
-      "{random|Le jour vous relie,Vous marchez l’un dans l’autre}"
-    ],
-    [
-      "Tu {random|l’apprends,le parcours,l’étreins}",
-      "{random|vendanges,empruntes,suis,épouses} ses traces",
-      "et sculptes ses {random|visages,noms,traits}"
-    ],
-    [
-      "{season|automne:L’automne,été:L'été,hiver:L'hiver,printemps:Le printemps} partout {random|éclot,s’éclaire,grandit}"
-    ],
-    [
-      "Le souvenir {random|se tait,se couche,se range}",
-      "{random|La mère,Le père,L’enfant} s’apaise",
-      "Les {random|champs,fontaines,clochers} reposent"
-    ],
-    [
-      "Tu {random|vas,cours} à l’instant",
-      "Tu le {random|saisis,l’empoches}"
-    ],
-    [
-      "Tu ne te retournes pas"
-    ],
-    [
-      "Tu accélères",
-      "Ton corps {random|s’augmente,s’ouvre}",
-      "à taille {random|de pays,du midi}"
-    ],
-    [
-      "Tu es là",
-      "où {random|s’abritent,veillent,demeurent} les mondes"
+    "acceleration": [
+      [
+        "Another moment"
+      ],
+      [
+        "You set the world in motion"
+      ],
+      [
+        "You listen to it",
+        "You gather the tales with their",
+        "smells of {season|printemps:orange,été:strawberry,automne:grape,hiver:clementine}",
+        "and {season|printemps:tulip,été:geranium,automne:dahlia,hiver:camellia}"
+      ],
+      [
+        "You move forward to meet it",
+        "and it’s your turn to share your tales,",
+        "with every step you take",
+        "About everything that makes you enrage",
+        "that roars within you"
+      ],
+      [
+        "Daylight connects you"
+      ],
+      [
+        "You learn with every second that passes",
+        "it harvests your footprints,",
+        "sculpting your faces"
+      ],
+      [
+        "Autumn grows all round you"
+      ],
+      [
+        "Memories hush",
+        "Mother is calm again",
+        "Fields rest a while"
+      ],
+      [
+        "You seek the right instant",
+        "You seize it"
+      ],
+      [
+        "You do not look back"
+      ],
+      [
+        "You accelerate",
+        "Your body reaches",
+        "the size of the country"
+      ],
+      [
+        "You are in a place",
+        "that shelters many worlds"
+      ]
     ]
-  ]
+  }
 }

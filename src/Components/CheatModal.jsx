@@ -5,9 +5,11 @@ import {
   StyleSheet, Text, View,
 } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select/src';
+import i18n from 'i18n-js';
 import styles from '../../App.css';
 import Button from './Button';
 import CloseIcon from './CloseIcon';
+import LanguageIcon from './LanguageIcon';
 
 const customPickerStyles = StyleSheet.create({
   inputIOS: {
@@ -49,28 +51,28 @@ const CheatModal = ({
   const { mode } = route.params;
 
   const momentItems = [
-    { label: 'Matin', value: 'matin' },
-    { label: 'Midi', value: 'midi' },
-    { label: 'Soir', value: 'soir' },
-    { label: 'Nuit', value: 'nuit' },
+    { label: i18n.t('moments.morning'), value: 'matin' },
+    { label: i18n.t('moments.noon'), value: 'midi' },
+    { label: i18n.t('moments.evening'), value: 'soir' },
+    { label: i18n.t('moments.night'), value: 'nuit' },
   ];
 
   const localityItems = [
-    { label: 'Rural', value: 'country' },
-    { label: 'Ville', value: 'city' },
+    { label: i18n.t('localities.country'), value: 'country' },
+    { label: i18n.t('localities.city'), value: 'city' },
   ];
 
   const weatherItems = [
-    { label: 'Froid', value: 'cold' },
-    { label: 'Tempéré', value: 'sweet' },
-    { label: 'Chaud', value: 'hot' },
+    { label: i18n.t('weather.cold'), value: 'cold' },
+    { label: i18n.t('weather.sweet'), value: 'sweet' },
+    { label: i18n.t('weather.hot'), value: 'hot' },
   ];
 
   const seasonItems = [
-    { label: 'Été', value: 'été' },
-    { label: 'Automne', value: 'automne' },
-    { label: 'Printemps', value: 'printemps' },
-    { label: 'Hiver', value: 'hivers' },
+    { label: i18n.t('seasons.summer'), value: 'été' },
+    { label: i18n.t('seasons.autumn'), value: 'automne' },
+    { label: i18n.t('seasons.spring'), value: 'printemps' },
+    { label: i18n.t('seasons.winter'), value: 'hiver' },
   ];
 
   return (
@@ -82,12 +84,12 @@ const CheatModal = ({
       <View style={{ flex: 1 }}>
         <View style={styles.containerWelcomeScreens}>
           <View style={styles.containerChooseMode}>
-            <Text style={styles.textTitleW}>Construire votre expérience</Text>
+            <Text style={styles.textTitleW}>{i18n.t('cheat.title')}</Text>
             <View>
               <View style={{ paddingBottom: 10 }}>
                 <RNPickerSelect
                   placeholder={{
-                    label: 'Choisissez le moment de la journée',
+                    label: i18n.t('cheat.chooseMoment'),
                     value: null,
                   }}
                   items={momentItems}
@@ -98,7 +100,7 @@ const CheatModal = ({
               <View style={{ paddingBottom: 10 }}>
                 <RNPickerSelect
                   placeholder={{
-                    label: 'Choisissez le milieu',
+                    label: i18n.t('cheat.chooseLocality'),
                     value: null,
                   }}
                   items={localityItems}
@@ -109,7 +111,7 @@ const CheatModal = ({
               <View style={{ paddingBottom: 10 }}>
                 <RNPickerSelect
                   placeholder={{
-                    label: 'Choisissez la météo',
+                    label: i18n.t('cheat.chooseWeather'),
                     value: null,
                   }}
                   items={weatherItems}
@@ -120,7 +122,7 @@ const CheatModal = ({
               <View style={{ paddingBottom: 10 }}>
                 <RNPickerSelect
                   placeholder={{
-                    label: 'Choisissez la saison',
+                    label: i18n.t('cheat.chooseSeason'),
                     value: null,
                   }}
                   items={seasonItems}
@@ -131,7 +133,7 @@ const CheatModal = ({
             </View>
             <Button
               navigation={navigation}
-              destination="TextGenerator"
+              destination="Poem"
               param={{
                 mode,
                 moment,
@@ -139,11 +141,12 @@ const CheatModal = ({
                 weather,
                 season,
               }}
-              text="Dériver"
+              text={i18n.t('cheat.start')}
             />
           </View>
         </View>
         <CloseIcon onPress={close} />
+        <LanguageIcon navigation={navigation} />
       </View>
     </Modal>
   );
@@ -152,6 +155,7 @@ const CheatModal = ({
 CheatModal.propTypes = {
   route: PropTypes.object.isRequired,
   close: PropTypes.func.isRequired,
+  visible: PropTypes.bool,
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
     replace: PropTypes.func.isRequired,

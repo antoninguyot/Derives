@@ -4,6 +4,7 @@ import * as PropTypes from 'prop-types';
 import styles from '../../App.css';
 import CCamera from './CCamera';
 import { combine, getTextArray, getTextTitle } from '../Helpers/text';
+import { localizeContentFromObject } from '../Helpers/locale';
 
 const TextPoem = ({
   moment,
@@ -17,7 +18,9 @@ const TextPoem = ({
   isReadyToPlay,
 }) => {
   const text = getTextArray(moment);
-  const relevantText = walking ? text.acceleration : text.stable;
+  const localizedText = localizeContentFromObject(text);
+  const relevantText = walking ? localizedText.acceleration : localizedText.stable;
+
   let strophe;
 
   if (isReadyToPlay) {

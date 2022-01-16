@@ -9,6 +9,7 @@ import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import { Camera } from 'expo-camera';
 import * as IntentLauncher from 'expo-intent-launcher';
+import i18n from 'i18n-js';
 import styles from '../../App.css';
 
 const PermissionsPage = ({ navigation }) => {
@@ -58,7 +59,7 @@ const PermissionsPage = ({ navigation }) => {
     const firstOpenedAtKey = 'firstOpenedAt';
     const firstOpenedAt = await AsyncStorage.getItem(firstOpenedAtKey);
     if (firstOpenedAt !== null) {
-      navigation.replace('TextGenerator');
+      navigation.replace('Poem');
     } else {
       await AsyncStorage.setItem(firstOpenedAtKey, Date.now()
         .toString());
@@ -114,7 +115,7 @@ const PermissionsPage = ({ navigation }) => {
       justifyContent: 'space-around',
     }]}
     >
-      <Text style={styles.textTitleW}>Avant de commencer...</Text>
+      <Text style={styles.textTitleW}>{i18n.t('permissions.before')}</Text>
       <View style={styles.containerRow}>
         <View>
           <Ionicons
@@ -124,31 +125,30 @@ const PermissionsPage = ({ navigation }) => {
             style={{ textAlign: 'center' }}
           />
           <Text style={[styles.textW, { textAlign: 'center' }]}>
-            Nous avons besoin de votre position pour prendre en compte vos changements de vitesse
-            et votre environnement.
+            {i18n.t('permissions.locationExplanation')}
           </Text>
-          {locationPermission === null && <Button title="Chargement..." disabled />
+          {locationPermission === null && <Button title={i18n.t('permissions.loading')} disabled />
           // Si la permission est déjà donnée
-          || locationPermission.granted && <Button title="Autorisé" disabled />
+          || locationPermission.granted && <Button title={i18n.t('permissions.authorized')} disabled />
           // Si l'utilisateur a refusé, il doit autoriser dans les réglages
           || !locationPermission.canAskAgain
-          && <Button title="Autoriser dans les réglages" onPress={redirectToNotificationSettings} />
-          || <Button title="Autoriser" onPress={askLocationPermission} />}
+          && <Button title={i18n.t('permissions.redirectToSettings')} onPress={redirectToNotificationSettings} />
+          || <Button title={i18n.t('permissions.authorize')} onPress={askLocationPermission} />}
         </View>
       </View>
       <View style={styles.containerRow}>
         <View>
           <Ionicons name="camera-outline" size={48} color="white" style={{ textAlign: 'center' }} />
           <Text style={[styles.textW, { textAlign: 'center' }]}>
-            Nous avons besoin de votre caméra pour vous montrer le monde qui vous entoure.
+            {i18n.t('permissions.cameraExplanation')}
           </Text>
-          {cameraPermission === null && <Button title="Chargement..." disabled />
+          {cameraPermission === null && <Button title={i18n.t('permissions.loading')} disabled />
           // Si la permission est déjà donnée
-          || cameraPermission.granted && <Button title="Autorisé" disabled />
+          || cameraPermission.granted && <Button title={i18n.t('permissions.authorized')} disabled />
           // Si l'utilisateur a refusé, il doit autoriser dans les réglages
           || !cameraPermission.canAskAgain
-          && <Button title="Autoriser dans les réglages" onPress={redirectToCameraSettings} />
-          || <Button title="Autoriser" onPress={askCameraPermission} />}
+          && <Button title={i18n.t('permissions.redirectToSettings')} onPress={redirectToCameraSettings} />
+          || <Button title={i18n.t('permissions.authorize')} onPress={askCameraPermission} />}
         </View>
       </View>
 
@@ -157,11 +157,11 @@ const PermissionsPage = ({ navigation }) => {
         && cameraPermission && cameraPermission.granted
         && (
           <Button
-            title="Continuer"
+            title={i18n.t('permissions.continue')}
             onPress={navigateToNextPage}
           />
         )
-        || <Button title="Continuer" disabled />}
+        || <Button title={i18n.t('permissions.continue')} disabled />}
       </View>
     </View>
   );

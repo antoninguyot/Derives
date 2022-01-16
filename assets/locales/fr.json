@@ -1,0 +1,87 @@
+{
+  "permissions": {
+    "before": "Avant de commencer...",
+    "locationExplanation": "Nous avons besoin de votre position pour prendre en compte vos changements de vitesse et votre environnement.",
+    "cameraExplanation": "Nous avons besoin de votre caméra pour vous montrer le monde qui vous entoure.",
+    "loading": "Chargement...",
+    "authorized": "Autorisé",
+    "authorize": "Autoriser",
+    "redirectToSettings": "Autoriser dans les réglages",
+    "continue": "Continuer"
+  },
+  "welcome": {
+    "texts": [
+      "Vous allez vivre une expérience poétique – visuelle et sonore – en marchant",
+      "Selon votre vitesse, mais aussi le moment de la journée, la saison, la température, l'environnement, votre expérience ne sera pas la même..."
+    ]
+  },
+  "cheat": {
+    "title": "Construire votre expérience",
+    "chooseMoment": "Choisissez le moment de la journée",
+    "chooseLocality": "Choisissez le milieu",
+    "chooseWeather": "Choisissez la météo",
+    "chooseSeason": "Choisissez la saison",
+    "start": "Dériver"
+  },
+  "poemTitles": {
+    "morning": "Dérive du matin",
+    "noon": "Dérive du midi",
+    "evening": "Dérive du soir",
+    "night": "Dérive de la nuit"
+  },
+  "moments": {
+    "morning": "Matin",
+    "noon": "Midi",
+    "evening": "Soir",
+    "night": "Nuit"
+  },
+  "localities": {
+    "country": "Rural",
+    "city": "Ville"
+  },
+  "weather": {
+    "cold": "Froid",
+    "sweet": "Doux",
+    "hot": "Chaud"
+  },
+  "seasons": {
+    "spring": "Printemps",
+    "summer": "Été",
+    "autumn": "Automne",
+    "winter": "Hiver"
+  },
+  "debug": {
+    "moment": "Moment",
+    "poem": "Poème",
+    "position": "Position",
+    "speed": "Vitesse",
+    "density": "Densité de pop",
+    "season": "Saison",
+    "temperature": "Température"
+  },
+  "months": [
+    "Janvier",
+    "Février",
+    "Mars",
+    "Avril",
+    "Mai",
+    "Juin",
+    "Juillet",
+    "Août",
+    "Septembre",
+    "Octobre",
+    "Novembre",
+    "Décembre"
+  ],
+  "credits": {
+    "serge": "Idée originale et coordination du projet. Enseignant chercheur à l'Université de Technologie de Compiègne.",
+    "marine": "Écriture des poèmes et enregistrement vocal. Enseignante chercheuse à l'Université de Troyes.",
+    "herve": "Composition des musiques et création de l'ambiance sonore. Enseignant chercheur à l'Université de Toulon.",
+    "erika": "Conseils et suggestions sur le projet. Enseignante chercheuse à l'Université de Lancaster.",
+    "augustin": "Développement de l'application. Étudiant à l'UTC.",
+    "maylis": "Développement de l'application. Étudiante à l'UTC.",
+    "antonin": "Développement de l'application. Étudiant à l'UTC.",
+    "charles": "Développement de l'application. Étudiant à l'UTC.",
+    "cecile": "Développement de l'application. Étudiante à l'UTC."
+  }
+}

@@ -6,6 +6,7 @@ import styles from '../../App.css';
 import files from '../../assets/audio/manifest';
 import { play } from '../Helpers/sound';
 import { getTextTitle } from '../Helpers/text';
+import { localizeContentFromObject } from '../Helpers/locale';
 
 const AudioPoem = ({
   moment,
@@ -14,7 +15,8 @@ const AudioPoem = ({
   isReadyToPlay,
 }) => {
   const playFile = async () => {
-    const relevantFiles = files[moment][walking ? 'moving' : 'still'];
+    const localizedFiles = localizeContentFromObject(files);
+    const relevantFiles = localizedFiles[moment][walking ? 'moving' : 'still'];
     const sound = await play(relevantFiles[stropheIndex], 1, false);
     sound.setOnPlaybackStatusUpdate((status) => {
       if (!status.shouldPlay && !status.isPlaying && status.isLoaded) sound.unloadAsync();

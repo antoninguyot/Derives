@@ -1,24 +1,21 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { Animated, View } from 'react-native';
+import i18n from 'i18n-js';
 import styles from '../../App.css';
 import { fadeTo } from '../Helpers/anim';
-
-const welcomeTexts = [
-  'Vous allez vivre une expérience poétique – visuelle et sonore – en marchant.',
-  "Selon votre vitesse, mais aussi le moment de la journée, la saison, la température, l'environnement, votre expérience ne sera pas la même...",
-];
 
 const WelcomePage = ({ navigation }) => {
   const [welcomeText, setWelcomeText] = useState('');
   const [versOpacity] = useState(new Animated.Value(0));
 
   const navigateToNextScreen = async () => {
-    navigation.replace('TextGenerator');
+    navigation.replace('Poem');
   };
 
   // GetData and tet the text
   useEffect(() => {
+    const welcomeTexts = i18n.t('welcome.texts');
     welcomeTexts.forEach((text, index) => {
       // Make each text
       setTimeout(() => {

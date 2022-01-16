@@ -1,100 +1,202 @@
 {
-  "stable": [
-    [
-      "La nuit {random|vient,règne} {random|par-dessus,en couchant} les {random|herbes,ornières,heures}",
-      "{random|irrévocable,océanique,battante}"
+  "fr": {
+    "stable": [
+      [
+        "La nuit {random|vient,règne} {random|par-dessus,en couchant} les {random|herbes,ornières,heures}",
+        "{random|irrévocable,océanique,battante}"
+      ],
+      [
+        "Elle {random|s’étire,s’engouffre}, {random|tapisse,déguise,trouble,éparpille} les {random|chemins,pierres,distances}",
+        "et t’approche"
+      ],
+      [
+        "Quelque chose tangue"
+      ],
+      [
+        "{random|Devant toi,Au milieu,Là} s’ouvre {random|l’œil,la bouche,la paume} {random|énorme,large}",
+        "de {random|tous les boisements,tous les carrefours,toutes les lumières} de la nuit"
+      ],
+      [
+        "un œil impossible à {random|fermer,clore,fuir}",
+        "qui {random|te regarde,t’enserre,t’avale}",
+        "Les cils mêlés {random|aux arbres,aux gouttes,au vent,aux pavés,au sable}"
+      ],
+      [
+        "La nuit te rattrape"
+      ],
+      [
+        "Elle te happe dans cet œil où",
+        "des {random|royaumes,soleils,terres} {random|bougent,résonnent}",
+        "{random|les traces,le sel,la sciure} des peuples {random|bâtis,dressés} comme des {random|légendes,toits,navires}",
+        "tous les {random|mondes,matins,rêves} {random|tentés,recommencés,bravés} dans cet œil",
+        "qui {random|chante,retient,voit}"
+      ],
+      [
+        "La nuit te rattrape"
+      ],
+      [
+        "Elle dénude",
+        "Les {random|bois,lisières} {random|frémissent,enflent,s’éclairent}"
+      ],
+      [
+        "Et dans {random|l’haleine,la chaleur} {random|épaisse,sèche,humide,brûlante} des ombres de {location|city:labour,country:la ville}",
+        "{random|en face,debout,droit}",
+        "l’œil de la nuit",
+        "au plus loin de toi, l’œil te rencontre"
+      ],
+      [
+        "La nuit",
+        "te rattrape"
+      ]
     ],
-    [
-      "Elle {random|s’étire,s’engouffre}, {random|tapisse,déguise,trouble,éparpille} les {random|chemins,pierres,distances}",
-      "et t’approche"
-    ],
-    [
-      "Quelque chose tangue"
-    ],
-    [
-      "{random|Devant toi,Au milieu,Là} s’ouvre {random|l’œil,la bouche,la paume} {random|énorme,large}",
-      "de {random|tous les boisements,tous les carrefours,toutes les lumières} de la nuit"
-    ],
-    [
-      "un œil impossible à {random|fermer,clore,fuir}",
-      "qui {random|te regarde,t’enserre,t’avale}",
-      "Les cils mêlés {random|aux arbres,aux gouttes,au vent,aux pavés,au sable}"
-    ],
-    [
-      "La nuit te rattrape"
-    ],
-    [
-      "Elle te happe dans cet œil où",
-      "des {random|royaumes,soleils,terres} {random|bougent,résonnent}",
-      "{random|les traces,le sel,la sciure} des peuples {random|bâtis,dressés} comme des {random|légendes,toits,navires}",
-      "tous les {random|mondes,matins,rêves} {random|tentés,recommencés,bravés} dans cet œil",
-      "qui {random|chante,retient,voit}"
-    ],
-    [
-      "La nuit te rattrape"
-    ],
-    [
-      "Elle dénude",
-      "Les {random|bois,lisières} {random|frémissent,enflent,s’éclairent}"
-    ],
-    [
-      "Et dans {random|l’haleine,la chaleur} {random|épaisse,sèche,humide,brûlante} des ombres de {location|city:labour,country:la ville}",
-      "{random|en face,debout,droit}",
-      "l’œil de la nuit",
-      "au plus loin de toi, l’œil te rencontre"
-    ],
-    [
-      "La nuit",
-      "te rattrape"
+    "acceleration": [
+      [
+        "La nuit {random|pleine de forêt,gonflée d’eau,gorgée d’air}",
+        "{random|vient,règne}"
+      ],
+      [
+        "Elle {random|s’étire,s’engouffre}, envahit les chemins",
+        "et te déchausse"
+      ],
+      [
+        "Tu persistes"
+      ],
+      [
+        "Tu vois s’ouvrir l’œil énorme",
+        "de {random|tous les boisements,tous les carrefours,toutes les lumières} de la nuit"
+      ],
+      [
+        "l’œil qui veille",
+        "et te défie",
+        "les cils mêlés {random|arbres,aux gouttes,au vent,aux pavés,au sable}"
+      ],
+      [
+        "Tu rattrapes la nuit"
+      ],
+      [
+        "Tu entres dans cet œil où",
+        "des {random|royaumes,soleils,terres} {random|bougent,résonnent}",
+        "{random|les traces,le sel,la sciure} des peuples {random|bâtis,dressés} comme des {random|légendes,toits,navires}",
+        "tous les {random|mondes,matins,rêves} {random|recommencés,bravés,tentés} dans cet œil",
+        "qui {random|chante,retient,voit}"
+      ],
+      [
+        "Tu rattrapes la nuit"
+      ],
+      [
+        "Tu la fouilles",
+        "Les {random|bois,lisières} {random|frémissent,enflent,s’éclairent}"
+      ],
+      [
+        "Et dans {random|l’haleine,la chaleur} {random|épaisse,sèche,humide,brûlante} des ombres de {location|city:labour,country:la ville}",
+        "{random|en face,debout,droit}",
+        "l’œil de la nuit",
+        "fond en toi et te déborde"
+      ],
+      [
+        "Tu gagnes",
+        "la nuit"
+      ]
     ]
-  ],
-  "acceleration": [
-    [
-      "La nuit {random|pleine de forêt,gonflée d’eau,gorgée d’air}",
-      "{random|vient,règne}"
+  },
+  "en": {
+    "stable": [
+      [
+        "Night implacably",
+        "covers the grasslands"
+      ],
+      [
+        "Night spreads, covers the pathways",
+        "and approaches you"
+      ],
+      [
+        "Something is rocking"
+      ],
+      [
+        "In front of you that enormous opening eye",
+        "of all night’s woods"
+      ],
+      [
+        "An eye that just cannot close",
+        "and which observes you",
+        "with its lashes entwined in the trees"
+      ],
+      [
+        "Night catches up with you"
+      ],
+      [
+        "It engulfs you in the eye",
+        "where kingdoms move around",
+        "Traces of peoples akin to legends",
+        "All these worlds",
+        "tempted into this all-seeing eye"
+      ],
+      [
+        "Night catches up with you"
+      ],
+      [
+        "Night strips you down",
+        "The woods shudder"
+      ],
+      [
+        "In the ominous stare of laboured shadows",
+        "facing the night’s eye",
+        "as far from you as possible,",
+        "the eye comes to meet you"
+      ],
+      [
+        "Night catches up",
+        "with you"
+      ]
     ],
-    [
-      "Elle {random|s’étire,s’engouffre}, envahit les chemins",
-      "et te déchausse"
-    ],
-    [
-      "Tu persistes"
-    ],
-    [
-      "Tu vois s’ouvrir l’œil énorme",
-      "de {random|tous les boisements,tous les carrefours,toutes les lumières} de la nuit"
-    ],
-    [
-      "l’œil qui veille",
-      "et te défie",
-      "les cils mêlés {random|arbres,aux gouttes,au vent,aux pavés,au sable}"
-    ],
-    [
-      "Tu rattrapes la nuit"
-    ],
-    [
-      "Tu entres dans cet œil où",
-      "des {random|royaumes,soleils,terres} {random|bougent,résonnent}",
-      "{random|les traces,le sel,la sciure} des peuples {random|bâtis,dressés} comme des {random|légendes,toits,navires}",
-      "tous les {random|mondes,matins,rêves} {random|recommencés,bravés,tentés} dans cet œil",
-      "qui {random|chante,retient,voit}"
-    ],
-    [
-      "Tu rattrapes la nuit"
-    ],
-    [
-      "Tu la fouilles",
-      "Les {random|bois,lisières} {random|frémissent,enflent,s’éclairent}"
-    ],
-    [
-      "Et dans {random|l’haleine,la chaleur} {random|épaisse,sèche,humide,brûlante} des ombres de {location|city:labour,country:la ville}",
-      "{random|en face,debout,droit}",
-      "l’œil de la nuit",
-      "fond en toi et te déborde"
-    ],
-    [
-      "Tu gagnes",
-      "la nuit"
+    "acceleration": [
+      [
+        "Night comes,",
+        "full of forests"
+      ],
+      [
+        "It spreads, spills over the pathways",
+        "and removes your shoes"
+      ],
+      [
+        "You insist"
+      ],
+      [
+        "You see the enormous eye open",
+        "of all night’s woods"
+      ],
+      [
+        "An eye that observes you",
+        "and challenges you with its lashes",
+        "entwined in the trees"
+      ],
+      [
+        "Night catches up with you"
+      ],
+      [
+        "You penetrate this eye",
+        "where kingdoms move around",
+        "traces of peoples akin to legends",
+        "All these worlds",
+        "tempted into this all-seeing eye"
+      ],
+      [
+        "Night catches up with you"
+      ],
+      [
+        "You probe it",
+        "The woods shudder"
+      ],
+      [
+        "In the ominous stare of laboured shadows",
+        "facing the night’s eye",
+        "blend with you",
+        "and overcome you"
+      ],
+      [
+        "You win",
+        "your night."
+      ]
     ]
-  ]
+  }
 }

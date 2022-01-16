@@ -1,3 +1,4 @@
+import i18n from 'i18n-js';
 import Matin from '../../assets/texts/morning.json';
 import Midi from '../../assets/texts/afternoon.json';
 import Soir from '../../assets/texts/evening.json';
@@ -25,13 +26,13 @@ export const getTextArray = (moment) => {
 export const getTextTitle = (moment) => {
   switch (moment) {
     case 'matin':
-      return 'Dérive du matin';
+      return i18n.t('poemTitles.morning');
     case 'midi':
-      return 'Dérive de l\'après-midi';
+      return i18n.t('poemTitles.noon');
     case 'soir':
-      return 'Dérive du soir';
+      return i18n.t('poemTitles.evening');
     case 'nuit':
-      return 'Dérive de la nuit';
+      return i18n.t('poemTitles.night');
     default:
       return undefined;
   }
@@ -82,7 +83,7 @@ const evalCombi = (combinationString, location, weather, season) => {
 const evalVar = (combinationString) => {
   const varName = combinationString.substring(1);
   return () => {
-    const monthLocalized = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+    const monthLocalized = i18n.t('months');
     const date = new Date();
     switch (varName) {
       case 'month':

@@ -1,0 +1,87 @@
+{
+  "permissions": {
+    "before": "Before we start...",
+    "locationExplanation": "We need your position to generate poetry according to your movements and environment.",
+    "cameraExplanation": "We need your camera to immerse you in the world around you.",
+    "loading": "Loading...",
+    "authorized": "Allowed",
+    "authorize": "Allow",
+    "redirectToSettings": "Allow in settings",
+    "continue": "Continue"
+  },
+  "welcome": {
+    "texts": [
+      "You're about to experience a poetic experience – visual and acoustic – while walking",
+      "Depending on your speed, but also the time of day, season, temperature, environement, your experience won't be the same..."
+    ]
+  },
+  "cheat": {
+    "title": "Build your experience",
+    "chooseMoment": "Choose a time of the day",
+    "chooseLocality": "Choose a environment type",
+    "chooseWeather": "Choose the weather",
+    "chooseSeason": "Choose the season",
+    "start": "Drift"
+  },
+  "poemTitles": {
+    "morning": "Morning drift",
+    "noon": "Noon drift",
+    "evening": "Evening drift",
+    "night": "Night drift"
+  },
+  "moments": {
+    "morning": "Morning",
+    "noon": "Noon",
+    "evening": "Evening",
+    "night": "Night"
+  },
+  "localities": {
+    "country": "Country",
+    "city": "City"
+  },
+  "weather": {
+    "cold": "Cold",
+    "sweet": "Sweet",
+    "hot": "Hot"
+  },
+  "seasons": {
+    "spring": "Spring",
+    "summer": "Summer",
+    "autumn": "Autumn",
+    "winter": "Winter"
+  },
+  "debug": {
+    "moment": "Time",
+    "poem": "Poem",
+    "position": "Position",
+    "speed": "Speed",
+    "density": "Pop density",
+    "season": "Season",
+    "temperature": "Temperature"
+  },
+  "months": [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ],
+  "credits": {
+    "serge": "Original idea & project management. Affiliated to the University of Technology of Compiègne.",
+    "marine": "Original poems and french voice recording. Affiliated to the University of Troyes.",
+    "herve": "Music & sound design. Affiliated to the University of Toulon.",
+    "erika": "Advice, suggestions and testing. Affiliated to the University of Lancaster.",
+    "augustin": "App development. Student at the University of Technology of Compiègne",
+    "maylis": "App development. Student at the University of Technology of Compiègne",
+    "antonin": "App development. Student at the University of Technology of Compiègne",
+    "charles": "App development. Student at the University of Technology of Compiègne",
+    "cecile": "App development. Student at the University of Technology of Compiègne"
+  }
+}

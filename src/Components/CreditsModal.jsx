@@ -4,6 +4,7 @@ import {
   SafeAreaView, ScrollView, Text,
 } from 'react-native';
 import React from 'react';
+import i18n from 'i18n-js';
 import styles from '../../App.css';
 import Person from './Person';
 import CloseIcon from './CloseIcon';
@@ -20,47 +21,47 @@ const CreditsModal = ({ close, visible }) => (
         <Person
           image={require('../../assets/images/team/serge.jpg')}
           name="Serge Bouchardon"
-          description="Enseignant chercheur à l'Université de Technologie de Compiègne. Coordination du projet."
+          description={i18n.t('credits.serge')}
         />
         <Person
           image={require('../../assets/images/team/marine.jpg')}
           name="Marine Riguet"
-          description="Enseignante chercheuse à l'Université de Troyes. Ecriture des textes"
+          description={i18n.t('credits.marine')}
         />
         <Person
           image={require('../../assets/images/team/herve.jpg')}
           name="Hervé Zenouda"
-          description="Enseignant chercheur à l'Université de Toulon. Composition des musiques et création de l'ambiance sonore."
+          description={i18n.t('credits.herve')}
         />
         <Person
           image={require('../../assets/images/team/erika.jpg')}
           name="Erika Fülöp"
-          description="Enseignante chercheuse à l'Université de Lancaster. Conseils et suggestions sur le projet"
-        />
-        <Person
-          image={require('../../assets/images/team/charles.jpeg')}
-          name="Charles Fiers"
-          description="Étudiant à l'UTC. Développement de l'application."
-        />
-        <Person
-          image={require('../../assets/images/team/cecile.jpg')}
-          name="Cécile Asselin"
-          description="Étudiante à l'UTC. Développement de l'application."
+          description={i18n.t('credits.erika')}
         />
         <Person
           image={require('../../assets/images/team/bg.jpeg')}
           name="Augustin de Laubier"
-          description="Étudiant à l'UTC. Développement de l'application."
+          description={i18n.t('credits.augustin')}
         />
         <Person
           image={require('../../assets/images/team/maylis.jpg')}
           name="Maylis de Talhouet"
-          description="Étudiante à l'UTC. Développement de l'application."
+          description={i18n.t('credits.maylis')}
         />
         <Person
           image={require('../../assets/images/team/antonin.jpeg')}
           name="Antonin Guyot"
-          description="Étudiant à l'UTC. Développement de l'application."
+          description={i18n.t('credits.antonin')}
+        />
+        <Person
+          image={require('../../assets/images/team/charles.jpeg')}
+          name="Charles Fiers"
+          description={i18n.t('credits.charles')}
+        />
+        <Person
+          image={require('../../assets/images/team/cecile.jpg')}
+          name="Cécile Asselin"
+          description={i18n.t('credits.cecile')}
         />
       </ScrollView>
       <CloseIcon onPress={close} />
@@ -70,6 +71,7 @@ const CreditsModal = ({ close, visible }) => (
 
 CreditsModal.propTypes = {
   close: PropTypes.func.isRequired,
+  visible: PropTypes.bool,
 };
 
 export default CreditsModal;
