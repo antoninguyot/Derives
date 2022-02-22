@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import { Camera } from 'expo-camera';
-import * as IntentLauncher from 'expo-intent-launcher';
+import { startActivityAsync, ActivityAction } from 'expo-intent-launcher';
 import i18n from 'i18n-js';
 import styles from '../../App.css';
 
@@ -72,7 +72,7 @@ const PermissionsPage = ({ navigation }) => {
   };
 
   const askCameraPermission = async () => {
-    setCameraPermission(await Camera.requestPermissionsAsync());
+    setCameraPermission(await Camera.requestCameraPermissionsAsync());
   };
 
   /**
@@ -83,7 +83,7 @@ const PermissionsPage = ({ navigation }) => {
     if (Platform.OS === 'ios') {
       await Linking.openURL('app-settings://');
     } else if (Platform.OS === 'android') {
-      await IntentLauncher.startActivityAsync(IntentLauncher.ACTION_APP_NOTIFICATION_SETTINGS);
+      await startActivityAsync(ActivityAction.APP_NOTIFICATION_REDACTION);
     }
   };
 
@@ -95,7 +95,7 @@ const PermissionsPage = ({ navigation }) => {
     if (Platform.OS === 'ios') {
       await Linking.openURL('app-settings://');
     } else if (Platform.OS === 'android') {
-      await IntentLauncher.startActivityAsync(IntentLauncher.ACTION_APPLICATION_SETTINGS);
+      await startActivityAsync(ActivityAction.APPLICATION_SETTINGS);
     }
   };
 
