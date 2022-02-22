@@ -119,8 +119,8 @@
   "en": {
     "stable": [
       [
-        "Dawn comes closer and",
-        "caresses you"
+        "Dawn {random:comes closer,approaches you,thickens,awakes} and",
+        "{random:caresses,hugs} you"
       ],
       [
         "Everywhere, the air spreads as you walk",
@@ -149,18 +149,18 @@
         "and morning murmurs in the scorched grass"
       ],
       [
-        "The land crackles",
+        "The land {random:grows rounder,moves around,crackles}",
         "already chock full of",
         "the day ahead",
-        "that calls you"
+        "that {random:calls,waits for,expects} you"
       ],
       [
-        "It stretches itself, plants its roots,",
+        "It {random:stretches itself,blossoms}, plants its roots,",
         "spreading out and",
-        "growing with every step you take"
+        "growing with every {random:step,movement} you take"
       ],
       [
-        "Trees are gradually sunlit",
+        "{location|country:Trees,city:Rooftops} are gradually sunlit",
         "while the shadows fade away and grow quiet"
       ],
       [
@@ -183,7 +183,7 @@
       ],
       [
         "Everywhere you go, your steps open the way",
-        "separating each hour frop the next",
+        "separating each hour from the next",
         "The world is taken from our sleep",
         "just as one peels a fruit"
       ],
@@ -208,7 +208,7 @@
         "and morning gasps in the scorched grass"
       ],
       [
-        "The land crackles,",
+        "The land {random:grows rounder,moves around,crackles},",
         "chock full of the day",
         "around you"
       ],
@@ -217,7 +217,7 @@
         "and make it bigger with every step you take"
       ],
       [
-        "Trees gradually become more sunlit",
+        "{location|country:Trees,city:Rooftops} gradually become more sunlit",
         "while the shadows fade away and grow quiet"
       ],
       [

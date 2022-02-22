@@ -112,7 +112,7 @@
         "Another time"
       ],
       [
-        "The {random|earth,forest,montain} {random|stretches its tongue,opens slightly}"
+        "The {random|earth,forest,mountain} {random|stretches its tongue,opens slightly}"
       ],
       [
         "{random|Spreading,Weaving,Delivering} {random|tales,stories,secrets}",
@@ -120,7 +120,7 @@
         "and {season|printemps:tulip,été:geranium,automne:dahlia,hiver:camellia}"
       ],
       [
-        "It wins you over and tells you",
+        "It {random:wins,penetrates,overwhelms} you over and tells you",
         "With every step you take",
         "Everything that moves near you",
         "Everything that come to meet you"
@@ -134,12 +134,12 @@
         "humming your faces"
       ],
       [
-        "Something becomes quiet",
-        "As Autumn’s pregnancy grows"
+        "{random:Something becomes quiet,Wind drops,Air thickens}",
+        "As {season|automne:Autumn,été:Summer,hiver:Winter,printemps:Spring}’s pregnancy {random:grows,blossoms,lights up}"
       ],
       [
-        "Memories hush",
-        "Mother calms down",
+        "Memories {random:hush,lie down}",
+        "{random:The mother,The father,The child} calms down",
         "Fields rest a while"
       ],
       [
@@ -168,7 +168,7 @@
       ],
       [
         "You listen to it",
-        "You gather the tales with their",
+        "You {random:gather,harvest,collect} the {random:stories,tales} with their",
         "smells of {season|printemps:orange,été:strawberry,automne:grape,hiver:clementine}",
         "and {season|printemps:tulip,été:geranium,automne:dahlia,hiver:camellia}"
       ],
@@ -188,11 +188,11 @@
         "sculpting your faces"
       ],
       [
-        "Autumn grows all round you"
+        "{season|automne:Autumn,été:Summer,hiver:Winter,printemps:Spring} {random:grows,blossoms,lights up} all round you"
       ],
       [
-        "Memories hush",
-        "Mother is calm again",
+        "Memories {random:hush,lie down}",
+        "{random:The mother,The father,The child} is calm again",
         "Fields rest a while"
       ],
       [

@@ -113,8 +113,8 @@
         "Something is rocking"
       ],
       [
-        "In front of you that enormous opening eye",
-        "of all night’s woods"
+        "{random:In front of you,In the middle,There}, that {random:enormous,immense,wide} opening eye",
+        "of all night’s {random:woods,cross-roads,lights}"
       ],
       [
         "An eye that just cannot close",
@@ -126,8 +126,8 @@
       ],
       [
         "It engulfs you in the eye",
-        "where kingdoms move around",
-        "Traces of peoples akin to legends",
+        "where {random:kingdoms,suns,lands} {random:move around,resound}",
+        "{random:Traces,Sawdust} of peoples akin to legends",
         "All these worlds",
         "tempted into this all-seeing eye"
       ],
@@ -139,7 +139,7 @@
         "The woods shudder"
       ],
       [
-        "In the ominous stare of laboured shadows",
+        "In the ominous {random:stare,breath,heat} of laboured shadows",
         "facing the night’s eye",
         "as far from you as possible,",
         "the eye comes to meet you"
@@ -151,19 +151,19 @@
     ],
     "acceleration": [
       [
-        "Night comes,",
-        "full of forests"
+        "Night {random:comes,reigns},",
+        "full of {random:forests,water,air}"
       ],
       [
-        "It spreads, spills over the pathways",
+        "It {random:spreads,invades}, spills over the {random:pathways,stones}",
         "and removes your shoes"
       ],
       [
         "You insist"
       ],
       [
-        "You see the enormous eye open",
-        "of all night’s woods"
+        "You see the {random:enormous,immense,wide} eye open",
+        "of all night’s {random:woods,cross-roads,lights}"
       ],
       [
         "An eye that observes you",
@@ -175,10 +175,10 @@
       ],
       [
         "You penetrate this eye",
-        "where kingdoms move around",
-        "traces of peoples akin to legends",
-        "All these worlds",
-        "tempted into this all-seeing eye"
+        "where {random:kingdoms,suns,lands} {random:move around,resound}",
+        "{random:Traces,Sawdust} of peoples akin to legends",
+        "All these {random:worlds,mornings,dreams}",
+        "{random:tempted,challenged} into this all-seeing eye"
       ],
       [
         "Night catches up with you"
@@ -188,7 +188,7 @@
         "The woods shudder"
       ],
       [
-        "In the ominous stare of laboured shadows",
+        "In the ominous {random:stare,breath,heat} of laboured shadows",
         "facing the night’s eye",
         "blend with you",
         "and overcome you"
