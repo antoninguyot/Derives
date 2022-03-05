@@ -119,8 +119,8 @@
   "en": {
     "stable": [
       [
-        "Dawn {random:comes closer,approaches you,thickens,awakes} and",
-        "{random:caresses,hugs} you"
+        "Dawn {random|comes closer,approaches you,thickens,awakes} and",
+        "{random|caresses,hugs} you"
       ],
       [
         "Everywhere, the air spreads as you walk",
@@ -149,15 +149,15 @@
         "and morning murmurs in the scorched grass"
       ],
       [
-        "The land {random:grows rounder,moves around,crackles}",
+        "The land {random|grows rounder,moves around,crackles}",
         "already chock full of",
         "the day ahead",
-        "that {random:calls,waits for,expects} you"
+        "that {random|calls,waits for,expects} you"
       ],
       [
-        "It {random:stretches itself,blossoms}, plants its roots,",
+        "It {random|stretches itself,blossoms}, plants its roots,",
         "spreading out and",
-        "growing with every {random:step,movement} you take"
+        "growing with every {random|step,movement} you take"
       ],
       [
         "{location|country:Trees,city:Rooftops} are gradually sunlit",
@@ -208,7 +208,7 @@
         "and morning gasps in the scorched grass"
       ],
       [
-        "The land {random:grows rounder,moves around,crackles},",
+        "The land {random|grows rounder,moves around,crackles},",
         "chock full of the day",
         "around you"
       ],

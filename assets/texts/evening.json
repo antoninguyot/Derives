@@ -102,26 +102,26 @@
   "en": {
     "stable": [
       [
-        "The day {random:is waning,leans,numbs}",
-        "behind your {random:back,shoulders}"
+        "The day {random|is waning,leans,numbs}",
+        "behind your {random|back,shoulders}"
       ],
       [
         "You walk",
         "and you advance"
       ],
       [
-        "Like {random:a table-cloth is shaken,laughter lingers on,games continue} {random:after sunday wine,when faced with hot embers}",
-        "or like silent moments {random:locked away,are collected,are gathered}",
-        "while {random:statues,forests} {random:resist,reign}"
+        "Like {random|a table-cloth is shaken,laughter lingers on,games continue} {random|after sunday wine,when faced with hot embers}",
+        "or like silent moments {random|locked away,are collected,are gathered}",
+        "while {random|statues,forests} {random|resist,reign}"
       ],
       [
         "You",
-        "and your street-sharp {random:eyes,body}",
+        "and your street-sharp {random|eyes,body}",
         "You let yourself be guided by a passing {weather|cold:cold,sweet:wind,hot:warmth}"
       ],
       [
         "You let yourself be guided",
-        "without {random:looking back,weakening}"
+        "without {random|looking back,weakening}"
       ],
       [
         "Without knowing if it is the {location|city:town,country:earth}’s outline printed behind you",
@@ -130,17 +130,17 @@
         "Who will win the day?"
       ],
       [
-        "{random:Silently,Discreetly,Delicately}",
+        "{random|Silently,Discreetly,Delicately}",
         "You join up with everything on the watch"
       ],
       [
-        "Everything that resisted as we did {random:in the sunlight,in the frost,through the seasons}",
+        "Everything that resisted as we did {random|in the sunlight,in the frost,through the seasons}",
         "Everything we report on coming events"
       ],
       [
         "You move forward",
         "brandishing your ages",
-        "like {random:torches held at arms-length,skin hugging clothes,fire-flies close up}"
+        "like {random|torches held at arms-length,skin hugging clothes,fire-flies close up}"
       ],
       [
         "You continue,",
@@ -160,18 +160,18 @@
         "and you advance"
       ],
       [
-        "Like {random:a table-cloth is shaken,laughter lingers on,games continue} {random:after sunday wine,when faced with hot embers}",
-        "or like silent moments {random:locked away,are collected,are gathered}",
-        "while {random:statues,forests} {random:resist,reign}"
+        "Like {random|a table-cloth is shaken,laughter lingers on,games continue} {random|after sunday wine,when faced with hot embers}",
+        "or like silent moments {random|locked away,are collected,are gathered}",
+        "while {random|statues,forests} {random|resist,reign}"
       ],
       [
         "You",
-        "and your street-sharp {random:eyes,body}",
+        "and your street-sharp {random|eyes,body}",
         "you catch the passing {weather|cold:cold,sweet:wind,hot:warmth}"
       ],
       [
         "You accept",
-        "without {random:looking back,weakening}"
+        "without {random|looking back,weakening}"
       ],
       [
         "And the {location|city:town,country:earth} shapes itself at your own pace",
@@ -181,15 +181,15 @@
       [
         "You take in",
         "every noise from everything that tries so hard",
-        "{random:police lights,neon lights,carousels} and {random:cranes,circus tents,towers}"
+        "{random|police lights,neon lights,carousels} and {random|cranes,circus tents,towers}"
       ],
       [
-        "Everything that resisted as we did {random:in the sunlight,in the frost,through the seasons}",
+        "Everything that resisted as we did {random|in the sunlight,in the frost,through the seasons}",
         "Everything we report on coming events"
       ],
       [
         "You set off",
-        "And your steps display the {random:bravery,allure} of every kind of {random:metamorphosis,bows}"
+        "And your steps display the {random|bravery,allure} of every kind of {random|metamorphosis,bows}"
       ],
       [
         "You adventure forward"

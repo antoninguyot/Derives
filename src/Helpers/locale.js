@@ -3,7 +3,11 @@ import * as Localization from 'expo-localization';
 import localeEn from '../../assets/locales/en.json';
 import localeFr from '../../assets/locales/fr.json';
 
-const trimLocale = (locale) => locale.substring(0, locale.indexOf('-'));
+const trimLocale = function trimLocale(locale) {
+  return locale.indexOf('-') === -1
+    ? locale
+    : locale.substring(0, locale.indexOf('-'));
+};
 
 export const setLocale = (locale) => {
   i18n.locale = locale || trimLocale(Localization.locale);
@@ -21,9 +25,11 @@ export const initLocale = () => {
 };
 
 export const localizeContentFromObject = (object) => {
-  switch (trimLocale(i18n.locale)) {
-    case 'fr': return object.fr;
+  switch (i18n.locale) {
+    case 'fr':
+      return object.fr;
     case 'en':
-    default: return object.en;
+    default:
+      return object.en;
   }
 };
