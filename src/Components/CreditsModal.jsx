@@ -54,10 +54,21 @@ const CreditsModal = ({ close, visible }) => (
           description={i18n.t('credits.antonin')}
         />
         <Person
+          image={require('../../assets/images/team/unknown.png')}
+          name="Alan Rodney"
+          description={i18n.t('credits.alan')}
+        />
+        <Person
+          image={require('../../assets/images/team/unknown.png')}
+          name="Valérie Bouchardon"
+          description={i18n.t('credits.valerie')}
+        />
+        <Person
           image={require('../../assets/images/team/charles.jpeg')}
           name="Charles Fiers"
           description={i18n.t('credits.charles')}
         />
+
         <Person
           image={require('../../assets/images/team/cecile.jpg')}
           name="Cécile Asselin"
