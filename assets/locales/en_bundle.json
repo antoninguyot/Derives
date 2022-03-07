@@ -1,0 +1,5 @@
+{
+  "CFBundleDisplayName": "Drifts",
+  "NSCameraUsageDescription": "Drifts uses your camera to show you the world around you.",
+  "NSLocationWhenInUseUsageDescription": "Drifts needs to take into account your speed changes and your environment."
+}

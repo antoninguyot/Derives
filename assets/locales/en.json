@@ -18,7 +18,7 @@
   "cheat": {
     "title": "Build your experience",
     "chooseMoment": "Choose a time of the day",
-    "chooseLocality": "Choose a environment type",
+    "chooseLocality": "Choose an environment type",
     "chooseWeather": "Choose the weather",
     "chooseSeason": "Choose the season",
     "start": "Drift"
@@ -78,10 +78,12 @@
     "marine": "Original poems and french voice recording. Affiliated to the University of Troyes.",
     "herve": "Music & sound design. Affiliated to the University of Toulon.",
     "erika": "Advice, suggestions and testing. Affiliated to the University of Lancaster.",
-    "augustin": "App development. Student at the University of Technology of Compiègne",
-    "maylis": "App development. Student at the University of Technology of Compiègne",
-    "antonin": "App development. Student at the University of Technology of Compiègne",
-    "charles": "App development. Student at the University of Technology of Compiègne",
-    "cecile": "App development. Student at the University of Technology of Compiègne"
+    "augustin": "App development. Student at the University of Technology of Compiègne.",
+    "maylis": "App development. Student at the University of Technology of Compiègne.",
+    "antonin": "App development. Student at the University of Technology of Compiègne.",
+    "alan": "Poems translation in english.",
+    "valerie": "English voice recording. Affiliated to the University of Technology of Compiègne.",
+    "charles": "App development. Student at the University of Technology of Compiègne.",
+    "cecile": "App development. Student at the University of Technology of Compiègne."
   }
 }

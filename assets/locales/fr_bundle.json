@@ -1,0 +1,5 @@
+{
+  "CFBundleDisplayName": "Dérives",
+  "NSCameraUsageDescription": "Dérives a besoin de votre caméra pour vous montrer le monde qui vous entoure.",
+  "NSLocationWhenInUseUsageDescription": "Dérives a besoin de votre position pour prendre en compte vos changements de vitesse et votre environnement."
+}
