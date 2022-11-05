@@ -1,44 +1,21 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import {
-  Modal,
-  StyleSheet, Text, View,
+  Modal, SafeAreaView, ScrollView,
+  Text, View,
 } from 'react-native';
-import RNPickerSelect from 'react-native-picker-select/src';
+import * as Device from 'expo-device';
 import i18n from 'i18n-js';
+import { Picker } from '@react-native-picker/picker';
 import styles from '../../App.css';
 import Button from './Button';
 import CloseIcon from './CloseIcon';
 import LanguageIcon from './LanguageIcon';
 
-const customPickerStyles = StyleSheet.create({
-  inputIOS: {
-    fontSize: 14,
-    paddingVertical: 10,
-    paddingHorizontal: 12,
-    borderWidth: 1,
-    borderColor: '#bfbfbf',
-    borderRadius: 8,
-    color: '#bfbfbf',
-    backgroundColor: 'black',
-    textAlign: 'center',
-    height: 40,
-    width: 300,
-  },
-  inputAndroid: {
-    fontSize: 14,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-    borderColor: '#bfbfbf',
-    borderWidth: 1,
-    borderRadius: 8,
-    color: '#bfbfbf',
-    backgroundColor: 'black',
-    textAlign: 'center',
-    height: 40,
-    width: 300,
-  },
-});
+const pickerStyles = {
+  color: 'white',
+  height: 100,
+};
 
 const CheatModal = ({
   route, navigation, close, visible,
@@ -81,55 +58,61 @@ const CheatModal = ({
       transparent
       visible={visible}
     >
-      <View style={{ flex: 1 }}>
-        <View style={styles.containerWelcomeScreens}>
-          <View style={styles.containerChooseMode}>
-            <Text style={styles.textTitleW}>{i18n.t('cheat.title')}</Text>
-            <View>
-              <View style={{ paddingBottom: 10 }}>
-                <RNPickerSelect
-                  placeholder={{
-                    label: i18n.t('cheat.chooseMoment'),
-                    value: null,
-                  }}
-                  items={momentItems}
-                  style={customPickerStyles}
-                  onValueChange={(value) => setMoment(value)}
-                />
-              </View>
-              <View style={{ paddingBottom: 10 }}>
-                <RNPickerSelect
-                  placeholder={{
-                    label: i18n.t('cheat.chooseLocality'),
-                    value: null,
-                  }}
-                  items={localityItems}
-                  style={customPickerStyles}
-                  onValueChange={(value) => setLocalityType(value)}
-                />
-              </View>
-              <View style={{ paddingBottom: 10 }}>
-                <RNPickerSelect
-                  placeholder={{
-                    label: i18n.t('cheat.chooseWeather'),
-                    value: null,
-                  }}
-                  items={weatherItems}
-                  style={customPickerStyles}
-                  onValueChange={(value) => setWeather(value)}
-                />
-              </View>
-              <View style={{ paddingBottom: 10 }}>
-                <RNPickerSelect
-                  placeholder={{
-                    label: i18n.t('cheat.chooseSeason'),
-                    value: null,
-                  }}
-                  items={seasonItems}
-                  style={customPickerStyles}
-                  onValueChange={(value) => setSeason(value)}
-                />
-              </View>
+      <ScrollView contentContainerStyle={[{ backgroundColor: 'black' }, Device.osName === 'Android' && { flex: 1, flexGrow: 1 }]}>
+        <SafeAreaView>
+          <View style={{ padding: 30 }}>
+            <Text style={[styles.textTitleW, { paddingVertical: 30 }]}>{i18n.t('cheat.title')}</Text>
+            <View style={{ paddingBottom: 10 }}>
+              <Text style={{ color: 'white' }}>{i18n.t('cheat.chooseMoment')}</Text>
+              <Picker
+                style={{ color: 'white' }}
+                itemStyle={pickerStyles}
+                onValueChange={setMoment}
+                selectedValue={moment}
+              >
+                {momentItems.map((item) => (
+                  <Picker.Item label={item.label} value={item.value} key={item.value} />
+                ))}
+              </Picker>
+            </View>
+            <View style={{ paddingBottom: 10 }}>
+              <Text style={{ color: 'white' }}>{i18n.t('cheat.chooseLocality')}</Text>
+              <Picker
+                style={{ color: 'white' }}
+                itemStyle={pickerStyles}
+                onValueChange={setLocalityType}
+                selectedValue={localityType}
+              >
+                {localityItems.map((item) => (
+                  <Picker.Item label={item.label} value={item.value} key={item.value} />
+                ))}
+              </Picker>
+            </View>
+            <View style={{ paddingBottom: 10 }}>
+              <Text style={{ color: 'white' }}>{i18n.t('cheat.chooseWeather')}</Text>
+              <Picker
+                style={{ color: 'white' }}
+                itemStyle={pickerStyles}
+                onValueChange={setWeather}
+                selectedValue={weather}
+              >
+                {weatherItems.map((item) => (
+                  <Picker.Item label={item.label} value={item.value} key={item.value} />
+                ))}
+              </Picker>
+            </View>
+            <View style={{ paddingBottom: 10 }}>
+              <Text style={{ color: 'white' }}>{i18n.t('cheat.chooseSeason')}</Text>
+              <Picker
+                style={{ color: 'white' }}
+                itemStyle={pickerStyles}
+                onValueChange={setSeason}
+                selectedValue={season}
+              >
+                {seasonItems.map((item) => (
+                  <Picker.Item label={item.label} value={item.value} key={item.value} />
+                ))}
+              </Picker>
             </View>
             <Button
               navigation={navigation}
@@ -144,10 +127,10 @@ const CheatModal = ({
               text={i18n.t('cheat.start')}
             />
           </View>
-        </View>
+        </SafeAreaView>
         <CloseIcon onPress={close} />
         <LanguageIcon navigation={navigation} />
-      </View>
+      </ScrollView>
     </Modal>
   );
 };
