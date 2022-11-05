@@ -84,7 +84,7 @@ export default StyleSheet.create({
   },
   containerChooseMode: {
     flex: 1,
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
     flexDirection: 'column',
     alignItems: 'center',
     backgroundColor: 'black',

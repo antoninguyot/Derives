@@ -25,7 +25,7 @@
       "en": "./assets/locales/en_bundle.json"
     },
     "ios": {
-      "buildNumber": "1.0.5",
+      "buildNumber": "1.1.0",
       "bundleIdentifier": "fr.utc.derives",
       "appStoreUrl": "https://apps.apple.com/fr/app/dérives/id1572646193",
       "supportsTablet": true,
@@ -35,7 +35,7 @@
     },
     "android": {
       "package": "fr.utc.derives",
-      "versionCode": 410010005,
+      "versionCode": 410010010,
       "playStoreUrl": "https://play.google.com/store/apps/details?id=fr.utc.derives",
       "permissions": [
         "ACCESS_COARSE_LOCATION",

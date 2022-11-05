@@ -1,0 +1,29 @@
+{
+  "cli": {
+    "version": ">= 0.47.0"
+  },
+  "build": {
+    "development": {
+      "distribution": "internal",
+      "developmentClient" : true,
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "preview": {
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "production": {}
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "appleId": "famillebouchardon@wanadoo.fr",
+        "ascAppId": "1572646193",
+        "appleTeamId": "5N8W5KUD2Z"
+      }
+    }
+  }
+}
