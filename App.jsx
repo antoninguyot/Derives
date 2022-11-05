@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import AppLoading from 'expo-app-loading';
+import * as SplashScreen from 'expo-splash-screen';
 import { Camera } from 'expo-camera';
 import * as Location from 'expo-location';
 import { NavigationContainer } from '@react-navigation/native';
@@ -9,6 +9,8 @@ import PermissionsPage from './src/Pages/PermissionsPage';
 import WelcomePage from './src/Pages/WelcomePage';
 import PoemPage from './src/Pages/PoemPage';
 import { initLocale } from './src/Helpers/locale';
+
+SplashScreen.preventAutoHideAsync();
 
 const App = () => {
   const [locationPermission, setLocationPermission] = useState(null);
@@ -49,11 +51,15 @@ const App = () => {
     }
   });
 
+  useEffect(() => {
+    if (loaded) SplashScreen.hideAsync();
+  }, [loaded]);
+
   // Initialize the localization settings
   initLocale();
 
   if (!loaded) {
-    return <AppLoading />;
+    return null;
   }
 
   const Stack = createStackNavigator();
